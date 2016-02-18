@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @iml.number %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @iml.state %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @iml.status %>
+</p>
+
+<p>
+  <strong>Statusdate:</strong>
+  <%= @iml.statusdate %>
+</p>
+
+<p>
+  <strong>Barcode:</strong>
+  <%= @iml.barcode %>
+</p>
+
+<%= link_to 'Edit', edit_iml_path(@iml) %> |
+<%= link_to 'Back', imls_path %>

@@ -1,0 +1,91 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-2">
+			<h1>Премьер <small>сводная таблица</small></h1>
+			<p>Всего товаров - <%= @totalproducts %></p>
+			<p>Товаров >0  - <%= @homynotzero%></p>
+		</div>
+		<div class="col-md-3">
+		
+		<p>Import product</p>
+		<p><%= form_tag import_homyproducts_path, multipart: true do %></p>  <p><%= file_field_tag :file %></p>  <p class='btn btn-default btn-xs'><%= submit_tag "Import" %></p>
+		<% end %>
+		</div>
+		<div class="col-md-7">
+		<p>Поиск</p>
+		<%= search_form_for @search do |f|%>
+  		<div classs = "search">
+  		<%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
+  		<%= f.search_field :sku_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+ 
+  		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
+  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+		</div>
+		<% end %>	
+		</div>	
+	</div>
+<br>
+	<div class="col-md-12">
+		<div class="col-md-2">
+		<p>Download: <%= link_to "CSV", homyproducts_path(format: "csv") %> | <%= link_to "Excel", homyproducts_path(format: "xls") %></p>
+
+		</div>
+</div>
+
+<br>
+<div class="col-md-12">
+<div class="media">
+  <div class="media-body">
+<table class="table table-hover">
+  <thead>
+    <tr>
+    	<th>ID</th>
+      <th>Artikul</th>
+      <!--<th>SKU</th>-->
+      <th>Title</th>
+      <th>Price</th>
+      <th>Valuta</th>
+      <!--<th>Qt all res</th>-->
+      <!--<th>Qt all free</th>-->
+      <th>Qt main res</th>
+      <th>Qt main free</th>
+      <th>Qt tul res</th>
+      <th>Qt tul free</th>
+      <th>Qt trans all</th>
+      <!--<th>Qt trans free</th>-->
+      <th colspan="15"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @homyproducts.each do |homyproduct| %>
+      <tr>
+      	<td><%= homyproduct.id %></td>
+        <td><%= homyproduct.artikul %></td>
+        <!--<td><%= homyproduct.sku %></td>-->
+        <td><%= homyproduct.title %></td>
+        <td><%= homyproduct.price %></td>
+        <td><%= homyproduct.valuta %></td>
+        <!--<td><%= homyproduct.quantity_all_res %></td>-->
+        <!--<td><%= homyproduct.quantity_all_free %></td>-->
+        <td><%= homyproduct.quantity_main_res %></td>
+        <td><%= homyproduct.quantity_main_free %></td>
+        <td><%= homyproduct.quantity_tul_res %></td>
+        <td><%= homyproduct.quantity_tul_free %></td>
+        <td><%= homyproduct.quantity_transit_all %></td>
+        <!--<td><%= homyproduct.quantity_transit_free %></td>-->
+        <td><%= link_to 'Show', homyproduct, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_homyproduct_path(homyproduct), class: 'btn btn-success btn-xs' %></td>
+        <!--<td><%= link_to 'Destroy', homyproduct, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' }  %></td>-->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+
+<!--<%= link_to 'New Homyproduct', new_homyproduct_path %>-->

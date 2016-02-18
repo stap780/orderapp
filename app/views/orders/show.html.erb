@@ -1,0 +1,23 @@
+<div class="col-md-4">
+<p id="notice"><%= notice %></p>
+
+<h1>Информация о заказе</h1>
+
+<p>
+  <strong> Order number:</strong>
+  <%= @order.order_number %>
+</p>
+
+<p>
+  <strong>Order status:</strong>
+  <%= @order.orderstatus.title %>
+</p>
+
+<p>
+  <strong>Order payment status:</strong>
+  <%= @order.order_payment_status %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
+</div>

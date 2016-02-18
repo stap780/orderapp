@@ -1,0 +1,2 @@
+module SskomsHelper
+end

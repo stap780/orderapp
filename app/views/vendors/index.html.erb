@@ -1,0 +1,97 @@
+	
+<p id="notice"><%= notice %></p>
+<h1>Информация по поставщиках <small>сводные данные</small></h1>
+
+<br>
+<div class="col-md-6">
+<div class="media">
+  <div class="media-body">
+<table class="table table-hover">
+	<thead>
+		<tr>
+		<th>Название</th>
+		<th>Всего товаров</th>
+		<th>Синхронизируется</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		<td>Вимком</td>
+		<td><%= @totalvimcoms%></td>
+		<td><%= @vimcomsynchro%></td>
+		</tr>
+		<tr>
+		<td>Айпиматика</td>
+		<td><%= @totalipmatikas%></td>
+		<td><%= @ipmatikasynchro%></td>
+		</tr>
+		<tr>
+		<td>Премьер</td>
+		<td><%= @totalhomyproducts%></td>
+		<td><%= @homyproductsynchro%></td>
+		</tr>
+		<tr>
+		<td>Имаг</td>
+		<td><%= @totalemags%></td>
+		<td><%= @emagsynchro%></td>
+		</tr>
+		<tr>
+		<td>РРС</td>
+		<td><%= @totalrrcs%></td>
+		<td><%= @rrcsynchro%></td>
+		</tr>
+		<tr>
+		<td>Цифр ангел</td>
+		<td><%= @totalangels%></td>
+		<td><%= @angelsynchro%></td>
+		</tr>
+		<tr>
+		<td>ССК</td>
+		<td><%= @totalsskoms%></td>
+		<td><%= @sskomsynchro%></td>
+		</tr>
+		<tr>
+		<td>Треолан</td>
+		<td>A</td>
+		<td>A</td>
+		</tr>
+		<tr>
+		<td>Ситилинк</td>
+		<td>A</td>
+		<td>A</td>
+		</tr>
+		<tr>
+		<td>A</td>
+		<td>A</td>
+		<td>A</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!--<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vendors.each do |vendor| %>
+      <tr>
+        <td><%= vendor.title %></td>
+        <td><%= link_to 'Show', vendor %></td>
+        <td><%= link_to 'Edit', edit_vendor_path(vendor) %></td>
+        <td><%= link_to 'Destroy', vendor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Vendor', new_vendor_path %>
+-->

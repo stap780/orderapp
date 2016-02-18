@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Icr:</strong>
+  <%= @icr.icr_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @icr.title %>
+</p>
+
+<p>
+  <strong>Price usd:</strong>
+  <%= @icr.price_usd %>
+</p>
+
+<p>
+  <strong>Price rub:</strong>
+  <%= @icr.price_rub %>
+</p>
+
+<%= link_to 'Edit', edit_icr_path(@icr) %> |
+<%= link_to 'Back', icrs_path %>

@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>
+      InSales.ru &mdash; #{@title}
+    </title>
+    <%= stylesheet_link_tag 'login' %>
+    <link href="/assets/favicon.ico" rel="shortcut icon">/</link>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+  </head>
+  <body>
+    <div class="body">
+      <div class="main">
+        <h1>
+          <%= @title %>
+        </h1>
+        <%= flash_messages %>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

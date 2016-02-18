@@ -1,0 +1,96 @@
+<%= form_for @iorder do |f| %>
+  <% if @iorder.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@iorder.errors.count, "error") %> prohibited this iorder from being saved:</h2>
+
+      <ul>
+      <% @iorder.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="col-md-12">
+	<div class="col-md-3">
+	<h1>Редактирование заказа</h1>
+	</div>
+	<div class="col-md-2">
+	<%= f.number_field :number, class: 'form-control', hide_label: true %>
+	</div>
+</div>
+
+</div>
+<div class="col-md-8"><strong>Информация о клиенте</strong>
+<p></p>
+<div class="col-md-4">  
+<%= f.text_field :client, class: 'form-control' %>
+</div>
+<div class="col-md-4"> 
+<%= f.text_field :client_middlename, class: 'form-control' %>
+</div>
+<div class="col-md-4"> 
+<%= f.text_field :client_surname, class: 'form-control' %>
+</div>
+<div class="col-md-6">  
+<%= f.text_field :phone, class: 'form-control' %>
+</div>
+<div class="col-md-6">
+<%= f.text_field :email, class: 'form-control' %>
+</div>
+<div class="col-md-6"> 
+<%= f.text_field :shipping_zip, class: 'form-control' %>
+</div>
+<div class="col-md-6"> 
+<%= f.text_field :shipping_city, class: 'form-control' %>
+</div>
+<%= f.text_field :shipping_address, class: 'form-control' %>
+</div>
+
+<div class="col-md-4"><strong>Статусы заказа</strong>	
+<p></p>
+    <%= f.collection_select(:status_id,  Status.all, :id, :title, {}, { :multiple => false } )  %> 
+
+    <%= f.text_field :financial, class: 'form-control' %>
+   
+    <%= f.text_field :payment, class: 'form-control' %>
+
+    <%= f.text_field :delivery, class: 'form-control', label: "Доставки в магазине" %>
+    
+    <%= f.collection_select(:mycourier_id,  Mycourier.order(:number), :id, :title, {}, {:multiple => false })  %> 
+	
+</div>
+
+
+<div class="col-md-12">
+<div class="col-md-8"><strong>Информация о товарах в заказе</strong>
+
+
+
+<%= f.fields_for :line_items do |line_item|%>
+      <%= render 'line_item_fields', :f => line_item %>
+    <% end %>
+ 
+
+    <%= f.submit 'Save' %>
+  
+</div>
+<div class="col-md-2" style="margin-top:40px;">
+<%= f.text_field :discount_percent, class: 'form-control', label: "Discount ( % )" %>
+<p>
+  <strong>Total:</strong>
+  <%= @iorder.total %>
+</p>
+<p>
+  <strong>Total Price:</strong>
+  <%= @iorder.total_price %>
+</p>
+<p>
+  <strong>Delivery Price:</strong>
+  <%= @iorder.deliveryprice %>
+</p>
+</div>
+</div>
+</div>
+</div>  
+<% end %>
+

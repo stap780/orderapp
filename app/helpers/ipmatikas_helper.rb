@@ -1,0 +1,2 @@
+module IpmatikasHelper
+end

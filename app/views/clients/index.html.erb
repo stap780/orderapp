@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-2">
+		<h1>Клиенты <small>сводная таблица</small></h1>
+		</div>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8"><p>Поиск</p>
+		<%= search_form_for @search do |f|%>
+			<div classs = "search">
+			<%= f.label :phone_eq, 'Телефону' %> 
+			<%= f.search_field :phone_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+			
+			<%= f.label :surname_cont, 'Фамилии' %>
+			<%= f.search_field :surname_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+			
+			</div>
+		<% end %>
+		</div>
+	<div class="col-md-12">
+		<div class="col-md-5">
+		<!-- здесь меню Загрузить, Обновить и др-->
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="media">
+	  <div class="media-body">
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th>Name</th>
+		      <th>Middlename</th>
+		      <th>Surname</th>
+		      <th>Phone</th>
+		      <th>Email</th>
+		      <!--<th>Zip</th>
+		      <th>State</th>-->
+		      <th>City</th>
+		      <!--<th>Address</th>-->
+		      <th colspan="3"></th>
+		    </tr>
+		  </thead>
+		
+		  <tbody>
+		    <% @clients.each do |client| %>
+		      <tr>
+		        <td><%= client.name %></td>
+		        <td><%= client.middlename %></td>
+		        <td><%= client.surname %></td>
+		        <td><%= client.phone %></td>
+		        <td><%= client.email %></td>
+		        <!--<td><%= client.zip %></td>
+		        <td><%= client.state %></td>-->
+		        <td><%= client.city %></td>
+		        <!--<td><%= client.address %></td>-->
+		        <td><%= link_to 'Show', client, class: 'btn btn-default btn-xs'  %></td>
+		        <td><%= link_to 'Edit', edit_client_path(client), class: 'btn btn-success btn-xs' %></td>
+		        <td><%= link_to 'Destroy', client, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+		<%= will_paginate @iorders %>
+	  </div>
+	</div>
+</div>
+
+<br>
+
+<%= link_to 'New Client', new_client_path %>

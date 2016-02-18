@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-2">
+<h1>Счета-фактуры <small>сводная таблица</small></h1>
+		</div>
+				<div class="col-md-3">
+		</div>
+		<div class="col-md-7"><p>Поиск</p>
+		<%= search_form_for @search do |f|%>
+  		<div classs = "search">
+  		<%= f.label :number_eq, 'Номеру' %> <!--расширение _eq используется для integer -->
+  		<%= f.search_field :number_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		</div>
+		<% end %>
+		</div>
+		<div class="col-md-12">
+		<div class="col-md-5">
+		<p><!--link_to 'Создать счет-фактуру', new_invoiceout_path --></p>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="media">
+	  <div class="media-body">
+		<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Date</th>
+      <th>Company</th>
+      <th>Invoice list</th>
+      <th>Total price</th>
+      <th>Nds</th>
+      <th>Payment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invoiceouts.each do |invoiceout| %>
+      <tr>
+        <td><%= invoiceout.number %></td>
+        <td><%= invoiceout.date.strftime("%d / %m / %Y") %></td>
+        <td><%= invoiceout.company.title %></td>
+        <td><%= invoiceout.invoice_list_id %></td>
+        <td><%= invoiceout.total_price %></td>
+        <td><%= invoiceout.nds %></td>
+        <td><%= invoiceout.payment %></td>
+        <td><%= link_to 'Show', invoiceout, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_invoiceout_path(invoiceout), class: 'btn btn-success btn-xs' %></td>
+        <td><%= link_to 'Destroy', invoiceout, method: :delete,  class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @invoices %>
+	  </div>
+	</div>
+</div>
+</div>

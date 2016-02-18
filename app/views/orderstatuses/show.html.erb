@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p> 
+  <strong> Порядковый номер:</strong>
+  <%= @orderstatus.number %>
+</p>
+
+<p>
+  <strong> title:</strong>
+  <%= @orderstatus.title %>
+ </p>
+
+ <p> 
+  <strong> Статус инсалес:</strong>
+  <%= @orderstatus.instatus %>
+</p>
+
+<%= link_to 'Edit', edit_orderstatus_path(@orderstatus) %> |
+<%= link_to 'Back', orderstatuses_path %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @invoiceout.number %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @invoiceout.date.strftime("%d / %m / %Y") %>
+</p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @invoiceout.company.title %>
+</p>
+
+<p>
+  <strong>Invoice list:</strong>
+  <%= link_to @invoiceout.invoice_list.number, @invoiceout.invoice_list %>
+</p>
+
+<p>
+  <strong>Total price:</strong>
+  <%= @invoiceout.total_price %>
+</p>
+
+<p>
+  <strong>Nds:</strong>
+  <%= @invoiceout.nds %>
+</p>
+
+<p>
+  <strong>Payment:</strong>
+  <%= @invoiceout.payment %>
+</p>
+
+<%= link_to 'Edit', edit_invoiceout_path(@invoiceout) %> |
+<%= link_to 'Back', invoiceouts_path %>

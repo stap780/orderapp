@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Mycouriers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Number</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mycouriers.each do |mycourier| %>
+      <tr>
+        <td><%= mycourier.title %></td>
+        <td><%= mycourier.number %></td>
+        <td><%= link_to 'Show', mycourier %></td>
+        <td><%= link_to 'Edit', edit_mycourier_path(mycourier) %></td>
+        <td><%= link_to 'Destroy', mycourier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mycourier', new_mycourier_path %>

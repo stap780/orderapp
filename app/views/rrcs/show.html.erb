@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sku:</strong>
+  <%= @rrc.sku %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @rrc.title %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @rrc.quantity %>
+</p>
+
+<%= link_to 'Edit', edit_rrc_path(@rrc) %> |
+<%= link_to 'Back', rrcs_path %>

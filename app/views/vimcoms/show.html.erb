@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @vimcom.title %>
+</p>
+
+<p>
+  <strong>Quantity all:</strong>
+  <%= @vimcom.quantity_all %>
+</p>
+
+<p>
+  <strong>Quantity free:</strong>
+  <%= @vimcom.quantity_free %>
+</p>
+
+<%= link_to 'Edit', edit_vimcom_path(@vimcom) %> |
+<%= link_to 'Back', vimcoms_path %>

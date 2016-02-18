@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @sskom.title %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @sskom.quantity %>
+</p>
+
+<%= link_to 'Edit', edit_sskom_path(@sskom) %> |
+<%= link_to 'Back', sskoms_path %>

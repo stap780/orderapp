@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Orderstatuses - Статусы заказов</h1>
+<div class="media">
+	<div class="media-body">
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th> Порядковый номер</th>
+      <th> Наименование</th>
+      <th> Название insales</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orderstatuses.each do |orderstatus| %>
+      <tr>
+      	<td><%= orderstatus.number %></td>
+        <td><%= orderstatus.title %></td>
+        <td><%= orderstatus.instatus %></td>
+        <td><%= link_to 'Show', orderstatus %></td>
+        <td><%= link_to 'Edit', edit_orderstatus_path(orderstatus) %></td>
+        <td><%= link_to 'Destroy', orderstatus, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+
+<br>
+
+<%= link_to 'New Orderstatus', new_orderstatus_path %>

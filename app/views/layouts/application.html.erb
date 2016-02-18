@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <%= csrf_meta_tags %>
+    <link href="/assets/favicon.ico" rel="shortcut icon"></link>
+    <title><%= app_name %></title>
+    
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    
+    
+  </head>
+<body>
+  <div class="wrapper">	
+   <div class="header">
+   	<div class="col-md-12">
+     <nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    		<ul class="nav nav-pills">
+            <li class="<%= 'active' if current_page?(home_path) %>"><%= link_to image_tag('home_inactive_icon.png', :title => 'Вернуться в магазин', :alt => 'Вернуться в магазин'), home_path %></li>
+            <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to app_name, root_path %></li>
+            <!--<li class="<%= 'active' if current_page?(orders_path) %>"><%= link_to 'Тест', controller: 'orders', action: 'index' %></li>-->
+            <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Продажи <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li class="<%= 'active' if current_page?(iorders_path) %>"><%= link_to 'Заказы', controller: 'iorders', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(invoices_path) %>"><%= link_to 'Счета', controller: 'invoices', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(invoice_lists_path) %>"><%= link_to 'Накладные', controller: 'invoice_lists', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(invoiceouts_path) %>"><%= link_to 'Счёт-фактуры', controller: 'invoiceouts', action: 'index' %></li>
+            </ul>
+            </li>
+            <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Закупки <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li class="<%= 'active' if current_page?(purchase_invoices_path) %>"><%= link_to 'Счёта поставщиков', controller: 'purchase_invoices', action: 'index' %></li>
+            <li>Накладные поставщиков</li>
+            <li>Счета-фактуры поставщиков</li>
+            </ul>
+            </li>
+            <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Справочники <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li class="<%= 'active' if current_page?(products_path) %>"><%= link_to 'Товары', controller: 'products', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(clients_path) %>"><%= link_to 'Покупатели', controller: 'clients', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(companies_path) %>"><%= link_to 'Компании', controller: 'companies', action: 'index' %></li>
+            </ul>
+            </li>
+            <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Поставщики <span class="caret"></span></a>
+            	<ul class="dropdown-menu">
+            	<li class="<%= 'active' if current_page?(ipmatikas_path) %>"><%= link_to 'Ipmatika', controller: 'ipmatikas', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(homyproducts_path) %>"><%= link_to 'Премьер', controller: 'homyproducts', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(emags_path) %>"><%= link_to 'Имаг', controller: 'emags', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(treolans_path) %>"><%= link_to 'Треолан', controller: 'treolans', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(rrcs_path) %>"><%= link_to 'РРС', controller: 'rrcs', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(angels_path) %>"><%= link_to 'Цифровой ангел', controller: 'angels', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(energies_path) %>"><%= link_to 'Energy', controller: 'energies', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(vimcoms_path) %>"><%= link_to 'Вимком', controller: 'vimcoms', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(sskoms_path) %>"><%= link_to 'Сском', controller: 'sskoms', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(citilinks_path) %>"><%= link_to 'Ситилинк', controller: 'citilinks', action: 'index' %></li>
+            	<li role="separator" class="divider"></li>
+            	<li><%= link_to 'Все поставщики', controller: 'vendors', action: 'index' %></li>
+          		</ul>
+            </li>
+            <li class="dropdown <%= 'active' if current_page?(mycouriers_path) %>"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Доставка<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            	<li class="<%= 'active' if current_page?(imls_path) %>"><%= link_to 'IML', controller: 'imls', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(dpds_path) %>"><%= link_to 'DPD', controller: 'dpds', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(posts_path) %>"><%= link_to 'Почта', controller: 'posts', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(couriers_path) %>"><%= link_to 'Сами', controller: 'couriers', action: 'index' %></li>
+            	<li role="separator" class="divider"></li>
+            	<li><%= link_to 'Вся доставка', controller: 'mycouriers', action: 'index' %></li>	
+            </ul>
+            </li>	        
+            <li><a href="#">Link</a></li>
+			
+          </ul>
+     </div>
+     </nav>
+   </div>
+   </div>
+          
+   <div class="content">
+     <div class="col-md-12">  
+        <div id="page_title" style="display:inline;">
+          <%= @title %>
+        </div>        
+        <% if @links %>
+        <div id="subtitle_links">
+            <%= @links %>
+        </div>
+        <% end %>
+        
+        <%= flash_messages %>
+        
+        <%= yield %>
+        
+     </div>  
+   </div><!-- content -->
+  </div>
+  
+  
+<div class="myfooter" >
+	<div class="col-md-12" style="margin-top:10px;">
+		<nav class="navbar navbar-default navbar-bottom">
+		  <div class="container">
+		  <p style="float:left;padding-top:15px;">InSales 2010. <a href="http://www.insales.ru/terms">Условия использования</a></p>
+		    <ul class="nav navbar-nav" style="float:right;">
+				<li><%= link_to "Техподдержка", "http://#{@account.insales_subdomain}/admin/support" %></li>
+				<li><%= link_to "Форум", "http://forum.insales.ru", :target => '_blank' %></li>
+				<li><%= link_to "Выйти", session_path, :method => 'delete' %></li>     
+			</ul>
+		  </div>
+		</nav>
+	</div>
+</div><!-- myfooter -->   
+</body>
+  
+</html>

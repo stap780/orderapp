@@ -1,0 +1,91 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-2">
+<h1>Заказы <small>сводная таблица</small></h1>
+
+
+		</div>
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-7"><p>Поиск</p>
+		<%= search_form_for @search do |f|%>
+  		<div classs = "search">
+  		<%= f.label :number_eq, 'Номеру' %> <!--расширение _eq используется для integer -->
+  		<%= f.search_field :number_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+ 
+  		<%= f.label :instatus_cont, 'Статусу' %> <!--расширение _cont используется для string -->
+  		<%= f.search_field :instatus_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  
+  		</div>
+		<% end %>
+		</div>
+	<div class="col-md-12">
+		<div class="col-md-5">
+<p>| <%= link_to 'Загрузить', downloadorder_iorders_path%> | <%= link_to 'Обновить', updateorder_iorders_path%> | <%= link_to 'Проверить доставки', checkdelivery_iorders_path%><!--<%= link_to 'New Iorder', new_iorder_path %>--></p>
+		</div>
+		
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="media">
+	  <div class="media-body">
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th><%= sort_link(@search, :number, "Number") %></th>
+		      <th>Status</th>
+		      <th>Financial</th>
+		      <th>Payment</th>
+		      <th>Client</th>
+		      <th>Delivery</th>
+		      <th>Служба</th>
+		      <th>Ст-c Д</th>
+		      <!--<th>Phone</th>
+		      <th>Email</th>
+		      <th>Total</th>
+		      <th colspan="12"></th>-->
+		    </tr>
+		  </thead>
+		
+		  <tbody>
+		    <% @iorders.each do |iorder| %>
+		      <tr>
+		        <td><%= iorder.number %></td>
+		        
+		         <td><%if iorder.status.nil?%>
+		         <%= iorder.instatus %>
+		         <%else%>
+		         <%= iorder.status.title if iorder.status != nil%>
+		         <%end%></td>
+		        <td><%= iorder.financial %></td>
+		        <td><%= iorder.payment %></td>
+		        <td><%if iorder.client.nil? %>
+		        <%= iorder.clientname%>
+		        <%else%>
+		        <%= iorder.client.name if iorder.client !=nil %>
+		        <%end%></td>
+		        <td><%= iorder.delivery %></td>
+		        <td><%= iorder.mycourier.title if iorder.mycourier != nil%></td>
+		        <td><%if iorder.mycourier_id != nil%>
+		        <%= iorder.iml.status if iorder.iml != nil%> <%= iorder.iml.state if iorder.iml != nil%> <%= iorder.dpd.state if iorder.dpd != nil%> <%= iorder.post.state if iorder.post != nil%> <%= iorder.courier.state if iorder.courier != nil%> 
+		        <%end%>       
+		        </td>
+		        <!--<td><%= iorder.phone %></td>
+		        <td><%= iorder.email %></td>
+		        <td><%= iorder.total %></td>-->
+		        <td><%= link_to 'Show', iorder, class: 'btn btn-default btn-xs'  %></td>
+		        <td><%= link_to 'Edit', edit_iorder_path(iorder), class: 'btn btn-success btn-xs' %></td>
+		        <td><%= link_to 'Destroy', iorder, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	<%= will_paginate @iorders %>
+	  </div>
+	</div>
+</div>
+
+
+

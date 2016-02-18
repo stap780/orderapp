@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-2">
+			<h1>Ситилинк<small> сводная таблица</small></h1>
+		</div>
+	</div>
+<br>
+	<div class="col-md-12">
+		<div class="col-md-8">
+
+<p><%= link_to 'Download products', downloadproduct_citilinks_path%> | <%= link_to 'Update products', updateproduct_citilinks_path%> 
+</div>
+</div>
+<br>
+<div class="col-md-12">
+<div class="media">
+  <div class="media-body">
+<table class="table table-hover">
+  <thead>
+    <tr>
+    <th>Id</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Price1</th>
+      <th>Priceusd</th>
+      <th>Q1</th>
+      <th>Q2</th>
+      <th>Q3</th>
+      <th>Q4</th>
+      <th>Q5</th>
+      <th>Quantity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @citilinks.each do |citilink| %>
+      <tr>
+      <td><%= citilink.id %></td>
+        <td><%= citilink.title %></td>
+        <td><%= citilink.price %></td>
+        <td><%= citilink.price1 %></td>
+        <td><%= citilink.priceusd %></td>
+        <td><%= citilink.q1 %></td>
+        <td><%= citilink.q2 %></td>
+        <td><%= citilink.q3 %></td>
+        <td><%= citilink.q4 %></td>
+        <td><%= citilink.q5 %></td>
+        <td><%= citilink.quantity %></td>
+        <td><%= link_to 'Show', citilink, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_citilink_path(citilink), class: 'btn btn-success btn-xs' %></td>
+        <td><%= link_to 'Destroy', citilink, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+<!--<%= link_to 'New Citilink', new_citilink_path %>-->

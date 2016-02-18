@@ -1,0 +1,5 @@
+I";(function() {
+  alert('Hello world');
+
+}).call(this);
+:ET

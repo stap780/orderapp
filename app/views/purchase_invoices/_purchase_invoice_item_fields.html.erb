@@ -1,0 +1,11 @@
+
+<tbody class="nested-fields purchase_invoice_items_fields", id="products">
+<tr>
+<td><%= f.input :product_id, as: :hidden, input_html: { id: 'product_id' } %>
+<td><%= f.input :title, as: :autocomplete, url: autocomplete_product_title_purchase_invoices_path, label: false, :update_elements => {:id => '#product_id'} %></td>
+<td><%= f.input :quantity, label: false%></td>
+<td><%= f.input :price,label: false  %></td>
+<td><%= f.input :sum, label: false %></td>
+<td><%= link_to_remove_association "remove", f %></td>
+</tr>
+</tbody>

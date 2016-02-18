@@ -1,0 +1,85 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12">
+<div class="col-md-8">
+<h1>Информация о счёте <%= @invoice.number %></h1>
+
+<p>
+  <strong>Date:</strong>
+  <%= @invoice.date.strftime("%d / %m / %Y")  %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @invoice.client.name %> <%= @invoice.client.surname %>
+</p>
+<p>
+  <strong>Company:</strong>
+  <%= @invoice.company.title if @invoice.company !=nil %>
+</p>
+<p>
+  <strong>Company2:</strong>
+  <%= @company2.title if @company2 !=nil %>
+</p>
+
+</div>
+	<div class="col-md-4">
+	<div class="col-md-12">
+	  <strong>Invstatus:</strong>
+	  <%= @invoice.invstatus %>
+	</div>
+	<div class="col-md-12">
+	  <strong>Накладная:</strong>
+	  <% if @invoice.invoice_list_check == true%>
+	  <%= "Выписана" %>
+	  <%else %>
+	  <%= "Не выписана" %> 
+	  <%end%>
+	</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+<div class="col-md-8">
+<strong>Информация о товарах в заказе</strong>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Sum</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invoice.invoice_items.each do |pr| %>
+      <tr>
+        <td><%=link_to "#{pr.title}", pr.product %></td>
+        <td><%= pr.quantity %></td>
+        <td><%= pr.price %></td>
+        <td><%= pr.sum %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="col-md-4" style="margin-top:40px;">
+<p>
+  <strong>Discount:</strong>
+<%= @invoice.discount %> %
+</p>
+
+<p>
+  <strong>Total Price:</strong>
+  <%= @invoice.total_price %>
+</p>
+
+</div>
+</div>
+
+
+<div class="col-md-12">
+<%= link_to 'Edit', edit_invoice_path(@invoice), class: 'btn btn-default btn-sm' %> 
+<%= link_to 'Back', invoices_path, class: 'btn btn-default btn-sm' %>
+<%= link_to "Print", print_invoice_path(@invoice), target: :_blank, class: 'btn btn-success btn-xs' %>
+</div>

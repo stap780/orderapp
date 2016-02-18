@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Numer:</strong>
+  <%= @dpd.numer %>
+</p>
+
+<p>
+  <strong>Dpdnumber:</strong>
+  <%= @dpd.dpdnumber %>
+</p>
+
+<p>
+  <strong>Pickupdate:</strong>
+  <%= @dpd.pickupdate %>
+</p>
+
+<p>
+  <strong>Plandeliverytime:</strong>
+  <%= @dpd.plandeliverytime %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @dpd.state %>
+</p>
+
+<%= link_to 'Edit', edit_dpd_path(@dpd) %> |
+<%= link_to 'Back', dpds_path %>

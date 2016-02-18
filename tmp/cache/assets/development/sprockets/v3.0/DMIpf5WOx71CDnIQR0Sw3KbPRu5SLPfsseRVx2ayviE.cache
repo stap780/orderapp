@@ -1,0 +1,7 @@
+I"l(function() {
+  jQuery(function() {
+    return $('.dropdown-toggle').dropdown();
+  });
+
+}).call(this);
+:ET

@@ -1,0 +1,2 @@
+module InvoiceoutsHelper
+end

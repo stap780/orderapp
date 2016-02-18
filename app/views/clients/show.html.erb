@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12">
+<div class="col-md-6">
+<strong>Информация о клиенте</strong>
+
+<p>
+  <strong>Name:</strong>
+  <%= @client.name %>
+</p>
+
+<p>
+  <strong>Middlename:</strong>
+  <%= @client.middlename %>
+</p>
+
+<p>
+  <strong>Surname:</strong>
+  <%= @client.surname %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @client.phone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @client.email %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @client.zip %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @client.state %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @client.city %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @client.address %>
+</p>
+</div>
+
+<div class="col-md-6">
+<div class="col-md-6">
+<strong>Информация о заказах клиента</strong>
+  <strong>Number:</strong>
+  <% @client.iorders.each do |iorder| %>
+  <%= link_to "#{iorder.number}", iorder %> | 
+  <% end %>
+</div>
+</div>
+
+<div class="col-md-6" style="margin-top:15px;">
+	<div class="col-md-6">
+	<strong>Информация о юр лицах клиента</strong>
+	  <table class="table table-hover">
+				<thead>
+					<tr>
+					<th>Title</th>
+					<th>Inn</th>
+					<th>Banktitle</th>
+					</tr>
+				</thead>
+				<tbody>
+				<%@client.companies.each do |cc|%>
+					<tr>
+					<td><%= link_to "#{cc.title}", cc if cc !=nil %></td>
+					<td><%= cc.inn %></td>
+					<td><%= cc.banktitle %></td>
+					</tr>
+				<% end %>
+				</tbody>
+				</table>
+	</div>
+</div>
+</div>
+<div class="col-md-12">
+<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Back', clients_path %>
+</div>

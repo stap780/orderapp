@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sku:</strong>
+  <%= @energy.sku %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @energy.title %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @energy.quantity %>
+</p>
+
+<p>
+  <strong>Cost price:</strong>
+  <%= @energy.cost_price %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @energy.price %>
+</p>
+
+<%= link_to 'Edit', edit_energy_path(@energy) %> |
+<%= link_to 'Back', energies_path %>

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Purchase Invoices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Date</th>
+      <th>Company</th>
+      <th>Total price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @purchase_invoices.each do |purchase_invoice| %>
+      <tr>
+        <td><%= purchase_invoice.number %></td>
+        <td><%= purchase_invoice.date %></td>
+        <td><%= purchase_invoice.company_id %></td>
+        <td><%= purchase_invoice.total_price %></td>
+        <td><%= link_to 'Show', purchase_invoice %></td>
+        <td><%= link_to 'Edit', edit_purchase_invoice_path(purchase_invoice) %></td>
+        <td><%= link_to 'Destroy', purchase_invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Purchase invoice', new_purchase_invoice_path %>

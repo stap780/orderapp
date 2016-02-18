@@ -1,0 +1,37 @@
+<%= form_for(@dpd) do |f| %>
+  <% if @dpd.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dpd.errors.count, "error") %> prohibited this dpd from being saved:</h2>
+
+      <ul>
+      <% @dpd.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :numer %><br>
+    <%= f.number_field :numer %>
+  </div>
+  <div class="field">
+    <%= f.label :dpdnumber %><br>
+    <%= f.text_field :dpdnumber %>
+  </div>
+  <div class="field">
+    <%= f.label :pickupdate %><br>
+    <%= f.datetime_select :pickupdate %>
+  </div>
+  <div class="field">
+    <%= f.label :plandeliverytime %><br>
+    <%= f.datetime_select :plandeliverytime %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

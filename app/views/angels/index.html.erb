@@ -1,0 +1,77 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-2">
+			<h1>Цифровой ангел <small>сводная таблица</small></h1>
+			<p>Всего товаров - <%= @totalproducts %></p>
+		</div>
+		<div class="col-md-3">
+		
+		<p>Import product</p>
+		<p><%= form_tag import_angels_path, multipart: true do %></p>  <p><%= file_field_tag :file %></p>  <p class='btn btn-default btn-xs' ><%= submit_tag "Import" %></p>
+		<% end %>
+		</div>
+		<div class="col-md-7">
+		<p>Поиск</p>
+		<%= search_form_for @search do |f|%>
+  		<div classs = "search">
+  		<%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
+  		<%= f.search_field :sku_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+ 
+  		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
+  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+		</div>
+		<% end %>	
+		</div>	
+	</div>
+<br>
+	<div class="col-md-12">
+		<div class="col-md-2">
+		<p>| Download: <%= link_to "CSV", angels_path(format: "csv") %> |<!-- <%= link_to "Excel", angels_path(format: "xls") %>--></p>
+
+		</div>
+</div>
+
+<br>
+<div class="col-md-12">
+<div class="media">
+  <div class="media-body">
+<table class="table table-hover">
+  <thead>
+    <tr>
+    	<th>Id</th>
+      <th>Sku</th>
+      <th>Title</th>
+      <th>Quantity</th>
+      <th>Status</th>
+      <th>Valuta</th>
+      <th>Price</th>
+      <th>Cost price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @angels.each do |angel| %>
+      <tr>
+      	<td><%= angel.id %></td>
+        <td><%= angel.sku %></td>
+        <td><%= angel.title %></td>
+        <td><%= angel.quantity %></td>
+        <td><%= angel.status %></td>
+        <td><%= angel.valuta %></td>
+        <td><%= angel.price %></td>
+        <td><%= angel.cost_price %></td>
+        <td><%= link_to 'Show', angel, class: 'btn btn-default btn-xs'  %></td>
+        <td><%= link_to 'Edit', edit_angel_path(angel), class: 'btn btn-success btn-xs' %></td>
+        <td><%= link_to 'Destroy', angel, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' }  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+<!--<%= link_to 'New Angel', new_angel_path %>-->

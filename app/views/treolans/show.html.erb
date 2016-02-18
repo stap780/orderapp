@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sku:</strong>
+  <%= @treolan.sku %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @treolan.title %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @treolan.quantity %>
+</p>
+
+<p>
+  <strong>Transit:</strong>
+  <%= @treolan.transit %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @treolan.price %>
+</p>
+
+<%= link_to 'Edit', edit_treolan_path(@treolan) %> |
+<%= link_to 'Back', treolans_path %>

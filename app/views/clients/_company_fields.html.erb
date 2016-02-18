@@ -1,0 +1,9 @@
+<div class='nested-fields company_fields'>
+<%= f.input :inn, label: 'ИНН', as: :autocomplete, url: autocomplete_company_inn_clients_path, input_html: { onchange: "myclientInnFunction(this.value)" }, :update_elements => {:title => '#companytitle'}%>
+<%= f.input :title , label: 'Наименование', input_html: {id: :companytitle }%>
+<!-- f.input :fulltitle, label: 'Полное наименование' %>
+<%= f.input :uraddress,label: 'Юр адрес' %>
+<%= f.input :factaddress, label: 'Факт адрес'  %>
+
+<%= link_to_remove_association "remove", f  -->
+</div>

@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+<h2><%= @homyproduct.title %></h2>
+
+
+<div class="col-md-8">
+<div class="media">
+  <div class="media-body">
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Артикул</th>
+      <!--<th>SKU</th>-->
+      <th>Цена</th>
+      <th>Валюта</th>     
+      <th>Quantity all res</th>
+      <th>Quantity all free</th>
+      <th>Quantity main res</th>
+      <th>Quantity main free</th>
+      <th>Quantity tul res</th>
+      <th>Quantity tul free</th>
+      <th>Quantity transit all</th>
+      <th>Quantity transit free</th>
+      <th colspan="12"></th>
+    </tr>
+  </thead>
+<tbody>
+    
+      <tr>
+      	<td><%= @homyproduct.artikul %></td>
+        <!--<td><%= @homyproduct.sku %></td>-->
+        <td><%= @homyproduct.price %></td>
+        <td><%= @homyproduct.valuta %></td>  
+        <td><%= @homyproduct.quantity_all_res %></td>
+        <td><%= @homyproduct.quantity_all_free %></td>
+        <td><%= @homyproduct.quantity_main_res %></td>
+        <td><%= @homyproduct.quantity_main_free %></td>
+        <td><%= @homyproduct.quantity_tul_res %></td>
+        <td><%= @homyproduct.quantity_tul_free %></td>
+        <td><%= @homyproduct.quantity_transit_all %></td>
+        <td><%= @homyproduct.quantity_transit_free %></td>
+        
+      </tr>
+    
+  </tbody>
+</table>
+
+
+<%= link_to 'Edit', edit_homyproduct_path(@homyproduct) %> | <%= link_to 'Destroy', homyproduct_path, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+<%= link_to 'Back', homyproducts_path %>
+</div>

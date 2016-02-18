@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @purchase_invoice.number %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @purchase_invoice.date %>
+</p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @purchase_invoice.company_id %>
+</p>
+
+<p>
+  <strong>Total price:</strong>
+  <%= @purchase_invoice.total_price %>
+</p>
+
+<%= link_to 'Edit', edit_purchase_invoice_path(@purchase_invoice) %> |
+<%= link_to 'Back', purchase_invoices_path %>

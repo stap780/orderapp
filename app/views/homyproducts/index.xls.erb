@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+      <Cell><Data ss:Type="String">ID</Data></Cell>
+      <Cell><Data ss:Type="String">Artikul</Data></Cell>
+      <Cell><Data ss:Type="String">SKU</Data></Cell>
+      <Cell><Data ss:Type="String">Title</Data></Cell>
+      <Cell><Data ss:Type="String">Price</Data></Cell>
+      <Cell><Data ss:Type="String">Valuta</Data></Cell>
+      <Cell><Data ss:Type="String">Quantity all res</Data></Cell>
+      <Cell><Data ss:Type="String">Quantity all free</Data></Cell>
+      <Cell><Data ss:Type="String">Quantity main res</Data></Cell>
+      <Cell><Data ss:Type="String">Quantity main free</Data></Cell>
+      <Cell><Data ss:Type="String">Quantity tul res</Data></Cell>
+      <Cell><Data ss:Type="String">Quantity tul free</Data></Cell>
+      <Cell><Data ss:Type="String">Quantity transit all</Data></Cell>
+      <Cell><Data ss:Type="String">Quantity transit free</Data></Cell>
+      </Row>
+
+    <% @homyproducts.each do |homyproduct| %>
+      <Row>
+      	<Cell><Data ss:Type="Number"><%= homyproduct.id %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.artikul %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= homyproduct.sku %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= homyproduct.title %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.price %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= homyproduct.valuta %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.quantity_all_res %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.quantity_all_free %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.quantity_main_res %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.quantity_main_free %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.quantity_tul_res %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.quantity_tul_free %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.quantity_transit_all %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= homyproduct.quantity_transit_free %></Data></Cell>
+        
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

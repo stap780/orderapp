@@ -1,0 +1,64 @@
+ <%= simple_form_for(@company) do |f| %>
+  <%= f.error_notification %>
+<div class="col-md-12">
+	<div class="col-md-8">
+		<div class="col-md-12">
+			<div class="col-md-5">
+			<%= f.input :inn , input_html: { onchange: "myInnFunction(this.value)" }%> 
+			</div>
+			<div class="col-md-5">
+			<%= f.input :kpp %>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="col-md-8"> 
+			<%= f.input :title %>
+			</div>
+			<div class="col-md-12">
+			<%= f.input :fulltitle, as: :text %>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="col-md-12">
+			<%= f.input :uraddress %>
+			</div>
+			<div class="col-md-12">
+			<%= f.input :factaddress %>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="col-md-6">
+			<%= f.input :ogrn %>
+			</div>
+			<div class="col-md-6">
+			<%= f.input :okpo %>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="col-md-12">
+		<%= f.input :bik, input_html: { onchange: "myBikFunction(this.value)" } %>
+		</div>
+		<div class="col-md-12">
+		<%= f.input :banktitle %>
+		</div>
+		<div class="col-md-12">
+		<%= f.input :bankaccount %>
+		</div>
+	<div class="col-md-12" style="margin-top:20px;">  
+		<%= f.button :submit, class: 'btn btn-default btn-sm' %>
+		<%= link_to 'Show', @company, class: 'btn btn-default btn-sm'  %>
+		<%= link_to 'Back', companies_path, class: 'btn btn-default btn-sm'  %>
+	</div>
+	</div>
+	
+<div class="col-md-12">
+<div class="col-md-6">
+
+</div>
+</div>
+
+
+<% end %>
+

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  date: 2016-02-09 07:12:10
+  status: MyString
+  total_price: 9.99
+  client_id: 1
+  company_id: 1
+
+two:
+  number: 1
+  date: 2016-02-09 07:12:10
+  status: MyString
+  total_price: 9.99
+  client_id: 1
+  company_id: 1

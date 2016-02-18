@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  date: 2016-02-13 04:38:44
+  company_id: 1
+  invoice_list_id: 1
+  total_price: 9.99
+  nds: 9.99
+  payment: MyString
+
+two:
+  number: 1
+  date: 2016-02-13 04:38:44
+  company_id: 1
+  invoice_list_id: 1
+  total_price: 9.99
+  nds: 9.99
+  payment: MyString

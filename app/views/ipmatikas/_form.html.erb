@@ -1,0 +1,33 @@
+<%= form_for(@ipmatika) do |f| %>
+  <% if @ipmatika.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ipmatika.errors.count, "error") %> prohibited this ipmatika from being saved:</h2>
+
+      <ul>
+      <% @ipmatika.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity_all %><br>
+    <%= f.number_field :quantity_all %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity_res %><br>
+    <%= f.number_field :quantity_res %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity_free %><br>
+    <%= f.number_field :quantity_free %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

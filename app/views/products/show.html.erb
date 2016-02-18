@@ -1,0 +1,110 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @product.title %></h2>
+
+<div class="col-md-12">
+	<div class="col-md-8" style="margin-top:20px;">
+	<div class="col-md-12"style="margin-top:10px;">
+		<div class="col-md-12">
+		<strong>SCU:</strong>  
+		<%= @product.sku %>
+		</div>
+		<div class="col-md-12">
+		<strong>Title:</strong> 
+		<%= @product.title %>
+		</div>
+		<div class="col-md-12">
+		<strong>Short description:</strong>  
+		<%= @product.short_description %>
+		</div>
+	</div>
+	<div class="col-md-12"style="margin-top:10px;">
+		<div class="col-md-2">
+		<strong>Quantity:</strong>  
+		<%= @product.quantity %>
+		</div>
+		<div class="col-md-3">
+		<strong>Cost price:</strong>  
+		<%= @product.cost_price %>
+		</div>
+		<div class="col-md-3">
+		<strong>Price:</strong>   
+		<%= @product.price %>
+		</div>
+	</div>
+	<div class="col-md-12" style="margin-top:20px;">  
+		<div class="col-md-6">
+			<%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-default btn-sm'  %>
+			<%= link_to 'Back', products_path, class: 'btn btn-default btn-sm'  %>
+		</div>
+	</div>
+	</div>
+
+	<div class="col-md-4">
+	<strong>Синхронизация с поставщиками (id):</strong>
+	<div class="col-md-8">
+	<div class="media">
+		<div class="media-body">
+		<table class="table table-hover">
+		  <thead>
+			  <tr>
+			  <th>Название</th>
+			  <th>Id</th>
+			  </tr>
+		  </thead>
+		  <tbody> 
+		    <tr>
+		      <td>Категория insales</td>
+		      <td><%= @product.category_id %></td>
+		    </tr>
+		    <tr>
+		      <td>Inid</td>
+		      <td><%= @product.inid %></td>
+		    </tr>
+		    <tr> 
+		      <td>Variant id</td>
+		      <td><%= @product.variant_id%></td>
+		    </tr>
+		    <tr>
+		      <td>Homy id</td>
+		      <td><%= @product.homyproduct_id %></td>
+		    </tr>
+		    <tr>
+		      <td>Emag id</td>
+		      <td><%= @product.emag_id %></td>
+		    </tr>
+		    <tr>
+		      <td>RRC id</td>
+		      <td><%= @product.rrc_id %></td>
+		    </tr>
+		    <tr>
+		      <td>Angel</td>
+		      <td><%= @product.angel_id %></td>
+		    </tr>
+		    <tr>     
+		      <td>ET</td>
+		      <td><%= @product.energy_id %></td>
+		    </tr>
+		    <tr>
+		      <td>Vimcom</td>
+		      <td><%= @product.vimcom_id %></td>
+		    </tr>
+		    <tr>
+		      <td>Sskom</td>
+		      <td><%= @product.sskom_id %></td>
+		    </tr>
+		    <tr>
+		      <td>Treolan</td>
+		      <td><%= @product.treolan_id %></td>
+		    </tr>
+		    <tr>
+		      <td>Citilink</td>
+		      <td><%= @product.citilink_id %></td>
+		    </tr>
+		  </tbody>
+		</table>
+		</div>
+	</div>
+</div>	
+	</div>	
+</div>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ipmatika.title %>
+</p>
+
+<p>
+  <strong>Quantity all:</strong>
+  <%= @ipmatika.quantity_all %>
+</p>
+
+<p>
+  <strong>Quantity res:</strong>
+  <%= @ipmatika.quantity_res %>
+</p>
+
+<p>
+  <strong>Quantity free:</strong>
+  <%= @ipmatika.quantity_free %>
+</p>
+
+<%= link_to 'Edit', edit_ipmatika_path(@ipmatika) %> |
+<%= link_to 'Back', ipmatikas_path %>

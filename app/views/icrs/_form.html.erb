@@ -1,0 +1,33 @@
+<%= form_for(@icr) do |f| %>
+  <% if @icr.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@icr.errors.count, "error") %> prohibited this icr from being saved:</h2>
+
+      <ul>
+      <% @icr.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    Icr ID<br>
+    <%= f.number_field :icr_id %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :price_usd %><br>
+    <%= f.text_field :price_usd %>
+  </div>
+  <div class="field">
+    <%= f.label :price_rub %><br>
+    <%= f.text_field :price_rub %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

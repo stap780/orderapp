@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sku:</strong>
+  <%= @angel.sku %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @angel.title %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @angel.quantity %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @angel.status %>
+</p>
+
+<p>
+  <strong>Valuta:</strong>
+  <%= @angel.valuta %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @angel.price %>
+</p>
+
+<p>
+  <strong>Cost price:</strong>
+  <%= @angel.cost_price %>
+</p>
+
+<%= link_to 'Edit', edit_angel_path(@angel) %> |
+<%= link_to 'Back', angels_path %>

@@ -1,0 +1,40 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree .
+ *= require rails_bootstrap_forms
+ *= require jquery-ui
+*/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+label {
+    margin-right: 10px;
+    
+}
+* {
+margin: 0;
+}
+html, body {
+height: 100%;
+}
+.wrapper {
+min-height: 100%;
+height: auto !important;
+height: 100%;
+margin: 0 auto -4em;
+}
+.myfooter {
+height: 4em;
+}
+
+.links tr {display: table-row-group; vertical-align: middle; border-color: inherit;}
+.links tr .form-group {margin: 10px;}
+.links tr .form-control {display: block;}
+
+/*input[type="submit"] {
+	background-color: transparent;
+    border: 0px;
+}*/

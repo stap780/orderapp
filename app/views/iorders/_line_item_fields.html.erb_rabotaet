@@ -1,0 +1,8 @@
+
+<fieldset>
+<%= f.collection_select(:product_id,  Product.order("title asc"), :id, :title, { hide_label: true, :multiple => false, include_blank: true})%>
+       <%= f.number_field :quantity, hide_label: true %>
+        <%= f.text_field :price,hide_label: true %>
+        <%= f.text_field :sum, hide_label: true %>
+        <%= f.check_box :_destroy, hide_label: true%>
+      </fieldset>

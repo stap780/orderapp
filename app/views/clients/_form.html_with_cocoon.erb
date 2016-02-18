@@ -1,0 +1,56 @@
+<%= simple_form_for(@client, html: { class: 'form-horizontal' }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="col-md-12">
+	<div class="col-md-7">	  	
+		<div class="col-md-4">    
+		<%= f.input :name %>
+		</div>
+		<div class="col-md-4">  
+		<%= f.input :middlename %>
+		</div>
+		<div class="col-md-4">
+		<%= f.input :surname %>
+		</div>
+		<div class="col-md-6">
+		<%= f.input :phone %>
+		</div>
+		<div class="col-md-6">
+		<%= f.input :email %>
+		</div>
+		<div class="col-md-4">
+		<%= f.input :zip %>
+		</div>
+		<div class="col-md-4">
+		<%= f.input :state %>
+		</div>
+		<div class="col-md-4">
+		<%= f.input :city %>
+		</div>
+		<div class="col-md-12">
+		<%= f.input :address %>
+		</div>
+	</div>
+		<div class="col-md-1">
+		</div>
+		
+		<div class="col-md-4">
+		<%= f.simple_fields_for :companies do |company| %>
+		<%= render 'company_fields', :f => company %>
+		<% end %>
+		
+		<div class='links', style="float:left;">
+		<%= link_to_add_association 'Добавить компанию', f, :companies, 'data-association-insertion-method' => "prepend"%>
+		</div>
+		</div>
+		
+
+		</div>
+  </div>  
+  
+	<div class="col-md-12">
+	<%= f.button :submit, class: 'btn btn-default btn-sm' %>  
+	</div>
+</div>
+
+<% end %>

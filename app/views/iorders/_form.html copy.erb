@@ -1,0 +1,112 @@
+<!-- simple form version-->
+<%= simple_form_for(@iorder) do |f| %>
+  <% if @iorder.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@iorder.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @iorder.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<!--<div class="col-md-12">
+	<div class="col-md-3">
+	<h1>Редактирование заказа</h1>
+	</div>
+	<div class="col-md-2">
+	<div class="field">
+	<%= f.input :number,label: false, as: :integer   %>
+	</div>
+	</div>
+</div>-->
+
+<div class="col-md-12">
+<div class="col-md-8">
+	<div class="col-md-12">  
+	<strong>Информация о клиенте</strong>
+	</div>
+	<div class="col-md-4">  
+	<%= f.input :client%>
+	</div>
+	<div class="col-md-4"> 
+	<%= f.input :client_middlename%>
+	</div>
+	<div class="col-md-4"> 
+	<%= f.input :client_surname%>
+	</div>
+	<div class="col-md-6">  
+	<%= f.input :phone%>
+	</div>
+	<div class="col-md-6">
+	<%= f.input :email %>
+	</div>
+	<div class="col-md-6"> 
+	<%= f.input :shipping_zip %>
+	</div>
+	<div class="col-md-6"> 
+	<%= f.input :shipping_city %>
+	</div>
+	<div class="col-md-12">
+	<%= f.input :shipping_address, as: :text %>
+	</div>
+</div>
+
+
+<div class="col-md-4">
+	<div class="col-md-12">
+	<strong>Статусы заказа</strong>
+	<%= f.association :status %><br>
+	<%= f.input :financial %>
+	<%= f.input :payment %>
+	<%= f.input :delivery %>
+	<%= f.association :mycourier %><br>
+	</div>
+</div>
+</div>
+
+<div class="col-md-12">
+	<div class="col-md-8">
+	<div id='line_items'>
+	<%= f.simple_fields_for :line_items do |line_item| %>
+	<%= render 'line_item_fields', :f => line_item %>
+	<% end %>
+	</div>
+	<div class="col-md-12">
+	<div class='links', style="float:left;">
+	<%= link_to_add_association 'add line', f, :line_items, 'data-association-insertion-method' => "append" %>
+	</div>
+	</div>
+	</div>
+	<div class="col-md-4">
+	<%= f.submit 'Save' %>
+	<%= f.button :button do %>
+	<%= link_to 'Show', @iorder %>
+	<% end %>
+	<%= f.button :button do %>
+	<%= link_to 'Back', iorders_path %>
+	<% end %>
+	<div class="col-md-12">
+	<%= f.input :discount_percent, as: :integer %>
+	<p>
+		<strong>Total:</strong>
+		<%= @iorder.total %>
+	</p>
+	<p>
+		<strong>Total Price:</strong>
+		<%= @iorder.total_price %>
+	</p>
+	<p>
+		<strong>Delivery Price:</strong>
+		<%= @iorder.deliveryprice %>
+	</p>
+	</div>
+	</div>
+</div>    
+    
+    
+    
+<% end %>
+
+

@@ -1,0 +1,29 @@
+<%= bootstrap_form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="field">
+        <%= f.text_field :order_number , class: 'form-control'%>
+    </div>
+    <div class="field">
+        <%= f.collection_select(:orderstatus_id,  Orderstatus.all, :id, :title, {}, { :multiple => false } )  %>
+      
+    </div>
+    <div class="field">
+        <%= f.select :order_payment_status, options_for_select([['Не оплачен'], ['Оплачен']])%>
+        <!--<%= f.select :order_payment_status, options_for_select({"Оплачен" => "pay", "Не оплачен" => "not_pay"}) %> так пишится хэш--> 
+    </div>
+    <div class="field">
+      
+        <%= f.submit 'Submit', class: 'btn btn-default' %>
+     
+    </div>
+<% end %>

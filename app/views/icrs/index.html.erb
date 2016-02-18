@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Icrs</h1> 
+Всего товаров <%= @totalproducts%>
+<br>
+<p><%= link_to 'Download products', downloadproduct_icrs_path%> | <%= link_to 'Update products', updateproduct_icrs_path%> 
+
+<table>
+  <thead>
+    <tr>
+      <th>IcrID</th>
+      <th>Title</th>
+      <th>Price usd</th>
+      <th>Price rub</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @icrs.each do |icr| %>
+      <tr>
+        <td><%= icr.icr_id %></td>
+        <td><%= icr.title %></td>
+        <td><%= icr.price_usd %></td>
+        <td><%= icr.price_rub %></td>
+        <td><%= link_to 'Show', icr %></td>
+        <td><%= link_to 'Edit', edit_icr_path(icr) %></td>
+        <td><%= link_to 'Destroy', icr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Icr', new_icr_path %>
