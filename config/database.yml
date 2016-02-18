@@ -21,8 +21,12 @@ test:
   encoding: utf8
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: postgresql
+  database: insales_app_production
   pool: 5
+  host: localhost
+  username: pguser
+  password: pguser
+  host: localhost
   timeout: 5000
-  encoding: utf8
+  encoding: unicode

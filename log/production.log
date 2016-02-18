@@ -1,1 +1,146 @@
 
+Started GET "/iorders" for 46.148.230.89 at 2016-02-18 11:32:06 -0500
+Processing by IordersController#index as HTML
+PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+
+Completed 500 Internal Server Error in 24ms (ActiveRecord: 3.9ms)
+
+ActiveRecord::StatementInvalid (PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+):
+  app/controllers/application_controller.rb:16:in `authentication'
+
+
+Started GET "/" for 46.148.230.89 at 2016-02-18 11:32:14 -0500
+Processing by MainController#index as HTML
+PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 1.1ms)
+
+ActiveRecord::StatementInvalid (PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+):
+  app/controllers/application_controller.rb:16:in `authentication'
+
+
+Started GET "/" for 46.148.230.89 at 2016-02-18 11:32:52 -0500
+Processing by MainController#index as HTML
+PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 1.6ms)
+
+ActiveRecord::StatementInvalid (PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+):
+  app/controllers/application_controller.rb:16:in `authentication'
+
+
+Started GET "/" for 46.148.230.89 at 2016-02-18 11:33:43 -0500
+Processing by MainController#index as HTML
+PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 3.6ms)
+
+ActiveRecord::StatementInvalid (PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+):
+  app/controllers/application_controller.rb:16:in `authentication'
+
+
+Started GET "/" for 46.148.230.89 at 2016-02-18 11:34:52 -0500
+Processing by MainController#index as HTML
+PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 1.8ms)
+
+ActiveRecord::StatementInvalid (PG::UndefinedTable: ERROR:  relation "accounts" does not exist
+LINE 5:                WHERE a.attrelid = '"accounts"'::regclass
+                                          ^
+:               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod
+                FROM pg_attribute a LEFT JOIN pg_attrdef d
+                  ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+               WHERE a.attrelid = '"accounts"'::regclass
+                 AND a.attnum > 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+):
+  app/controllers/application_controller.rb:16:in `authentication'
+
+

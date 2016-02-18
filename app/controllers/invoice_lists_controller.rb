@@ -106,7 +106,9 @@ class InvoiceListsController < ApplicationController
       else
       if @invoice_list.invoiceout_check == false
       @invoiceout = Invoiceout.find_by_number(@invoice_list.number)
+      if @invoiceout.present?
       @invoiceout.destroy
+      end
       end
       end
       
