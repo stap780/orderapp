@@ -22,7 +22,7 @@ test:
 
 production:
   adapter: postgresql
-  database: insales_app_production
+  database: orderapp_production
   pool: 5
   host: localhost
   username: pguser

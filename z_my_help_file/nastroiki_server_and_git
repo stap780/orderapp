@@ -1,0 +1,22 @@
+По ходу дела сделал дополнительного пользователя с правами sudo - appuser (пароль appuser).
+Переключение на пользователя - su appuser
+
+Настройки для git
+# добавляем комментарий и отправляем изменения на сервер git
+git add -A
+git commit -m "Set up Puma, Nginx & Capistrano"
+git push orderapp master
+
+до этого я создал "наверное пользователя" orderapp и сделал ему пароль - mykey
+Доступ к git сделан через ssh и настройку ключа для этой связи.
+
+production:
+  adapter: postgresql
+  database: insales_app_production
+  pool: 5
+  host: localhost
+  username: pguser
+  password: pguser
+  host: localhost
+  timeout: 5000
+  encoding: unicode

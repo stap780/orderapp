@@ -263,3 +263,109 @@
 	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands.rb:17:in `<top (required)>'
 	from script/rails:6:in `require'
 	from script/rails:6:in `<main>'
+/usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:435:in `version_conflict': Bundler could not find compatible versions for gem "rest-client": (Bundler::VersionConflict)
+  In Gemfile:
+    taps (~> 0.3.24) ruby depends on
+      rest-client (< 1.7.0, >= 1.4.0) ruby
+
+    rest-client (1.8.0)
+
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:335:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:167:in `start'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:437:in `version_conflict'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:335:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:167:in `start'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:129:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:193:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:132:in `specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:177:in `specs_for'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:166:in `requested_specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/environment.rb:18:in `requested_specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/runtime.rb:13:in `setup'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler.rb:122:in `setup'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/setup.rb:18:in `<top (required)>'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:128:in `require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:128:in `rescue in require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:39:in `require'
+	from /root/insales_app/config/boot.rb:7:in `<top (required)>'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+	from script/rails:5:in `<main>'
+/usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:435:in `version_conflict': Bundler could not find compatible versions for gem "rest-client": (Bundler::VersionConflict)
+  In Gemfile:
+    taps (~> 0.3.24) ruby depends on
+      rest-client (< 1.7.0, >= 1.4.0) ruby
+
+    rest-client (1.8.0)
+
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:335:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:167:in `start'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:437:in `version_conflict'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:335:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:167:in `start'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:129:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:193:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:132:in `specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:177:in `specs_for'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:166:in `requested_specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/environment.rb:18:in `requested_specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/runtime.rb:13:in `setup'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler.rb:122:in `setup'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/setup.rb:18:in `<top (required)>'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:128:in `require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:128:in `rescue in require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:39:in `require'
+	from /root/insales_app/config/boot.rb:7:in `<top (required)>'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+	from script/rails:5:in `<main>'
+/usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:435:in `version_conflict': Bundler could not find compatible versions for gem "rest-client": (Bundler::VersionConflict)
+  In Gemfile:
+    taps (~> 0.3.24) ruby depends on
+      rest-client (< 1.7.0, >= 1.4.0) ruby
+
+    rest-client (1.8.0)
+
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:335:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:167:in `start'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:437:in `version_conflict'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:335:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:167:in `start'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/resolver.rb:129:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:193:in `resolve'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:132:in `specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:177:in `specs_for'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/definition.rb:166:in `requested_specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/environment.rb:18:in `requested_specs'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/runtime.rb:13:in `setup'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler.rb:122:in `setup'
+	from /usr/local/rvm/gems/ruby-2.2.1@global/gems/bundler-1.8.4/lib/bundler/setup.rb:18:in `<top (required)>'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:128:in `require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:128:in `rescue in require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:39:in `require'
+	from /root/insales_app/config/boot.rb:7:in `<top (required)>'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+	from /usr/local/rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+	from script/rails:5:in `<main>'
+/usr/local/rvm/gems/ruby-2.2.1/gems/activerecord-4.2.1/lib/active_record/dynamic_matchers.rb:26:in `method_missing': undefined method `emagupdate' for Emag (call 'Emag.connection' to establish a connection):Class (NoMethodError)
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/runner.rb:62:in `<top (required)>'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/runner.rb:62:in `eval'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/runner.rb:62:in `<top (required)>'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:123:in `require'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:123:in `require_command!'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:90:in `runner'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands.rb:17:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+/usr/local/rvm/gems/ruby-2.2.1/gems/activerecord-4.2.1/lib/active_record/dynamic_matchers.rb:26:in `method_missing': undefined method `rrcupdate' for Rrc (call 'Rrc.connection' to establish a connection):Class (NoMethodError)
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/runner.rb:62:in `<top (required)>'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/runner.rb:62:in `eval'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/runner.rb:62:in `<top (required)>'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:123:in `require'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:123:in `require_command!'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:90:in `runner'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+	from /usr/local/rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/commands.rb:17:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'

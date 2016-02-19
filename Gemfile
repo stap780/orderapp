@@ -38,7 +38,7 @@ gem 'roo'
 gem 'roo-xls'
 gem 'mechanize'
 gem 'ru_propisju'
-gem 'rest-client'
+gem 'rest-client', '< 1.7.0'
 gem 'ransack'
 gem 'rails-jquery-autocomplete'
 gem 'savon', '2.5.1'
@@ -50,11 +50,11 @@ gem 'haml'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'whenever', :require => false
 gem 'spring'
-#gem 'thin' # управление сервером вместо webbrick , то есть запускаем сервер командой thin start
 gem 'puma'
 
  
 group :development, :test do
+	
 	gem "sqlite3"
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   #gem 'debugger'
@@ -73,5 +73,6 @@ group :development, :test do
 end
 
 group :production do
- gem 'pg', '~> 0.18.4'
+ #gem 'pg', '~> 0.18.4'
+ gem 'sqlite3'
 end
