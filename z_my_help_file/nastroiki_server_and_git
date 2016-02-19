@@ -16,13 +16,4 @@ passphrase: mykey
 
 
 
-production:
-  adapter: postgresql
-  database: insales_app_production
-  pool: 5
-  host: localhost
-  username: pguser
-  password: pguser
-  host: localhost
-  timeout: 5000
-  encoding: unicode
+Обновление продакшен сервера - cap production deploy
