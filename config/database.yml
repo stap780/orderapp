@@ -27,6 +27,5 @@ production:
   host: localhost
   username: pguser
   password: pguser
-  host: localhost
   timeout: 5000
   encoding: unicode
