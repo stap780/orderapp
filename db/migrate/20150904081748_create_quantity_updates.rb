@@ -5,6 +5,6 @@ class CreateQuantityUpdates < ActiveRecord::Migration
       t.integer :product_id
       t.timestamps null: false
     end
-    #drop_table :homyproducts_products
+    ##drop_table :homyproducts_products
   end
 end
