@@ -1,1 +1,0 @@
-DEPRECATION WARNING: shop is deprecated and will be removed from InsalesApi 1.0 (use domain instead). (called from authentication at /root/insales_app/app/controllers/application_controller.rb:16)

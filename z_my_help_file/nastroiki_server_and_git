@@ -4,7 +4,7 @@
 Настройки для git
 # добавляем комментарий и отправляем изменения на сервер git
 git add -A
-git commit -m "Set up Puma, Nginx & Capistrano"
+git commit -m "my litle changes"
 git push orderapp master
 
 до этого я создал "наверное пользователя" orderapp и сделал ему пароль - mykey

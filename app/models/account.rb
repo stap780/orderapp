@@ -7,9 +7,9 @@ class Account < ActiveRecord::Base
   validates_presence_of :password
 
 
-def configure_api
-InsalesApi::Base.configure MyApp.api_key , "http://worksys.myinsales.ru", password
-end
+# def configure_api
+# InsalesApi::Base.configure MyApp.api_key , "http://worksys.myinsales.ru", password
+# end
 
 
 end
