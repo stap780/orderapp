@@ -1,5 +1,5 @@
 # Change these
-server '188.166.111.118', port: 5000, roles: [:web, :app, :db], primary: true
+server '104.236.54.103', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:stap780/orderapp.git'
 set :application,     'orderapp'
@@ -50,8 +50,8 @@ namespace :deploy do
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
+      unless `git rev-parse HEAD` == `git rev-parse orderapp/master`
+        puts "WARNING: HEAD is not the same as orderapp/master"
         puts "Run `git push` to sync changes."
         exit
       end
