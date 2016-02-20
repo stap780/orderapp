@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class SessionsController < ApplicationController
-  skip_before_filter :authentication, :configure_api, :except => [:destroy]
+  #skip_before_filter :authentication, :configure_api, :except => [:destroy]
   layout 'login'
 
   def show
