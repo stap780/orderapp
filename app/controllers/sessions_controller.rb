@@ -8,12 +8,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @shop = params[:shop]
-
+    #@shop = params[:shop]
+	@shop = 'worksys.myinsales.ru'
+	
     if account_by_params
       init_authorization account_by_params
     else
-      flash.now[:error] = "Check store address (domain)"
+      flash.now[:error] = "Check store address (domain) now"
       render :action => :new
     end
   end
