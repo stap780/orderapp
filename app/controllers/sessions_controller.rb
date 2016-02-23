@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def create
   
     @shop = params[:shop]
-	logger.debug "#{@shop.attributes.inspect}"
+	logger.debug "#{@shop.inspect}"
     if account_by_params
       init_authorization account_by_params
     else
