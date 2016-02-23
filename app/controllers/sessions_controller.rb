@@ -12,7 +12,6 @@ class SessionsController < ApplicationController
     @shop = params[:shop]
 	logger.debug "#{@shop.attributes.inspect}"
     if account_by_params
-    logger.debug "#{account_by_params.inspect}"
       init_authorization account_by_params
     else
       flash.now[:error] = "Check store address (domain) now"
