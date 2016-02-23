@@ -9,8 +9,7 @@ class SessionsController < ApplicationController
 
   def create
   
-    #@shop = params[:shop]
-	@shop = "worksys.myinsales.ru"
+    @shop = params[:shop]
 	
     if account_by_params
       init_authorization account_by_params
