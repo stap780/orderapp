@@ -22,6 +22,6 @@ module ApplicationHelper
   end
 
   def app_name
-    'Orderapp'
+    'app1'
   end
 end

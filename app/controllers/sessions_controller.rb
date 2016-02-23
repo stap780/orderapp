@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
   def create
   
     @shop = params[:shop]
-	logger.debug "#{@shop.inspect}"
     if account_by_params
       init_authorization account_by_params
     else
@@ -21,8 +20,8 @@ class SessionsController < ApplicationController
 
   def autologin
     if current_app and current_app.authorize params[:token]
-      redirect_to root_path  
-      #redirect_to location || root_path
+      #redirect_to root_path  
+      redirect_to location || root_path
     else
       redirect_to login_path
     end
