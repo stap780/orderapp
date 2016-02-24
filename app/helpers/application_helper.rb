@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def home_path
-    "http://#{account_domain}/admin/home"
+    # "http://#{account_domain}/admin/home"
   end
 
   def account_domain
