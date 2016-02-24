@@ -19,3 +19,8 @@ passphrase: mykey
 Обновление продакшен сервера - cap production deploy
 
 Запуск приложения на сервере с сервера deploy - cap production puma:start
+и др команды:
+cap production puma:status
+cap production puma:start
+cap production puma:stop
+cap production puma:restart
