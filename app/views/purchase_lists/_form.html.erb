@@ -1,0 +1,14 @@
+<%= simple_form_for(@purchase_list) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :number %>
+    <%= f.input :date %>
+    <%= f.input :company_id %>
+    <%= f.input :total_price %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

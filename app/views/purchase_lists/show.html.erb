@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @purchase_list.number %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @purchase_list.date %>
+</p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @purchase_list.company_id %>
+</p>
+
+<p>
+  <strong>Total price:</strong>
+  <%= @purchase_list.total_price %>
+</p>
+
+<%= link_to 'Edit', edit_purchase_list_path(@purchase_list) %> |
+<%= link_to 'Back', purchase_lists_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225061042) do
+ActiveRecord::Schema.define(version: 20160225105950) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -443,6 +443,17 @@ ActiveRecord::Schema.define(version: 20160225061042) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
+
+  create_table "purchase_lists", force: :cascade do |t|
+    t.string   "number"
+    t.datetime "date"
+    t.integer  "company_id"
+    t.decimal  "total_price", precision: 8, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "purchase_lists", ["number"], name: "index_purchase_lists_on_number"
 
   create_table "quantity_updates", force: :cascade do |t|
     t.integer  "homyproduct_id"

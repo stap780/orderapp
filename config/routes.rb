@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :purchase_lists
   resources :users
   resources :purchase_invoices do 
     collection do 

@@ -43,10 +43,10 @@ class PurchaseInvoicesController < ApplicationController
       if @purchase_invoice.update(purchase_invoice_params)
       
       @purchase_invoice.purchase_invoice_items.each do |pii| # не могу вспомнить зачем я это делаю (наверное чтобы записать product_id)
-	  title = pii["title"]
-  	  product = Product.find_by_title("#{title}")
-  	  line = PurchaseInvoiceItem.where("title" => "#{title}", "purchase_invoice_id" => "#{@purchase_invoice.id}")
+  	  line = PurchaseInvoiceItem.where("title" => "#{pii["title"]}", "purchase_invoice_id" => "#{@purchase_invoice.id}")
   	  line.each do |line|
+  	  title = pii["title"]
+  	  product = Product.find_by_title("#{title}")
   	  line.product_id = product.id
   	  line.save
   	  end
