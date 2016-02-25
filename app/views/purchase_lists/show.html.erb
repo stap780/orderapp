@@ -1,24 +1,71 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Number:</strong>
-  <%= @purchase_list.number %>
-</p>
+<div class="col-md-12">
+<div class="col-md-8">
+<h1>Информация о счёте <%= @purchase_list.number %></h1>
 
 <p>
   <strong>Date:</strong>
-  <%= @purchase_list.date %>
+  <%= @purchase_list.date.strftime("%d / %m / %Y")  %>
 </p>
 
 <p>
   <strong>Company:</strong>
-  <%= @purchase_list.company_id %>
+  <%= @purchase_list.company.title if @purchase_list.company !=nil %>
 </p>
+</div>
+	<div class="col-md-4">
+	<div class="col-md-12">
+	  <strong>Status:</strong>
+	  <%= @purchase_list.status %>
+	</div>
+	<div class="col-md-12">
+	  <strong>Входящая накладная:</strong>
+	  <% if @purchase_list.purchase_invoicein_check == true%>
+	  <%= "Введена" %>
+	  <%else %>
+	  <%= "Не введена" %> 
+	  <%end%>
+	</div>
+	</div>
+</div>
+<div class="col-md-12">
+<div class="col-md-8">
+<strong>Информация о товарах в заказе</strong>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Sum</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @purchase_list.purchase_list_items.each do |pr| %>
+      <tr>
+        <td><%=link_to "#{pr.title}", pr.product %></td>
+        <td><%= pr.quantity %></td>
+        <td><%= pr.price %></td>
+        <td><%= pr.sum %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="col-md-4" style="margin-top:40px;">
 
 <p>
-  <strong>Total price:</strong>
+  <strong>Total Price:</strong>
   <%= @purchase_list.total_price %>
 </p>
 
-<%= link_to 'Edit', edit_purchase_list_path(@purchase_list) %> |
-<%= link_to 'Back', purchase_lists_path %>
+</div>
+</div>
+
+
+<div class="col-md-12">
+<%= link_to 'Edit', edit_purchase_list_path(@purchase_list), class: 'btn btn-default btn-sm' %> 
+<%= link_to 'Back', purchase_lists_path, class: 'btn btn-default btn-sm' %>
+</div>

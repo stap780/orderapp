@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225105950) do
+ActiveRecord::Schema.define(version: 20160225124638) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -439,18 +439,34 @@ ActiveRecord::Schema.define(version: 20160225105950) do
     t.string   "number"
     t.datetime "date"
     t.integer  "company_id"
-    t.decimal  "total_price", precision: 8, scale: 2
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.decimal  "total_price",         precision: 8, scale: 2
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.boolean  "purchase_list_check"
+    t.string   "status"
+  end
+
+  create_table "purchase_list_items", force: :cascade do |t|
+    t.integer  "purchase_list_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.string   "title"
+    t.decimal  "price",            precision: 8, scale: 2
+    t.decimal  "sum",              precision: 8, scale: 2
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
   create_table "purchase_lists", force: :cascade do |t|
     t.string   "number"
     t.datetime "date"
     t.integer  "company_id"
-    t.decimal  "total_price", precision: 8, scale: 2
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.decimal  "total_price",              precision: 8, scale: 2
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.boolean  "purchase_invoicein_check"
+    t.string   "status"
+    t.integer  "purchase_invoice_id"
   end
 
   add_index "purchase_lists", ["number"], name: "index_purchase_lists_on_number"

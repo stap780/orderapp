@@ -6,7 +6,9 @@ class PurchaseInvoicesController < ApplicationController
   # GET /purchase_invoices
   # GET /purchase_invoices.json
   def index
-    @purchase_invoices = PurchaseInvoice.all
+     @search = PurchaseInvoice.ransack(params[:q]) 
+     @search.sorts = 'number desc' if @search.sorts.empty? 
+     @purchase_invoices = @search.result.paginate(page: params[:page], per_page: 30) 
   end
 
   # GET /purchase_invoices/1
@@ -54,6 +56,13 @@ class PurchaseInvoicesController < ApplicationController
       
       @purchase_invoice.total_price = @purchase_invoice.purchase_invoice_items.sum(:sum)
       @purchase_invoice.save
+      
+      if @purchase_invoice.purchase_list_check == true
+      @purchase_list = @purchase_invoice.purchase_lists.create(number: @purchase_invoice.number, date: @purchase_invoice.date, company_id: @purchase_invoice.company_id, total_price: @purchase_invoice.total_price)
+      @purchase_invoice.purchase_invoice_items.each do |pii|
+      @purchase_list_item = PurchaseListItem.create("title" => "#{pii.title}", "quantity" => "#{pii.quantity}", "product_id" => "#{pii.product_id}", "price" => "#{pii.price}", "sum" => "#{pii.sum}", purchase_list_id: @purchase_list.id)
+      end
+      end
         format.html { redirect_to @purchase_invoice, notice: 'Purchase invoice was successfully updated.' }
         format.json { render :show, status: :ok, location: @purchase_invoice }
       else
@@ -81,6 +90,6 @@ class PurchaseInvoicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_invoice_params
-      params.require(:purchase_invoice).permit(:number, :date, :company_id, :total_price,:purchase_invoice_items_attributes =>[:id, :product_id, :title, :quantity, :price, :sum, :_destroy])
+      params.require(:purchase_invoice).permit(:number, :date, :company_id, :total_price, :status, :purchase_list_check,:purchase_invoice_items_attributes =>[:id, :product_id, :title, :quantity, :price, :sum, :_destroy])
     end
 end

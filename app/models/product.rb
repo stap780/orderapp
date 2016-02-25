@@ -20,6 +20,8 @@ class Product < ActiveRecord::Base
   has_many :invoice_list, :through => :invoice_list_items
   has_many :purchase_invoice_items
   has_many :purchase_invoices, :through => :purchase_invoice_items
+  has_many :purchase_list_items
+  has_many :purchase_list, :through => :purchase_list_items
   
   has_many :stocks
   

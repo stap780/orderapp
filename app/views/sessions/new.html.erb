@@ -7,6 +7,12 @@
 }
 </style>
 
+<% flash.each do |key, value| %>
+<%= content_tag(:div, class: "alert alert-#{key}") do %>
+<p><%= value %></p>
+<% end %>
+<% end %>
+
 <div class="col-md-12">
 <div class="col-md-4">
 </div>

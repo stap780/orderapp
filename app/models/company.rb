@@ -3,6 +3,8 @@ class Company < ActiveRecord::Base
 has_many :invoices
 has_many :invoice_lists
 has_many :invoiceouts
+has_many :purchase_invoices
+has_many :purchase_lists
 
 has_many :contragents
 has_many :clients, :through => :contragents
