@@ -11,20 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214131314) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20160225061042) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
     t.text     "password",          null: false
     t.integer  "insales_id",        null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
-  add_index "accounts", ["insales_subdomain"], name: "index_accounts_on_insales_subdomain", unique: true, using: :btree
+  add_index "accounts", ["insales_subdomain"], name: "index_accounts_on_insales_subdomain", unique: true
 
   create_table "angels", force: :cascade do |t|
     t.string   "sku"
@@ -38,8 +35,8 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",                         null: false
   end
 
-  add_index "angels", ["sku"], name: "index_angels_on_sku", using: :btree
-  add_index "angels", ["title"], name: "index_angels_on_title", using: :btree
+  add_index "angels", ["sku"], name: "index_angels_on_sku"
+  add_index "angels", ["title"], name: "index_angels_on_title"
 
   create_table "citilinks", force: :cascade do |t|
     t.string   "title"
@@ -56,7 +53,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.integer  "quantity"
   end
 
-  add_index "citilinks", ["title"], name: "index_citilinks_on_title", using: :btree
+  add_index "citilinks", ["title"], name: "index_citilinks_on_title"
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -83,9 +80,9 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.integer  "okpo",        limit: 8
     t.integer  "bik",         limit: 8
     t.string   "banktitle"
-    t.integer  "bankaccount", limit: 8
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.integer  "bankaccount", limit: 20
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "contragents", force: :cascade do |t|
@@ -117,7 +114,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "dpds", force: :cascade do |t|
     t.integer  "numer"
@@ -129,8 +126,8 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "dpds", ["dpdnumber"], name: "index_dpds_on_dpdnumber", using: :btree
-  add_index "dpds", ["numer"], name: "index_dpds_on_numer", using: :btree
+  add_index "dpds", ["dpdnumber"], name: "index_dpds_on_dpdnumber"
+  add_index "dpds", ["numer"], name: "index_dpds_on_numer"
 
   create_table "emags", force: :cascade do |t|
     t.string   "sku"
@@ -142,8 +139,8 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",                         null: false
   end
 
-  add_index "emags", ["sku"], name: "index_emags_on_sku", using: :btree
-  add_index "emags", ["title"], name: "index_emags_on_title", using: :btree
+  add_index "emags", ["sku"], name: "index_emags_on_sku"
+  add_index "emags", ["title"], name: "index_emags_on_title"
 
   create_table "energies", force: :cascade do |t|
     t.string   "sku"
@@ -155,8 +152,8 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",                         null: false
   end
 
-  add_index "energies", ["sku"], name: "index_energies_on_sku", using: :btree
-  add_index "energies", ["title"], name: "index_energies_on_title", using: :btree
+  add_index "energies", ["sku"], name: "index_energies_on_sku"
+  add_index "energies", ["title"], name: "index_energies_on_title"
 
   create_table "ets", force: :cascade do |t|
     t.string   "sku"
@@ -168,8 +165,8 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",                         null: false
   end
 
-  add_index "ets", ["sku"], name: "index_ets_on_sku", using: :btree
-  add_index "ets", ["title"], name: "index_ets_on_title", using: :btree
+  add_index "ets", ["sku"], name: "index_ets_on_sku"
+  add_index "ets", ["title"], name: "index_ets_on_title"
 
   create_table "homyproducts", force: :cascade do |t|
     t.string   "artikul"
@@ -190,10 +187,10 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.integer  "product_id"
   end
 
-  add_index "homyproducts", ["artikul"], name: "index_homyproducts_on_artikul", using: :btree
-  add_index "homyproducts", ["quantity_all_free"], name: "index_homyproducts_on_quantity_all_free", using: :btree
-  add_index "homyproducts", ["sku"], name: "index_homyproducts_on_sku", using: :btree
-  add_index "homyproducts", ["title"], name: "index_homyproducts_on_title", using: :btree
+  add_index "homyproducts", ["artikul"], name: "index_homyproducts_on_artikul"
+  add_index "homyproducts", ["quantity_all_free"], name: "index_homyproducts_on_quantity_all_free"
+  add_index "homyproducts", ["sku"], name: "index_homyproducts_on_sku"
+  add_index "homyproducts", ["title"], name: "index_homyproducts_on_title"
 
   create_table "icrs", force: :cascade do |t|
     t.integer  "icr_id"
@@ -204,8 +201,8 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",                         null: false
   end
 
-  add_index "icrs", ["icr_id"], name: "index_icrs_on_icr_id", using: :btree
-  add_index "icrs", ["title"], name: "index_icrs_on_title", using: :btree
+  add_index "icrs", ["icr_id"], name: "index_icrs_on_icr_id"
+  add_index "icrs", ["title"], name: "index_icrs_on_title"
 
   create_table "imls", force: :cascade do |t|
     t.integer  "number"
@@ -219,8 +216,8 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.integer  "statusnum"
   end
 
-  add_index "imls", ["number"], name: "index_imls_on_number", using: :btree
-  add_index "imls", ["status"], name: "index_imls_on_status", using: :btree
+  add_index "imls", ["number"], name: "index_imls_on_number"
+  add_index "imls", ["status"], name: "index_imls_on_status"
 
   create_table "invoice_items", force: :cascade do |t|
     t.integer  "invoice_id"
@@ -271,7 +268,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",                              null: false
   end
 
-  add_index "invoiceouts", ["number"], name: "index_invoiceouts_on_number", using: :btree
+  add_index "invoiceouts", ["number"], name: "index_invoiceouts_on_number"
 
   create_table "invoices", force: :cascade do |t|
     t.integer  "number"
@@ -287,7 +284,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.boolean  "invoice_list_check"
   end
 
-  add_index "invoices", ["number"], name: "index_invoices_on_number", using: :btree
+  add_index "invoices", ["number"], name: "index_invoices_on_number"
 
   create_table "iorders", force: :cascade do |t|
     t.integer  "inid"
@@ -324,9 +321,9 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.integer  "invoice_id"
   end
 
-  add_index "iorders", ["financial"], name: "index_iorders_on_financial", using: :btree
-  add_index "iorders", ["instatus"], name: "index_iorders_on_instatus", using: :btree
-  add_index "iorders", ["number"], name: "index_iorders_on_number", using: :btree
+  add_index "iorders", ["financial"], name: "index_iorders_on_financial"
+  add_index "iorders", ["instatus"], name: "index_iorders_on_instatus"
+  add_index "iorders", ["number"], name: "index_iorders_on_number"
 
   create_table "iorderstatuses", force: :cascade do |t|
     t.integer  "iorder_id"
@@ -344,7 +341,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "ipmatikas", ["title"], name: "index_ipmatikas_on_title", using: :btree
+  add_index "ipmatikas", ["title"], name: "index_ipmatikas_on_title"
 
   create_table "line_items", force: :cascade do |t|
     t.integer  "iorder_id"
@@ -365,7 +362,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.integer  "number"
   end
 
-  add_index "mycouriers", ["title"], name: "index_mycouriers_on_title", using: :btree
+  add_index "mycouriers", ["title"], name: "index_mycouriers_on_title"
 
   create_table "orders", force: :cascade do |t|
     t.string   "order_number"
@@ -384,7 +381,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.string   "instatus"
   end
 
-  add_index "orderstatuses", ["number"], name: "index_orderstatuses_on_number", using: :btree
+  add_index "orderstatuses", ["number"], name: "index_orderstatuses_on_number"
 
   create_table "posts", force: :cascade do |t|
     t.integer  "number"
@@ -395,7 +392,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "posts", ["postnumber"], name: "index_posts_on_postnumber", using: :btree
+  add_index "posts", ["postnumber"], name: "index_posts_on_postnumber"
 
   create_table "products", force: :cascade do |t|
     t.integer  "inid"
@@ -422,10 +419,10 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.integer  "citilink_id"
   end
 
-  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
-  add_index "products", ["inid"], name: "index_products_on_inid", using: :btree
-  add_index "products", ["sku"], name: "index_products_on_sku", using: :btree
-  add_index "products", ["title"], name: "index_products_on_title", using: :btree
+  add_index "products", ["category_id"], name: "index_products_on_category_id"
+  add_index "products", ["inid"], name: "index_products_on_inid"
+  add_index "products", ["sku"], name: "index_products_on_sku"
+  add_index "products", ["title"], name: "index_products_on_title"
 
   create_table "purchase_invoice_items", force: :cascade do |t|
     t.integer  "purchase_invoice_id"
@@ -474,7 +471,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "sskoms", ["title"], name: "index_sskoms_on_title", using: :btree
+  add_index "sskoms", ["title"], name: "index_sskoms_on_title"
 
   create_table "statuses", force: :cascade do |t|
     t.integer  "number"
@@ -484,7 +481,7 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "statuses", ["title"], name: "index_statuses_on_title", using: :btree
+  add_index "statuses", ["title"], name: "index_statuses_on_title"
 
   create_table "stocks", force: :cascade do |t|
     t.integer  "product_id"
@@ -506,8 +503,18 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",                         null: false
   end
 
-  add_index "treolans", ["sku"], name: "index_treolans_on_sku", using: :btree
-  add_index "treolans", ["title"], name: "index_treolans_on_title", using: :btree
+  add_index "treolans", ["sku"], name: "index_treolans_on_sku"
+  add_index "treolans", ["title"], name: "index_treolans_on_title"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "login"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "vendors", force: :cascade do |t|
     t.string   "title"
@@ -523,6 +530,6 @@ ActiveRecord::Schema.define(version: 20160214131314) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "vimcoms", ["title"], name: "index_vimcoms_on_title", using: :btree
+  add_index "vimcoms", ["title"], name: "index_vimcoms_on_title"
 
 end

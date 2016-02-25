@@ -3,6 +3,18 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+
+protect_from_forgery with: :exception
+  
+  
+  
+  private
+  def current_user
+    User.where(id: session[:user_id]).first
+  end
+  helper_method :current_user
+
+#Ниже то что было в заготовке Инсалес
  #  helper :all # include all helpers, all the time
 #   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 #   before_filter :authentication, :configure_api

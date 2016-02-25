@@ -16,10 +16,10 @@
    <div class="header">
    	<div class="col-md-12">
      <nav class="navbar navbar-default">
-  		<div class="container-fluid">
+  		<div class="container-fluid" style="float:left;">
     		<ul class="nav nav-pills">
             <li class="<%= 'active' if current_page?(home_path) %>"><%= link_to image_tag('home_inactive_icon.png', :title => 'Вернуться в магазин', :alt => 'Вернуться в магазин'), home_path %></li>
-            <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to app_name, root_path %></li>
+            <!--li class="<%= 'active' if current_page?(root_path) %>"><%= link_to app_name, root_path %></li-->
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Продажи <span class="caret"></span></a>
             <ul class="dropdown-menu">
             <li class="<%= 'active' if current_page?(iorders_path) %>"><%= link_to 'Заказы', controller: 'iorders', action: 'index' %></li>
@@ -71,7 +71,17 @@
             <li><a href="#">Link</a></li>
 			
           </ul>
-     </div>
+  		</div>
+		<div id="user_header" style="float:right;padding-right:10px;">
+		<% if current_user %>
+		Logged in as <%= current_user.login %></br>
+		<%= link_to "Log Out", logout_path %>
+		<% else %>
+		<%= link_to "Sign Up", signup_path %> or
+		<%= link_to "Log In", login_path %>
+		<% end %>
+		</div>
+     
      </nav>
    </div>
    </div>
@@ -86,6 +96,19 @@
             <%= @links %>
         </div>
         <% end %>
+        
+        
+        <!--  -->
+
+<% flash.each do |key, value| %>
+<%= content_tag(:div, class: "alert alert-#{key}") do %>
+<p><%= value %></p>
+<% end %>
+<% end %>
+        
+        <!--  -->
+        
+        
         
         <%= flash_messages %>
         

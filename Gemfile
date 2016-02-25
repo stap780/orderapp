@@ -51,6 +51,7 @@ gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'whenever', :require => false
 gem 'spring'
 gem 'puma'
+gem 'bcrypt', '~> 3.1.7'
 
  
 group :development, :test do

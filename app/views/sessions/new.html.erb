@@ -1,0 +1,27 @@
+<style>
+  	.header, .myfooter {display: none;}
+    body {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #eee;
+}
+</style>
+
+<div class="col-md-12">
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+	<div class="col-md-12">
+	<%= bootstrap_form_tag(url: '/session') do |f| %>   
+	<%= f.email_field :email, hide_label: true, placeholder: "Email address" %>
+	<%= f.password_field :password, hide_label: true, placeholder: "Password"  %>
+	<%= f.submit "Log In", class: "btn btn-lg btn-primary btn-block" %>
+	<% end%>
+	</div>
+	<div class="col-md-12" style="margin-top:10px;">
+	<%= link_to "Sign Up", signup_path %>
+	</div>
+</div>
+<div class="col-md-4">
+</div>
+</div>

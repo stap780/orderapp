@@ -6,7 +6,14 @@ class IordersController < ApplicationController
     
     autocomplete :product, :title, full: true 
 	before_action :set_iorder, only: [:show, :print, :edit, :update, :destroy]
-
+	before_action :authorize
+	
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
+  
   # GET /iorders
   def index
      @search = Iorder.ransack(params[:q]) #используется gem ransack для поиска и сортировки

@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :users
   resources :purchase_invoices do 
     collection do 
       get :autocomplete_product_title
@@ -149,6 +150,13 @@ InsalesApp::Application.routes.draw do
   resources :order_status
 
   root :to => 'main#index'
+  get '/main',         :to => 'main#index',            :as => :main 
+  
+  resource  :session, only: [:new, :create, :destroy]
+  
+  get 'signup', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
 
   # resource  :session do
 #     collection do
