@@ -5,16 +5,15 @@
 # добавляем комментарий и отправляем изменения на сервер git
 git add -A
 git commit -m "my litle changes"
-git push orderapp master
+git push orderapp master  - до этого я создал "наверное пользователя" orderapp и сделал ему пароль - mykey
 
-до этого я создал "наверное пользователя" orderapp и сделал ему пароль - mykey
 Доступ к git сделан через ssh и настройку ключа для этой связи.
 Ключ для git
 The key fingerprint is:
 da:49:e7:9c:bd:36:2c:2b:fd:9a:93:c0:69:1e:81:f9 panaet80@mail.ru
 passphrase: mykey
 
-
+Инструкция по деплою - https://www.digitalocean.com/community/tutorials/deploying-a-rails-app-on-ubuntu-14-04-with-capistrano-nginx-and-puma
 
 Обновление продакшен сервера - cap production deploy
 
