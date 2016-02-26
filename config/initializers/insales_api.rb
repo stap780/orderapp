@@ -5,5 +5,4 @@ MyApp.api_host           = 'http://188.166.111.118:3000/'
 MyApp.api_autologin_path = 'session/autologin'
 MyApp.api_autologin_url  = 'http://188.166.111.118:3000/session/autologin'
 
-#MyApp.api_key = 'a2e2ed5ba6560944845dbf38f2223298'
 MyApp.configure_api('worksys.myinsales.ru','10ff547aaedb9d83f1a8c2ee56516a7a')
