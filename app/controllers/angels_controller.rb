@@ -1,5 +1,12 @@
 class AngelsController < ApplicationController
   before_action :set_angel, only: [:show, :edit, :update, :destroy]
+  before_action :authorize
+	
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
 
   # GET /angels
   def index

@@ -6,6 +6,13 @@ class ProductsController < ApplicationController
   require 'rest-client'
 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :authorize
+	
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
 
   # GET /products
   def index

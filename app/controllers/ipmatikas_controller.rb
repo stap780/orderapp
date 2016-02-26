@@ -1,5 +1,12 @@
 class IpmatikasController < ApplicationController
   before_action :set_ipmatika, only: [:show, :edit, :update, :destroy]
+  before_action :authorize
+	
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
 
   # GET /ipmatikas
   def index
