@@ -20,11 +20,12 @@ class ProductsController < ApplicationController
     @search = Product.ransack(params[:q]) #используется gem ransack для поиска и сортировки
     @search.sorts = 'title asc' if @search.sorts.empty? # сортировка таблицы по алфавиту по умолчанию 
     @products = @search.result.paginate(page: params[:page], per_page: 50)
-    @totalproducts = Product.count
+    #@totalproducts = Product.count
     #@totalproductssku = Product.where("cast(sku as text) IS NOT ?", nil).count
     #@zeroquantity = Product.where("cast(quantity as integer) = ?", 0).count
     #@qnotzero = Product.where("cast(quantity as integer) > ?", 0).count
     @products_all = Product.all
+    @totalproducts = @products_all.size
     respond_to do |format|
       format.html
       format.csv { send_data @products_all.to_csv }
