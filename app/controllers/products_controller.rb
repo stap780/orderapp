@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
     @products = @search.result.paginate(page: params[:page], per_page: 50)
     @totalproducts = Product.count
     b = Product.where(:sku => '').count
-    @totalproductssku = @totalproducts - "#{b}"
+    @totalproductssku = @totalproducts.to_i - "#{b}".to_i
     @totalproductssku = Product.where("cast(sku as text) IS NOT ?", nil).count
     @zeroquantity = Product.where("cast(quantity as integer) = ?", 0).count
     @qnotzero = Product.where("cast(quantity as integer) > ?", 0).count
