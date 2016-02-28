@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
     @totalproducts = Product.count
     b = Product.where(:sku => '').count
     @totalproductssku = @totalproducts.to_i - "#{b}".to_i
-    @totalproductssku = Product.where("cast(sku as text) IS NOT ?", nil).count
+    #@totalproductssku = Product.where("cast(sku as text) IS NOT ?", nil).count
     @zeroquantity = Product.where("cast(quantity as integer) = ?", 0).count
     @qnotzero = Product.where("cast(quantity as integer) > ?", 0).count
     @products_all = Product.all
