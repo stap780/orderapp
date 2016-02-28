@@ -37,7 +37,7 @@ end
 
 
 every 10.minutes do
-  runner "Iorder.updateorder", :environment => :development
+  runner "Iorder.updateorder"#, :environment => :development
   
 end
 
