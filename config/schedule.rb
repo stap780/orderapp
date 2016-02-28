@@ -35,13 +35,14 @@ every 10.minutes do
   
 end
 
+
 every 10.minutes do
-  runner "Iorder.updateorder"#, :environment => :development
+  runner "Iorder.updateorder", :environment => :development
   
 end
 
 every :day, :at => '12:21' do 
-  runner "Product.updateproduct"#, :environment => :development
+  runner "Product.updateproduct", :environment => :development
   
 end
 
@@ -56,7 +57,7 @@ end
 # end
 
 every :day, :at => '12:31' do 
-  runner "Emag.emagupdate"#, :environment => :development
+  runner "Emag.emagupdate", :environment => :development
   
 end
 
@@ -66,12 +67,12 @@ end
 # end
 
 every :day, :at => '12:36' do 
-  runner "Rrc.rrcupdate"#, :environment => :development
+  runner "Rrc.rrcupdate", :environment => :development
   
 end
 
 every :day, :at => '12:46' do 
-  runner "Product.checkquantity"#, :environment => :development
+  runner "Product.checkquantity", :environment => :development
   
 end
 
@@ -82,29 +83,29 @@ end
 
 # __________________ Обновление цен по курсу ЦБ для ICR18650.ru в 19:16 __________________
 every :day, :at => '12:16' do 
-  runner "Icr.updateproduct"#, :environment => :development
+  runner "Icr.updateproduct", :environment => :development
   
 end
 # __________________
 # __________________ Обновление статусов доставки IML и DPD __________________
 every 3.hours do
-  runner "Iml.updateiml"#, :environment => :development
+  runner "Iml.updateiml", :environment => :development
   
 end
 
 every 3.hours do
-  runner "Dpd.updatedpd"#, :environment => :development
+  runner "Dpd.updatedpd", :environment => :development
   
 end
 
 every 3.hours do
-  runner "Iorder.checkdelivery"#, :environment => :development
+  runner "Iorder.checkdelivery", :environment => :development
   
 end
 # __________________
 # __________________ Обновление Ситилинк в 18:11 __________________
 every :day, :at => '11:11' do 
-  runner "Citylink.updateproduct"#, :environment => :development
+  runner "Citylink.updateproduct", :environment => :development
   
 end
 # __________________

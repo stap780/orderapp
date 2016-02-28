@@ -56,11 +56,7 @@ namespace :deploy do
         puts "Run `git push` to sync changes."
         exit
       end
-      # within current_path do
-#         execute :bundle, :exec, "whenever --update-crontab #{fetch(:application)}"
-#       end
     end
-    #after :finishing, 'deploy:update_cron'
   end
 
   desc 'Initial Deploy'
