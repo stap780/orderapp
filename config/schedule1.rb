@@ -25,7 +25,7 @@
 # очистить cron -> crontab -r
 # просмотр cron -> crontab -l
 # сохранение и запуск cron в режиме девелопмент (писать в терминале) ->  whenever --set environment='development' --write-crontab
-# разница во времения с сервером 7 часов
+# разница во времения с сервером 8 часов
 
 env :PATH, ENV['PATH']
 set :output, "#{path}/log/cron.log"
