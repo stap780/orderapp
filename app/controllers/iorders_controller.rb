@@ -124,7 +124,7 @@ class IordersController < ApplicationController
       #_______________________ 
      
      # создаем счет и записывыем id счета в позиции относящиеся к заказу
-     if @iorder.invoice_check == true 
+     if @iorder.invoice_check = true 
      @invoice = @iorder.create_invoice(number: @iorder.number, date: @iorder.updated_at, client_id: @iorder.client_id, discount: @iorder.discount_percent)
      @iorder.line_items.each do |li| 
      if !li.invoice_id.present?
