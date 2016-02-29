@@ -23,3 +23,7 @@ cap production puma:status
 cap production puma:start
 cap production puma:stop
 cap production puma:restart
+
+Tcли меняем настройки nginx, то на продакшен сервере делаем:
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -nfs "/home/appuser/apps/orderapp/current/config/nginx.conf" "/etc/nginx/sites-enabled/orderapp"
