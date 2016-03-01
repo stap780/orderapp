@@ -29,4 +29,6 @@ Tcли меняем настройки nginx, то на продакшен се�
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -nfs "/home/appuser/apps/orderapp/current/config/nginx.conf" "/etc/nginx/sites-enabled/orderapp"
 
-RAILS_ENV=production bundle exec rake db:migrate - обновить структуру базы данных на продакшен сервере
+RAILS_ENV=production bundle exec rake db:migrate (делать в папке релиза) или cap production deploy:migrate - обновить структуру базы данных на продакшен сервере
+
+person.errors.full_messages - проверка на ошибки валидации

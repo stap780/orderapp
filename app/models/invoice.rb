@@ -10,7 +10,6 @@ has_many   :products, :through => :invoice_items
 accepts_nested_attributes_for :invoice_items, reject_if: proc { |attributes| attributes['title'].blank? }, allow_destroy: true 
 
 validates  :number, uniqueness: true
-#validates  :company, presence: true
 
 
 
