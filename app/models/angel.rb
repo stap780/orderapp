@@ -35,7 +35,7 @@ def self.import(file)
       angel.save
       
           
-      angels = Angel.where("sku = ?", spreadsheet.cell(i,'A').to_i)
+      angels = Angel.where("cast(sku as integer) = ?", spreadsheet.cell(i,'A').to_i)
       angels.each do |an|
       an.update_attributes(:sku => sku, :title => title, :quantity => quantity, :status => status, :valuta => valuta, :price => price, :cost_price => cost_price )
       end
