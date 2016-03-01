@@ -49,7 +49,7 @@ gem 'haml'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'whenever', :require => false
 gem 'spring'
-gem 'puma'
+gem 'puma', '~>3.0.2'
 gem 'bcrypt', '~> 3.1.7'
 
  
@@ -70,6 +70,7 @@ group :development, :test do
     gem 'capistrano-rails',   require: false
     gem 'capistrano-bundler', require: false
     gem 'capistrano3-puma',   require: false
+    gem 'capistrano-rails-console', require: false
 end
 
 group :production do
