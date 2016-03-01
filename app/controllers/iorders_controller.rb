@@ -91,6 +91,21 @@ class IordersController < ApplicationController
 	  
   	@iorder.total_price = @iorder.line_items.sum(:sum) - @iorder.line_items.sum(:sum) * @iorder.discount_percent.to_i/100 + @iorder.deliveryprice.to_i
   	@iorder.save
+  	
+  	# создаем счет и записывыем id счета в позиции относящиеся к заказу
+     if @iorder.invoice_check == true   
+     @invoice = @iorder.create_invoice(number: @iorder.number, date: @iorder.updated_at, client_id: @iorder.client_id, discount: @iorder.discount_percent, iorder_id: @iorder.id, company_id: 59)
+     # @iorder.line_items.each do |li| 
+     # if !li.invoice_id.present?
+     # li.invoice_id = @invoice.id
+     # @iorder.save
+     # end
+     #end
+     #создаем позиции к счету в таблице позиции-счета
+     @iorder.line_items.each do |li| #создаём позиции в счете
+     @invoice_item = InvoiceItem.create("title" => "#{li.title}", "quantity" => "#{li.quantity}", "product_id" => "#{li.product_id}", "price" => "#{li.price}", "sum" => "#{li.sum}", invoice_id: @invoice.id)
+     end 
+     end
 
      # Создание записи по курьерке
      if  @iorder.mycourier_id == 1 
@@ -123,20 +138,7 @@ class IordersController < ApplicationController
      end
       #_______________________ 
      
-     # создаем счет и записывыем id счета в позиции относящиеся к заказу
-     if @iorder.invoice_check = true 
-     @invoice = @iorder.create_invoice(number: @iorder.number, date: @iorder.updated_at, client_id: @iorder.client_id, discount: @iorder.discount_percent)
-     @iorder.line_items.each do |li| 
-     if !li.invoice_id.present?
-     li.invoice_id = @invoice.id
-     @iorder.save
-     end
-     end
-     #создаем позиции к счету в таблице позиции-счета
-     @iorder.line_items.each do |li| #создаём позиции в счете
-     @invoice_item = InvoiceItem.create("title" => "#{li.title}", "quantity" => "#{li.quantity}", "product_id" => "#{li.product_id}", "price" => "#{li.price}", "sum" => "#{li.sum}", invoice_id: @invoice.id)
-     end 
-     end
+     
      
     redirect_to @iorder, notice: 'Order was successfully updated.'
    
@@ -160,7 +162,7 @@ class IordersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def iorder_params
-      params.require(:iorder).permit(:number, :instatus, :financial, :payment, :client, :client_middlename, :client_surname, :delivery, :shipping_zip, :shipping_city, :shipping_address, :phone, :email, :total, :orderstatus_id, :status_id, :mycourier_id, :iml_id, :dpd_id, :post_id, :courier_id, :variantid, :quantity, :price, :deliveryprice, :discount_percent, :total_price, :client_id, :invoice_id, :invoice_check,:line_items_attributes =>[:id, :product_id, :title, :quantity, :price, :iorder_id, :sum, :invoice_id, :_destroy])
+      params.require(:iorder).permit(:number, :instatus, :financial, :payment,:clientname, :client, :client_middlename, :client_surname, :delivery, :shipping_zip, :shipping_city, :shipping_address, :phone, :email, :total, :orderstatus_id, :status_id, :mycourier_id, :iml_id, :dpd_id, :post_id, :courier_id, :variantid, :quantity, :price, :deliveryprice, :discount_percent, :total_price, :client_id, :invoice_id, :invoice_check,:line_items_attributes =>[:id, :product_id, :title, :quantity, :price, :iorder_id, :sum, :invoice_id, :_destroy])
        
     end
     

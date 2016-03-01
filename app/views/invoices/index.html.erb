@@ -45,7 +45,7 @@
       <tr>
         <td><%= invoice.number %></td>
         <td><%= invoice.date.strftime("%d / %m / %Y")  %></td>
-        <td><%= invoice.client.surname %> <%= invoice.client.name %></td>
+        <td><%= invoice.client.surname if invoice.client !=nil%> <%= invoice.client.name if invoice.client !=nil%></td>
         <td><%= invoice.company.title if invoice.company !=nil%>
         <td><%= invoice.invstatus %></td>
         <td><%= invoice.discount %></td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225124638) do
+ActiveRecord::Schema.define(version: 20160301095731) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -282,6 +282,7 @@ ActiveRecord::Schema.define(version: 20160225124638) do
     t.integer  "company_id"
     t.integer  "companytwo"
     t.boolean  "invoice_list_check"
+    t.integer  "iorder_id"
   end
 
   add_index "invoices", ["number"], name: "index_invoices_on_number"

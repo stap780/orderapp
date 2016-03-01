@@ -2,7 +2,7 @@ class Invoice < ActiveRecord::Base
 
 belongs_to :client
 belongs_to :company
-has_one    :iorder
+belongs_to :iorder
 has_many   :invoice_lists
 
 has_many   :invoice_items
