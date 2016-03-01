@@ -39,7 +39,7 @@ validates :artikul, uniqueness: true
       homyproduct.save
       
           
-      homyproducts = Homyproduct.where("artikul = ?", spreadsheet.cell(i,'A').to_i)
+      homyproducts = Homyproduct.where("cast(artikul as integer) = ?", spreadsheet.cell(i,'A').to_i)
       homyproducts.each do |hp|
       hp.update_attributes(:artikul => artikul, :title => title, :price => price, :valuta => valuta, :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)
       end
