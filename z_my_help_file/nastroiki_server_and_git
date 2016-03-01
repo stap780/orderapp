@@ -23,7 +23,10 @@ cap production puma:status
 cap production puma:start
 cap production puma:stop
 cap production puma:restart
+cap production rails:console - консоль в продакшене
 
 Tcли меняем настройки nginx, то на продакшен сервере делаем:
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -nfs "/home/appuser/apps/orderapp/current/config/nginx.conf" "/etc/nginx/sites-enabled/orderapp"
+
+RAILS_ENV=production bundle exec rake db:migrate - обновить структуру базы данных на продакшен сервере
