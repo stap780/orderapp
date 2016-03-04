@@ -1,5 +1,13 @@
 class InvoiceListsController < ApplicationController
   before_action :set_invoice_list, only: [:show, :print, :edit, :update, :destroy]
+  before_action :authorize
+  
+	autocomplete :company, :title, full: true	
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
 
   # GET /invoice_lists
   # GET /invoice_lists.json
@@ -75,7 +83,8 @@ class InvoiceListsController < ApplicationController
   	  if @invoice_list.invoiceout_check == true # два больших действия идут далее
   	  
   	  #Действие номер 1
-  	  @invoice_list.invoice_list_items.each do |ili| #добавляем в талицу stock данные из перечня товаров в накладной по позициям
+  	  #добавляем в талицу stock данные из перечня товаров в накладной по позициям
+  	  @invoice_list.invoice_list_items.each do |ili| 
   	  clear_price = ili.price - ili.price * @invoice_list.discount.to_i/100
   	  stock = Stock.where(product_id: ili.product_id, invoice_list_id: @invoice_list.id)
   	  if stock.present?

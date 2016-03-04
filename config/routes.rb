@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :purchase_invoice_ins
   resources :purchase_lists
   resources :users
   resources :purchase_invoices do 
@@ -12,6 +13,9 @@ InsalesApp::Application.routes.draw do
   resources :invoiceouts 
   resources :stocks
   resources :invoice_lists do
+  	collection do
+	  	get :autocomplete_company_title
+	end
   	member do
       get :print
 	end

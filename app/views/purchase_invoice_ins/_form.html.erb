@@ -1,0 +1,11 @@
+<%= simple_form_for(@purchase_invoice_in) do |f| %>
+  <%= f.error_notification %>
+
+    <%= f.input :number %>
+    <%= f.input :data %>
+    <%= f.input :purchase_list_id %>
+
+    <%= f.button :submit %>
+<% end %>
+
+

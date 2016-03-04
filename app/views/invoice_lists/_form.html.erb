@@ -16,10 +16,13 @@
 			<%= f.association :client%>
 			</div>
 			<div class="col-md-3">
-			 <%= f.association :company %>
+			 <%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoice_lists_path, input_html: { 'data-id-element' => '#invoice_list_company_id' }  %>
+			 <%= f.input :company_id, as: :hidden %>
 			 </div>
 			 <div class="col-md-3">
-			<%= f.input :companytwo, collection: Company.all%>
+			<!-- f.input :companytwo, collection: Company.all-->
+			<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoice_lists_path, input_html: { 'data-id-element' => '#invoice_list_companytwo' }  %>
+			<%= f.input :companytwo, as: :hidden %>
 			</div>
 		</div>
 	</div>

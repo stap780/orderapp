@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301095731) do
+ActiveRecord::Schema.define(version: 20160304120043) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -424,6 +424,16 @@ ActiveRecord::Schema.define(version: 20160301095731) do
   add_index "products", ["inid"], name: "index_products_on_inid"
   add_index "products", ["sku"], name: "index_products_on_sku"
   add_index "products", ["title"], name: "index_products_on_title"
+
+  create_table "purchase_invoice_ins", force: :cascade do |t|
+    t.string   "number"
+    t.datetime "data"
+    t.integer  "purchase_list_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "purchase_invoice_ins", ["number"], name: "index_purchase_invoice_ins_on_number"
 
   create_table "purchase_invoice_items", force: :cascade do |t|
     t.integer  "purchase_invoice_id"

@@ -2,7 +2,7 @@ class PurchaseListsController < ApplicationController
   
   autocomplete :product, :title, full: true,  :extra_data => [:id]
   before_action :set_purchase_list, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /purchase_lists
   # GET /purchase_lists.json
   def index
@@ -73,6 +73,6 @@ class PurchaseListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_list_params
-      params.require(:purchase_list).permit(:number, :date, :company_id, :total_price, :status, :purchase_invoicein_check,:purchase_list_items_attributes =>[:id, :product_id, :title, :quantity, :price, :sum, :_destroy])
+      params.require(:purchase_list).permit(:number, :date, :company_id, :total_price, :status, :purchase_invoicein_check,:purchase_list_items_attributes =>[:id, :product_id, :title, :quantity, :price, :sum, :_destroy],:purchase_invoice_in_attributes =>[:number, :data, :purchase_list_id, :_destroy])
     end
 end

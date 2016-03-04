@@ -32,7 +32,7 @@
             <ul class="dropdown-menu">
             <li class="<%= 'active' if current_page?(purchase_invoices_path) %>"><%= link_to 'Счёта поставщиков', controller: 'purchase_invoices', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(purchase_lists_path) %>"><%= link_to 'Накладные поставщиков', controller: 'purchase_lists', action: 'index' %></li>
-            <li>Счета-фактуры поставщиков</li>
+            <li class="<%= 'active' if current_page?(purchase_invoice_ins_path) %>"><%= link_to 'Счета-фактуры поставщиков', controller: 'purchase_invoice_ins', action: 'index' %></li>
             </ul>
             </li>
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Справочники <span class="caret"></span></a>

@@ -3,7 +3,7 @@
 
 
 <div class="col-md-12">
-	<div class="col-md-8">
+	<div class="col-md-7">
 		<div class="col-md-12">
 			<div class="col-md-3">
 			    <%= f.input :number, hint: 'Проверь номер' %>
@@ -19,13 +19,20 @@
 		</div>
 	</div>
 	
-	<div class="col-md-4">
+	<div class="col-md-5">
 	<div class="col-md-6">
-	    <!-- f.input :status, collection: [ "Новый", "В работе", "Оплачен"] -->
+	    <%= f.input :status, collection: [ "Новый", "В работе", "Оплачен"] %>
 	</div>
-	<div class="col-md-6">
-	    <!-- f.input :purchase_invoicein_check -->
+	<div class="col-md-12">
+	    <%= f.input :purchase_invoicein_check %>
 	</div>
+	<div class="col-md-12">
+	<%= f.simple_fields_for :purchase_invoice_in_attributes do |pii| %>
+	    <%= pii.input :number%>
+	    <%= pii.input :data, as: :date, order: [:day, :month, :year]  %>
+	    <% end %>
+	</div>
+	
 	</div>
 </div>
 <div class="col-md-12" style="border-top:1px solid #ddd;">
@@ -52,16 +59,17 @@
 	</div>
 	
 <div class="col-md-4" style="margin-top:20px;">
-	<div class="col-md-12">
+	<div class="col-md-6" >
+	<p>
+	<%= f.input :total_price %>
+	</p>
+	</div>
+	<div class="col-md-12" style="margin-top:20px;">
 	<%= f.button :submit, class: 'btn btn-default btn-sm' %>
 	<%= link_to 'Show', @purchase_list, class: 'btn btn-default btn-sm'  %>
 	<%= link_to 'Back', purchase_lists_path, class: 'btn btn-default btn-sm'  %>
 	</div>
-	<div class="col-md-6" style="margin-top:20px;">
-	<p>
-		<%= f.input :total_price %>
-	</p>
-	</div>
+	
 </div>
 
 </div>    
