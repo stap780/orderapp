@@ -19,10 +19,12 @@ class PurchaseListsController < ApplicationController
   # GET /purchase_lists/new
   def new
     @purchase_list = PurchaseList.new
+    @purchase_list.build_purchase_invoice_in
   end
 
   # GET /purchase_lists/1/edit
   def edit
+  @purchase_invoice_in = @purchase_list.purchase_invoice_in || @purchase_list.build_purchase_invoice_in
   end
 
   # POST /purchase_lists
@@ -44,52 +46,64 @@ class PurchaseListsController < ApplicationController
   # PATCH/PUT /purchase_lists/1
   # PATCH/PUT /purchase_lists/1.json
   def update
-    respond_to do |format|
-      if @purchase_list.update(purchase_list_params)
-      
+  @purchase_list = PurchaseList.find(params[:id])
+  	    respond_to do |format|      
+	     if @purchase_list.update(purchase_list_params) 
+
       if @purchase_list.purchase_invoicein_check == true
+      
+	      @purchase_list.purchase_list_items.each do |pli|
+	      quantity = pli["quantity"]
+	      price = pli["price"]
+	      title = pli["title"]
+	      sum = pli["sum"]
+	  	  product = Product.find_by_title("#{title}")
+	  	  prid = product["id"]
+	  	  pli.update_attributes("quantity" => quantity, "price" => price, "product_id" => prid, sum: sum )
+	      end
+      
       #добавляем в талицу stock данные из перечня товаров в накладной по позициям
-  	  @purchase_list.purchase_list_items.each do |pli| 
-  	  stock = Stock.where(product_id: pli.product_id, purchase_list_id: @purchase_list.id)
-  	  if stock.present?  #если запись в таблице stock есть, то обновляем кол-во и цену
-  	  stock.each do |stock|
-  	  stock.quantity = pli.quantity
-  	  stock.price = pli.price
-  	  stock.save
-  	  end
-  	  else
-  	  @stock = @purchase_list.stocks.create(product_id: pli.product_id, purchase_list_id: @purchase_list.id, quantity: pli.quantity, price: pli.price)
-  	  end
-      end
+	  	  @purchase_list.purchase_list_items.each do |pli| 
+		  	  stock = Stock.where(product_id: pli.product_id, purchase_list_id: @purchase_list.id)
+		  	  if stock.present?  #если запись в таблице stock есть, то обновляем кол-во и цену
+			  	  stock.each do |stock|
+			  	  stock.quantity = pli.quantity
+			  	  stock.price = pli.price
+			  	  stock.save
+			  	  end
+		  	  else
+		  	  	@stock = @purchase_list.stocks.create(product_id: pli.product_id, purchase_list_id: @purchase_list.id, quantity: pli.quantity, price: pli.price)
+		  	  end
+	      end
       
       #удаляем одну из позиций в таблице stock, если удаляется позиция в накладной
       if @purchase_list.stocks.size > @purchase_list.purchase_list_items.size
-      @purchase_list.stocks.each do |pls|
-      a = @purchase_list.purchase_list_items.where(product_id: pls.product_id)
-      if !a.present? #если запись в таблице "позиции в накладной" отсутствует, то удаляем запись в таблице stock
-      pls.destroy
+	      @purchase_list.stocks.each do |pls|
+	      a = @purchase_list.purchase_list_items.where(product_id: pls.product_id)
+		      if !a.present? #если запись в таблице "позиции в накладной" отсутствует, то удаляем запись в таблице stock
+		      pls.destroy
+		      end
+	      end
       end
-      end
-      end
-      
-      @purchase_invoice_in = @purchase_list.create_purchase_invoice_in(number: @purchase_list.number, data: @purchase_list.created_at, purchase_list_id: @purchase_list.id)
+      @purchase_list.purchase_invoice_in.save 
+      end #конец if = true
       
       
       if @purchase_list.purchase_invoicein_check == false
+      @purchase_list.purchase_invoice_in.destroy
       #удаляем позиции в таблице stock, если накладная не проведена (не стоит галка записать счет-фактуру)
 	      @purchase_list.stocks.each do |pls|
 		      pls.destroy
 	      end
 	  end
-      end
-      
-        format.html { redirect_to @purchase_list, notice: 'Purchase list was successfully updated.' }
-        format.json { render :show, status: :ok, location: @purchase_list }
-      else
-        format.html { render :edit }
-        format.json { render json: @purchase_list.errors, status: :unprocessable_entity }
-      end
-    end
+
+	        format.html { redirect_to @purchase_list, notice: 'Purchase list was successfully updated.' }
+	        format.json { render :show, status: :ok, location: @purchase_list }
+	      else
+	        format.html { render :edit }
+	        format.json { render json: @purchase_list.errors, status: :unprocessable_entity }
+	     end
+     end
   end
 
   # DELETE /purchase_lists/1
@@ -110,6 +124,6 @@ class PurchaseListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_list_params
-      params.require(:purchase_list).permit(:number, :date, :company_id, :total_price, :status, :purchase_invoicein_check,:purchase_list_items_attributes =>[:id, :product_id, :title, :quantity, :price, :sum, :_destroy],:purchase_invoice_in_attributes =>[:number, :data, :purchase_list_id, :_destroy])
+      params.require(:purchase_list).permit(:number, :date, :company_id, :total_price, :status, :purchase_invoicein_check,:purchase_list_items_attributes =>[:id, :product_id, :title, :quantity, :price, :sum, :_destroy], :purchase_invoice_in_attributes =>[:id,:number, :data, :purchase_list_id, :_destroy]) 
     end
 end

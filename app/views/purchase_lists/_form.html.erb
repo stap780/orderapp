@@ -3,7 +3,7 @@
 
 
 <div class="col-md-12">
-	<div class="col-md-7">
+	<div class="col-md-8">
 		<div class="col-md-12">
 			<div class="col-md-3">
 			    <%= f.input :number, hint: 'Проверь номер' %>
@@ -19,7 +19,7 @@
 		</div>
 	</div>
 	
-	<div class="col-md-5">
+	<div class="col-md-4">
 	<div class="col-md-6">
 	    <%= f.input :status, collection: [ "Новый", "В работе", "Оплачен"] %>
 	</div>
@@ -27,9 +27,10 @@
 	    <%= f.input :purchase_invoicein_check %>
 	</div>
 	<div class="col-md-12">
-	<%= f.simple_fields_for :purchase_invoice_in_attributes do |pii| %>
-	    <%= pii.input :number%>
-	    <%= pii.input :data, as: :date, order: [:day, :month, :year]  %>
+	<%= f.simple_fields_for :purchase_invoice_in do |pii| %>
+	<%= pii.input :id, as: :hidden %>
+	    <%= pii.input :number, input_html: { id: pii.object.id }%>
+	    <%= pii.input :data, as: :date , order: [:day, :month, :year]  %>
 	    <% end %>
 	</div>
 	

@@ -30,7 +30,7 @@
     <tr>
       <th>Number</th>
       <th>Data</th>
-      <!--th>Purchase list</th-->
+      <th>Purchase list</th>
       <th>Company</th>
       <th colspan="3"></th>
     </tr>
@@ -41,7 +41,7 @@
       <tr>
         <td><%= purchase_invoice_in.number %></td>
         <td><%= purchase_invoice_in.data.strftime("%d / %m / %Y") %></td>
-        <!--td><%= purchase_invoice_in.purchase_list_id %></td-->
+        <td><%= purchase_invoice_in.purchase_list_id %></td>
         <td><% company = Company.find_by_id(purchase_invoice_in.purchase_list.company_id) if purchase_invoice_in.purchase_list !=nil%>
 	      <%= "#{company.title}" if company !=nil%>  
         </td>
