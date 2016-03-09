@@ -46,6 +46,43 @@ class PurchaseListsController < ApplicationController
   def update
     respond_to do |format|
       if @purchase_list.update(purchase_list_params)
+      
+      if @purchase_list.purchase_invoicein_check == true
+      #добавляем в талицу stock данные из перечня товаров в накладной по позициям
+  	  @purchase_list.purchase_list_items.each do |pli| 
+  	  stock = Stock.where(product_id: pli.product_id, purchase_list_id: @purchase_list.id)
+  	  if stock.present?  #если запись в таблице stock есть, то обновляем кол-во и цену
+  	  stock.each do |stock|
+  	  stock.quantity = pli.quantity
+  	  stock.price = pli.price
+  	  stock.save
+  	  end
+  	  else
+  	  @stock = @purchase_list.stocks.create(product_id: pli.product_id, purchase_list_id: @purchase_list.id, quantity: pli.quantity, price: pli.price)
+  	  end
+      end
+      
+      #удаляем одну из позиций в таблице stock, если удаляется позиция в накладной
+      if @purchase_list.stocks.size > @purchase_list.purchase_list_items.size
+      @purchase_list.stocks.each do |pls|
+      a = @purchase_list.purchase_list_items.where(product_id: pls.product_id)
+      if !a.present? #если запись в таблице "позиции в накладной" отсутствует, то удаляем запись в таблице stock
+      pls.destroy
+      end
+      end
+      end
+      
+      @purchase_invoice_in = @purchase_list.create_purchase_invoice_in(number: @purchase_list.number, data: @purchase_list.created_at, purchase_list_id: @purchase_list.id)
+      
+      
+      if @purchase_list.purchase_invoicein_check == false
+      #удаляем позиции в таблице stock, если накладная не проведена (не стоит галка записать счет-фактуру)
+	      @purchase_list.stocks.each do |pls|
+		      pls.destroy
+	      end
+	  end
+      end
+      
         format.html { redirect_to @purchase_list, notice: 'Purchase list was successfully updated.' }
         format.json { render :show, status: :ok, location: @purchase_list }
       else

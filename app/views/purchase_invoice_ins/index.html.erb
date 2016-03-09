@@ -2,7 +2,7 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-3">
-<h1>Входящие сч-фактуры <small>сводная таблица</small></h1>
+<h1>Входящие сч-фактуры </br><small>сводная таблица</small></h1>
 		</div>
 		<div class="col-md-2">
 		</div>
@@ -42,8 +42,8 @@
         <td><%= purchase_invoice_in.number %></td>
         <td><%= purchase_invoice_in.data.strftime("%d / %m / %Y") %></td>
         <!--td><%= purchase_invoice_in.purchase_list_id %></td-->
-        <td><% company = Company.find_by_id(purchase_invoice_in.purchase_list.company_id)%>
-	      <%= "#{company.title}"%>  
+        <td><% company = Company.find_by_id(purchase_invoice_in.purchase_list.company_id) if purchase_invoice_in.purchase_list !=nil%>
+	      <%= "#{company.title}" if company !=nil%>  
         </td>
         <td><%= link_to 'Show', purchase_invoice_in, class: 'btn btn-default btn-xs' %></td>
         <td><%= link_to 'Edit', edit_purchase_invoice_in_path(purchase_invoice_in), class: 'btn btn-success btn-xs'  %></td>

@@ -5,7 +5,8 @@ InsalesApp::Application.routes.draw do
   resources :purchase_lists
   resources :users
   resources :purchase_invoices do 
-    collection do 
+    collection do
+    get :autocomplete_company_title	 
       get :autocomplete_product_title
     end
   end
@@ -21,6 +22,9 @@ InsalesApp::Application.routes.draw do
 	end
 	end
   resources :invoices do
+  collection do
+	  	get :autocomplete_company_title
+	end
   	member do
       get :print
 	end

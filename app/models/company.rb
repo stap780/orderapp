@@ -12,6 +12,8 @@ accepts_nested_attributes_for :clients
 
 validates :inn, uniqueness: true
 
+	
+
 
 	# def self.getcompany(params)
 # 	searchinn = params["inn"]

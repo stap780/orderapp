@@ -11,6 +11,6 @@ accepts_nested_attributes_for :invoice_items, reject_if: proc { |attributes| att
 
 validates  :number, uniqueness: true
 
-
+delegate :title, to: :company, prefix: true, allow_nil: true
 
 end

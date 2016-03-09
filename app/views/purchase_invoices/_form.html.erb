@@ -12,8 +12,9 @@
 		</div>
 		<div class="col-md-12">
 			<div class="col-md-3">
-			<%= f.association :company%>
-			</div>
+			 <%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_purchase_invoices_path, input_html: { 'data-id-element' => '#purchase_invoice_company_id' }  %>
+			 <%= f.input :company_id, as: :hidden %>
+			 </div>
 		</div>
 	</div>
 	

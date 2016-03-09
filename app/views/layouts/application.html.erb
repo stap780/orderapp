@@ -42,7 +42,7 @@
             <li class="<%= 'active' if current_page?(companies_path) %>"><%= link_to 'Компании', controller: 'companies', action: 'index' %></li>
             </ul>
             </li>
-            <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Поставщики <span class="caret"></span></a>
+            <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Склады <span class="caret"></span></a>
             	<ul class="dropdown-menu">
             	<li class="<%= 'active' if current_page?(ipmatikas_path) %>"><%= link_to 'Ipmatika', controller: 'ipmatikas', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(homyproducts_path) %>"><%= link_to 'Премьер', controller: 'homyproducts', action: 'index' %></li>
@@ -55,7 +55,7 @@
             	<li class="<%= 'active' if current_page?(sskoms_path) %>"><%= link_to 'Сском', controller: 'sskoms', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(citilinks_path) %>"><%= link_to 'Ситилинк', controller: 'citilinks', action: 'index' %></li>
             	<li role="separator" class="divider"></li>
-            	<li><%= link_to 'Все поставщики', controller: 'vendors', action: 'index' %></li>
+            	<li><%= link_to 'Сводная склады', controller: 'vendors', action: 'index' %></li>
           		</ul>
             </li>
             <li class="dropdown <%= 'active' if current_page?(mycouriers_path) %>"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Доставка<span class="caret"></span></a>
@@ -96,15 +96,7 @@
             <%= @links %>
         </div>
         <% end %>
-        
-        
-        <!--  -->
 
-        
-        <!--  -->
-        
-        
-        
         <%= flash_messages %>
         
         <%= yield %>

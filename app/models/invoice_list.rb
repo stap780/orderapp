@@ -13,6 +13,6 @@ accepts_nested_attributes_for :invoice_list_items, reject_if: proc { |attributes
 
 validates  :number, uniqueness: true
 
-delegate :title, to: :company, prefix: true
+delegate :title, to: :company, prefix: true, allow_nil: true
 
 end

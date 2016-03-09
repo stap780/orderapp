@@ -1,8 +1,15 @@
 class PurchaseInvoicesController < ApplicationController
 
-	autocomplete :product, :title, full: true,  :extra_data => [:id]
   before_action :set_purchase_invoice, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize
+  autocomplete :product, :title, full: true,  :extra_data => [:id]
+  autocomplete :company, :title, full: true,  :extra_data => [:inn]
+    
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
   # GET /purchase_invoices
   # GET /purchase_invoices.json
   def index

@@ -1,6 +1,14 @@
 class InvoicesController < ApplicationController
+  
   before_action :set_invoice, only: [:show, :print, :edit, :update, :destroy]
-
+  before_action :authorize
+  autocomplete :company, :title, full: true	
+  
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
   # GET /invoices
   # GET /invoices.json
   def index

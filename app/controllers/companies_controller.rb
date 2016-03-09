@@ -50,7 +50,6 @@ class CompaniesController < ApplicationController
   
   def getcompany 
     #@company = Company.getcompany(params)
-    #flash[:notice] = 'Orders was successfully downloaded'
 
   end
 

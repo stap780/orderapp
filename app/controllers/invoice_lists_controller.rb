@@ -98,7 +98,7 @@ class InvoiceListsController < ApplicationController
   	  end
       end
       
-      #удаляем одну из позиций в таблице stock
+      #удаляем одну из позиций в таблице stock, если удаляется позиция в накладной
       if @invoice_list.stocks.size > @invoice_list.invoice_list_items.size
       @invoice_list.stocks.each do |ils|
       a = @invoice_list.invoice_list_items.where(product_id: ils.product_id)
@@ -113,11 +113,16 @@ class InvoiceListsController < ApplicationController
       @invoiceout = @invoice_list.create_invoiceout(number: @invoice_list.number, date: @invoice_list.updated_at, company_id: @invoice_list.company_id, invoice_list_id: @invoice_list.id, total_price: @invoice_list.total_price.to_f.round(2), nds: "#{nds}".to_f.round(2))
       
       else
+      
       if @invoice_list.invoiceout_check == false
       @invoiceout = Invoiceout.find_by_number(@invoice_list.number)
-      if @invoiceout.present?
-      @invoiceout.destroy
-      end
+	      if @invoiceout.present?
+	      @invoiceout.destroy
+	      end
+      #удаляем одну из позиций в таблице stock, если накладная не проведена
+		@invoice_list.stocks.each do |ils|
+			ils.destroy
+		end
       end
       end
       
