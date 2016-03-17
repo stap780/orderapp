@@ -1,6 +1,11 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :stores do
+  	collection do
+  		get :autocomplete_product_title
+  	end
+  end
   resources :purchase_invoice_ins
   resources :purchase_lists
   resources :users
@@ -8,6 +13,7 @@ InsalesApp::Application.routes.draw do
     collection do
     get :autocomplete_company_title	 
       get :autocomplete_product_title
+      get :new_release
     end
   end
 
@@ -71,6 +77,7 @@ InsalesApp::Application.routes.draw do
       get :updateiml  
     end
   end
+  match 'json_work', to: 'imls#json_work', via: [:options, :get, :post]
    
   resources :mycouriers
   

@@ -11,7 +11,7 @@ require 'json'
 
 
 	def self.updateiml
-	@imls = Iml.order("number desc").limit(10)
+	@imls = Iml.order("number desc").limit(15)
 	@imls.each do |iml|
 	response = RestClient.post "http://03584:uK8$o$iC@api.iml.ru/json/GetStatuses", { 'CustomerOrder' => "#{(iml.number)}" }.to_json, :content_type => :json, :accept => :json
 

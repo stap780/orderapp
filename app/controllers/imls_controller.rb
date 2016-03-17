@@ -3,7 +3,6 @@ class ImlsController < ApplicationController
 
   # GET /imls
   def index
-    
      @search = Iml.ransack(params[:q]) #используется gem ransack для поиска и сортировки
      @search.sorts = 'number desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
      @imls = @search.result.paginate(page: params[:page], per_page: 30) 
@@ -11,6 +10,13 @@ class ImlsController < ApplicationController
 
   # GET /imls/1
   def show
+  end
+  
+  def json_work
+  @imls = Iml.all
+  imls = @imls.to_json
+  render :json => imls, :callback => params[:callback]
+  
   end
 
   # GET /imls/new

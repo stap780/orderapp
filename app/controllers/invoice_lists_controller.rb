@@ -98,6 +98,28 @@ class InvoiceListsController < ApplicationController
   	  end
       end
       
+      #работаем с stock и записываем в позиции айди позиции нашего склада(store)
+		@invoice_list.invoice_list_items.each do |ili|
+		store = Store.find_by_title(ili.title)
+		if store.present?
+		stock = Stock.where(product_id: ili.product_id)
+		stock.each do |stock|
+		stock.store_id = store.id
+		stock.save
+		end
+		else
+		store = Store.create(title: ili.title)
+		stock = Stock.where(product_id: ili.product_id)
+		stock.each do |stock|
+		stock.store_id = store.id
+		stock.save
+		stock.product.store_id = store.id
+		stock.product.save
+		end
+		end
+		end
+      
+      
       #удаляем одну из позиций в таблице stock, если удаляется позиция в накладной
       if @invoice_list.stocks.size > @invoice_list.invoice_list_items.size
       @invoice_list.stocks.each do |ils|

@@ -28,7 +28,7 @@
 	</div>
 	<div class="col-md-12">
 	<%= f.simple_fields_for :purchase_invoice_in do |pii| %>
-	<%= pii.input :id, as: :hidden %>
+		<%= pii.input :id, as: :hidden %>
 	    <%= pii.input :number, input_html: { id: pii.object.id }%>
 	    <%= pii.input :data, as: :date , order: [:day, :month, :year]  %>
 	    <% end %>

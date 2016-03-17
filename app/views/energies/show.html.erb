@@ -9,6 +9,10 @@
   <strong>Title:</strong>
   <%= @energy.title %>
 </p>
+<p>
+  <strong>Short Desc:</strong>
+  <%= @energy.short_description %>
+</p>
 
 <p>
   <strong>Quantity:</strong>
@@ -24,6 +28,22 @@
   <strong>Price:</strong>
   <%= @energy.price %>
 </p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @energy.description %>
+</p>
+
+<p>
+  <strong>Image Insales url:</strong>
+  <%= link_to @energy.image_url, @energy.image_url, :target => "_blank" %>
+</p>
+<p>
+<%b = @energy.sku.gsub(/\W/,'-')%>
+<%= image_tag("et_img/#{b}.jpg", :size => "100x100", :alt => "Picture", :width => '100', :height =>'100') %> 
+</p>
+
+
 
 <%= link_to 'Edit', edit_energy_path(@energy) %> |
 <%= link_to 'Back', energies_path %>

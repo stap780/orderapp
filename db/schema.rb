@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304120043) do
+ActiveRecord::Schema.define(version: 20160314064740) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -146,10 +146,13 @@ ActiveRecord::Schema.define(version: 20160304120043) do
     t.string   "sku"
     t.string   "title"
     t.integer  "quantity"
-    t.decimal  "cost_price", precision: 8, scale: 2
-    t.decimal  "price",      precision: 8, scale: 2
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.decimal  "cost_price",        precision: 8, scale: 2
+    t.decimal  "price",             precision: 8, scale: 2
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.string   "short_description"
+    t.string   "description"
+    t.string   "image_url"
   end
 
   add_index "energies", ["sku"], name: "index_energies_on_sku"
@@ -418,6 +421,7 @@ ActiveRecord::Schema.define(version: 20160304120043) do
     t.integer  "sskom_id"
     t.integer  "treolan_id"
     t.integer  "citilink_id"
+    t.integer  "store_id"
   end
 
   add_index "products", ["category_id"], name: "index_products_on_category_id"
@@ -529,6 +533,15 @@ ActiveRecord::Schema.define(version: 20160304120043) do
     t.decimal  "price",            precision: 8, scale: 2
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.integer  "store_id"
+  end
+
+  create_table "stores", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "quantity"
+    t.decimal  "price",      precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "treolans", force: :cascade do |t|

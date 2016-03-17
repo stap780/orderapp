@@ -13,6 +13,10 @@
 //= require bootstrap
 //= require_tree .
 
+setTimeout(function() {
+    $('#flash_messages').fadeOut('slow');
+}, 2900); 
+
 
  
  

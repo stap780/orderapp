@@ -109,3 +109,17 @@
   </body>
   </html>
 
+_____________________
+<script>
+$(document).ready(function(){
+$.ajax ({
+  url: "http://188.166.111.118:3000/json_work?callback=?",
+  type: "application/javascript",
+  dataType: 'jsonp',
+	type: 'POST',
+	success: function(data) {
+  console.log(data);}
+});
+});
+</script>
+_____________________

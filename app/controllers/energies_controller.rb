@@ -73,6 +73,6 @@ class EnergiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def energy_params
-      params.require(:energy).permit(:sku, :title, :quantity, :cost_price, :price)
+      params.require(:energy).permit(:sku, :title, :quantity, :cost_price, :price, :short_description , :description , :image_url )
     end
 end

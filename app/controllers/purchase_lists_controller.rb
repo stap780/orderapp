@@ -2,7 +2,14 @@ class PurchaseListsController < ApplicationController
   
   autocomplete :product, :title, full: true,  :extra_data => [:id]
   before_action :set_purchase_list, only: [:show, :edit, :update, :destroy]
+  before_action :authorize
   
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
+ 
   # GET /purchase_lists
   # GET /purchase_lists.json
   def index
@@ -52,30 +59,51 @@ class PurchaseListsController < ApplicationController
 
       if @purchase_list.purchase_invoicein_check == true
       
-	      @purchase_list.purchase_list_items.each do |pli|
-	      quantity = pli["quantity"]
-	      price = pli["price"]
-	      title = pli["title"]
-	      sum = pli["sum"]
-	  	  product = Product.find_by_title("#{title}")
-	  	  prid = product["id"]
-	  	  pli.update_attributes("quantity" => quantity, "price" => price, "product_id" => prid, sum: sum )
-	      end
+		@purchase_list.purchase_list_items.each do |pli|
+		quantity = pli["quantity"]
+		price = pli["price"]
+		title = pli["title"]
+		sum = pli["sum"]
+		product = Product.find_by_title("#{title}")
+		prid = product["id"]
+		pli.update_attributes("quantity" => quantity, "price" => price, "product_id" => prid, sum: sum )
+		end
       
       #добавляем в талицу stock данные из перечня товаров в накладной по позициям
-	  	  @purchase_list.purchase_list_items.each do |pli| 
-		  	  stock = Stock.where(product_id: pli.product_id, purchase_list_id: @purchase_list.id)
-		  	  if stock.present?  #если запись в таблице stock есть, то обновляем кол-во и цену
-			  	  stock.each do |stock|
-			  	  stock.quantity = pli.quantity
-			  	  stock.price = pli.price
-			  	  stock.save
-			  	  end
-		  	  else
-		  	  	@stock = @purchase_list.stocks.create(product_id: pli.product_id, purchase_list_id: @purchase_list.id, quantity: pli.quantity, price: pli.price)
-		  	  end
-	      end
-      
+		@purchase_list.purchase_list_items.each do |pli| 
+		stock = Stock.where(product_id: pli.product_id, purchase_list_id: @purchase_list.id)
+			if stock.present?  #если запись в таблице stock есть, то обновляем кол-во и цену
+				stock.each do |stock|
+				stock.quantity = pli.quantity
+				stock.price = pli.price
+				stock.save
+				end
+			
+			else
+				@stock = @purchase_list.stocks.create(product_id: pli.product_id, purchase_list_id: @purchase_list.id, quantity: pli.quantity, price: pli.price)
+			end
+	    end
+	    
+	    #работаем с stock и записываем в позиции айди позиции нашего склада(store)
+		@purchase_list.purchase_list_items.each do |pli|
+		store = Store.find_by_title(pli.title)
+		if store.present?
+		stock = Stock.where(product_id: pli.product_id)
+		stock.each do |stock|
+		stock.store_id = store.id
+		stock.save
+		end
+		else
+		store = Store.create(title: pli.title)
+		stock = Stock.where(product_id: pli.product_id)
+		stock.each do |stock|
+		stock.store_id = store.id
+		stock.save
+		stock.product.store_id = store.id
+		stock.product.save
+		end
+		end
+		end
       #удаляем одну из позиций в таблице stock, если удаляется позиция в накладной
       if @purchase_list.stocks.size > @purchase_list.purchase_list_items.size
 	      @purchase_list.stocks.each do |pls|
@@ -85,7 +113,8 @@ class PurchaseListsController < ApplicationController
 		      end
 	      end
       end
-      @purchase_list.purchase_invoice_in.save 
+      
+      @purchase_list.purchase_invoice_in.save # это конец от объявления действия build в методе edit
       end #конец if = true
       
       
@@ -109,6 +138,10 @@ class PurchaseListsController < ApplicationController
   # DELETE /purchase_lists/1
   # DELETE /purchase_lists/1.json
   def destroy
+  #@purchase_list.purchase_invoice_in.destroy
+  @purchase_list.stocks.each do |stock|
+  stock.destroy
+  end
     @purchase_list.destroy
     respond_to do |format|
       format.html { redirect_to purchase_lists_url, notice: 'Purchase list was successfully destroyed.' }

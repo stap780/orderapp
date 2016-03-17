@@ -3,7 +3,7 @@ class PurchaseInvoicesController < ApplicationController
   before_action :set_purchase_invoice, only: [:show, :edit, :update, :destroy]
   before_action :authorize
   autocomplete :product, :title, full: true,  :extra_data => [:id]
-  autocomplete :company, :title, full: true,  :extra_data => [:inn]
+  autocomplete :company, :title, full: true,  :extra_data => [:inn], :case_sensitive => true
     
   def authorize
     if current_user.nil?
@@ -21,15 +21,35 @@ class PurchaseInvoicesController < ApplicationController
   # GET /purchase_invoices/1
   # GET /purchase_invoices/1.json
   def show
+  respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /purchase_invoices/new
   def new
     @purchase_invoice = PurchaseInvoice.new
+    respond_to do |format|
+      format.html 
+      format.js
+    end
+  end
+
+  def new_release
+  @purchase_invoice = PurchaseInvoice.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /purchase_invoices/1/edit
   def edit
+  respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /purchase_invoices
@@ -38,7 +58,7 @@ class PurchaseInvoicesController < ApplicationController
     @purchase_invoice = PurchaseInvoice.new(purchase_invoice_params)
     if @purchase_invoice.save
     
-      redirect_to @purchase_invoice, notice: 'purchase_invoice was successfully created.'
+     redirect_to purchase_invoices_url, notice: 'purchase_invoice was successfully created.'
     else
       render :new
     end
@@ -70,7 +90,7 @@ class PurchaseInvoicesController < ApplicationController
       @purchase_list_item = PurchaseListItem.create("title" => "#{pii.title}", "quantity" => "#{pii.quantity}", "product_id" => "#{pii.product_id}", "price" => "#{pii.price}", "sum" => "#{pii.sum}", purchase_list_id: @purchase_list.id)
       end
       end
-        format.html { redirect_to @purchase_invoice, notice: 'Purchase invoice was successfully updated.' }
+        format.html { redirect_to purchase_invoices_url, notice: 'Purchase invoice was successfully updated.' }
         format.json { render :show, status: :ok, location: @purchase_invoice }
       else
         format.html { render :edit }

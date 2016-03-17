@@ -35,7 +35,7 @@ class DpdsController < ApplicationController
   
   def updatedpd
     @dpd = Dpd.updatedpd
-    flash[:notice] = 'Orders was successfully updated'
+    flash[:notice] = 'Dpd was successfully updated'
     redirect_to dpds_path
   end
 

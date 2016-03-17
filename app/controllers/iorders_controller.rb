@@ -18,15 +18,17 @@ class IordersController < ApplicationController
   def index
      @search = Iorder.ransack(params[:q]) #используется gem ransack для поиска и сортировки
      @search.sorts = 'number desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
-     @iorders = @search.result.paginate(page: params[:page], per_page: 30)   
+     @iorders = @search.result.paginate(page: params[:page], per_page: 30)
   end
 
   # GET /iorders/1
   def show
+  json = { :success => true }.to_json
     respond_to do |format|
     format.html # show.html.erb
     format.xml  { render :xml => @iorder }
     format.json  { render :json => @iorder }
+    format.js { render :json => json, :callback => params[:callback] }
     end
   end
   

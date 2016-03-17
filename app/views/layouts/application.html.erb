@@ -18,7 +18,7 @@
      <nav class="navbar navbar-default">
   		<div class="container-fluid" style="float:left;">
     		<ul class="nav nav-pills">
-            <li class="<%= 'active' if current_page?(home_path) %>"><%= link_to image_tag('home_inactive_icon.png', :title => 'Вернуться в магазин', :alt => 'Вернуться в магазин'), home_path %></li>
+            <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to image_tag('home_inactive_icon.png', :title => 'Вернуться в магазин', :alt => 'Вернуться в магазин'), root_path %></li>
             <!--li class="<%= 'active' if current_page?(root_path) %>"><%= link_to app_name, root_path %></li-->
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Продажи <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -42,7 +42,8 @@
             <li class="<%= 'active' if current_page?(companies_path) %>"><%= link_to 'Компании', controller: 'companies', action: 'index' %></li>
             </ul>
             </li>
-            <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Склады <span class="caret"></span></a>
+            <li role="presentation" class="dropdown"><%= link_to 'Склад', stores_path, class: "dropdown-toggle" %></li>
+            <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Поставщики<span class="caret"></span></a>
             	<ul class="dropdown-menu">
             	<li class="<%= 'active' if current_page?(ipmatikas_path) %>"><%= link_to 'Ipmatika', controller: 'ipmatikas', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(homyproducts_path) %>"><%= link_to 'Премьер', controller: 'homyproducts', action: 'index' %></li>
@@ -68,7 +69,13 @@
             	<li><%= link_to 'Вся доставка', controller: 'mycouriers', action: 'index' %></li>	
             </ul>
             </li>	        
-            <li><a href="#">Link</a></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Банк<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li><a href="#">Входящие ПП</a></li>
+            <li><a href="#">Исходящие ПП</a></li>
+            </ul>
+            </li>
+            <li><a href="#">Задачи</a></li>
 			
           </ul>
   		</div>

@@ -3,9 +3,9 @@ class InvoiceList < ActiveRecord::Base
 belongs_to :client
 belongs_to :company
 belongs_to :invoice
-has_many   :stocks
+has_many   :stocks, dependent: :destroy
 
-has_one    :invoiceout
+has_one    :invoiceout, dependent: :destroy
 
 has_many   :invoice_list_items
 has_many   :products, :through => :invoice_list_items

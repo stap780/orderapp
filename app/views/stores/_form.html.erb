@@ -1,0 +1,14 @@
+<%= simple_form_for(@store) do |f| %>
+  <%= f.error_notification %>
+  
+<div class="col-md-12">
+	<div class="col-md-8">
+    <%= f.input :title, as: :autocomplete, url: autocomplete_product_title_stores_path, label: false%>
+    <%= f.input :quantity %>
+    <%= f.input :price %>
+  </div>
+</div>
+  <div class="col-md-12">
+    <%= f.button :submit %>
+  </div>
+<% end %>

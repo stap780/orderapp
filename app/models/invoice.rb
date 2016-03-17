@@ -3,7 +3,7 @@ class Invoice < ActiveRecord::Base
 belongs_to :client
 belongs_to :company
 belongs_to :iorder
-has_many   :invoice_lists
+has_many   :invoice_lists, dependent: :destroy
 
 has_many   :invoice_items
 has_many   :products, :through => :invoice_items

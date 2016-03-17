@@ -6,7 +6,6 @@ class Dpd < ActiveRecord::Base
 	
 	require 'savon'
 	
-	
 	def self.updatedpd
 	@dpds = Dpd.order("numer")
 	@dpds.each do |dpd|
@@ -17,12 +16,14 @@ class Dpd < ActiveRecord::Base
 	
 	data = response.body
 	
-	states = data[:get_states_by_client_order_response][ :return][:states].to_a
+	mystates = data[:get_states_by_client_order_response][ :return][:states]
+	states = mystates.last
 	
-	dpd.dpdnumber = states[0][:dpd_order_nr]
-	dpd.pickupdate = states[0][:pickup_date]
-	dpd.plandeliverytime = states[0][:plan_delivery_date]
-	dpd.state = states.last[:new_state]
+	dpd.dpdnumber = states[:dpd_order_nr]
+	dpd.pickupdate = states[:pickup_date]
+	dpd.plandeliverytime = states[:plan_delivery_date]
+	dpd.state = states[:new_state]
+		
 	dpd.save
 	end	
 	end

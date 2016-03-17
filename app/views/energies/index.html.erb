@@ -40,12 +40,15 @@
 <table class="table table-hover">
   <thead>
     <tr>
-    <th>ID</th>
+    <th><%= sort_link(@search, :id, "ID")%></th>
       <th>Sku</th>
       <th>Title</th>
+      <th>Short desc</th>
       <th>Quantity</th>
       <th>Cost price</th>
       <th>Price</th>
+      <!--<th>Desc</th>
+      <th>Image url</th>-->
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -56,9 +59,12 @@
       <td><%= energy.id %></td>
         <td><%= energy.sku %></td>
         <td><%= energy.title %></td>
+        <td><%= energy.short_description %></td>
         <td><%= energy.quantity %></td>
         <td><%= energy.cost_price %></td>
         <td><%= energy.price %></td>
+        <!--<td><%= energy.description %></td>
+        <td><%= energy.image_url %></td>-->
         <td><%= link_to 'Show', energy, class: 'btn btn-default btn-sm' %></td>
         <td><%= link_to 'Edit', edit_energy_path(energy), class: 'btn btn-success btn-sm' %></td>
         <td><%= link_to 'Destroy', energy, method: :delete,class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } %></td>

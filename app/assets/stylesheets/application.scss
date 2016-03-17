@@ -34,7 +34,37 @@ height: 4em;
 .links tr .form-group {margin: 10px;}
 .links tr .form-control {display: block;}
 
-/*input[type="submit"] {
-	background-color: transparent;
-    border: 0px;
-}*/
+a:hover {
+  color: black;
+  /*background-color: #000;*/
+}
+
+#notice {
+    display: none;
+}
+
+ul.ui-autocomplete {
+	position:absolute;
+	list-style: none;
+	margin:0;
+	padding:0;
+	border: solid 1px #999;
+	cursor: default;
+	z-index: 1500;
+	li {
+		background-color: #fff;
+		border-top: solid 1px #DDD;
+		margin:0;
+		padding:0;
+		a{
+			color: #000;
+			display:block;
+			padding: 3px;
+		}
+		a.ui-state-hover, a.ui-state-active{
+			background-color: #FFFCB2;
+		}
+	}
+	
+}
+

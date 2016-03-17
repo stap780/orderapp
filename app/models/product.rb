@@ -11,6 +11,7 @@ class Product < ActiveRecord::Base
   belongs_to :sskom
   belongs_to :treolan
   belongs_to :citilink
+  belongs_to :store
   
   has_many :line_items
   has_many :iorders, :through => :line_items
