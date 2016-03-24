@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  loss_id: 1
+  enter_id: 1
+  product_id: 1
+  quantity: 1
+  title: MyString
+  price: 9.99
+  sum: 9.99
+
+two:
+  loss_id: 1
+  enter_id: 1
+  product_id: 1
+  quantity: 1
+  title: MyString
+  price: 9.99
+  sum: 9.99

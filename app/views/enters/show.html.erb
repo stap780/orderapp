@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @enter.number %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @enter.date %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @enter.description %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @enter.total %>
+</p>
+
+<%= link_to 'Edit', edit_enter_path(@enter) %> |
+<%= link_to 'Back', enters_path %>

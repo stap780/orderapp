@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314064740) do
+ActiveRecord::Schema.define(version: 20160317150219) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -157,6 +157,17 @@ ActiveRecord::Schema.define(version: 20160314064740) do
 
   add_index "energies", ["sku"], name: "index_energies_on_sku"
   add_index "energies", ["title"], name: "index_energies_on_title"
+
+  create_table "enters", force: :cascade do |t|
+    t.integer  "number"
+    t.datetime "date"
+    t.string   "description"
+    t.decimal  "total",       precision: 8, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "enters", ["number"], name: "index_enters_on_number"
 
   create_table "ets", force: :cascade do |t|
     t.string   "sku"
@@ -359,6 +370,17 @@ ActiveRecord::Schema.define(version: 20160314064740) do
     t.integer  "invoice_id"
   end
 
+  create_table "losses", force: :cascade do |t|
+    t.integer  "number"
+    t.datetime "date"
+    t.string   "description"
+    t.decimal  "total",       precision: 8, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "losses", ["number"], name: "index_losses_on_number"
+
   create_table "mycouriers", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -534,6 +556,20 @@ ActiveRecord::Schema.define(version: 20160314064740) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.integer  "store_id"
+    t.integer  "loss_id"
+    t.integer  "enter_id"
+  end
+
+  create_table "store_items", force: :cascade do |t|
+    t.integer  "loss_id"
+    t.integer  "enter_id"
+    t.integer  "product_id"
+    t.integer  "quantity"
+    t.string   "title"
+    t.decimal  "price",      precision: 8, scale: 2
+    t.decimal  "sum",        precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "stores", force: :cascade do |t|

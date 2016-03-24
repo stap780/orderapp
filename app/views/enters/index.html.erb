@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-3">
+<h1>Оприходование (Enters)</h1>
+</div>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-7">
+		</div>
+		<div class="col-md-12">
+		<div class="col-md-5">
+		<p><%=link_to 'Новое', new_enter_path %></p>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="media">
+	  <div class="media-body">
+		<table class="table table-hover">
+  <thead>
+      <tr>
+      <th>Number</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Total</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @enters.each do |enter| %>
+      <tr>
+        <td><%= enter.number %></td>
+        <td><%= enter.date.strftime("%d / %m / %Y") %></td>
+        <td><%= enter.description %></td>
+        <td><%= enter.total %></td>
+        <td><%= link_to 'Show', enter, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_enter_path(enter), class: 'btn btn-success btn-xs'  %></td>
+        <td><%= link_to 'Destroy', enter, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+	</div>
+</div>
+
+
+</div>

@@ -8,13 +8,12 @@
 		<p>Всего товаров - <%= @totalproducts %> (c SKU - <%=@totalproductssku%>) </p>
 		<p>Всего остаток = и > 0 - <%=@zeroquantity%> (<%=@qnotzero%>)</p>
 		
-		<p>Download: <%= link_to "CSV", products_path(format: "csv") %></p>
 		</div>
 		<div class="col-md-7"><p>Поиск</p>
 		<%= search_form_for @search do |f|%>
 		<div classs = "search">
   		<%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :sku_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= f.search_field :sku_cont %>
  
   		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
   		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
@@ -24,7 +23,7 @@
 		</div>
 	<div class="col-md-12">
 		<div class="col-md-8">
-<p>| <%= link_to 'Загрузить', downloadproduct_products_path%> | <%= link_to 'Обновить', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во', checkquantity_products_path%>  |<!-- <%= link_to 'Synchronize quantity', synchronize_products_path%> | --></p> 
+<p>| <%= link_to 'Загрузить', downloadproduct_products_path%> | <%= link_to 'Обновить', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во', checkquantity_products_path%>  | Download: <%= link_to "CSV", products_path(format: "csv") %> |<!-- <%= link_to 'Synchronize quantity', synchronize_products_path%> | --></p> 
  <!--| <%= link_to 'New Product', new_product_path  %> --></p>
 		</div>
 	</div>

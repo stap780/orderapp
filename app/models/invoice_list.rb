@@ -7,7 +7,7 @@ has_many   :stocks, dependent: :destroy
 
 has_one    :invoiceout, dependent: :destroy
 
-has_many   :invoice_list_items
+has_many   :invoice_list_items, dependent: :destroy
 has_many   :products, :through => :invoice_list_items
 accepts_nested_attributes_for :invoice_list_items, reject_if: proc { |attributes| attributes['title'].blank? }, allow_destroy: true 
 

@@ -4,9 +4,9 @@ class IordersController < ApplicationController
     require 'rest_client'
     
     
-    autocomplete :product, :title, full: true 
 	before_action :set_iorder, only: [:show, :print, :edit, :update, :destroy]
 	before_action :authorize
+	autocomplete :product, :title, full: true 
 	
   def authorize
     if current_user.nil?
@@ -23,12 +23,11 @@ class IordersController < ApplicationController
 
   # GET /iorders/1
   def show
-  json = { :success => true }.to_json
     respond_to do |format|
     format.html # show.html.erb
     format.xml  { render :xml => @iorder }
     format.json  { render :json => @iorder }
-    format.js { render :json => json, :callback => params[:callback] }
+    format.js
     end
   end
   
@@ -81,6 +80,8 @@ class IordersController < ApplicationController
   # PATCH/PUT /iorders/1
   def update
   	@iorder = Iorder.find(params[:id])
+  	
+  	respond_to do |format|
     if @iorder.update(iorder_params)
     
     @iorder.line_items.each do |li|
@@ -96,7 +97,7 @@ class IordersController < ApplicationController
   	
   	# создаем счет и записывыем id счета в позиции относящиеся к заказу
      if @iorder.invoice_check == true   
-     @invoice = @iorder.create_invoice(number: @iorder.number, date: @iorder.updated_at, client_id: @iorder.client_id, discount: @iorder.discount_percent, iorder_id: @iorder.id, company_id: 59)
+     @invoice = @iorder.create_invoice(number: @iorder.number, date: @iorder.updated_at, client_id: @iorder.client_id, discount: @iorder.discount_percent, iorder_id: @iorder.id, total_price: @iorder.total_price )#, company_id: 59)
      # @iorder.line_items.each do |li| 
      # if !li.invoice_id.present?
      # li.invoice_id = @invoice.id
@@ -104,9 +105,9 @@ class IordersController < ApplicationController
      # end
      #end
      #создаем позиции к счету в таблице позиции-счета
-     @iorder.line_items.each do |li| #создаём позиции в счете
+     @iorder.line_items.each do |li| 
      @invoice_item = InvoiceItem.create("title" => "#{li.title}", "quantity" => "#{li.quantity}", "product_id" => "#{li.product_id}", "price" => "#{li.price}", "sum" => "#{li.sum}", invoice_id: @invoice.id)
-     end 
+     end
      end
 
      # Создание записи по курьерке
@@ -140,14 +141,17 @@ class IordersController < ApplicationController
      end
       #_______________________ 
      
-     
-     
-    redirect_to @iorder, notice: 'Order was successfully updated.'
-   
-    else
-      render :edit
+     if @iorder.invoice_check == false
+      @iorder.invoice.destroy if @iorder.invoice !=nil
+     end
+     format.html { redirect_to @iorder, notice: 'Order was successfully updated.' }
+        format.json { render :show, status: :ok, location: @iorder }
+        
+      else
+        format.html { render :edit }
+        format.json { render json: @iorder.errors, status: :unprocessable_entity }
+      end
     end
-    
   end
 
   # DELETE /iorders/1

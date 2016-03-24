@@ -20,8 +20,7 @@
 			 <%= f.input :company_id, as: :hidden %>
 			 </div>
 			 <div class="col-md-3">
-			<!-- f.input :companytwo, collection: Company.all-->
-			<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoice_lists_path, input_html: { 'data-id-element' => '#invoice_list_companytwo' }  %>
+			<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoice_lists_path, input_html: { 'data-id-element' => '#invoice_list_companytwo' }, label: "Грузополучатель"  %>
 			<%= f.input :companytwo, as: :hidden %>
 			</div>
 		</div>
@@ -38,7 +37,7 @@
 
 <div class="col-md-12" style="border-top:1px solid #ddd;">
 		<div class="col-md-8" style="margin-top:20px;">
-		<table class="table table-hover">
+		<table class="table table-hover" id="invoice_list_items">
 		  <thead>
 		    <tr>
 		      <th>Title</th>
@@ -48,16 +47,14 @@
 		      <th></th>
 		    </tr>
 		  </thead>
-		  <tbody>
 			<%= f.simple_fields_for :invoice_list_items do |invoice_list_item| %>
 			<%= render 'invoice_list_item_fields', :f => invoice_list_item %>
 			<% end %>
 		   
-		  </tbody>
 		</table>	
 		
 		<div class='links', style="float:left;">
-		<%= link_to_add_association 'add line', f, :invoice_list_items, 'data-association-insertion-method' => "prepend"%>
+		<%= link_to_add_association 'add line', f, :invoice_list_items, 'data-association-insertion-node' => "#invoice_list_items", 'data-association-insertion-method' => "append"%>
 		</div>
 	</div>
 	

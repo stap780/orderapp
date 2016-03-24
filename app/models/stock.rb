@@ -5,6 +5,8 @@ class Stock < ActiveRecord::Base
 	belongs_to :invoice_list
 	belongs_to :purchase_list
 	belongs_to :store
+	belongs_to :loss
+	belongs_to :enter
 
 
 end

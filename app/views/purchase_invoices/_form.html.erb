@@ -50,7 +50,7 @@
 			<% end %>
 		</table>
 			<div class='links', style="float:left;">
-			<%= link_to_add_association 'add line', f, :purchase_invoice_items, 'data-association-insertion-method' => "prepend"%>
+			<%= link_to_add_association 'add line', f, :purchase_invoice_items, 'data-association-insertion-node' => "#purchase_invoice_items", 'data-association-insertion-method' => "append" %>
 			</div>
 		
 	</div>

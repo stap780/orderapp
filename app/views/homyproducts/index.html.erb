@@ -2,7 +2,7 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-2">
-			<h1>Премьер <small>сводная таблица</small></h1>
+			<h1>Премьер<br><small>сводная таблица</small></h1>
 			<p>Всего товаров - <%= @totalproducts %></p>
 			<p>Товаров >0  - <%= @homynotzero%></p>
 		</div>
@@ -17,7 +17,7 @@
 		<%= search_form_for @search do |f|%>
   		<div classs = "search">
   		<%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :sku_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= f.search_field :sku_cont %> 
  
   		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
   		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>

@@ -1,0 +1,17 @@
+<%= simple_form_for(@store_item) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :loss_id %>
+    <%= f.input :enter_id %>
+    <%= f.input :product_id %>
+    <%= f.input :quantity %>
+    <%= f.input :title %>
+    <%= f.input :price %>
+    <%= f.input :sum %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

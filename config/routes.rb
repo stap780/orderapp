@@ -1,6 +1,17 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :store_items
+  resources :enters  do
+  	collection do
+  		get :autocomplete_product_title
+  	end
+  end
+  resources :losses  do
+  	collection do
+  		get :autocomplete_product_title
+  	end
+  end
   resources :stores do
   	collection do
   		get :autocomplete_product_title

@@ -13,14 +13,16 @@ class StoresController < ApplicationController
   # GET /stores.json
   def index
     @search = Store.ransack(params[:q]) 
-    @search.sorts = '@store.product.title asc' if @search.sorts.empty? 
+    @search.sorts = 'title asc' if @search.sorts.empty? 
     @stores = @search.result.paginate(page: params[:page], per_page: 50)
     @stores.each do |store|
-    prihod = store.stocks.where("purchase_list_id IS NOT ?", nil)
-    rashod = store.stocks.where("invoice_list_id IS NOT ?", nil)
-    prihod1 = prihod.sum(:quantity)
-    rashod1 = rashod.sum(:quantity)
-    store.quantity = prihod1.to_i - rashod1.to_i
+    purchase_prihod = store.stocks.where("purchase_list_id IS NOT ?", nil)
+    enter_prihod = store.stocks.where("enter_id IS NOT ?", nil)
+    invoice_rashod = store.stocks.where("invoice_list_id IS NOT ?", nil)
+    loss_rashod = store.stocks.where("loss_id IS NOT ?", nil)
+    prihod = purchase_prihod.sum(:quantity).to_i + enter_prihod.sum(:quantity).to_i
+    rashod = invoice_rashod.sum(:quantity).to_i + loss_rashod.sum(:quantity).to_i
+    store.quantity = prihod - rashod
     store.save
     end
   end

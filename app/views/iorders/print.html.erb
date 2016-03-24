@@ -26,7 +26,7 @@
     h2 {font-size:15px;}
   /*]]>*/
 </style>
-<div style='width:750px'>
+<div style='width:750px;margin: 30px;'>
 
 <%= image_tag 'teletrilogo.jpg' %>
 <!--<p>
@@ -64,7 +64,7 @@
 </table>
 -->
 <center style='margin-top:40px'>
-<h2>Заказ № <%= @iorder.number %> от <%= @iorder.created_at%></h2>
+<h2>Заказ № <%= @iorder.number %> от <%= @iorder.created_at.strftime("%d / %m / %Y")%></h2>
 </center>
 <p style='margin-top:30px;'>Заказчик:
 <span style='margin-left: 27px'>

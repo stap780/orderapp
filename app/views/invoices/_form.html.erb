@@ -36,7 +36,7 @@
 </div>
 	<div class="col-md-12" style="border-top:1px solid #ddd;">
 		<div class="col-md-8" style="margin-top:20px;">
-		<table class="table table-hover">
+		<table class="table table-hover" id="invoice_items">
 		  <thead>
 		    <tr>
 		      <th>Title</th>
@@ -46,16 +46,14 @@
 		      <th></th>
 		    </tr>
 		  </thead>
-		  <tbody>
 			<%= f.simple_fields_for :invoice_items do |invoice_item| %>
 			<%= render 'invoice_item_fields', :f => invoice_item %>
 			<% end %>
 		   
-		  </tbody>
 		</table>	
 		
 		<div class='links', style="float:left;">
-		<%= link_to_add_association 'add line', f, :invoice_items, 'data-association-insertion-method' => "prepend"%>
+		<%= link_to_add_association 'add line', f, :invoice_items, 'data-association-insertion-node' => "#invoice_items", 'data-association-insertion-method' => "append" %>
 		</div>
 	</div>
 	

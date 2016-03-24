@@ -1,8 +1,9 @@
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-2">
-<h1>Заказы <small>сводная таблица</small></h1>
+<h1>Заказы <br><small>сводная таблица</small></h1>
 
 
 		</div>
@@ -12,7 +13,7 @@
 		<%= search_form_for @search do |f|%>
   		<div classs = "search">
   		<%= f.label :number_eq, 'Номеру' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :number_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= f.search_field :number_eq %>  
  
   		<%= f.label :instatus_cont, 'Статусу' %> <!--расширение _cont используется для string -->
   		<%= f.search_field :instatus_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
@@ -47,6 +48,7 @@
 		      <th>Total</th>
 		      <th colspan="12"></th>-->
 		    </tr>
+		    
 		  </thead>
 		
 		  <tbody>
@@ -75,7 +77,7 @@
 		        <!--<td><%= iorder.phone %></td>
 		        <td><%= iorder.email %></td>
 		        <td><%= iorder.total %></td>-->
-		        <td><%= link_to 'Show', iorder, class: 'btn btn-default btn-xs'  %></td>
+		        <td><%= link_to 'Show', iorder,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-xs'  %></td>
 		        <td><%= link_to 'Edit', edit_iorder_path(iorder), class: 'btn btn-success btn-xs' %></td>
 		        <td><%= link_to 'Destroy', iorder, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
 		      </tr>

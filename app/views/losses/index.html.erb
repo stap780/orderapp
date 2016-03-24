@@ -1,0 +1,52 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-3">
+<h1>Списание (Losses)</h1>
+</div>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-7">
+		</div>
+		<div class="col-md-12">
+		<div class="col-md-5">
+		<p><%=link_to 'Новое', new_loss_path %></p>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="media">
+	  <div class="media-body">
+		<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Total</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @losses.each do |loss| %>
+      <tr>
+        <td><%= loss.number %></td>
+        <td><%= loss.date.strftime("%d / %m / %Y") %></td>
+        <td><%= loss.description %></td>
+        <td><%= loss.total %></td>
+        <td><%= link_to 'Show', loss, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_loss_path(loss), class: 'btn btn-success btn-xs'  %></td>
+        <td><%= link_to 'Destroy', loss, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+	</div>
+</div>
+
+
+</div>
+

@@ -34,13 +34,15 @@
     <% @stores.each do |store| %>
       <tr>
         <td><%= store.title %></td>
-        <td><% b=store.stocks.where("purchase_list_id IS NOT ?", nil)%>
-        <%b1= b.sum(:quantity) %><%=b1%>
+        <td><% purchase_prihod = store.stocks.where("purchase_list_id IS NOT ?", nil)%>
+        <% enter_prihod = store.stocks.where("enter_id IS NOT ?", nil)%>
+        <% b1 = purchase_prihod.sum(:quantity).to_i+ enter_prihod.sum(:quantity).to_i%><%=b1%>
         </td>
-        <td><% c=store.stocks.where("invoice_list_id IS NOT ?", nil) %>
-        <% c1 = c.sum(:quantity) %><%=c1%>
+        <td><% invoice_rashod = store.stocks.where("invoice_list_id IS NOT ?", nil) %>
+        <% loss_rashod = store.stocks.where("loss_id IS NOT ?", nil) %>
+        <% c1 = invoice_rashod.sum(:quantity).to_i + loss_rashod.sum(:quantity).to_i %><%=c1%>
         </td>
-        <td><%= a = "#{b1}".to_i - "#{c1}".to_i%><!-- store.quantity --></td>
+        <td><!-- a = "#{b1}".to_i - "#{c1}".to_i--><%= store.quantity %></td>
         <td><%= store.price %></td>
         <td><%= link_to 'Show', store %></td>
         <td><%= link_to 'Edit', edit_store_path(store) %></td>

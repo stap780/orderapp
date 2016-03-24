@@ -4,13 +4,13 @@ document.onreadystatechange = function () {
     }
   } //определяем что статус документа -> загрузился и определяем функцию
 
-  function ready() {
-	var x = document.getElementById("company_inn");
-	x.addEventListener("mouseover", myFunction);
-	function myFunction() {
-	console.log("test");
-	}
-  }
+//  function ready() {
+//	var x = document.getElementById("company_inn");
+//	x.addEventListener("mouseover", myFunction);
+//	function myFunction() {
+//	console.log("test");
+//	}
+//  }
     
 	function myInnFunction(val) {
 	var searchinn = val;

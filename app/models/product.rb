@@ -23,6 +23,9 @@ class Product < ActiveRecord::Base
   has_many :purchase_invoices, :through => :purchase_invoice_items
   has_many :purchase_list_items
   has_many :purchase_list, :through => :purchase_list_items
+  has_many :store_items
+  has_many :losses, :through => :store_items
+  has_many :enters, :through => :store_items
   
   has_many :stocks
   
@@ -121,8 +124,9 @@ class Product < ActiveRecord::Base
       h = product.sskom.quantity if product.sskom !=nil
       i = product.treolan.quantity if product.treolan !=nil
       k = product.citilink.quantity if product.citilink !=nil
+      l = product.store.quantity if product.store !=nil
       
-      sum = "#{a}".to_i + "#{b}".to_i + "#{c}".to_i + "#{d}".to_i + "#{f}".to_i + "#{g}".to_i + "#{h}".to_i + "#{i}".to_i + "#{k}".to_i
+      sum = "#{a}".to_i + "#{b}".to_i + "#{c}".to_i + "#{d}".to_i + "#{f}".to_i + "#{g}".to_i + "#{h}".to_i + "#{i}".to_i + "#{k}".to_i + "#{l}".to_i
       # if sum > 0
 #       product.quantity = sum
 #       product.save
