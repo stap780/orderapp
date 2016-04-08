@@ -15,6 +15,7 @@ InsalesApp::Application.routes.draw do
   resources :stores do
   	collection do
   		get :autocomplete_product_title
+  	match 'search' => 'stores#search', via:[:get, :post], as: :search
   	end
   end
   resources :purchase_invoice_ins

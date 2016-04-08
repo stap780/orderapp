@@ -1,6 +1,6 @@
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
-      ready();
+     // ready();
     }
   } //определяем что статус документа -> загрузился и определяем функцию
 

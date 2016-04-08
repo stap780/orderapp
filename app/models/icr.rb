@@ -38,7 +38,7 @@ class Icr < ActiveRecord::Base
 	@icrs = Icr.order("id")
       @icrs.each do |icr|
         uri = "http://panaet80%40mail.ru:49UCR0Fnc4R95Mahz8oz5sAne099V50o@store.et-battery.com/api/stores/1/products/#{(icr.icr_id)}"
-        jdata = {:price => "#{(icr.price_rub)}"}.to_json
+        jdata = {:price => "#{(icr.price_rub)}", :amount => "0"}.to_json
         response = RestClient.put uri, jdata, :content_type => "application/json" 
       end
       

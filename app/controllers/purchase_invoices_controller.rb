@@ -32,7 +32,7 @@ class PurchaseInvoicesController < ApplicationController
     @purchase_invoice = PurchaseInvoice.new
     respond_to do |format|
       format.html 
-      format.js
+      #format.js
     end
   end
 
@@ -90,8 +90,9 @@ class PurchaseInvoicesController < ApplicationController
       @purchase_list_item = PurchaseListItem.create("title" => "#{pii.title}", "quantity" => "#{pii.quantity}", "product_id" => "#{pii.product_id}", "price" => "#{pii.price}", "sum" => "#{pii.sum}", purchase_list_id: @purchase_list.id)
       end
       end
-        format.html { redirect_to purchase_invoices_url, notice: 'Purchase invoice was successfully updated.' }
+        format.html { redirect_to @purchase_invoice, notice: 'Purchase invoice was successfully updated.' }
         format.json { render :show, status: :ok, location: @purchase_invoice }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @purchase_invoice.errors, status: :unprocessable_entity }

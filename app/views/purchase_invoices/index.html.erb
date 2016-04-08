@@ -2,7 +2,7 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
-		<div class="col-md-2">
+		<div class="col-md-3">
 <h1>Входящие счета </br><small>сводная таблица</small></h1>
 		</div>
 		<div class="col-md-3">
@@ -11,7 +11,7 @@
 		<%= search_form_for @search do |f|%>
   		<div classs = "search">
   		<%= f.label :number_eq, 'Номеру' %> 
-  		<%= f.search_field :number_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= f.search_field :number_eq %>
   		<%= f.label :status_cont, 'Статусу' %> 
   		<%= f.search_field :status_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
   		</div>
@@ -19,8 +19,7 @@
 		</div>
 		<div class="col-md-12">
 		<div class="col-md-5">
-		<p><%=link_to 'New Invoice', new_purchase_invoice_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></p>
-		<!--p><%= link_to 'Add release', new_release_purchase_invoices_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></p-->
+		<p><%=link_to 'New Invoice', new_purchase_invoice_path   %></p>
 		</div>
 	</div>
 </div>
@@ -49,7 +48,7 @@
         <td><%= purchase_invoice.status %></td>
         <td><%= purchase_invoice.total_price %></td>
         <td><%= link_to 'Show', purchase_invoice,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-xs' %></td>
-        <td><%= link_to 'Edit', edit_purchase_invoice_path(purchase_invoice),  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-success btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_purchase_invoice_path(purchase_invoice), class: 'btn btn-success btn-xs' %></td>
         <td><%= link_to 'Destroy', purchase_invoice, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

@@ -25,8 +25,8 @@ class IordersController < ApplicationController
   def show
     respond_to do |format|
     format.html # show.html.erb
-    format.xml  { render :xml => @iorder }
-    format.json  { render :json => @iorder }
+    #format.xml  { render :xml => @iorder }
+    #format.json  { render :json => @iorder }
     format.js
     end
   end
@@ -144,9 +144,9 @@ class IordersController < ApplicationController
      if @iorder.invoice_check == false
       @iorder.invoice.destroy if @iorder.invoice !=nil
      end
-     format.html { redirect_to @iorder, notice: 'Order was successfully updated.' }
+     format.html { redirect_to @iorder, notice: 'Order was successfully updated.' }#redirect_to @iorder
         format.json { render :show, status: :ok, location: @iorder }
-        
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @iorder.errors, status: :unprocessable_entity }

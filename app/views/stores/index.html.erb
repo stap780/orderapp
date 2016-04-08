@@ -6,8 +6,25 @@
 		</div>
 		<div class="col-md-3">
 		</div>
+		
 		<div class="col-md-7">
+		<%= search_form_for @search, url: search_stores_path,  method: :post do |f|%>
+		
+			<div class="input-daterange">
+				<div class="col-md-4">
+				<%= f.text_field :updated_at_gteq, class: "form-control input-sm", 'data-provide' => 'datepicker', 'data-date-format'=>"mm/dd/yyyy"  %>
+				</div>
+				<div class="col-md-4 ">
+				<%= f.text_field :updated_at_lteq, class: "form-control input-sm", 'data-provide' => 'datepicker', 'data-date-format'=>"mm/dd/yyyy"   %>
+				</div>
+			</div>
+			
+			<div class="col-md-2 form-actions">
+			<%= f.submit "search", class:"btn btn-success"%>
+			</div>
+			<% end %>
 		</div>
+		
 	<div class="col-md-12">
 		<div class="col-md-8">
 		<!-- link_to 'Оприходование', new_store_path -->

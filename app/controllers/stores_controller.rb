@@ -12,6 +12,7 @@ class StoresController < ApplicationController
   # GET /stores
   # GET /stores.json
   def index
+  
     @search = Store.ransack(params[:q]) 
     @search.sorts = 'title asc' if @search.sorts.empty? 
     @stores = @search.result.paginate(page: params[:page], per_page: 50)
@@ -25,6 +26,11 @@ class StoresController < ApplicationController
     store.quantity = prihod - rashod
     store.save
     end
+  end
+  
+  def search
+  index
+  render :index
   end
 
   # GET /stores/1

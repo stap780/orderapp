@@ -37,7 +37,7 @@ gem 'roo'
 gem 'roo-xls'
 gem 'mechanize'
 gem 'ru_propisju'
-gem 'rest-client', '< 1.7.0'
+gem 'rest-client', '~> 1.6', '>= 1.6.9'
 gem 'ransack'
 gem 'rails-jquery-autocomplete'
 gem 'savon', '2.5.1'
@@ -51,6 +51,7 @@ gem 'whenever', :require => false
 gem 'spring'
 gem 'puma', '~>3.0.2'
 gem 'bcrypt', '~> 3.1.7'
+#gem 'bootstrap-datepicker-rails'
 
  
 group :development, :test do
