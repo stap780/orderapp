@@ -21,26 +21,14 @@
 	};
 	// 
     
-	// тестирование пересчета Итого по нажатию на ссылку удаления позиции- remove	    
 	
-	/*
-function mynotworktotal() {
-	//return confirm("Do you want to delete this?");
-	var rows = $('.nested-fields:visible');
-	console.log(rows);
-	var tot = 1; 
-	for ( var i = 0; i<rows.length; i++ ) {
-	var row = rows[i];
-	var sum = row.cells[4].firstChild.firstChild;
-	if(parseInt(sum.value))
-	        tot += parseInt(sum.value);
-	};
-	document.getElementById('purchase_invoice_total_price').value = tot;
-	};
-*/
 	
 
+	/////////////////
 	
+	  
+	  
+	/////////////////
  
     
   

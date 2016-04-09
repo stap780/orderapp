@@ -32,6 +32,7 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     @invoice = Invoice.new
+    @invoice.invoice_items.build
   end
 
   # GET /invoices/1/edit

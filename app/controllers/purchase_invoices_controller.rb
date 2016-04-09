@@ -30,6 +30,7 @@ class PurchaseInvoicesController < ApplicationController
   # GET /purchase_invoices/new
   def new
     @purchase_invoice = PurchaseInvoice.new
+    @purchase_invoice.purchase_invoice_items.build
     respond_to do |format|
       format.html 
       #format.js
