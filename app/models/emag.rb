@@ -19,6 +19,38 @@ require "logger"
     end
 	end
 
+	def self.import(file)
+	
+	spreadsheet = open_spreadsheet(file) 
+		(11..spreadsheet.last_row).each do |i|
+		
+		sku = spreadsheet.cell(i,'A')
+		title = spreadsheet.cell(i,'B')
+		quantity = spreadsheet.cell(i,'C').to_i
+		price = spreadsheet.cell(i,'D').to_f
+		cost_price = spreadsheet.cell(i,'E').to_f
+		discount = spreadsheet.cell(i,'F').to_i
+		
+		@emag = Emag.find_by_sku("#{sku}")
+		if @emag.present? 
+		@emag.update_attributes( :sku => sku, :title => title, :price => price, :cost_price => cost_price, :quantity => quantity, :discount => discount)
+		else
+		@emag = Emag.new( :sku => sku, :title => title, :price => price, :cost_price => cost_price, :quantity => quantity, :discount => discount)
+ 		@emag.save
+ 		end
+		 		
+		end
+	end
+  
+   def self.open_spreadsheet(file)
+    case File.extname(file.original_filename)
+    when ".csv" then Roo::CSV.new(file.path, csv_options: {col_sep: ","})
+    when ".xls" then Roo::Excel.new(file.path)
+    when ".xlsx" then Roo::Excelx.new(file.path)
+    when ".XLS" then Roo::Excel.new(file.path)
+    else raise "Unknown file type: #{file.original_filename}"
+    end
+  end
 
 	def self.updateproduct
     

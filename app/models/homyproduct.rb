@@ -21,7 +21,6 @@ validates :artikul, uniqueness: true
     
     spreadsheet = open_spreadsheet(file) 
      (5..spreadsheet.last_row).each do |i|  
-       homyproduct = find_by_artikul(:artikul) || new
 	     artikul = spreadsheet.cell(i,'A').to_i 
 	     title = spreadsheet.cell(i,'B')
 	     price = spreadsheet.cell(i,'C')
@@ -34,15 +33,17 @@ validates :artikul, uniqueness: true
 	     quantity_tul_free = spreadsheet.cell(i,'J').to_i
 	     quantity_transit_all = spreadsheet.cell(i,'M').to_i
 	     quantity_transit_free = spreadsheet.cell(i,'N').to_i
+		 #min_price = spreadsheet.cell(i,'O').to_f
+		 #sell_price = spreadsheet.cell(i,'P').to_f
+		 
       
-      homyproduct.update_attributes(:artikul => artikul, :title => title, :price => price, :valuta => valuta, :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)
-      homyproduct.save
-      
-          
-      homyproducts = Homyproduct.where("cast(artikul as integer) = ?", spreadsheet.cell(i,'A').to_i)
-      homyproducts.each do |hp|
-      hp.update_attributes(:artikul => artikul, :title => title, :price => price, :valuta => valuta, :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)
-      end
+      @homyproduct = Homyproduct.find_by_artikul("#{artikul}")
+		if @homyproduct.present? 
+		@homyproduct.update_attributes(:artikul => artikul, :title => title, :price => price, :valuta => valuta, :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)#, :sell_price => sell_price, :min_price => min_price)
+		else
+		@homyproduct = Homyproduct.new(:artikul => artikul, :title => title, :price => price, :valuta => valuta, :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)#, :sell_price => sell_price, :min_price => min_price)
+ 		@homyproduct.save
+ 		end
        
     end
   end

@@ -70,6 +70,6 @@ require 'roo'
 
     # Only allow a trusted parameter "white list" through.
     def homyproduct_params
-      params.require(:homyproduct).permit(:artikul, :sku, :title, :price, :valuta, :quantity_all_res, :quantity_all_free, :quantity_main_res, :quantity_main_free, :quantity_tul_res, :quantity_tul_free, :quantity_transit_all, :quantity_transit_free, :id)
+      params.require(:homyproduct).permit(:artikul, :sku, :title, :price, :valuta, :quantity_all_res, :quantity_all_free, :quantity_main_res, :quantity_main_free, :quantity_tul_res, :quantity_tul_free, :quantity_transit_all, :quantity_transit_free, :id, :sell_price, :min_price)
     end
 end

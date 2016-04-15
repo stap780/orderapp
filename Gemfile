@@ -51,7 +51,7 @@ gem 'whenever', :require => false
 gem 'spring'
 gem 'puma', '~>3.0.2'
 gem 'bcrypt', '~> 3.1.7'
-#gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-filestyle-rails'
 
  
 group :development, :test do

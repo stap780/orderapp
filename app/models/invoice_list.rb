@@ -12,6 +12,7 @@ has_many   :products, :through => :invoice_list_items
 accepts_nested_attributes_for :invoice_list_items, reject_if: proc { |attributes| attributes['title'].blank? }, allow_destroy: true 
 
 validates  :number, uniqueness: true
+validates_presence_of :date
 
 delegate :title, to: :company, prefix: true, allow_nil: true
 

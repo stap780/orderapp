@@ -15,26 +15,31 @@
 			<%= f.association :client %>
 			</div>			
 			<div class="col-md-3">
-			 <%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_company_id' }  %>
+			 <%= f.input :company_title, label: "Покупатель", as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_company_id' }  %>
 			 <%= f.input :company_id, as: :hidden %>
 			 </div>
 			 <div class="col-md-3">
-			<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_companytwo' }  %>
+			<%= f.input :company_title, label: "Получатель", as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_companytwo' }  %>
 			<%= f.input :companytwo, as: :hidden %>
 			</div>
 		</div>
 	</div>
 	
 	<div class="col-md-4">
-	<div class="col-md-6">
-	    <%= f.input :invstatus, collection: [ "Новый", "В работе", "Оплачен"] %>
-	</div>
-	<div class="col-md-6">
-	    <%= f.input :invoice_list_check %>
-	</div>
+		<div class="col-md-8">
+			<div class="col-md-12">
+			    <%= f.input :invstatus, collection: [ "Новый", "В работе", "Оплачен"] %>
+			</div>
+			<div class="col-md-12">
+			    <%= f.input :invoice_list_check %>
+			</div>
+		</div>
 	</div>
 </div>
 	<div class="col-md-12" style="border-top:1px solid #ddd;">
+	<div class='links'>
+		<%= link_to_add_association 'add line', f, :invoice_items, 'data-association-insertion-node' => "#invoice_items", 'data-association-insertion-method' => "append" %>
+		</div>
 		<div class="col-md-8" style="margin-top:20px;">
 		<table class="table table-hover" id="invoice_items">
 		  <thead>
@@ -43,7 +48,7 @@
 		      <th>Quantity</th>
 		      <th>Price</th>
 		      <th>Sum</th>
-		      <th></th>
+			<th colspan="1"></th>
 		    </tr>
 		  </thead>
 			<%= f.simple_fields_for :invoice_items do |invoice_item| %>
@@ -51,24 +56,20 @@
 			<% end %>
 		   
 		</table>	
-		
-		<div class='links', style="float:left;">
-		<%= link_to_add_association 'add line', f, :invoice_items, 'data-association-insertion-node' => "#invoice_items", 'data-association-insertion-method' => "append" %>
-		</div>
 	</div>
 	
 <div class="col-md-4" style="margin-top:20px;">
+	
+	<div class="col-md-6" style="margin-top:20px;">
+	<%= f.input :discount,label: "Discount (%)", as: :integer, input_html: {onchange: "calculateInvoice(this.value)"} %>
+	<p>
+		<%= f.input :total_price %> <!-- или <strong>Total Price:</strong> <%= @invoice.total_price %> -->
+	</p>
+	</div>
 	<div class="col-md-12">
 	<%= f.button :submit, class: 'btn btn-default btn-sm' %>
 	<%= link_to 'Show', @invoice, class: 'btn btn-default btn-sm'  %>
 	<%= link_to 'Back', invoices_path, class: 'btn btn-default btn-sm'  %>
-	</div>
-	<div class="col-md-6" style="margin-top:20px;">
-	<%= f.input :discount, as: :integer %>
-	<p>
-		<strong>Total Price:</strong>
-		<%= @invoice.total_price %> <!-- или <%= f.input :total_price %> -->
-	</p>
 	</div>
 </div>
 

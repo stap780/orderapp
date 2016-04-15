@@ -12,6 +12,7 @@
 //= require autocomplete-rails
 //= require bootstrap
 //= require datepicker
+//= require bootstrap-filestyle
 //= require_tree .
 
 
@@ -22,6 +23,8 @@
     setTimeout(function() {
     $('#flash_messages').fadeOut('slow');
 	}, 2900);
+	
+	
      
      $('#invoice_date').datepicker({
      format: "dd/mm/yyyy",
@@ -39,6 +42,12 @@
     weekStart: 1,
     autoclose: true
 	})
+	
+	/////////////////
+	// поле загрузки файла
+	$(":file").filestyle({buttonText: "Find file", size: "sm", placeholder: "No file"});
+	/////////////////
+	
    ///////////////// 
  /*
  document.getElementById('add_items').onclick = function() {
@@ -67,30 +76,55 @@
         
 	
     /////////////////
-    // пересчет суммы при удалении позиции из перечня товаров
+    // пересчет суммы при удалении позиции из перечня товаров во входящем счете
 $("#purchase_invoice_items").children('tbody')
 .on('cocoon:before-remove', function(e, task) {
         $(this).data('remove-timeout',1000);
         task.fadeOut('slow');
-        //task.css('display',null);
         })
 .on('cocoon:after-remove', function(e, task) {
         //console.log($(this));
-  var row = task;
+  var row = task; // за счет task мы получаем нашу строку которую как-бы удаляем (скрываем из видимости)
   //console.log(row);
 	var cells = row.children();
   var sum = cells[4].firstChild.firstChild;
-  console.log(sum.value);
+  //console.log(sum.value);
 	var old_tot = document.getElementById('purchase_invoice_total_price').value
 	var tot = parseInt(old_tot) - parseInt(sum.value);
 	//};
 	document.getElementById('purchase_invoice_total_price').value = tot;
+	//$("#myclick").trigger("click"); // вызов (эмуляция) клика по элементу с id click. После чего вызывается функция привязанная к элементу 
 	});
 
-	 //$("#myclick").trigger("click"); // вызов (эмуляция) клика по элементу с id click. После чего вызывается функция привязанная к элементу 
+	 
 	/////////////////
+	// пересчет суммы при удалении позиции из перечня товаров в исходящем счете
+	$("#invoice_items").children('tbody')
+.on('cocoon:before-remove', function(e, task) {
+        $(this).data('remove-timeout',1000);
+        task.fadeOut('slow');
+        })
+.on('cocoon:after-remove', function(e, task) {
+        //console.log($(this));
+  var row = task; 
+  //console.log(row);
+	var cells = row.children();
+  var sum = cells[3].firstChild.firstChild;
+  //console.log(sum.value);
+	var old_tot = document.getElementById('invoice_total_price').value;	
+	var discount = document.getElementById("invoice_discount");
+	if (parseInt(discount.value) > "0"){
+	var newtot = parseInt(old_tot) - (parseInt(sum.value) - parseInt(sum.value) * parseInt(discount.value)/100);
+	document.getElementById('invoice_total_price').value = newtot;
+	} else {
+	var old_tot = document.getElementById('invoice_total_price').value
+	var tot = parseInt(old_tot) - parseInt(sum.value); 
+	document.getElementById('invoice_total_price').value = tot;
+	}
+
 	
-	
+	});
+	/////////////////
     }
   }
  

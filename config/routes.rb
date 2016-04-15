@@ -143,6 +143,7 @@ InsalesApp::Application.routes.draw do
   	collection do
   		get :downloadproduct
   		get :updateproduct
+  		post :import
   	end
   end
   

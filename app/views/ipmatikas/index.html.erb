@@ -1,17 +1,18 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<h1>Ipmatika <br><small>сводная таблица</small></h1>
 			<p>Всего товаров - <%= @totalipmatikas %></p>
 		</div>
 		<div class="col-md-3">
 		
 		<p>Import product</p>
-		<p><%= form_tag import_ipmatikas_path, multipart: true do %></p>  <p><%= file_field_tag :file %></p>  <p class='btn btn-default btn-xs'><%= submit_tag "Import" %></p>
+		<p><%= form_tag import_ipmatikas_path, multipart: true do %></p>  
+		<p><%= file_field_tag :file %></p><p><%= submit_tag "Import", :class =>'btn btn-default btn-xs' %></p>
 		<% end %>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-6">
 		<p>Поиск</p>
 		<%= search_form_for @search do |f|%>
   		<div classs = "search">
@@ -37,9 +38,11 @@
     <tr>
     <th>Id</th>
       <th>Title</th>
-      <th>Quantity all</th>
-      <th>Quantity res</th>
-      <th>Quantity free</th>
+      <th>Qt all</th>
+      <th>Qt res</th>
+      <th>Qt free</th>
+      <th>Cost price</th>
+      <th>Price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -52,6 +55,8 @@
         <td><%= ipmatika.quantity_all %></td>
         <td><%= ipmatika.quantity_res %></td>
         <td><%= ipmatika.quantity_free %></td>
+        <td><%= ipmatika.cost_price %></td>
+        <td><%= ipmatika.price %></td>
         <td><%= link_to 'Show', ipmatika, class: 'btn btn-default btn-sm'  %></td>
         <td><%= link_to 'Edit', edit_ipmatika_path(ipmatika), class: 'btn btn-success btn-sm'  %></td>
         <td><%= link_to 'Destroy', ipmatika, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } %></td>

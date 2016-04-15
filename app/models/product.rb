@@ -127,15 +127,7 @@ class Product < ActiveRecord::Base
       l = product.store.quantity if product.store !=nil
       
       sum = "#{a}".to_i + "#{b}".to_i + "#{c}".to_i + "#{d}".to_i + "#{f}".to_i + "#{g}".to_i + "#{h}".to_i + "#{i}".to_i + "#{k}".to_i + "#{l}".to_i
-      # if sum > 0
-#       product.quantity = sum
-#       product.save
-#       else
-#       if sum < 0
-#       product.quantity = 0
-#       product.save
-#       end
-#       end
+
 product.update_attributes(:quantity => sum)
     end
     # @products = Product.where(:quantity => "0") # это временная заглушка для того чтобы у товаров не было нуля, так как при нуле товары не показываются в рекламе

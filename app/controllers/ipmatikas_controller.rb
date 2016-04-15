@@ -18,7 +18,7 @@ class IpmatikasController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @ipmatikas.to_csv }
-      format.xls # { ssend_data @ipmatikas.to_csv(col_sep: "\t") }
+      format.xls # { send_data @ipmatikas.to_csv(col_sep: "\t") }
     end
   end
 
@@ -74,6 +74,6 @@ class IpmatikasController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def ipmatika_params
-      params.require(:ipmatika).permit(:title, :quantity_all, :quantity_res, :quantity_free)
+      params.require(:ipmatika).permit(:title, :quantity_all, :quantity_res, :quantity_free, :price, :cost_price)
     end
 end

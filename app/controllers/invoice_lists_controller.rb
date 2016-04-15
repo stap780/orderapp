@@ -74,7 +74,7 @@ class InvoiceListsController < ApplicationController
       title = li["title"]
   	  product = Product.find_by_title("#{title}")
   	  prid = product["id"]
-  	  li.update_attributes("quantity" => quantity, "price" => price, "sum" => sum)
+  	  li.update_attributes("quantity" => quantity, "price" => price, "sum" => sum, "product_id" => prid)
   	  end
   	  
   	  @invoice_list.total_price = @invoice_list.invoice_list_items.sum(:sum) - @invoice_list.invoice_list_items.sum(:sum) * @invoice_list.discount.to_i/100 

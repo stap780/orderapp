@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317150219) do
+ActiveRecord::Schema.define(version: 20160414123817) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20160317150219) do
     t.decimal  "price",      precision: 8, scale: 2
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.integer  "discount"
   end
 
   add_index "emags", ["sku"], name: "index_emags_on_sku"
@@ -183,7 +184,7 @@ ActiveRecord::Schema.define(version: 20160317150219) do
   add_index "ets", ["title"], name: "index_ets_on_title"
 
   create_table "homyproducts", force: :cascade do |t|
-    t.string   "artikul"
+    t.integer  "artikul"
     t.string   "title"
     t.decimal  "price",                 precision: 8, scale: 2
     t.string   "valuta"
@@ -199,6 +200,8 @@ ActiveRecord::Schema.define(version: 20160317150219) do
     t.datetime "updated_at",                                    null: false
     t.string   "sku"
     t.integer  "product_id"
+    t.decimal  "sell_price",            precision: 8, scale: 2
+    t.decimal  "min_price",             precision: 8, scale: 2
   end
 
   add_index "homyproducts", ["artikul"], name: "index_homyproducts_on_artikul"
@@ -352,8 +355,10 @@ ActiveRecord::Schema.define(version: 20160317150219) do
     t.integer  "quantity_all"
     t.integer  "quantity_res"
     t.integer  "quantity_free"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.decimal  "cost_price",    precision: 8, scale: 2
+    t.decimal  "price",         precision: 8, scale: 2
   end
 
   add_index "ipmatikas", ["title"], name: "index_ipmatikas_on_title"
@@ -444,6 +449,7 @@ ActiveRecord::Schema.define(version: 20160317150219) do
     t.integer  "treolan_id"
     t.integer  "citilink_id"
     t.integer  "store_id"
+    t.decimal  "sell_price",        precision: 8, scale: 2
   end
 
   add_index "products", ["category_id"], name: "index_products_on_category_id"

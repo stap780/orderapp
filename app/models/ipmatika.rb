@@ -22,23 +22,21 @@ def self.import(file)
     
     spreadsheet = open_spreadsheet(file) 
      (8..spreadsheet.last_row).each do |i|  
-       ipmatika = find_by_title(:title) || new
        
        title = spreadsheet.cell(i,'A')
        quantity_all = spreadsheet.cell(i,'E').to_i
-       quantity_res = spreadsheet.cell(i,'G').to_i
+       ##quantity_res = spreadsheet.cell(i,'G').to_i - отсутствует в файле колонка
        quantity_free = spreadsheet.cell(i,'F').to_i
-      
+       cost_price = spreadsheet.cell(i,'C').to_f
+       price = spreadsheet.cell(i,'B').to_f
        
-      
-      ipmatika.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_res => quantity_res, :quantity_free => quantity_free)
-      ipmatika.save
-      
-          
-      ipmatikas = Ipmatika.where("title = ?", spreadsheet.cell(i,'A'))
-      ipmatikas.each do |ip|
-      ip.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_res => quantity_res, :quantity_free => quantity_free)
-      end
+       @ipmatika = Ipmatika.find_by_title("#{title}")
+		if @ipmatika.present? 
+		@ipmatika.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free)#, :cost_price => cost_price, :price => price)
+		else
+		@ipmatika = Ipmatika.new( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free)#, :cost_price => cost_price, :price => price)
+ 		@ipmatika.save
+ 		end
        
     end
   end

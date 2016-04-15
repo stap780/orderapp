@@ -12,7 +12,7 @@ class EmagsController < ApplicationController
   def index
     @search = Emag.ransack(params[:q])
     @search.sorts = 'title asc' if @search.sorts.empty?
-    @emags = @search.result
+    @emags = @search.result.paginate(page: params[:page], per_page: 50)
     @totalemags = Emag.count
     respond_to do |format|
       format.html
@@ -58,12 +58,13 @@ class EmagsController < ApplicationController
   # DELETE /emags/1
   def destroy
     @emag.destroy
-    redirect_to emags_url, notice: 'Emag was successfully destroyed.'
+    flash[:notice] = 'Emag was successfully destroyed.'
+    redirect_to emags_url
   end
   
    def downloadproduct
     system ('rake emagdownload')
-    flash[:notice] = 'Products was successfully downloaded'
+    flash[:notice] = 'Products was successfully uploaded'
     redirect_to emags_path	
   end
   
@@ -71,6 +72,12 @@ class EmagsController < ApplicationController
     @emag = Emag.updateproduct
     flash[:notice] = 'Products was successfully updated'
     redirect_to emags_path 
+  end
+  
+  def import
+    Emag.import(params[:file])
+    flash[:notice] = "Products imported."
+    redirect_to emags_url
   end
   
 
@@ -82,6 +89,6 @@ class EmagsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def emag_params
-      params[:emag].permit(:sku, :title, :quantity)
+      params[:emag].permit(:sku, :title, :quantity, :price, :cost_price, :discount)
     end
 end
