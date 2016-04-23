@@ -6,7 +6,7 @@
 			<p>Всего товаров - <%= @totalproducts %> (c SKU - <%=@totalproductssku%>) </p>
 		<p>Всего остаток = и > 0 - <%=@zeroquantity%> (<%=@qnotzero%>)</p>
 <p>| <%= link_to 'Загрузить', downloadproduct_products_path%> | <%= link_to 'Обновить', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во', checkquantity_products_path%>  | Download: <%= link_to "CSV", products_path(format: "csv") %> |<!-- <%= link_to 'Synchronize quantity', synchronize_products_path%> | --></p> 
-
+test
 		</div>
 		<div class="col-md-8">
 			<div class="col-md-12">
