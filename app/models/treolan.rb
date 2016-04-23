@@ -20,7 +20,7 @@ def self.to_csv(options = {})
   
   def self.import(file)
         spreadsheet = open_spreadsheet(file) 
-     (4..spreadsheet.last_row).each do |i|  
+     (5..spreadsheet.last_row).each do |i|  
        treolan = find_by_title("sku") || new
 	     sku = spreadsheet.cell(i,'A') 
 	     title = spreadsheet.cell(i,'B')    

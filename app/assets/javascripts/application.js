@@ -90,7 +90,7 @@ $("#purchase_invoice_items").children('tbody')
   var sum = cells[4].firstChild.firstChild;
   //console.log(sum.value);
 	var old_tot = document.getElementById('purchase_invoice_total_price').value
-	var tot = parseInt(old_tot) - parseInt(sum.value);
+	var tot = parseFloat(old_tot).toFixed(2) - parseFloat(sum.value).toFixed(2);
 	//};
 	document.getElementById('purchase_invoice_total_price').value = tot;
 	//$("#myclick").trigger("click"); // вызов (эмуляция) клика по элементу с id click. После чего вызывается функция привязанная к элементу 
@@ -114,17 +114,36 @@ $("#purchase_invoice_items").children('tbody')
 	var old_tot = document.getElementById('invoice_total_price').value;	
 	var discount = document.getElementById("invoice_discount");
 	if (parseInt(discount.value) > "0"){
-	var newtot = parseInt(old_tot) - (parseInt(sum.value) - parseInt(sum.value) * parseInt(discount.value)/100);
+	var newtot = parseFloat(old_tot).toFixed(2) - (parseFloat(sum.value).toFixed(2) - (parseFloat(sum.value) * parseFloat(discount.value)/100).toFixed(2)).toFixed(2);
 	document.getElementById('invoice_total_price').value = newtot;
 	} else {
 	var old_tot = document.getElementById('invoice_total_price').value
-	var tot = parseInt(old_tot) - parseInt(sum.value); 
+	var tot = parseFloat(old_tot).toFixed(2) - parseFloat(sum.value).toFixed(2); 
 	document.getElementById('invoice_total_price').value = tot;
 	}
 
 	
 	});
 	/////////////////
+	
+	$( "#skidka_click" ).bind("click", (function ()  {
+	//alert("Skidka is clicked!");
+	var table = $('#products');
+	var rows = table.children();
+	for ( var i = 0; i<rows.length; i++ ) {
+	var row = rows[i];
+	var price = row.cells[7].innerHTML;
+	var skidka = document.getElementById('skidka');
+	var sell = (parseFloat(price).toFixed(2) - (parseFloat(price)*parseFloat(skidka.value)/100).toFixed(2)).toFixed(2);
+	row.cells[6].innerHTML = sell;
+	}
+	
+	}));
+  /////////////////
+  
+  
+	
+	
     }
   }
  

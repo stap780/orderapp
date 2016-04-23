@@ -1,0 +1,19 @@
+<%= form_for :product, :url => update_multiple_products_path, :html => { :method => :put } do |f| %>
+  <ul>
+    <% @products.each do |product| %>
+      <li>
+        <%= hidden_field_tag "product_ids[]", product.id %>
+        <%= product.title %>
+      </li>
+    <% end %>
+  </ul>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

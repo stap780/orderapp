@@ -4,6 +4,7 @@
 		<div class="col-md-3">
 			<h1>Имаг<br><small>сводная таблица</small></h1>
 			<p>Всего товаров - <%= @totalemags %></p>
+			<p>Кол-во > 0 - <%= @emag_not_nill %></p>
 		</div>
 		<div class="col-md-3">
 		
@@ -15,11 +16,18 @@
 		<div class="col-md-6"><p>Поиск</p>
 		<%= search_form_for @search do |f|%>
   		<div classs = "search">
-  		<%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :sku_cont %> 
- 
+  		<p><%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
+  		<%= f.search_field :sku_cont %>
   		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= f.search_field :title_cont %>
+  		</p>
+  		<p><%= f.label :products_emag_id_not_null, 'Синхр' %>(<%= @emag_synchro %>)
+		<%= f.check_box :products_emag_id_not_null %>
+		<%= f.label :products_emag_id_null, 'Не синхр' %><% not_sync = @emag_not_nill - @emag_synchro%>(<%= "#{not_sync}"%>)
+		<%= f.check_box :products_emag_id_null %>
+		</p>
+  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= link_to 'Reset', emags_path, class: 'btn btn-default btn-sm'  %>
 		</div>
 		<% end %>	
 		</div>	
@@ -41,7 +49,7 @@
       <th>Id</th>
       <th>Sku</th>
       <th>Title</th>
-      <th>Quantity</th>
+      <th><%= sort_link(@search, :quantity, "Quantity") %></th>
       <th>Price</th>
       <th>Discount</th>
       <th>Cost price</th>

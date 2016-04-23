@@ -12,8 +12,10 @@ class EmagsController < ApplicationController
   def index
     @search = Emag.ransack(params[:q])
     @search.sorts = 'title asc' if @search.sorts.empty?
-    @emags = @search.result.paginate(page: params[:page], per_page: 50)
+    @emags = @search.result.includes(:products).paginate(page: params[:page], per_page: 50)
     @totalemags = Emag.count
+    @emag_not_nill = Emag.where("quantity > 0").count
+    @emag_synchro = Product.where("emag_id IS NOT NULL").count
     respond_to do |format|
       format.html
       format.csv { send_data @emags.to_csv }

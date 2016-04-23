@@ -150,7 +150,9 @@ InsalesApp::Application.routes.draw do
   resources :vendors
   
   resources :homyproducts do
-  	collection {post :import}
+  	collection do
+  	post :import
+  	end
   end
   resources :products do
   	collection do
@@ -158,7 +160,11 @@ InsalesApp::Application.routes.draw do
   		get :updateproduct
   		get :checkquantity
   		get :synchronize
+  		post :skidka
   		post :import
+		post :edit_multiple 
+		put :update_multiple
+		
   	end
   end
   

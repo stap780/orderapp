@@ -19,7 +19,9 @@ class ProductsController < ApplicationController
     
     @search = Product.ransack(params[:q]) #используется gem ransack для поиска и сортировки
     @search.sorts = 'title asc' if @search.sorts.empty? # сортировка таблицы по алфавиту по умолчанию 
+    
     @products = @search.result.paginate(page: params[:page], per_page: 50)
+    #@search.build_condition if @search.conditions.empty?
     @totalproducts = Product.count
     b = Product.where(:sku => '').count
     @totalproductssku = @totalproducts.to_i - "#{b}".to_i
@@ -27,6 +29,9 @@ class ProductsController < ApplicationController
     @zeroquantity = Product.where("cast(quantity as integer) = ?", 0).count
     @qnotzero = Product.where("cast(quantity as integer) > ?", 0).count
     @products_all = Product.all
+    
+    Rails.cache.write("q",params[:q]) #записывает данные запроса в кэш чтобы потом прочитать (вызвать) их в том месте где надо на странице (например в скидке или мультиредактировании)
+    
     respond_to do |format|
       format.html
       format.csv { send_data @products_all.to_csv }
@@ -83,6 +88,16 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
   
+  def skidka
+  params[:q] = Rails.cache.read("q")
+  @search = Product.search(params[:q])
+  skidka = params[:skidka]
+  @products = @search.result.skidka(skidka)
+    flash[:notice] = 'Скидка установлена'
+    redirect_to products_path
+  
+  end
+  
   # PATCH/PUT /products/1
   def update
     if @product.update(product_params)
@@ -107,6 +122,26 @@ class ProductsController < ApplicationController
     @product.destroy
     redirect_to products_url, notice: 'Product was successfully destroyed.'
   end
+  
+  def edit_multiple
+  params[:q] = Rails.cache.read("q")
+  @search = Product.search(params[:q])  
+  if params[:selectAll] == "selectAll"
+  @products = @search.result
+  else
+  @products = Product.find(params[:product_ids])
+  end
+  end
+  
+  def update_multiple
+  @products = Product.find(params[:product_ids])
+  @products.each do |product|
+    product.update_attributes!(params[:product].reject { |k,v| v.blank? })
+  end
+  flash[:notice] = "Updated products!"
+  redirect_to products_path
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -117,6 +152,6 @@ class ProductsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def product_params
-      params.require(:product).permit(:inid, :sku ,:title, :short_description, :quantity, :cost_price, :price, :category_id, :variant_id, :homyproduct_id, :emag_id, :rrc_id, :angel_id, :energy_id, :vimcom_id, :ipmatika_id, :sskom_id, :treolan_id, :citilink_id, :iorder_id)
+      params.require(:product).permit(:inid, :sku ,:title, :short_description, :quantity, :cost_price, :sell_price, :price, :category_id, :variant_id, :homyproduct_id, :emag_id, :rrc_id, :angel_id, :energy_id, :vimcom_id, :ipmatika_id, :sskom_id, :treolan_id, :citilink_id, :iorder_id)
     end
 end

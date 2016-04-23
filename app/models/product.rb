@@ -33,6 +33,10 @@ class Product < ActiveRecord::Base
   require 'nokogiri'
   require 'rest-client'
   
+	def self.ransackable_attributes(auth_object = nil)
+      super & ['emag_id', 'title', 'sku', 'rrc_id', 'homyproduct_id', 'ipmatika_id', 'quantity', 'angel_id', 'vimcom_id', 'citilink_id']
+	end
+  
   def self.find_all_by_inid    
     @products = Product.where("inid = #{:inid}")
   end
@@ -45,6 +49,20 @@ class Product < ActiveRecord::Base
       end
     end
   end
+  
+  def self.skidka(skidka)
+  @products = Product.order("id")
+  @products.each do |p|
+    if p.price.to_f > 60
+    p.sell_price = (p.price.to_f - p.price.to_f*skidka.to_f/100).round(2)
+    p.save
+    else
+    p.sell_price = p.price
+    p.save
+    end
+    end
+  end
+  
       
   def self.downloadproduct #загружаем товары из магазина (всего 1000 товаров по тарифу и они загружаются 4 частями)
      #Product.destroy_all
@@ -112,70 +130,78 @@ class Product < ActiveRecord::Base
   
   def self.checkquantity
   
-  @products = Product.order("id")
-    @products.each do |product|   
-      a = product.homyproduct.quantity_all_free if product.homyproduct != nil #unless product.homyproduct.nil? - обе записи это если ... не пусто
-      b = product.emag.quantity unless product.emag.nil?
-      c = product.rrc.quantity unless product.rrc.nil?
-      d = product.angel.quantity unless product.angel.nil?
-      #e = product.energy.quantity if product.energy !=nil -------- + "#{e}".to_i
-      f = product.vimcom.quantity_free if product.vimcom !=nil
-      g = product.ipmatika.quantity_free if product.ipmatika !=nil
-      h = product.sskom.quantity if product.sskom !=nil
-      i = product.treolan.quantity if product.treolan !=nil
-      k = product.citilink.quantity if product.citilink !=nil
-      l = product.store.quantity if product.store !=nil
-      
-      sum = "#{a}".to_i + "#{b}".to_i + "#{c}".to_i + "#{d}".to_i + "#{f}".to_i + "#{g}".to_i + "#{h}".to_i + "#{i}".to_i + "#{k}".to_i + "#{l}".to_i
-
-product.update_attributes(:quantity => sum)
+	@products = Product.order("id")
+	@products.each do |product|   
+	a = product.homyproduct.quantity_all_free if product.homyproduct != nil #unless product.homyproduct.nil? - обе записи это если ... не пусто
+	b = product.emag.quantity unless product.emag.nil?
+	c = product.rrc.quantity unless product.rrc.nil?
+	d = product.angel.quantity unless product.angel.nil?
+	#e = product.energy.quantity if product.energy !=nil -------- + "#{e}".to_i
+	f = product.vimcom.quantity_free if product.vimcom !=nil
+	g = product.ipmatika.quantity_free if product.ipmatika !=nil
+	h = product.sskom.quantity if product.sskom !=nil
+	i = product.treolan.quantity if product.treolan !=nil
+	k = product.citilink.quantity if product.citilink !=nil
+	l = product.store.quantity if product.store !=nil
+	
+	sum = "#{a}".to_i + "#{b}".to_i + "#{c}".to_i + "#{d}".to_i + "#{f}".to_i + "#{g}".to_i + "#{h}".to_i + "#{i}".to_i + "#{k}".to_i + "#{l}".to_i
+	
+	product.update_attributes(:quantity => sum)
+	end
+	# @products = Product.where(:quantity => "0") # это временная заглушка для того чтобы у товаров не было нуля, так как при нуле товары не показываются в рекламе
+	# @products.each do |a|  # @products.each { |a| a.update_attributes(:quantity => "1") }
+	# a.update_attributes(:quantity => "1")
+	# end
+    
+    emagPrice = Product.where("emag_id IS NOT NULL")
+    emagPrice.each do |ep|
+    ep.price = ep.emag.price
+    ep.cost_price = ep.emag.cost_price
+    ep.save
     end
-    # @products = Product.where(:quantity => "0") # это временная заглушка для того чтобы у товаров не было нуля, так как при нуле товары не показываются в рекламе
-    # @products.each do |a|  # @products.each { |a| a.update_attributes(:quantity => "1") }
-      # a.update_attributes(:quantity => "1")
-    # end
+    
   end
     
-  def self.synchronize # алгоритм синхронизации рабочий, но с инсалес выдаёт ошибку при массовом обновлении (единичное обновление из обновления товара работает на "ура". Поэтому для обновления остатков использую экспорт в csv и загрузку через импорт в инсалесе - занимает 5 минут)
-  
-	   
-      @products = Product.order("id").limit(250)
-      @products.each do |pr|
-       
-       uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
- 
-      response = RestClient.put uri, "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :accept => :xml, :content_type => "application/xml"
-      end
-      
-      sleep 240
-      
-      @products = Product.order("id").limit(250).offset(250)
-      @products.each do |pr|
-        
-        uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
-        response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
-      end
-      
-      sleep 240
-    
-     @products = Product.order("id").limit(250).offset(500)
-     @products.each do |pr|
-       
-       uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
-        response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
-     end
-     
-     sleep 240
-    
-    @products = Product.order("id").limit(250).offset(750)
-    @products.each do |pr|
-      
-     uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
-        response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
-    end
-   
-    
-  end
+  # def self.synchronize # алгоритм синхронизации рабочий, но с инсалес выдаёт ошибку при массовом обновлении (единичное обновление из обновления товара работает на "ура". Поэтому для обновления остатков использую экспорт в csv и загрузку через импорт в инсалесе - занимает 5 минут)
+#   
+# 	   
+#       @products = Product.order("id").limit(250)
+#       @products.each do |pr|
+#        
+#        uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
+#  
+#       response = RestClient.put uri, "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :accept => :xml, :content_type => "application/xml"
+#       end
+#       
+#       sleep 240
+#       
+#       @products = Product.order("id").limit(250).offset(250)
+#       @products.each do |pr|
+#         
+#         uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
+#         response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
+#       end
+#       
+#       sleep 240
+#     
+#      @products = Product.order("id").limit(250).offset(500)
+#      @products.each do |pr|
+#        
+#        uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
+#         response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
+#      end
+#      
+#      sleep 240
+#     
+#     @products = Product.order("id").limit(250).offset(750)
+#     @products.each do |pr|
+#       
+#      uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
+#         response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
+#     end
+#    
+#     
+#   end
   
   
 end

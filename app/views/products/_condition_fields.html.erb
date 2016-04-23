@@ -1,0 +1,10 @@
+<div class="field">
+<%= f.attribute_fields do |a|%>
+<%=a.attribute_select nil, class: "form-control input-sm"%>
+<%end%>
+<%=f.predicate_select Hash.new, class: "form-control input-sm" %>
+<%= f.value_fields do |v|%>
+<%= v.text_field :value, class: "form-control input-sm"%>
+<%end%>
+<%= link_to "remove", '#', class: "remove_fields btn btn-default btn-sm" %>
+</div>
