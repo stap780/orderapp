@@ -1,0 +1,5 @@
+log/*.log
+tmp/**/*
+doc/api
+doc/app
+z_my_help_file/**
