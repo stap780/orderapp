@@ -1,0 +1,125 @@
+Виджет для pbxes - звонка с карточки заказа
+
+1) HTML и скрипт
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+     
+    </style>
+  </head>
+  <body>
+    <form action="http://pbxes.org/callteletri" METHOD="GET">
+    <input type="text" name="n" id='phone_number'>
+    <input type="hidden" name="embed" value="1">
+    <input type="submit" value="Call">
+    </form>
+    <p>Номер заказа: <b><span id='order_number'><span></b></p>
+    
+    <script>
+
+      // устанавливаем номер заказа, используя number из переменной window.order_info
+      var order_number_field = document.getElementById('order_number');
+      order_number_field.innerHTML = window.order_info.number;
+
+     // устанавливаем номер телефона, используя client.phone из переменной window.order_info
+      var order_phone_field = document.getElementById('phone_number');
+      order_phone_field.value = window.order_info.client.phone;      
+
+    </script>
+  </body>
+  </html>
+2) Добавление виджета в платформу
+Перед тем как передать html код виджета через API в InSales, нужно предварительно заменить все символы '<' и '>' на соответствующие '&lt;' и '&gt;'. Для этого можно воспользоваться сервисом http://www.htmlescape.net/htmlescape_tool.html
+После преобразования, добаляем наш виджет в InSales
+Запрос на создание виджета: POST /admin/application_widgets.xml
+
+Пример запроса на редактирование виджета: PUT - http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/application_widgets/13110.xml
+
+3) Пример виджета
+Разместим на странице заказа слово "Номер"
+а) HTML:
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+<p>Номер</p>
+</body>
+</html>
+
+б) Конвертируем через http://www.htmlescape.net/htmlescape_tool.html :
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;<br/>&lt;body&gt;<br/>&lt;p&gt;&#x041d;&#x043e;&#x043c;&#x0435;&#x0440;&lt;/p&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;
+
+в) Отправляем запрос на создание виджета:
+Запрос POST на адрес http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/application_widgets.xml
+И в запросе передаем
+<application-widget>
+<code>
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;<br/>&lt;body&gt;<br/>&lt;p&gt;&#x041d;&#x043e;&#x043c;&#x0435;&#x0440;&lt;/p&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;
+</code>
+<height>60</height>
+</application-widget>
+
+4)
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+      table#statuses {
+        border-collapse: collapse;
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+      }
+      table#statuses td, table#statuses th {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <table id='statuses' style='border: 1px solid black;'>
+      <tr>
+        <th>Служба доставки</th>
+        <th>Статус</th>
+      </tr>
+    </table>
+
+    <script>
+      var data = {};
+      // функция которая вызывается во внешнем js файле и устанавливает значение переменной data
+      function set_data(input_object) {
+        data = input_object;
+      }
+      var table = document.getElementById('statuses');
+     
+
+      // подключаем скрипт который передаёт нам данные через JSONP
+      var script = document.createElement('script');
+      script.src = 'http://188.166.111.118:3000/assets/javascripts/widget_delivery_jsonp_data.js';
+      document.documentElement.appendChild(script);
+
+      // после отработки внешнего скрипта, заполняем таблицу пришедшими данными
+      script.onload = function() {
+        for (var key in data) {
+          var new_tr = document.createElement('tr');
+          new_tr.innerHTML= '<td>'+ key +'</td><td>'+ data[key] +'</td>';
+          table.appendChild(new_tr);
+        }
+      }
+    </script>
+  </body>
+  </html>
+
+_____________________
+<script>
+$(document).ready(function(){
+$.ajax ({
+  url: "http://188.166.111.118:3000/json_work?callback=?",
+  type: "application/javascript",
+  dataType: 'jsonp',
+	type: 'POST',
+	success: function(data) {
+  console.log(data);}
+});
+});
+</script>
+_____________________

@@ -1,0 +1,138 @@
+//проверка на Array
+//var  title_value = ["A", "AA", "AAA"];
+//if($.isArray(title_value)) {
+//    console.log("a is an array!");
+//} else {
+//    console.log("a is not an array!");
+//}
+
+document.onreadystatechange = function () {
+    if (document.readyState === "complete") {
+      ready();
+    }
+  }
+
+
+  
+$("#purchase_invoice_items").on("change", ".autocomplete optional form-control ui-autocomplete-input", function() {
+  var product = $(this);
+  console.log(product);
+});
+
+var x = document.getElementById("purchase_invoice_items");
+var title = x.getElementsByClassName("nested-fields purchase_invoice_items_fields")[0].getElementsByClassName("autocomplete optional form-control ui-autocomplete-input")[0].value;
+console.log(title);
+
+var quantity = x.getElementsByClassName("form-group integer optional purchase_invoice_purchase_invoice_items_quantity")[0].getElementsByClassName("numeric integer optional form-control")[0].value;
+console.log(quantity);
+
+var price = x.getElementsByClassName("form-group decimal optional purchase_invoice_purchase_invoice_items_price")[0].getElementsByClassName("numeric decimal optional form-control")[0].value;
+console.log(price);
+
+var sum = x.getElementsByClassName("form-group decimal optional purchase_invoice_purchase_invoice_items_sum")[0].getElementsByClassName("numeric decimal optional form-control")[0].value;
+console.log(sum);
+
+
+var x = document.getElementById("purchase_invoice_items");
+
+var title = x.getElementsByClassName("autocomplete optional form-control ui-autocomplete-input")
+
+var b = title.length;
+for (var i=0; i<title.length; i++) {  
+var title_value = title[i].value;
+  
+console.log(title_value);
+
+}
+
+
+var quantity = x.getElementsByClassName("numeric integer optional form-control");
+for (var i=0; i<quantity.length; i++) {  
+var quantity_value = quantity[i].value;
+  
+console.log(quantity_value);
+
+}
+
+var myItem = oCells.item(j).namedItem("autocomplete optional form-control ui-autocomplete-input").value;
+         alert(myItem);
+// пример прохода по таблице         
+//gets table
+    var oTable = document.getElementById('products');
+
+    //gets rows of table
+    var rowLength = oTable.rows.length;
+
+    //loops through rows    
+    for (i = 0; i < rowLength; i++){
+
+      //gets cells of current row  
+       var oCells = oTable.rows.item(i).cells;
+
+       //gets amount of cells of current row
+       var cellLength = oCells.length;
+
+       //loops through each cell in current row
+       for(var j = 0; j < cellLength; j++){
+
+              // get your cell info here
+
+              var cellVal = oCells.item(j).innerHTML;
+              alert(cellVal);
+         
+           
+         }
+    }
+//****************************
+находит значения ячеек по классу
+var row = document.getElementsByClassName('nested-fields');
+
+var first_row = row[0];
+
+var quantity = first_row.getElementsByClassName("numeric integer optional myquantity form-control")[0].value;
+
+var price = first_row.getElementsByClassName("numeric decimal optional myprice form-control")[0].value;
+
+var sum = quantity * price;
+
+first_row.getElementsByClassName("numeric decimal optional sum form-control")[0].value = sum
+_______________________________
+считает сумму первой строки по классу для одной строки
+var row = document.getElementsByClassName('nested-fields');
+
+var first_row = row[0];
+first_row.getElementsByClassName("numeric decimal optional myprice form-control")[0].onchange = function() {
+var quantity = first_row.getElementsByClassName("numeric integer optional myquantity form-control")[0].value;
+console.log(quantity);
+var price = first_row.getElementsByClassName("numeric decimal optional myprice form-control")[0].value;
+
+var sum = quantity * price;
+
+first_row.getElementsByClassName("numeric decimal optional sum form-control")[0].value = sum
+
+};
+______________________________
+var rows = $("tr.nested-fields:visible");
+var tot=0;
+	for ( var i = 0; i<rows.length; i++ ) {
+	var row = rows[i];
+	var sum = row.cells[4].firstChild.firstChild;
+	if(parseInt(sum.value))
+	        tot += parseInt(sum.value);
+	}
+	document.getElementById('purchase_invoice_total_price').value = tot;
+
+___________________________
+var table = document.getElementById("purchase_invoice_items").children;
+console.log(table.length);
+for ( var i = 0; i<table.length; i++ ) { 
+  var row = table.item(i);
+  console.log(row.cells.length);
+  var quantity = row.cells[2].firstChild.firstChild.value;
+  console.log(quantity);
+  var price = row.cells[3].firstChild.firstChild.value;
+  console.log(price);
+  var sum = quantity*price;
+  row.cells[4].firstChild.firstChild.value = sum;
+  
+}

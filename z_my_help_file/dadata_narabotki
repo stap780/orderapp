@@ -1,0 +1,9 @@
+Dadata - сервис по получению информации о реквизитах компании.
+
+url = "https://dadata.ru/api/v2/suggest/party"
+
+res = RestClient.post url, { 'query'=> 7726561249 }.to_json, :Authorization => "Token c06864b3c1082f24e05f15e674b38c30f906b427", :accept => "application/json" , :content_type => "application/json"
+
+h = JSON.parse(res)
+h["suggestions"][0]["data"]["inn"]
+h["suggestions"][0]["data"]["kpp"]

@@ -1,0 +1,43 @@
+a = Mechanize.new
+a.get("http://www.citilink.ru/login/")
+form = a.page.forms[1]
+form.login = "panaet80@mail.ru"
+form.pass = "stappp"
+form.submit
+
+mypage = a.get("http://www.citilink.ru/catalog/furniture/phones/phones_ip/?available=1&p=1")
+
+title = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(1) > td.product_name.cms_item_panel > span > a').text
+price = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(2) > td.prices_container > div > span.standart > span > ins.num').text
+price1 = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(2) > td.prices_container > div > span.special > span  > ins.num').text
+q1 = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(1) > span').text
+q2 = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(2) > span').text
+q3 = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(3) > span').text
+q4 = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(4) > span').text
+q5 = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(5) > span').text
+
+
+
+
+#subcategoryList > div.product_category_list > table > tbody:nth-child(2)
+#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(1) > td.product_name.cms_item_panel > span > a
+#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(2) > td.prices_container > div > span.standart > span > ins.num
+#subcategoryList > div.product_category_list > table > tbody:nth-child(2) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(1)
+
+#subcategoryList > div.product_category_list > table > tbody:nth-child(3)
+#subcategoryList > div.product_category_list > table > tbody:nth-child(3) > tr:nth-child(1) > td.product_name.cms_item_panel > span > a
+#subcategoryList > div.product_category_list > table > tbody:nth-child(3) > tr:nth-child(2) > td.prices_container > div > span.standart > span > ins.num
+#subcategoryList > div.product_category_list > table > tbody:nth-child(3) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(1)
+
+
+price = mypage.search('#subcategoryList > div.product_category_list > table > tbody:nth-child(3) > tr:nth-child(2) > td.prices_container > div > span.standart > span > ins.num').text.gsub(/ /, '')
+
+.gsub(/много/, '20')
+.gsub(//, '0')
+
+#subcategoryList > div.product_category_list > table > tbody:nth-child(3) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(4) > span
+#subcategoryList > div.product_category_list > table > tbody:nth-child(3) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(3) > span
+#subcategoryList > div.product_category_list > table > tbody:nth-child(3) > tr:nth-child(1) > td.product_name.cms_item_panel > div.in_stock_horizontal_position > span:nth-child(5) > span
+
+
+

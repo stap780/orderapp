@@ -1,0 +1,31 @@
+Мои наработки по написанию связей ассоциаций
+
+# t =  Homyproduct.find_by_sku('GXP1620')
+    # o = Product.find_by_sku('GXP1620')
+    # t.products << o
+    # o.save
+    # o.quantity = t.quantity_all_free
+    # o.save 
+   
+    #@products = Homyproduct.where('sku IS NOT NULL')
+    
+    # t - это хоми, o - продукты belongs_to
+    #t =  Homyproduct.find_by_sku('GXP1610') - это находит продукт в хоми
+    #o = t.products - это выдаст тот же продукт из таблицы Продукты найдя его по homyproduct_id. Если homyproduct_id нет то ничего не выдаст. Это o = t.products.find_by_sku('GXP1610') - то же ничего не выдаст если не заполнен homyproduct_id.
+    #o = Product.find_by_sku('GXP1610') - это найдет  продукт по sku в таблице Продукты. 
+    #t.products << o - это заполнит пустое поле homyproduct_id передав ему значение из таблицы Хоми. 
+    #o.save - это сохранит переданное значение. 
+    # ПОСЛЕ этого можно будет общим запросом  - этим o = Homyproduct.find_by_sku('GXP1610').products получить данные о продукте из таблицы Продукты (то есть это тоже что и  o = Product.find_by_sku('GXP1610'), но через ассоциацию). 
+    #А ЭТО o = Product.find_by_sku('GXP1610').homyproduct позволит через ассоциацию получить данные из таблицы Хоми. 
+    #И это o = Product.find_by_sku('GXP1610').homyproduct.quantity_all_free получить данные по свойству.
+    ___________________________________________________________________________________________________________________
+                                          @products = Product.find_by_homyproduct_id(:homyproduct_id)
+    @products = Product.all
+    <% @products.each do |product| %>
+    <% a = product.homyproduct.quantity_all_free unless product.homyproduct.nil?%> <% b = product.homyproduct.quantity_tul_free unless product.homyproduct.nil?%>
+        <% product.quantity = a %>
+        <% product.save %>
+        <% c = "#{a}".to_i + "#{b}".to_i %>
+        <!--<td><%= a %> (<%= b %>)</td>-->
+        <!--<td><%= c %></td>-->
+     <% end%>

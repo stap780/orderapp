@@ -1,0 +1,37 @@
+
+_________________________________
+Работа через api
+
+Запрос отправляем на адрес:
+http://ws.dpd.ru/services/tracing1-1
+
+Содержание запроса:
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.ru/ws/tracing/2012-06-25">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:getStatesByClientOrder>
+         <request>
+            <auth>
+               <clientNumber>1001031371</clientNumber>
+               <clientKey>DDCEEA16D6A7BBAF6B2C276E4292B53942766CC1</clientKey>
+            </auth>
+            <clientOrderNr>7946</clientOrderNr>
+         </request>
+      </ns:getStatesByClientOrder>
+   </soapenv:Body>
+</soapenv:Envelope>
+___________________________________
+client = Savon.client(wsdl: "http://ws.dpd.ru:80/services/tracing1-1?wsdl")
+	
+	response = client.call(:get_states_by_client_order, message: { request: { auth:{clientNumber: "1001031371", clientKey: "DDCEEA16D6A7BBAF6B2C276E4292B53942766CC1"}, clientOrderNr: "7924"}})
+	puts response
+	data = response.body
+	docid = data[:get_states_by_client_order_response][ :return][:doc_id]
+	states = data[:get_states_by_client_order_response][ :return][:states].to_a
+	dpdnumber = states[0][:dpd_order_nr]
+	pickupdate = states[0][:pickup_date]
+	plandeliverytime = states[0][:plan_delivery_date]
+	state = states.last[:new_state]
+	
+	puts "#{dpdnumber} --- #{pickupdate} --- #{plandeliverytime} --- #{state}"
