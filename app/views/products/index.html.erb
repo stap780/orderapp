@@ -6,19 +6,18 @@
 			<p>Всего товаров - <%= @totalproducts %> (c SKU - <%=@totalproductssku%>) </p>
 		<p>Всего остаток = и > 0 - <%=@zeroquantity%> (<%=@qnotzero%>)</p>
 <p>| <%= link_to 'Загрузить', downloadproduct_products_path%> | <%= link_to 'Обновить', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во', checkquantity_products_path%>  | Download: <%= link_to "CSV", products_path(format: "csv") %> |<!-- <%= link_to 'Synchronize quantity', synchronize_products_path%> | --></p> 
-test
 		</div>
 		<div class="col-md-8">
-			<div class="col-md-12">
+			<div class="col-md-12" style="margin-bottom: 5px;">
 			<p>Поиск</p>
 			<%= search_form_for @search, method: :get, :class=> "form-inline"  do |f|%>
 			<%= f.condition_fields do |c|%>
 			<%= render 'condition_fields', :f => c %>
 			<%end%>
-			<p><%= link_to_add_fields "Add Conditions", f, :condition %> <%= f.submit "Search", class: 'btn btn-default btn-sm' %></p>
+		<%= link_to_add_fields "Add Conditions", f, :condition %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
 			<%end%>
-			
 			</div>
+			
 			<div class="col-md-12">
 		<%= form_tag skidka_products_path, class: "form-inline" do %>
 		<%= label_tag "Скидка" %>
@@ -92,9 +91,9 @@ Page <%= @products.current_page %> of <%=@products.total_pages %> and entries <%
 <%= link_to 'Next', params.merge(:page => @products.next_page )%>
 <%end%>
 
-<%= submit_tag "Edit Checked" %>
-<% end %>
   </div>
+  <p style="margin-top:15px;"><%= submit_tag "Edit Checked", class: "btn btn-default btn-sm"  %></p>
+  <% end %>
 </div>
 </div>
 </div>

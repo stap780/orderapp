@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
     @search.sorts = 'title asc' if @search.sorts.empty? # сортировка таблицы по алфавиту по умолчанию 
     
     @products = @search.result.paginate(page: params[:page], per_page: 50)
-    #@search.build_condition if @search.conditions.empty?
+    @search.build_condition if @search.conditions.empty?
     @totalproducts = Product.count
     b = Product.where(:sku => '').count
     @totalproductssku = @totalproducts.to_i - "#{b}".to_i
