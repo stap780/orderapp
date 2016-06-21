@@ -6,7 +6,10 @@
 			<p>Всего товаров - <%= @totalrrcs %></p>
 		</div>
 		<div class="col-md-3">
-		
+		<p>Import product</p>
+		<p><%= form_tag import_rrcs_path, multipart: true do %></p>  
+		<p><%= file_field_tag :file %></p><p><%= submit_tag "Import", :class =>'btn btn-default btn-xs' %></p>
+		<% end %>
 		</div>
 		<div class="col-md-7"><p>Поиск</p>
 		<%= search_form_for @search do |f|%>
@@ -35,10 +38,13 @@
 <table class="table table-hover">
   <thead>
     <tr>
-    	<th>Id</th>
+    	<th><%= sort_link(@search, :id, "Id") %></th>
       <th>Sku</th>
       <th>Title</th>
       <th>Quantity</th>
+      <th>Cost price</th>
+      <th>Sell price</th>
+      <th>Price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -50,6 +56,9 @@
         <td><%= rrc.sku %></td>
         <td><%= rrc.title %></td>
         <td><%= rrc.quantity %></td>
+        <td><%= rrc.cost_price %></td>
+        <td><%= rrc.sell_price %></td>
+        <td><%= rrc.price %></td>
         <td><%= link_to 'Show', rrc, class: 'btn btn-default btn-sm' %></td>
         <td><%= link_to 'Edit', edit_rrc_path(rrc), class: 'btn btn-success btn-sm'  %></td>
         <td><%= link_to 'Destroy', rrc, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' }  %></td>

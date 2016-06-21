@@ -6,7 +6,9 @@ class IordersController < ApplicationController
     
 	before_action :set_iorder, only: [:show, :print, :edit, :update, :destroy]
 	before_action :authorize
-	autocomplete :product, :title, full: true 
+	autocomplete :product, :title, full: true
+	autocomplete :client, :name, full: true, :display_value => :client_iorder_name_surname,  :extra_data => [:name, :middlename, :surname, :phone, :email, :zip, :city, :address]
+	
 	
   def authorize
     if current_user.nil?
@@ -20,12 +22,19 @@ class IordersController < ApplicationController
      @search.sorts = 'number desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
      @iorders = @search.result.paginate(page: params[:page], per_page: 30)
   end
+  
+  def get_client_data
+  @client = Client.where(id: params[:client_id])
+    respond_to do |format|
+      format.js { render :json => @client}
+    end
+  end
 
   # GET /iorders/1
   def show
     respond_to do |format|
     format.html # show.html.erb
-    #format.xml  { render :xml => @iorder }
+    format.xml  { render :xml => @iorder }
     #format.json  { render :json => @iorder }
     format.js
     end
@@ -168,7 +177,7 @@ class IordersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def iorder_params
-      params.require(:iorder).permit(:number, :instatus, :financial, :payment,:clientname, :client, :client_middlename, :client_surname, :delivery, :shipping_zip, :shipping_city, :shipping_address, :phone, :email, :total, :orderstatus_id, :status_id, :mycourier_id, :iml_id, :dpd_id, :post_id, :courier_id, :variantid, :quantity, :price, :deliveryprice, :discount_percent, :total_price, :client_id, :invoice_id, :invoice_check,:line_items_attributes =>[:id, :product_id, :title, :quantity, :price, :iorder_id, :sum, :invoice_id, :_destroy])
+      params.require(:iorder).permit(:client_name,:number, :instatus, :financial, :payment,:clientname, :client, :client_middlename, :client_surname, :delivery, :shipping_zip, :shipping_city, :shipping_address, :phone, :email, :total, :orderstatus_id, :status_id, :mycourier_id, :iml_id, :dpd_id, :post_id, :courier_id, :variantid, :quantity, :price, :deliveryprice, :discount_percent, :total_price, :client_id, :invoice_id, :invoice_check,:line_items_attributes =>[:id, :product_id, :title, :quantity, :price, :iorder_id, :sum, :invoice_id, :_destroy])
        
     end
     

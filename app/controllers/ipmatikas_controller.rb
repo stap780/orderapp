@@ -74,6 +74,6 @@ class IpmatikasController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def ipmatika_params
-      params.require(:ipmatika).permit(:title, :quantity_all, :quantity_res, :quantity_free, :price, :cost_price)
+      params.require(:ipmatika).permit(:sku, :sell_price, :title, :quantity_all, :quantity_res, :quantity_free, :price, :cost_price)
     end
 end

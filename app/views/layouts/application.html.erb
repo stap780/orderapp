@@ -41,8 +41,11 @@
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Справочники <span class="caret"></span></a>
             <ul class="dropdown-menu">
             <li class="<%= 'active' if current_page?(products_path) %>"><%= link_to 'Товары', controller: 'products', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(variants_path) %>"><%= link_to 'Варианты', controller: 'variants', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(product_options_path) %>"><%= link_to 'Св-ва товара', controller: 'product_options', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(clients_path) %>"><%= link_to 'Покупатели', controller: 'clients', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(companies_path) %>"><%= link_to 'Компании', controller: 'companies', action: 'index' %></li>
+            
             </ul>
             </li>
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Склад<span class="caret"></span></a>
@@ -57,11 +60,13 @@
             	<li class="<%= 'active' if current_page?(ipmatikas_path) %>"><%= link_to 'Ipmatika', controller: 'ipmatikas', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(homyproducts_path) %>"><%= link_to 'Премьер', controller: 'homyproducts', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(emags_path) %>"><%= link_to 'Имаг', controller: 'emags', action: 'index' %></li>
-            	<li class="<%= 'active' if current_page?(treolans_path) %>"><%= link_to 'Треолан', controller: 'treolans', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(rrcs_path) %>"><%= link_to 'РРС', controller: 'rrcs', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(angels_path) %>"><%= link_to 'Цифровой ангел', controller: 'angels', action: 'index' %></li>
-            	<li class="<%= 'active' if current_page?(energies_path) %>"><%= link_to 'Energy', controller: 'energies', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(vimcoms_path) %>"><%= link_to 'Вимком', controller: 'vimcoms', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(gsteles_path) %>"><%= link_to 'Gstele', controller: 'gsteles', action: 'index' %></li>
+            	<li role="separator" class="divider"></li>
+            	<li class="<%= 'active' if current_page?(treolans_path) %>"><%= link_to 'Треолан', controller: 'treolans', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(energies_path) %>"><%= link_to 'Energy', controller: 'energies', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(sskoms_path) %>"><%= link_to 'Сском', controller: 'sskoms', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(citilinks_path) %>"><%= link_to 'Ситилинк', controller: 'citilinks', action: 'index' %></li>
             	<li role="separator" class="divider"></li>

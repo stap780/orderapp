@@ -60,6 +60,10 @@ class ClientsController < ApplicationController
       render :edit
     end
   end
+  
+  def self.client_name
+        self.name
+    end
 
   # DELETE /clients/1
   def destroy

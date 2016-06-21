@@ -14,11 +14,12 @@
 
 <div class="col-md-12">
 <div class="col-md-8">
-	<div class="col-md-12">  
-	<strong>Информация о клиенте</strong>
+	<div class="col-md-12" >  
+	<strong >Информация о клиенте</strong>
 	</div>
-	<div class="col-md-4">  
-	<%= f.input :client_id%>
+	<div class="col-md-4"> 
+	<%= f.input :client_name, as: :autocomplete, url: autocomplete_client_name_iorders_path, :update_elements => {:name => '#iorder_client_name', :middlename => '#iorder_client_middlename', :surname => '#iorder_client_surname', :phone => '#iorder_phone', :email => '#iorder_email', :zip => '#iorder_shipping_zip', :city => '#iorder_shipping_city', :address => '#iorder_shipping_address' }, input_html: { 'data-id-element' => '#iorder_client_id' }%>
+	<%= f.input :client_id, as: :hidden %>
 	</div>
 	<div class="col-md-4"> 
 	<%= f.input :client_middlename%>
@@ -58,7 +59,10 @@
 </div>
 
 <div class="col-md-12">
-	<div class="col-md-8">
+	<div class="col-md-8" style="margin-top:-65px;">
+	<div class='links', style="float:left;">
+	<%= link_to_add_association 'add line', f, :line_items, 'data-association-insertion-node' => "#line_items", 'data-association-insertion-method' => "append" %>
+	</div>
 	<table class="table table-hover" id="line_items">
 	  <thead>
 	    <tr>
@@ -74,9 +78,6 @@
 		<% end %>
 	   
     </table>	
-	<div class='links', style="float:left;">
-	<%= link_to_add_association 'add line', f, :line_items, 'data-association-insertion-node' => "#line_items", 'data-association-insertion-method' => "append" %>
-	</div>
 	</div>
 	<div class="col-md-4">
 	<div class="col-md-12">

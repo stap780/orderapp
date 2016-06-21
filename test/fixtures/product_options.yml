@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  opt_value_inid: 1
+  opt_name_inid: 1
+  title: MyString
+
+two:
+  opt_value_inid: 1
+  opt_name_inid: 1
+  title: MyString

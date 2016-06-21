@@ -37,11 +37,13 @@
   <thead>
     <tr>
     <th>Id</th>
+      <th>Sku</th>
       <th>Title</th>
       <th>Qt all</th>
-      <th>Qt res</th>
-      <th>Qt free</th>
+      <!-- <th>Qt res</th> -->
+      <!-- <th>Qt free</th> -->
       <th>Cost price</th>
+      <th>Sell price</th>
       <th>Price</th>
       <th colspan="3"></th>
     </tr>
@@ -51,11 +53,13 @@
     <% @ipmatikas.each do |ipmatika| %>
       <tr>
       <td><%= ipmatika.id %></td>
+        <td><%= ipmatika.sku %></td>
         <td><%= ipmatika.title %></td>
         <td><%= ipmatika.quantity_all %></td>
-        <td><%= ipmatika.quantity_res %></td>
-        <td><%= ipmatika.quantity_free %></td>
+        <!-- <td><%= ipmatika.quantity_res %></td> -->
+        <!-- <td><%= ipmatika.quantity_free %></td> -->
         <td><%= ipmatika.cost_price %></td>
+        <td><%= ipmatika.sell_price %></td>
         <td><%= ipmatika.price %></td>
         <td><%= link_to 'Show', ipmatika, class: 'btn btn-default btn-sm'  %></td>
         <td><%= link_to 'Edit', edit_ipmatika_path(ipmatika), class: 'btn btn-success btn-sm'  %></td>

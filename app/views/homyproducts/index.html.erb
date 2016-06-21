@@ -57,7 +57,7 @@
       <!--<th>Qt all res</th>-->
       <!--<th>Qt all free</th>-->
       <!--<th>Qt main res</th>-->
-      <th>Price</th>
+      <th>Price ($)</th>
       <th>Min price</th>
       <th>Sell price</th>
       <th colspan="3"></th>
@@ -85,7 +85,7 @@
         <td><%= homyproduct.sell_price %></td>
         <td><%= link_to 'Show', homyproduct, class: 'btn btn-default btn-xs' %></td>
         <td><%= link_to 'Edit', edit_homyproduct_path(homyproduct), class: 'btn btn-success btn-xs' %></td>
-        <td><%= link_to 'Destroy', homyproduct, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' }  %></td>
+        <td><%= link_to 'Destroy', homyproduct, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' }  %></td>
       </tr>
     <% end %>
   </tbody>

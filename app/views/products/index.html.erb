@@ -1,30 +1,29 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<h2>Товары </br><small>сводная таблица</small></h2>
-			<p>Всего товаров - <%= @totalproducts %> (c SKU - <%=@totalproductssku%>) </p>
-		<p>Всего остаток = и > 0 - <%=@zeroquantity%> (<%=@qnotzero%>)</p>
-<p>| <%= link_to 'Загрузить', downloadproduct_products_path%> | <%= link_to 'Обновить', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во', checkquantity_products_path%>  | Download: <%= link_to "CSV", products_path(format: "csv") %> |<!-- <%= link_to 'Synchronize quantity', synchronize_products_path%> | --></p> 
+			<p>Всего - <%= @totalproducts %> (c SKU - <%=@totalproductssku%>) | Остаток = и > 0 - <%=@zeroquantity%> (<%=@qnotzero%>)</p>
+<p>| <%= link_to 'Загрузить товары', downloadproduct_products_path%> | <%= link_to 'Загрузить варианты', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во и цены', checkquantity_products_path%>  | <!--Download: <%= link_to "CSV", products_path(format: "csv") %> | <%= link_to 'Synchronize quantity', synchronize_products_path%> | --></p> 
 		</div>
-		<div class="col-md-8">
-			<div class="col-md-12" style="margin-bottom: 5px;">
-			<p>Поиск</p>
+		<div class="col-md-6">
+			<div class="col-md-12" style="margin-bottom: 5px;">Поиск
 			<%= search_form_for @search, method: :get, :class=> "form-inline"  do |f|%>
+			<%= link_to_add_fields "Add Conditions", f, :condition %>  
 			<%= f.condition_fields do |c|%>
 			<%= render 'condition_fields', :f => c %>
 			<%end%>
-		<%= link_to_add_fields "Add Conditions", f, :condition %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+			<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
 			<%end%>
 			</div>
 			
 			<div class="col-md-12">
-		<%= form_tag skidka_products_path, class: "form-inline" do %>
-		<%= label_tag "Скидка" %>
-		<%= text_field_tag(:skidka, nil, class: "form-control input-sm")%>
-		<a class="btn btn-default btn-sm" id="skidka_click">Установить</a>
-		<%= submit_tag 'Save', class: "btn btn-default btn-sm" %>
-		<% end %>
+			<%= form_tag skidka_products_path, class: "form-inline" do %>
+			<%= label_tag "Скидка" %>
+			<%= text_field_tag(:skidka, nil, class: "form-control input-sm")%>
+			<a class="btn btn-default btn-sm" id="skidka_click">Установить</a>
+			<%= submit_tag 'Save', class: "btn btn-default btn-sm" %>
+			<% end %>
 			</div>
 			
 		</div>

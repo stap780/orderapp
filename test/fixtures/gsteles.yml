@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sku: MyString
+  title: MyString
+  quantity: 1
+  valute: MyString
+  cost_price: 9.99
+  price: 9.99
+
+two:
+  sku: MyString
+  title: MyString
+  quantity: 1
+  valute: MyString
+  cost_price: 9.99
+  price: 9.99

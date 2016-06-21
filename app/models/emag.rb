@@ -9,6 +9,15 @@ require 'open-uri'
 require 'rake'
 require "logger"
 
+	def self.ransackable_attributes(auth_object = nil)
+      #super & ['id', 'title', 'sku', 'discount', 'cost_price', 'price', 'quantity']
+      %w( id title sku discount cost_price price quantity )
+	end
+	
+	def self.ransackable_associations(auth_object = nil)
+    super & ['emag_id']
+  end
+
 
 	def self.to_csv(options = {})
     CSV.generate(options) do |csv|
@@ -27,10 +36,14 @@ require "logger"
 		sku = spreadsheet.cell(i,'A')
 		title = spreadsheet.cell(i,'B')
 		quantity = spreadsheet.cell(i,'C').to_i
-		price = spreadsheet.cell(i,'D').to_f
-		cost_price = spreadsheet.cell(i,'E').to_f
 		discount = spreadsheet.cell(i,'F').to_i
-		
+		cost_price = spreadsheet.cell(i,'E').to_f
+		if discount <= 5
+		price = cost_price * 1.11	
+		else	
+		price = spreadsheet.cell(i,'D').to_f
+		end
+
 		@emag = Emag.find_by_sku("#{sku}")
 		if @emag.present? 
 		@emag.update_attributes( :sku => sku, :title => title, :price => price, :cost_price => cost_price, :quantity => quantity, :discount => discount)
@@ -38,8 +51,31 @@ require "logger"
 		@emag = Emag.new( :sku => sku, :title => title, :price => price, :cost_price => cost_price, :quantity => quantity, :discount => discount)
  		@emag.save
  		end
-		 		
+		
+	end
+	
+		url = "http://www.cbr.ru/scripts/XML_daily.asp"
+		data = Nokogiri::XML(open(url))
+		a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
+		kurs = a.gsub(/,/, '.')
+		
+		emag_rub_audio = Emag.where('title LIKE ?', '%audio%')
+		emag_rub_audio.each do |e|
+			cost_price = e.cost_price
+			price = e.price
+			e.cost_price = (cost_price.to_f / "#{kurs}".to_f).to_f.round(2)
+			e.price = (price.to_f / "#{kurs}".to_f).to_f.round(2)
+		 	e.save	
 		end
+		emag_rub_gamecom = Emag.where('title LIKE ?', '%gamecom%')
+		emag_rub_gamecom.each do |e|
+			cost_price = e.cost_price
+			price = e.price
+			e.cost_price = (cost_price.to_f / "#{kurs}".to_f).to_f.round(2)
+			e.price = (price.to_f / "#{kurs}".to_f).to_f.round(2)
+		 	e.save	
+		end
+		
 	end
   
    def self.open_spreadsheet(file)

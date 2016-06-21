@@ -13,23 +13,20 @@
 		<p><%= file_field_tag :file %></p><p><%= submit_tag "Import", :class =>'btn btn-default btn-xs' %></p>
 		<% end %>
 		</div>
-		<div class="col-md-6"><p>Поиск</p>
-		<%= search_form_for @search do |f|%>
+		<div class="col-md-6">
   		<div classs = "search">
-  		<p><%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :sku_cont %>
-  		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>
-  		</p>
-  		<p><%= f.label :products_emag_id_not_null, 'Синхр' %>(<%= @emag_synchro %>)
-		<%= f.check_box :products_emag_id_not_null %>
-		<%= f.label :products_emag_id_null, 'Не синхр' %><% not_sync = @emag_not_nill - @emag_synchro%>(<%= "#{not_sync}"%>)
-		<%= f.check_box :products_emag_id_null %>
-		</p>
+  		<p>Поиск</p>
+			<%= search_form_for @search, method: :get, :class=> "form-inline"  do |f|%>
+			<%= link_to_add_fields "Add Conditions", f, :condition %>  
+			<%= f.condition_fields do |c|%>
+			<%= render 'condition_fields', :f => c %>
+			<%end%>
+
   		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
   		<%= link_to 'Reset', emags_path, class: 'btn btn-default btn-sm'  %>
 		</div>
-		<% end %>	
+		<% end %>
+		<p>Найдено <%=@emags.total_entries %> позиций</p>	
 		</div>	
 	</div>
 <br>
@@ -50,9 +47,10 @@
       <th>Sku</th>
       <th>Title</th>
       <th><%= sort_link(@search, :quantity, "Quantity") %></th>
-      <th>Price</th>
-      <th>Discount</th>
       <th>Cost price</th>
+      <th>Discount</th>
+      <th>Sell price</th>
+      <th>Price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -64,9 +62,10 @@
         <td><%= emag.sku %></td>
         <td><%= emag.title %></td>
         <td><%= emag.quantity %></td>
-        <td><%= emag.price %></td>
-        <td><%= emag.discount %></td>
         <td><%= emag.cost_price %></td>
+        <td><%= emag.discount %></td>
+        <td></td>
+		<td><%= emag.price %></td>
         <td><%= link_to 'Show', emag, class: 'btn btn-default btn-sm'%></td>
         <td><%= link_to 'Edit', edit_emag_path(emag), class: 'btn btn-success btn-sm' %></td>
         <td><%= link_to 'Destroy', emag, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' }  %></td>

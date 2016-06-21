@@ -10,6 +10,12 @@ class Client < ActiveRecord::Base
 	has_many :invoices
 	validates :phone, uniqueness: true
 
-
+	def client_iorder_name_surname #это для автокоплита - чтобы подставлялось имя и фамилия при подборе
+    "#{self.name} #{self.surname}"
+	end
+	
+	def to_label
+    "#{self.name} #{self.surname}" #это для симпл-форм ассоциации - чтобы подставлялось имя и фамилия при выборе
+	end
 	
 end

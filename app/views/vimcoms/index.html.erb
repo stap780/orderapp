@@ -40,6 +40,8 @@
       <th>Title</th>
       <th>Quantity free</th>
       <th>Quantity all</th>
+      <th>Cost price</th>
+      <th>Price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -51,7 +53,8 @@
         <td><%= vimcom.title %></td>
         <td><%= vimcom.quantity_free %></td>
         <td><%= vimcom.quantity_all %></td>
-        
+        <td><%= vimcom.cost_price %></td>
+        <td><%= vimcom.price %></td>
         <td><%= link_to 'Show', vimcom, class: 'btn btn-default btn-sm'  %></td>
         <td><%= link_to 'Edit', edit_vimcom_path(vimcom), class: 'btn btn-success btn-sm' %></td>
         <td><%= link_to 'Destroy', vimcom, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } %></td>

@@ -21,20 +21,19 @@ def self.to_csv(options = {})
 def self.import(file)
     
     spreadsheet = open_spreadsheet(file) 
-     (8..spreadsheet.last_row).each do |i|  
+     (9..spreadsheet.last_row).each do |i|  
+       sku = spreadsheet.cell(i,'A').to_s
+       title = spreadsheet.cell(i,'F')
+       quantity_all = spreadsheet.cell(i,'Q').to_i
+       quantity_free = spreadsheet.cell(i,'Q').to_i
+       cost_price = spreadsheet.cell(i,'P').to_f
+       price = spreadsheet.cell(i,'N').to_f
        
-       title = spreadsheet.cell(i,'A')
-       quantity_all = spreadsheet.cell(i,'E').to_i
-       ##quantity_res = spreadsheet.cell(i,'G').to_i - отсутствует в файле колонка
-       quantity_free = spreadsheet.cell(i,'F').to_i
-       cost_price = spreadsheet.cell(i,'C').to_f
-       price = spreadsheet.cell(i,'B').to_f
-       
-       @ipmatika = Ipmatika.find_by_title("#{title}")
+       @ipmatika = Ipmatika.find_by_sku("#{sku}")
 		if @ipmatika.present? 
-		@ipmatika.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free)#, :cost_price => cost_price, :price => price)
+		@ipmatika.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free, :cost_price => cost_price, :price => price)
 		else
-		@ipmatika = Ipmatika.new( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free)#, :cost_price => cost_price, :price => price)
+		@ipmatika = Ipmatika.new(:sku => sku, :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free, :cost_price => cost_price, :price => price)
  		@ipmatika.save
  		end
        

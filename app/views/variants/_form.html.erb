@@ -1,0 +1,27 @@
+<%= simple_form_for(@variant) do |f| %>
+  <%= f.error_notification %>
+<div class="col-md-12">
+	<div class="col-md-6">
+  <div class="form-inputs">
+    <%= f.input :product_id %>
+    <%= f.input :sku %>
+    <%= f.input :cost_price %>
+    <%= f.input :price %>
+    <%= f.input :old_price %>
+  </div>
+	</div>
+  <div class="col-md-6">
+  <div class="form-inputs">
+    <%= f.input :variant_inid %>
+    <%= f.input :quantity %>
+    <%= f.input :weight %>
+    <%= f.association :product_option%>
+    <%= f.input :supplier_id %>
+  </div>
+  </div>
+</div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

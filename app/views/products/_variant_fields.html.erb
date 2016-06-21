@@ -1,0 +1,12 @@
+<tr class="nested-fields" >
+<td><%= f.input :sku, label: false %></td>
+<td><%= f.input :quantity, label: false  %></td>
+<td><%= f.input :cost_price, label: false %></td>
+<td><%= f.input :price,label: false %></td>
+<td><%= f.input :old_price, label: false %></td>
+<td><%= f.input :weight, label: false %></td>
+<td><%= f.association :product_option, label: false, label_method: :supplier_name, value_method: :id, include_blank: false %></td>
+<td><%= f.input :supplier_id, label: false %></td>
+<td><%= link_to_remove_association "remove", f %></td>
+
+		

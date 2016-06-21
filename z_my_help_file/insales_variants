@@ -1,0 +1,180 @@
+добавить новый товар со свойствами (POST /admin/products.xml )
+______
+<?xml version="1.0" encoding="UTF-8"?>
+<product>
+    <category-id type="integer">72754</category-id>
+    <is-hidden type="boolean">false</is-hidden>
+    <title>test3</title>
+  <sku>test3</sku>
+  <short-description>test2</short-description>
+  <currency-code>USD</currency-code>
+<collections-ids type="array">
+<collections-id type="integer">5507839</collections-id>
+</collections-ids>
+    <options type="array">
+        <option>
+            <title>Поставщик</title>
+            <value>Розница</value>
+          <id type="integer">605131</id>
+        </option>
+    </options>
+    <variants-attributes type="array">
+        <variants-attribute>
+            <cost-price type="decimal">30</cost-price>
+            <old-price type="decimal">50</old-price>
+            <price type="decimal">40</price>
+            <quantity type="integer">10</quantity>
+        </variants-attribute>
+    </variants-attributes>
+    <description><p>test3</p></description>
+</product>
+______
+
+добавить модификацию по свойству Поставщик (PUT /admin/products/#{id}.xml ) - для товара с существующим свойством
+______
+<?xml version="1.0" encoding="UTF-8"?>
+<product>
+    <variants-attributes type="array">
+        <variants-attribute>
+          <sku>test22</sku>
+            <cost-price type="decimal">30</cost-price>
+            <old-price type="decimal">50</old-price>
+            <price type="decimal">40</price>
+            <quantity type="integer">10</quantity>
+			<options type="array">
+				<option>
+					<option-name-id type="integer">605131</option-name-id>
+					<value>Поставщик 2</value>
+				</option>
+			</options>
+        </variants-attribute>
+    </variants-attributes>
+</product>
+______
+
+require 'open-uri'
+ pr = Variant.where(product_id: 14715, product_option_id: 3)
+ pr.each do |pr|
+     uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/703318.xml"
+     uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.product.inid)}.xml"
+     sku = pr.sku
+     old_price = pr.old_price.to_f
+     cost_price = pr.cost_price.to_f
+     price = pr.price.to_f
+     quantity = pr.quantity
+     opt_name_inid = pr.product_option.opt_name_inid
+     title = pr.product_option.title
+     weight = pr.weight
+    begin
+    
+       response = RestClient.put uri, "<product><variants-attributes ><variants-attribute><sku>#{(pr.sku)}</sku><cost-price >#{(pr.cost_price.to_f)}</cost-price><old-price >#{(pr.old_price.to_f)}</old-price><price >#{(pr.price.to_f)}</price><quantity>#{(pr.quantity)}</quantity><weight>#{(pr.weight)}</weight><options><option><option-name-id >#{(pr.product_option.opt_name_inid)}</option-name-id><value>#{(pr.product_option.title)}</value></option></options></variants-attribute></variants-attributes></product>", :accept => :xml, :content_type => "application/xml"
+       
+       flash[:notice] = "Product was successfully updated."
+    rescue Exception => e
+      flash[:error] = "Product Failed to Update"
+    end
+
+       response = RestClient.put uri, "<product><variants-attributes ><variants-attribute><sku>#{(sku)}</sku><cost-price >#{(cost_price)}</cost-price><old-price >#{(old_price)}</old-price><price >#{(price)}</price><quantity>#{(quantity)}</quantity><weight>#{(weight)}</weight><options><option><option-name-id >#{(opt_name_inid)}</option-name-id><value>#{(title)}</value></option></options></variants-attribute></variants-attributes></product>", :accept => :xml, :content_type => "application/xml"
+       
+       response = RestClient.put uri, "<product><variants-attributes ><variants-attribute><sku>test</sku><cost-price >10</cost-price><old-price >10</old-price><price >10</price><quantity>0</quantity><weight>2</weight><options><option><option-name-id >605131</option-name-id><value>Поставщик 2</value></option></options></variants-attribute></variants-attributes></product>", :accept => :xml, :content_type => "application/xml"
+       
+       
+           
+    #создаем новый вариант в инсалес
+    # pr = Variant.where(product_id: "#{pv["product_id"]}", product_option_id: "#{pv["product_option_id"]}")
+#     pr.each do |pr|
+    uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/10400058.xml"
+    response = RestClient.put uri, "<product><variants-attributes ><variants-attribute><sku>test</sku><cost-price >10</cost-price><old-price >10</old-price><price >10</price><quantity>0</quantity><weight>2</weight><options><option><option-name-id >605131</option-name-id><value>Поставщик 3</value></option></options></variants-attribute></variants-attributes></product>", :accept => :xml, :content_type => "application/xml"
+    # end
+    #конец создаем новый вариант в инсалес    
+    
+    #Выборка на примере - Для премьера
+    p = Product.where("title LIKE ? and homyproduct_id > ?", "%grandstream%", " 0")
+     p.each do |p|
+     cost_price = p.homyproduct.price.to_f.round(2)
+     price = (cost_price + cost_price*3/100).round(2)
+     quantity = p.homyproduct.quantity_all_free if p.homyproduct != nil
+variant = Variant.new(:product_id => p.id,:product_option_id => 3, :sku => p.sku, :cost_price => cost_price, :price => price, :old_price => price, :quantity => quantity, :weight => 1, :supplier_id => p.homyproduct_id)
+variant.save
+end
+	#Конец Выборка 
+
+v = Variant.where(product_option_id: 3)
+v.each do |v|
+     uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(v.product.inid)}.xml"
+<!--     begin -->
+    
+       sendresponse = RestClient.put uri, "<product><variants-attributes ><variants-attribute><sku>#{(v.sku)}</sku><cost-price >#{(v.cost_price.to_f)}</cost-price><old-price >#{(v.old_price.to_f)}</old-price><price >#{(v.price.to_f)}</price><quantity>#{(v.quantity)}</quantity><weight>#{(v.weight)}</weight><options><option><option-name-id >#{(v.product_option.opt_name_inid)}</option-name-id><value>#{(v.product_option.title)}</value></option></options></variants-attribute></variants-attributes></product>", :accept => :xml, :content_type => "application/xml"
+       
+<!--
+       flash[:notice] = "Product was successfully updated."
+    rescue Exception => e
+      flash[:error] = "Product Failed to Update"
+    end
+-->
+  
+  
+  sleep(0.3)
+
+response = RestClient.get uri, :accept => :xml, :content_type => "application/xml"
+data = Nokogiri::XML(response)
+mypr = data.xpath("//variants/variant")
+mypr.each do |var|
+variant_inid = var.xpath("id").text
+option_id = var.xpath("option-values/option-value/id").text
+sku = var.xpath("sku").text
+cost_price = var.xpath("cost-price").text
+price = var.xpath("price").text
+old_price = var.xpath("old-price").text
+quantity = var.xpath("quantity").text
+weight = var.xpath("weight").text
+
+@variant = Variant.find_by_variant_inid("#{variant_inid}")
+if @variant.present?
+@variant.update_attributes( :sku => sku, :cost_price => cost_price, :price => price, :old_price => old_price, :quantity => quantity, :weight => weight, :product_option_id => product_option_id)
+else
+@variant = Variant.where(:product_option_id => option_id, :product_id => v.product_id)
+@variant.each do |variant|
+variant.variant_inid = variant_inid
+variant.save
+ end
+ end
+ end
+
+end
+
+____________
+p = Product.where('ipmatika_id IS NOT NULL')
+p.each do |p|
+p.variants.create(product_id: p.id, sku: p.sku, cost_price: p.cost_price, price: p.price, old_price: p.price, quantity: p.quantity, weight: 1, product_option_id: 2, supplier_id: p.ipmatika_id)
+____________
+
+<product><variants-attributes><variants-attribute><options><option><option-name-id>605131</option-name-id><value>Розница</value></option></options></variants-attribute></variants-attributes></product>
+
+<product><variants-attributes ><variants-attribute><sku>test</sku><cost-price >10</cost-price><old-price >10</old-price><price >10</price><quantity>0</quantity><weight>2</weight><options><option><option-name-id >605131</option-name-id><value>Поставщик 2</value></option></options></variants-attribute></variants-attributes></product>
+
+
+v = Variant.where('product_option_id = ? and product_id = ?', 1, 15005)
+
+v.each do |v|  
+ a = v.cost_price.to_s.gsub('-','').to_f
+ v.cost_price = a
+ b = v.price.to_s.gsub('-','').to_f
+ v.price = b
+ v.save
+ end
+ 
+ 
+p = Product.where("cost_price < ?" , 0)
+p.each do |v|                          
+a = v.cost_price.to_s.gsub('-','').to_f
+v.cost_price = a                  
+b = v.price.to_s.gsub('-','').to_f
+v.price = b
+c = v.sell_price.to_s.gsub('-','').to_f
+v.sell_price = c
+v.save
+end
+
+
+

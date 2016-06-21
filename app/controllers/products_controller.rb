@@ -13,6 +13,8 @@ class ProductsController < ApplicationController
       redirect_to login_url, alert: "Not authorized! Please log in."
      end
   end
+  
+  
 
   # GET /products
   def index
@@ -21,7 +23,7 @@ class ProductsController < ApplicationController
     @search.sorts = 'title asc' if @search.sorts.empty? # сортировка таблицы по алфавиту по умолчанию 
     
     @products = @search.result.paginate(page: params[:page], per_page: 50)
-    @search.build_condition if @search.conditions.empty?
+    #@search.build_condition if @search.conditions.empty?
     @totalproducts = Product.count
     b = Product.where(:sku => '').count
     @totalproductssku = @totalproducts.to_i - "#{b}".to_i
@@ -101,15 +103,16 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   def update
     if @product.update(product_params)
-    # uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(@product.inid)}/variants/#{(@product.variant_id)}.xml"
-#     begin
-#       response = RestClient.put uri, "<variant><quantity>#{(@product.quantity)}</quantity></variant>", :accept => :xml, :content_type => "application/xml"
-#       flash[:notice] = "Product was successfully updated."
-#     rescue Exception => e
-#       flash[:error] = "Product Failed to Update"
-#     end
-#     
-#       redirect_to @product
+    @product.variants.each do |pv|
+    variant = Variant.where(product_id: "#{pv["product_id"]}", product_option_id: "#{pv["product_option_id"]}")
+	    if variant.present?
+	    pv.update_attributes(sku: "#{pv["sku"]}", quantity: "#{pv["quantity"]}",weight: "#{pv["weight"]}", price: "#{pv["price"]}", cost_price: "#{pv["cost_price"]}", old_price: "#{pv["old_price"]}", supplier_id: "#{pv["supplier_id"]}")
+	    else
+	    pv.create(sku: "#{pv["sku"]}", quantity: "#{pv["quantity"]}", price: "#{pv["price"]}", cost_price: "#{pv["cost_price"]}", old_price: "#{pv["old_price"]}", supplier_id: "#{pv["supplier_id"]}", product_id: "#{pv["product_id"]}", product_option_id: "#{pv["product_option_id"]}", weight: "#{pv["weight"]}")
+	    
+	    end
+    
+    end
       
       redirect_to @product , notice: 'Product was successfully updated'
     else
@@ -152,6 +155,6 @@ class ProductsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def product_params
-      params.require(:product).permit(:inid, :sku ,:title, :short_description, :quantity, :cost_price, :sell_price, :price, :category_id, :variant_id, :homyproduct_id, :emag_id, :rrc_id, :angel_id, :energy_id, :vimcom_id, :ipmatika_id, :sskom_id, :treolan_id, :citilink_id, :iorder_id)
+      params.require(:product).permit(:inid, :sku ,:title, :short_description, :quantity, :cost_price, :sell_price, :price, :category_id, :variant_id, :homyproduct_id, :emag_id, :rrc_id, :angel_id, :energy_id, :vimcom_id, :ipmatika_id, :sskom_id, :treolan_id, :citilink_id, :iorder_id, :store_id,:variants_attributes =>[:id, :product_id, :sku, :quantity, :price, :cost_price, :old_price, :weight, :product_option_id, :supplier_id, :_destroy])
     end
 end

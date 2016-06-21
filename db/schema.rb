@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414123817) do
+ActiveRecord::Schema.define(version: 20160607111652) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -182,6 +182,19 @@ ActiveRecord::Schema.define(version: 20160414123817) do
 
   add_index "ets", ["sku"], name: "index_ets_on_sku"
   add_index "ets", ["title"], name: "index_ets_on_title"
+
+  create_table "gsteles", force: :cascade do |t|
+    t.string   "sku"
+    t.string   "title"
+    t.integer  "quantity"
+    t.string   "valute"
+    t.decimal  "cost_price", precision: 8, scale: 2
+    t.decimal  "price",      precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "gsteles", ["title"], name: "index_gsteles_on_title"
 
   create_table "homyproducts", force: :cascade do |t|
     t.integer  "artikul"
@@ -359,6 +372,8 @@ ActiveRecord::Schema.define(version: 20160414123817) do
     t.datetime "updated_at",                            null: false
     t.decimal  "cost_price",    precision: 8, scale: 2
     t.decimal  "price",         precision: 8, scale: 2
+    t.string   "sku"
+    t.decimal  "sell_price",    precision: 8, scale: 2
   end
 
   add_index "ipmatikas", ["title"], name: "index_ipmatikas_on_title"
@@ -425,19 +440,29 @@ ActiveRecord::Schema.define(version: 20160414123817) do
 
   add_index "posts", ["postnumber"], name: "index_posts_on_postnumber"
 
+  create_table "product_options", force: :cascade do |t|
+    t.integer  "opt_value_inid"
+    t.integer  "opt_name_inid"
+    t.string   "title"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "variant_id"
+    t.string   "supplier_name"
+  end
+
   create_table "products", force: :cascade do |t|
     t.integer  "inid"
     t.string   "sku"
     t.string   "title"
     t.text     "short_description"
     t.integer  "quantity"
-    t.decimal  "cost_price",        precision: 8, scale: 2
-    t.decimal  "price",             precision: 8, scale: 2
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.decimal  "cost_price",                  precision: 8, scale: 2
+    t.decimal  "price",                       precision: 8, scale: 2
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "category_id"
     t.integer  "homyproduct_id"
-    t.integer  "variant_id"
+    t.integer  "variant_id",        limit: 8
     t.integer  "emag_id"
     t.integer  "rrc_id"
     t.integer  "angel_id"
@@ -449,7 +474,7 @@ ActiveRecord::Schema.define(version: 20160414123817) do
     t.integer  "treolan_id"
     t.integer  "citilink_id"
     t.integer  "store_id"
-    t.decimal  "sell_price",        precision: 8, scale: 2
+    t.decimal  "sell_price",                  precision: 8, scale: 2
   end
 
   add_index "products", ["category_id"], name: "index_products_on_category_id"
@@ -525,8 +550,11 @@ ActiveRecord::Schema.define(version: 20160414123817) do
     t.string   "sku"
     t.string   "title"
     t.integer  "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.decimal  "cost_price", precision: 8, scale: 2
+    t.decimal  "sell_price", precision: 8, scale: 2
+    t.decimal  "price",      precision: 8, scale: 2
   end
 
   create_table "sales", force: :cascade do |t|
@@ -609,6 +637,21 @@ ActiveRecord::Schema.define(version: 20160414123817) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "variants", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "variant_inid",      limit: 20
+    t.string   "sku"
+    t.decimal  "cost_price",                   precision: 8, scale: 2
+    t.decimal  "price",                        precision: 8, scale: 2
+    t.decimal  "old_price",                    precision: 8, scale: 2
+    t.integer  "quantity"
+    t.decimal  "weight",                       precision: 8, scale: 2
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.integer  "product_option_id"
+    t.integer  "supplier_id"
+  end
+
   create_table "vendors", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -619,8 +662,10 @@ ActiveRecord::Schema.define(version: 20160414123817) do
     t.string   "title"
     t.integer  "quantity_all"
     t.integer  "quantity_free"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.decimal  "cost_price",    precision: 8, scale: 2
+    t.decimal  "price",         precision: 8, scale: 2
   end
 
   add_index "vimcoms", ["title"], name: "index_vimcoms_on_title"

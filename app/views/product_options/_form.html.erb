@@ -1,0 +1,14 @@
+<%= simple_form_for(@product_option) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :opt_value_inid %>
+    <%= f.input :opt_name_inid %>
+    <%= f.input :title %>
+    <%= f.input :supplier_name, collection: ['Розница','Айпиматика', 'Премьер', 'Имаг', 'Треолан', 'РРС', 'Цифровой Ангел', 'Вимком', 'Gstele']%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

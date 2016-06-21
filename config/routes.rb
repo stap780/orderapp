@@ -1,6 +1,18 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :gsteles do
+  	collection do
+  		post :import
+  	end
+  end
+  resources :product_options
+  resources :variants do
+  	collection do
+  		get :addvariant
+  		get :updateqt
+  	end
+  end
   resources :store_items
   resources :enters  do
   	collection do
@@ -136,6 +148,7 @@ InsalesApp::Application.routes.draw do
   	collection do
   		get :downloadproduct
   		get :updateproduct
+  		post :import
   	end
   end
   
@@ -174,6 +187,8 @@ InsalesApp::Application.routes.draw do
       get :updateorder
       get :checkdelivery
       get :autocomplete_product_title
+	  get :autocomplete_client_name
+	  get :get_client_data
     end
     member do
       get 'print'

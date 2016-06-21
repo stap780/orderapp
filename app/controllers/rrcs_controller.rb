@@ -59,6 +59,11 @@ class RrcsController < ApplicationController
     redirect_to rrcs_url, notice: 'Rrc was successfully destroyed.'
   end
   
+  def import
+    Rrc.import(params[:file])
+    redirect_to rrcs_url, notice: "Products imported."
+  end
+  
   def downloadproduct
   	system ('rake rrcdownload')
 #   @rrc = Rrc.downloadproduct
@@ -80,6 +85,6 @@ class RrcsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def rrc_params
-      params.require(:rrc).permit(:sku, :title, :quantity)
+      params.require(:rrc).permit(:sku, :title, :quantity, :cost_price, :price, :sell_price)
     end
 end

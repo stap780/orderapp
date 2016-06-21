@@ -68,6 +68,6 @@ class VimcomsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def vimcom_params
-      params.require(:vimcom).permit(:title, :quantity_all, :quantity_free)
+      params.require(:vimcom).permit(:title, :quantity_all, :quantity_free, :cost_price, :price)
     end
 end
