@@ -15,7 +15,8 @@
 			<%= f.association :client %>
 			</div>			
 			<div class="col-md-3">
-			 <%= f.input :company_title, label: "Покупатель", as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_company_id' }  %>
+ 			 <%= f.input :company_title, label: "Покупатель", as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_company_id' }  %>
+<!-- 			<%= f.input :company_title, label: "Покупатель"%> -->
 			 <%= f.input :company_id, as: :hidden %>
 			 </div>
 			 <div class="col-md-3">

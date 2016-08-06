@@ -16,7 +16,11 @@ class Rrc < ActiveRecord::Base
   end
 
 def self.import(file)
-    
+    @rrcs = Rrc.order("id")
+       @rrcs.each do |rrc|
+	   rrc.quantity = 0
+	   rrc.save
+	   end
     spreadsheet = open_spreadsheet(file) 
      (7..spreadsheet.last_row).each do |i|  
        sku = spreadsheet.cell(i,'A').to_s
@@ -35,9 +39,12 @@ def self.import(file)
        quantity = a.gsub('++', '30').to_i
        else
        if a == '+'
-       quantity = a.gsub('+', '10').to_i
+       quantity = a.gsub('+', '5').to_i
        else
-       quantity = a.to_i 
+       quantity = a.to_i
+       if a == ''
+       quantity = 0 
+       end
        end
        end
        end
@@ -46,16 +53,17 @@ def self.import(file)
        
        cost_price = spreadsheet.cell(i,'H').to_f
        if cost_price > 500
-       price = cost_price*1.11
+       price = cost_price*1.13
        else
-       price = cost_price*1.15
+       price = cost_price*1.18
        end
+       
        @rrc = Rrc.find_by_sku("#{sku}")
 		if @rrc.present? 
 		@rrc.update_attributes( :title => title, :quantity => quantity, :cost_price => cost_price, :price => price)
-		# else
-# 		@rrc = rrc.new(:sku => sku, :title => title, :quantity => quantity, :cost_price => cost_price)
-#  		@rrc.save
+#  		else
+# 		@rrc.quantity = 0
+#   		@rrc.save
  		end
        
     end

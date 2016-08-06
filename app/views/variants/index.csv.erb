@@ -1,5 +1,4 @@
 <% headers = ['variant_id','sku', 'cost-price', 'price', 'old-price', 'quantity'] %>
 <%= CSV.generate_line headers %>
 <% @variants.each do |variant| %>
-<%= CSV.generate_line([variant.variant_inid, variant.sku, variant.cost_price, variant.price, variant.old_price, variant.quantity, ]) if variant.product !=nil %>
-<% end %>
+<%= CSV.generate_line([variant.variant_inid, variant.sku, variant.cost_price, variant.price, variant.old_price, variant.quantity, ]) if variant.product !=nil %><% end %>

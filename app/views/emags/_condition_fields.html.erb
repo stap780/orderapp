@@ -1,3 +1,18 @@
+  		Вставляем в индекс в место поиска
+  		<div classs = "search">
+  		<p>Поиск</p>
+			<%= search_form_for @search, method: :get, :class=> "form-inline"  do |f|%>
+			<%= link_to_add_fields "Add Conditions", f, :condition %>  
+			<%= f.condition_fields do |c|%>
+			<%= render 'condition_fields', :f => c %>
+			<%end%>
+
+  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= link_to 'Reset', emags_path, class: 'btn btn-default btn-sm'  %>
+		</div>
+		<% end %>
+
+____________________
 <div class="field"  style="margin-bottom: 5px;">
 <%= f.attribute_fields do |a|%>
 <%=a.attribute_select({associations: [:products]}, :class => 'form-control input-sm')%>

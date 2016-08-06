@@ -19,7 +19,12 @@ def self.to_csv(options = {})
 
 
 def self.import(file)
-    
+    @vimcoms = Vimcom.order("id")
+    @vimcoms.each do |v|
+	    v.quantity_free = 0
+	    v.quantity_all = 0
+	    v.save
+	    end
     spreadsheet = open_spreadsheet(file) 
      (1..spreadsheet.last_row).each do |i|  
        vimcom = find_by_title(:title) || new

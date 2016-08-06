@@ -40,86 +40,156 @@
 3) Пример виджета
 Разместим на странице заказа слово "Номер"
 а) HTML:
-<html xmlns="http://www.w3.org/1999/xhtml">
-<body>
-<p>Номер</p>
-</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+     
+    </style>
+  </head>
+  <body>
+  <p>Номер отслеживания: <span id='courierNumber'></span></p>
+  <p>Курьерка: <span id='courierName'></span></p>
+  <p>Статус: <span id='courierStatus'></span></p>
+    <script>
+      var courierNumber = document.getElementById('courierNumber');
+  var courierName = document.getElementById('courierName');
+  var courierStatus = document.getElementById('courierStatus');
+  function mycallback(input_object) {
+        data = input_object;
+  }
+var script_element = document.createElement('script');
+
+// Set its source to the JSONP API
+script_element.src = 'http://188.166.111.118:3000/iorders.json?callback=mycallback';
+
+// Stick the script element in the page 
+document.getElementsByTagName('head')[0].appendChild(script_element);
+script_element.onload = function() {  
+                
+  //console.log(data[0].track);
+      //courierNumber.innerHTML = data[0].number;
+     for ( var i = 0; i<data.length; i++ ) { 
+      
+  var number = data[i].number;
+  if (data[i].number == window.order_info.number){
+  
+  courierNumber.innerHTML = data[i].track;
+  courierName.innerHTML = data[i].courierName;
+  courierStatus.innerHtml = data[i].status;
+  }
+  }
+  
+  }
+    </script>
+  </body>
+  </html>
 
 б) Конвертируем через http://www.htmlescape.net/htmlescape_tool.html :
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;<br/>&lt;body&gt;<br/>&lt;p&gt;&#x041d;&#x043e;&#x043c;&#x0435;&#x0440;&lt;/p&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;
 
 в) Отправляем запрос на создание виджета:
 Запрос POST на адрес http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/application_widgets.xml
 И в запросе передаем
 <application-widget>
 <code>
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;<br/>&lt;body&gt;<br/>&lt;p&gt;&#x041d;&#x043e;&#x043c;&#x0435;&#x0440;&lt;/p&gt;<br/>&lt;/body&gt;<br/>&lt;/html&gt;
-</code>
-<height>60</height>
-</application-widget>
-
-4)
-  <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <style>
-      table#statuses {
-        border-collapse: collapse;
-        border-right: 1px solid black;
-        border-left: 1px solid black;
-      }
-      table#statuses td, table#statuses th {
-        border: 1px solid black;
-      }
-    </style>
-  </head>
-  <body>
+  &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;/&gt;
     
-    <table id='statuses' style='border: 1px solid black;'>
-      <tr>
-        <th>Служба доставки</th>
-        <th>Статус</th>
-      </tr>
-    </table>
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Номер отслеживания: &lt;span id='courierNumber'&gt;&lt;span&gt;&lt;/p&gt;
+  &lt;p&gt;Курьерка: &lt;span id='courierName'&gt;&lt;span&gt;&lt;/p&gt;
+  &lt;p&gt;Статус: &lt;span id='courierStatus'&gt;&lt;span&gt;&lt;/p&gt;
 
-    <script>
-      var data = {};
-      // функция которая вызывается во внешнем js файле и устанавливает значение переменной data
-      function set_data(input_object) {
-        data = input_object;
-      }
-      var table = document.getElementById('statuses');
+    &lt;script&gt;
      
+      var courierNumber = document.getElementById('courierNumber');
+  var courierName = document.getElementById('courierName');
+  var courierStatus = document.getElementById('courierStatus');
+  function mycallback(input_object) {
+        data = input_object;
+  }
+var script_element = document.createElement('script');
 
-      // подключаем скрипт который передаёт нам данные через JSONP
-      var script = document.createElement('script');
-      script.src = 'http://188.166.111.118:3000/assets/javascripts/widget_delivery_jsonp_data.js';
-      document.documentElement.appendChild(script);
+// Set its source to the JSONP API
+script_element.src = 'http://188.166.111.118:3000/iorders.json?callback=mycallback';
 
-      // после отработки внешнего скрипта, заполняем таблицу пришедшими данными
-      script.onload = function() {
-        for (var key in data) {
-          var new_tr = document.createElement('tr');
-          new_tr.innerHTML= '<td>'+ key +'</td><td>'+ data[key] +'</td>';
-          table.appendChild(new_tr);
-        }
-      }
-    </script>
-  </body>
-  </html>
+// Stick the script element in the page 
+document.getElementsByTagName('head')[0].appendChild(script_element);
+script_element.onload = function() {  
+                
+  //console.log(data[0].track);
+      //courierNumber.innerHTML = data[0].number;
+  
+  for ( var i = 0; i&lt;data.length; i++ ) {
+  var number = data[i].number;
+  if (data[i].number == window.order_info.number){
+  
+  courierNumber.innerHTML = data[i].track;
+  courierName.innerHTML = data[i].courierName;
+  courierStatus.innerHtml = data[i].status;
+  }
+  }
+  
+  }    
+      
+    &lt;/script&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+</code>
+<height>110</height>
+</application-widget>
+3.1) Изменение виджета
+PUT запрос в виджет. Пример - http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/application_widgets/17997.xml
+4) Проверяем работу
+5) Данный 
+6) На стороне сервера делаем дополнения в контроллере класса
 
-_____________________
-<script>
-$(document).ready(function(){
-$.ajax ({
-  url: "http://188.166.111.118:3000/json_work?callback=?",
-  type: "application/javascript",
-  dataType: 'jsonp',
-	type: 'POST',
-	success: function(data) {
-  console.log(data);}
-});
-});
-</script>
-_____________________
+(Вариант А)
+class ImlsController < ApplicationController
+
+after_filter { |controller| handle_jsonp(controller) }
+
+def json_work
+@imls = Iml.all
+imls = @imls.to_json
+render :json => imls, :callback => params[:mycallback] #ниже написан метод для формирования правильного ответа JSONP
+end
+
+private
+    
+def handle_jsonp(controller)
+ if controller.params[:callback]
+   controller.response['Content-Type'] = 'application/javascript'
+   controller.response.body = "#{controller.params[:callback]}(#{controller.response.body})"
+ end
+end
+(Вариант Б)
+Используем json.jbuilder создаём файл во view - index.json.jbuilder - c содержимым
+
+json.array! @iorders do |iorder|
+  json.number iorder.number
+  if !iorder.iml_id.nil?
+	json.courierName 'IML'	  
+  json.track iorder.iml.barcode
+  json.status iorder.iml.state
+  else
+  if !iorder.dpd_id.nil?
+	json.courierName 'DPD'	  
+  json.track iorder.dpd.dpdnumber
+  json.status iorder.dpd.state
+  else
+  	json.courierName 'not available'	  
+  json.track 'not available'
+  json.status 'not available'
+  end
+  end
+  
+end
+И в контроллере добавляем
+respond_to do |format|
+format.html
+format.json 
+end

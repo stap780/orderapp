@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  client_id: 1
+  iorder_id: 1
+  status: MyString
+  service: MyString
+  description: MyString
+  iorder_check: false
+
+two:
+  number: 1
+  client_id: 1
+  iorder_id: 1
+  status: MyString
+  service: MyString
+  description: MyString
+  iorder_check: false

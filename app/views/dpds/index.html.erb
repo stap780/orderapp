@@ -2,26 +2,32 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-3">
-<h2>Служба доставки DPD<br><small>  сводная таблица</small></h2>
-
-</div>
+		<h2>Служба доставки DPD<br><small>  сводная таблица</small></h2>
+		</div>
 		<div class="col-md-2">
 		</div>
-		<div class="col-md-7"><p>Поиск</p>
+		
+		<div class="col-md-3">
+		<form class="form-inline">	
+		<p>Поиск</p>
 		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :numer_eq, 'Номеру' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :numer_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>  
-  		</div>
-		<% end %>
+		<div class="form-group">
+		<%= f.search_field :numer_eq, placeholder: 'По номеру', class: "form-control input-sm" %>
 		</div>
-
+		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+		<% end %>
+        </form>
+		</div>
+		
+		<div class="col-md-4">
+		</div>
 	</div>
-<div class="col-md-12">
+	
+	<div class="col-md-12">
 		<div class="col-md-5">
 			<p>| <%= link_to 'Обновить', updatedpd_dpds_path%> | </p>
 		</div>
-</div>
+	</div>
 </div>
 
 <div class="col-md-12">

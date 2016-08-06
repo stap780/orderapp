@@ -1,5 +1,11 @@
+<div class="print_block" style="margin-bottom: 20px;">
+<!-- <%= check_box_tag 'sight', '0', false%> Показать печать и подпись -->
+<br>
+<!-- <%= link_to "Напечатать c печатью", print_invoice_list_path(:format => :pdf), {class: 'btn btn-success btn-xs'} %> -->
+<%= link_to "Напечатать", print_iorder_path( :format => :pdf), {class: 'btn btn-success btn-xs'} %>
+</div>
 <head>
-<title>Счёт <%= @iorder.number %></title>
+<title>Заказ <%= @iorder.number %></title>
 </head>
 <body>
 <style>
@@ -94,7 +100,7 @@
  <% @iorder.line_items.each_with_index do |pr, i| %>
 <td align='center'><%= (i+1) %></td>
 <td align="center"><%=pr.product.sku%></td>
-<td><%=pr.title%></td>
+<td><%=pr.product.title%>-<%=pr.product.short_description%></td>
 <td align='center'>шт</td>
 <td align='center'><%= pr.quantity%></td>
 <td align='right'><%= pr.price%></td>

@@ -1,0 +1,17 @@
+<%= simple_form_for(@case) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :number %>
+    <%= f.input :client_id %>
+    <%= f.input :iorder_id %>
+    <%= f.input :status %>
+    <%= f.input :service %>
+    <%= f.input :description %>
+    <%= f.input :iorder_check %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

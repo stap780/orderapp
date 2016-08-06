@@ -7,6 +7,7 @@ class DpdsController < ApplicationController
      @search = Dpd.ransack(params[:q]) #используется gem ransack для поиска и сортировки
      @search.sorts = 'numer desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
      @dpds = @search.result.paginate(page: params[:page], per_page: 30)
+
   end
 
   # GET /dpds/1

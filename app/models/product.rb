@@ -36,7 +36,7 @@ class Product < ActiveRecord::Base
   require 'rest-client'
   
 	def self.ransackable_attributes(auth_object = nil)
-      super & ['id','emag_id', 'title', 'sku', 'rrc_id', 'homyproduct_id', 'ipmatika_id', 'quantity', 'angel_id', 'vimcom_id', 'citilink_id', 'cost_price']
+      super & ['id', 'title', 'sku', 'quantity', 'cost_price']#,'emag_id', 'rrc_id', 'homyproduct_id', 'ipmatika_id', 'angel_id', 'vimcom_id', 'citilink_id']
 	end
   
   def self.find_all_by_inid    
@@ -88,7 +88,7 @@ class Product < ActiveRecord::Base
 			@product = Product.where("inid = ?", pr.xpath("id").text)
 			if @product.present?
 			@product.each do |p|
-			p.update_attributes(:category_id => category_id, :title => title, :short_description => short_description) #, :inid => inid, :sku => sku
+			p.update_attributes(:category_id => category_id, :short_description => short_description) #, :title => title, :inid => inid, :sku => sku
 			end
 			else
 			@product.create(:category_id => category_id, :inid => inid, :sku => sku, :title => title, :short_description => short_description)
@@ -105,7 +105,7 @@ class Product < ActiveRecord::Base
 	@products = Product.order(:id)#.offset(360)
 	@products.each do |product|
 		variant = Variant.find_by_product_id(product.id)
-		if variant.nil?
+		if variant.nil?#!variant.nil?
 		uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{product.inid}.xml"
 		begin
 		response = RestClient.get uri, :accept => :xml, :content_type => "application/xml"
@@ -183,26 +183,30 @@ class Product < ActiveRecord::Base
 	# Обновляем товары Айпиматика
 	ip_variant = Variant.where('product_option_id = ?', 2) #находим варианты продуктов относящийся к поставшику айпиматика
 	ip_variant.each do |ipv|
+		puts "#{(ipv.product_id)}"
 	ip_product = Ipmatika.find_by_id(ipv.supplier_id) #обновляем кол-во по данному товару поставщика
-	if !ip_product.quantity_free.nil?
-	ipv.quantity = ip_product.quantity_free
-	else
-	ipv.quantity = 0
-	end 
-	ipv.cost_price = ip_product.cost_price
-	ipv.save
-	if !ipv.cost_price.nil?
-	ipv.price = ipv.cost_price + ipv.cost_price*10/100
-	else
-	ipv.price = 0
-	end
-	ipv.old_price = ip_product.price
-	ipv.save
+		if !ip_product.nil?
+		if !ip_product.quantity_free.nil?
+		ipv.quantity = ip_product.quantity_free
+		else
+		ipv.quantity = 0
+		end 
+		ipv.cost_price = ip_product.cost_price
+		ipv.save
+		if !ipv.cost_price.nil?
+		ipv.price = ipv.cost_price + ipv.cost_price*10/100
+		else
+		ipv.price = 0
+		end
+		ipv.old_price = ip_product.price
+		ipv.save
+		end
 	end
 	
        # Обновляем товары Премьер
 	homy_variant = Variant.where('product_option_id = ?', 3) #находим варианты продуктов относящийся к поставшику Премьер
 	homy_variant.each do |hv|
+		puts "#{(hv.sku)}"
 	homy_product = Homyproduct.find_by_id(hv.supplier_id) #обновляем кол-во по данному товару поставщика
 	hv.quantity = homy_product.quantity_all_free
 	hv.cost_price = homy_product.price
@@ -254,7 +258,7 @@ class Product < ActiveRecord::Base
 	rrcv.cost_price = rrc_product.cost_price
 	rrcv.save
 	if !rrcv.cost_price.nil?
-	rrcv.price = rrcv.cost_price + rrcv.cost_price*7/100
+	rrcv.price = rrcv.cost_price + rrcv.cost_price*10/100
 	else
 	rrcv.price = 0
 	end
@@ -286,14 +290,15 @@ class Product < ActiveRecord::Base
 	vv.save
 	end
 	
-	# считаем сумму по остаткам вариантов товара и записываем значение в вариант товара - Розница, а так же цены
+	# считаем сумму по остаткам вариантов товара и записываем значение в вариант товара - Розница, а так же обновляем цены
 	product = Product.order(:id)
 	product.each do |product|
+		puts "#{(product.sku)}"
 	if product.variants.count >= 2
 	v = Variant.find_by_id(product.variants.where('product_option_id = ?', 1).first.id) 
 	v.quantity = product.variants.sum(:quantity) - product.variants.where('product_option_id = ?', 1).first.quantity
 	a = ((product.variants.sum(:cost_price)).to_f - (product.variants.where('product_option_id = ?', 1).first.cost_price).to_f).to_f.round(2)
-	b = product.variants.where("quantity > 0").count - 1
+	b = product.variants.count - 1
 		if b > 0
 		v.cost_price = (a / b).to_f.round(2)
 		v.save
@@ -306,7 +311,7 @@ class Product < ActiveRecord::Base
 	v.old_price = 0 # Это заглушка чтобы посчитать РРЦ, так как в варианте Розница она равна старой у вариантов Поставщиков  
 	v.save
 	c = ((product.variants.sum(:old_price)).to_f - (product.variants.where('product_option_id = ?', 1).first.old_price).to_f).to_f.round(2)
-	d = product.variants.where("quantity > 0").count - 1
+	d = product.variants.count - 1
 		if d > 0
 		v.price = (c / d).to_f.round(2)
 		v.save
@@ -321,57 +326,25 @@ class Product < ActiveRecord::Base
 
 	#Обновляем данные в продукте - пока временно, так как можно сделать вывод данных в таблице product index и данных варианта розница
 	product.quantity = v.quantity
-	puts "#{(product.sku)}"
+# 	puts "#{(product.sku)}"
 	product.cost_price = v.cost_price
 	product.sell_price = v.price #Цена РРЦ
 	product.price = v.old_price
 	product.save
 	end
 	end
-
 	
+	#корректируем цены Розница по Yealink
+	variant_yealink = Variant.where('sku Like ? and product_option_id = ?', '%yl%', 1)
+	variant_yealink.each do |v|
+		puts "#{(v.sku)}"
+		cost_price = Variant.where('product_option_id = ? and product_id = ?', 2, v.product_id).first.cost_price.to_f.round(2)
+		price = Variant.where('product_option_id = ? and product_id = ?', 2, v.product_id).first.old_price.to_f.round(2)
+		old_price = nil
+		v.update_attributes(:cost_price => cost_price, :price => price, :old_price =>old_price)
+	end
   end
     
-  # def self.synchronize # алгоритм синхронизации рабочий, но с инсалес выдаёт ошибку при массовом обновлении (единичное обновление из обновления товара работает на "ура". #Поэтому для обновления остатков использую экспорт в csv и загрузку через импорт в инсалесе - занимает 5 минут)
-#   
-# 	   
-#       @products = Product.order("id").limit(250)
-#       @products.each do |pr|
-#        
-#        uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
-#  
-#       response = RestClient.put uri, "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :accept => :xml, :content_type => "application/xml"
-#       end
-#       
-#       sleep 240
-#       
-#       @products = Product.order("id").limit(250).offset(250)
-#       @products.each do |pr|
-#         
-#         uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
-#         response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
-#       end
-#       
-#       sleep 240
-#     
-#      @products = Product.order("id").limit(250).offset(500)
-#      @products.each do |pr|
-#        
-#        uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
-#         response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
-#      end
-#      
-#      sleep 240
-#     
-#     @products = Product.order("id").limit(250).offset(750)
-#     @products.each do |pr|
-#       
-#      uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(pr.inid)}/variants/#{(pr.variant_id)}.xml"
-#         response = RestClient::Request.execute(:method => :put, :url => "#{(uri)}", :payload => "<variant><quantity>#{(pr.quantity)}</quantity></variant>", :headers => {:accept => :xml, :content_type => "application/xml"})
-#     end
-#    
-#     
-#   end
-  
+
   
 end

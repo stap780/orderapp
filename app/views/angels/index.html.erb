@@ -13,16 +13,20 @@
 		</div>
 		
 		<div class="col-md-6">
+		<div class="col-md-12" style="margin-bottom: 5px;">
+		<form class="form-inline">
 		<p>Поиск</p>
 		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :sku_cont %>  
- 
-  		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<div class = "form-group">
+  		<%= f.search_field :sku_cont, placeholder: 'Sku', class: "form-control input-sm" %>  
+  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
+  		</div>
+  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		
+		<% end %>
+		</form>
 		</div>
-		<% end %>	
+
 		</div>	
 	</div>
 <br>
@@ -44,7 +48,7 @@
       <th>Sku</th>
       <th>Title</th>
       <th>Quantity</th>
-      <th>Status</th>
+<!--       <th>Status</th> -->
       <th>Valuta</th>
       <th>Price</th>
       <th>Cost price</th>
@@ -55,11 +59,11 @@
   <tbody>
     <% @angels.each do |angel| %>
       <tr>
-      	<td><%= angel.id %></td>
+      	<td class="angel_id"><%= angel.id %></td>
         <td><%= angel.sku %></td>
         <td><%= angel.title %></td>
         <td><%= angel.quantity %></td>
-        <td><%= angel.status %></td>
+<!--         <td><%= angel.status %></td> -->
         <td><%= angel.valuta %></td>
         <td><%= angel.price %></td>
         <td><%= angel.cost_price %></td>

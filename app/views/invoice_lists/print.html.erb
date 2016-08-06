@@ -1,20 +1,27 @@
 <style>
   	.header, .myfooter {display: none;}
 </style>
+<div class="print_block" style="float: right; margin-bottom: 20px;">
+<%= check_box_tag 'sight', '0', false%> Показать печать и подпись
+<br>
+<%= link_to "Напечатать c печатью", print_invoice_list_path(:format => :pdf), {class: 'btn btn-success btn-xs'} %>
+<%= link_to "Напечатать без печати", pdf_invoice_list_path( :format => :pdf), {class: 'btn btn-success btn-xs'} %>
+</div>
+
 <TABLE CELLSPACING="0" COLS="95" BORDER="0" style="width:1050px;margin:10px;">
 	<COLGROUP SPAN="95" WIDTH="15"></COLGROUP>
 
 	<TR>
 		<TD COLSPAN=8 ROWSPAN=4 HEIGHT="63" ALIGN="LEFT" VALIGN=TOP><FONT FACE="Times New Roman" SIZE=1>Универсальный передаточный документ</FONT></TD>
-		<TD STYLE="border-left: 2px solid #000000;padding-left: 5px;" COLSPAN=20 ALIGN="LEFT"><FONT FACE="Times New Roman">Счет-фактура N </FONT></TD>
-		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman"><%= @invoice_list.number%><BR></FONT></TD>
+		<TD STYLE="border-left: 2px solid #000000;padding-left: 5px;" COLSPAN=20 ALIGN="LEFT"><FONT FACE="Times New Roman" SIZE=1>Счет-фактура N </FONT></TD>
+		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%= @invoice_list.number%><BR></FONT></TD>
 		<TD COLSPAN=2 ALIGN="CENTER"><FONT FACE="Times New Roman">от</FONT></TD>
-		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=10 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman"><%= @invoice_list.date.strftime("%d / %m / %Y")%><BR></FONT></TD>
+		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=10 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%= @invoice_list.date.strftime("%d / %m / %Y")%><BR></FONT></TD>
 		<TD COLSPAN=4 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(1)</FONT></TD>
 		<TD COLSPAN=45 ROWSPAN=3 ALIGN="RIGHT" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Приложение N 1<BR>к постановлению Правительства Российской Федерации<BR>от 26 декабря 2011 года N 1137</FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-left: 2px solid #000000;padding-left: 5px;" COLSPAN=20 ALIGN="LEFT"><FONT FACE="Times New Roman" >Исправление N</FONT></TD>
+		<TD STYLE="border-left: 2px solid #000000;padding-left: 5px;" COLSPAN=20 ALIGN="LEFT"><FONT FACE="Times New Roman" SIZE=1>Исправление N</FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman"><BR></FONT></TD>
 		<TD COLSPAN=2 ALIGN="CENTER"><FONT FACE="Times New Roman">от</FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000" COLSPAN=10 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman"><BR></FONT></TD>
@@ -168,7 +175,7 @@
 		<TD STYLE="border-top: 1px solid #000000; border-left: 2px solid #000000" COLSPAN=77 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=8 HEIGHT="35" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Документ составлен на </FONT></TD>
+		<TD COLSPAN=8 HEIGHT="15" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Документ составлен на </FONT></TD>
 		<TD STYLE="border-left: 2px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=27 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Руководитель организации <BR>или иное уполномоченное лицо</FONT></TD>
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
@@ -180,7 +187,7 @@
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=15 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Эмексизов П.А.<BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=3 HEIGHT="18" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=3 HEIGHT="10" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=5 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1> листах</FONT></TD>
 		<TD STYLE="border-left: 2px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=27 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
@@ -193,7 +200,7 @@
 		<TD COLSPAN=15 ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(ф.и.о.)</FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-right: 1px solid #000000" COLSPAN=8 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD STYLE="border-right: 1px solid #000000" COLSPAN=8 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-left: 2px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=22 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Индивидуальный предприниматель</FONT></TD>
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
@@ -203,7 +210,7 @@
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=35 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-right: 1px solid #000000" COLSPAN=8 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD STYLE="border-right: 1px solid #000000" COLSPAN=8 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-bottom: 2px solid #000000; border-left: 2px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-bottom: 2px solid #000000" COLSPAN=22 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-bottom: 2px solid #000000" COLSPAN=6 ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(подпись)</FONT></TD>
@@ -216,22 +223,22 @@
 		<TD COLSPAN=85 HEIGHT="7" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=22 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Основание передачи (сдачи) / получения (приемки)</FONT></TD>
+		<TD COLSPAN=22 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Основание передачи (сдачи) / получения (приемки)</FONT></TD>
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=80 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>[8]</FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=22 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD COLSPAN=22 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000" COLSPAN=80 ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(договор; доверенность и др.)</FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=16 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Данные о транспортировке и грузе</FONT></TD>
+		<TD COLSPAN=16 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Данные о транспортировке и грузе</FONT></TD>
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=86 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>[9]</FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=16 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD COLSPAN=16 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000" COLSPAN=86 ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(транспортная накладная, поручение экспедитору, экспедиторская / складская расписка и др. / масса нетто/ брутто груза, если не приведены ссылки на транспортные документы, содержащие эти сведения)</FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
@@ -241,7 +248,7 @@
 		<TD COLSPAN=50 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Товар (груз) получил / услуги, результаты работ, права принял </FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=13 HEIGHT="18" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=13 HEIGHT="10" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=18 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
@@ -256,7 +263,7 @@
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>[15]</FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=13 HEIGHT="18" ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(должность)</FONT></TD>
+		<TD COLSPAN=13 HEIGHT="10" ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(должность)</FONT></TD>
 		<TD ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=18 ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(подпись)</FONT></TD>
 		<TD ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
@@ -271,7 +278,7 @@
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=23 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Дата отгрузки, передачи (сдачи)</FONT></TD>
+		<TD COLSPAN=23 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Дата отгрузки, передачи (сдачи)</FONT></TD>
 		<TD ALIGN="RIGHT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>&quot;</FONT></TD>
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=2 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%=@invoice_list.date.strftime("%d")%><BR></FONT></TD>
 		<TD ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>&quot;</FONT></TD>
@@ -292,35 +299,35 @@
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>[16]</FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=47 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Иные сведения об отгрузке, передаче</FONT></TD>
+		<TD COLSPAN=47 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Иные сведения об отгрузке, передаче</FONT></TD>
 		<TD STYLE="border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-left: 1px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=47 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Иные сведения о получении, приемке</FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=47 HEIGHT="18" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=47 HEIGHT="10" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>[12]</FONT></TD>
 		<TD STYLE="border-left: 1px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=47 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>[17]</FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-top: 1px solid #000000" COLSPAN=47 HEIGHT="18" ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(ссылки на неотъемлемые приложения, сопутствующие документы, иные документы и т.п.)</FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000" COLSPAN=47 HEIGHT="10" ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(ссылки на неотъемлемые приложения, сопутствующие документы, иные документы и т.п.)</FONT></TD>
 		<TD STYLE="border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-left: 1px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000" COLSPAN=47 ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(информация о наличии/отсутствии претензии; ссылки на неотъемлемые приложения, и другие  документы и т.п.)</FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=47 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Ответственный за правильность оформления факта хозяйственной жизни</FONT></TD>
+		<TD COLSPAN=47 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Ответственный за правильность оформления факта хозяйственной жизни</FONT></TD>
 		<TD STYLE="border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-left: 1px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=47 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Ответственный за правильность оформления факта хозяйственной жизни</FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=13 HEIGHT="18" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=13 HEIGHT="10" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=18 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
@@ -335,7 +342,7 @@
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>[18]</FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=13 HEIGHT="18" ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(должность)</FONT></TD>
+		<TD COLSPAN=13 HEIGHT="10" ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(должность)</FONT></TD>
 		<TD ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=18 ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(подпись)</FONT></TD>
 		<TD ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
@@ -350,7 +357,7 @@
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=47 HEIGHT="18" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Наименование экономического субъекта – составителя документа (в т.ч. комиссионера / агента)</FONT></TD>
+		<TD COLSPAN=47 HEIGHT="10" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Наименование экономического субъекта – составителя документа (в т.ч. комиссионера / агента)</FONT></TD>
 		<TD STYLE="border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-left: 1px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=47 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>Наименование экономического субъекта - составителя документа</FONT></TD>
@@ -364,14 +371,14 @@
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>[19]</FONT></TD>
 		</TR>
 	<TR>
-		<TD STYLE="border-top: 1px solid #000000" COLSPAN=47 HEIGHT="18" ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(может не заполняться при проставлении печати в М.П., может быть указан ИНН / КПП)</FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000" COLSPAN=47 HEIGHT="10" ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(может не заполняться при проставлении печати в М.П., может быть указан ИНН / КПП)</FONT></TD>
 		<TD STYLE="border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-left: 1px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000" COLSPAN=47 ALIGN="CENTER" VALIGN=TOP SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(может не заполняться при проставлении печати в М.П., может быть указан ИНН / КПП)</FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 	<TR>
-		<TD COLSPAN=13 HEIGHT="18" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>М.П.</FONT></TD>
+		<TD COLSPAN=13 HEIGHT="10" ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>М.П.</FONT></TD>
 		<TD COLSPAN=34 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-left: 1px solid #000000" ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>

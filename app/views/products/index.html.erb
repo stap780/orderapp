@@ -4,20 +4,23 @@
 		<div class="col-md-6">
 			<h2>Товары </br><small>сводная таблица</small></h2>
 			<p>Всего - <%= @totalproducts %> (c SKU - <%=@totalproductssku%>) | Остаток = и > 0 - <%=@zeroquantity%> (<%=@qnotzero%>)</p>
-<p>| <%= link_to 'Загрузить товары', downloadproduct_products_path%> | <%= link_to 'Загрузить варианты', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во и цены', checkquantity_products_path%>  | <!--Download: <%= link_to "CSV", products_path(format: "csv") %> | <%= link_to 'Synchronize quantity', synchronize_products_path%> | --></p> 
+<p>| <%= link_to 'Загрузить товары', downloadproduct_products_path%> | <%= link_to 'Загрузить варианты', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во и цены', checkquantity_products_path%>  | <!--Download: <%= link_to "CSV", products_path(format: "csv") %> | <%= link_to 'Synchronize quantity', synchronize_products_path%> | -->Download: <%= link_to "Наличие для магазина", variants_path(format: "csv") %> | <%= link_to "ADVT", advt_products_path(format: "csv") %> |</p> 
 		</div>
 		<div class="col-md-6">
-			<div class="col-md-12" style="margin-bottom: 5px;">Поиск
-			<%= search_form_for @search, method: :get, :class=> "form-inline"  do |f|%>
-			<%= link_to_add_fields "Add Conditions", f, :condition %>  
-			<%= f.condition_fields do |c|%>
-			<%= render 'condition_fields', :f => c %>
-			<%end%>
-			<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-			<%end%>
-			</div>
-			
-			<div class="col-md-12">
+		<div class="col-md-12" style="margin-bottom: 5px;">
+		<form class="form-inline">
+		<p>Поиск</p>
+		<%= search_form_for @search do |f|%>
+  		<div class = "form-group">
+  		<%= f.search_field :sku_cont, placeholder: 'Sku', class: "form-control input-sm" %>  
+  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
+  		</div>
+  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		
+		<% end %>
+		</form>
+		</div>
+		<div class="col-md-12">
 			<%= form_tag skidka_products_path, class: "form-inline" do %>
 			<%= label_tag "Скидка" %>
 			<%= text_field_tag(:skidka, nil, class: "form-control input-sm")%>
@@ -25,7 +28,6 @@
 			<%= submit_tag 'Save', class: "btn btn-default btn-sm" %>
 			<% end %>
 			</div>
-			
 		</div>
 </div>
 
@@ -67,7 +69,12 @@
       	<!--<td><%= product.energy_id %></td>-->
         <!--<td><%= product.inid %></td>-->
         <td><%= product.sku %></td>
+        <% a = product.variants.count%>
+        <% if a > 1 %>
+        <td><span style="background-color: rgba(95, 212, 225, 0.51);"><%= product.title %></span></td>
+        <%else%>
         <td><%= product.title %></td>
+        <%end%>
         <td><%= product.short_description %></td>
         <td><%= product.quantity%></td>
         <td><%= product.cost_price %></td>

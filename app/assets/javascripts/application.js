@@ -142,8 +142,30 @@ $("#purchase_invoice_items").children('tbody')
   /////////////////
 
 
-
-  
+/////////////////
+// Функция подсвечивающая строки товаров по поставщикам которые синхронизируются. Есть второй вариант - например поставщик Цифровой ангел (Angel.js).
+var Ids = document.getElementsByClassName("id");
+var poi = document.getElementById("product_option_id")
+for (var i = 0; i < Ids.length; i++) {
+	
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		data: {product_option_id: poi.innerHTML, supplier_id: Ids[i].innerHTML},
+		url: "/variants/get_supplier_id_data",  
+		success: function(data){
+      if(data.length !== 0){
+      $('.id').filter(function() {
+  var a = data[0].supplier_id;
+  var searchString = a.toString();
+        //console.log(searchString);
+  return ($(this).html() === searchString);
+}).parent().css("background-color", "#ddd");
+}
+}
+});
+}
+ ///////////////// 
   
 	
 	

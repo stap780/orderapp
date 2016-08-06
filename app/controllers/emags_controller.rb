@@ -11,8 +11,8 @@ class EmagsController < ApplicationController
   # GET /emags
   def index
     @search = Emag.ransack(params[:q])
-    @search.sorts = 'title asc' if @search.sorts.empty?
-    @emags = @search.result.includes(:products).paginate(page: params[:page], per_page: 50)
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @emags = @search.result.includes(:products).paginate(page: params[:page], per_page: 100)
     @totalemags = Emag.count
     @emag_not_nill = Emag.where("quantity > 0").count
     @emag_synchro = Product.where("emag_id IS NOT NULL").count

@@ -1,6 +1,11 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :cases do
+	  collection do
+		 post :create_json_case
+		 end
+	end
   resources :gsteles do
   	collection do
   		post :import
@@ -11,6 +16,7 @@ InsalesApp::Application.routes.draw do
   	collection do
   		get :addvariant
   		get :updateqt
+  		get :get_supplier_id_data
   	end
   end
   resources :store_items
@@ -49,11 +55,13 @@ InsalesApp::Application.routes.draw do
 	end
   	member do
       get :print
+      get :pdf
 	end
 	end
   resources :invoices do
   collection do
 	  	get :autocomplete_company_title
+	  	get :pdf
 	end
   	member do
       get :print
@@ -177,7 +185,7 @@ InsalesApp::Application.routes.draw do
   		post :import
 		post :edit_multiple 
 		put :update_multiple
-		
+		get :advt
   	end
   end
   

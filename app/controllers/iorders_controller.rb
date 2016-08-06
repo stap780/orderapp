@@ -3,7 +3,7 @@ class IordersController < ApplicationController
     require 'nokogiri'
     require 'rest_client'
     
-    
+    after_filter { |controller| handle_jsonp(controller) }
 	before_action :set_iorder, only: [:show, :print, :edit, :update, :destroy]
 	before_action :authorize
 	autocomplete :product, :title, full: true
@@ -19,8 +19,13 @@ class IordersController < ApplicationController
   # GET /iorders
   def index
      @search = Iorder.ransack(params[:q]) #используется gem ransack для поиска и сортировки
-     @search.sorts = 'number desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
+     @search.sorts = 'id desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
      @iorders = @search.result.paginate(page: params[:page], per_page: 30)
+	respond_to do |format|
+	format.html
+	format.json #{ render :json => @iorders, :callback => params[:mycallback]}
+	end
+
   end
   
   def get_client_data
@@ -43,11 +48,23 @@ class IordersController < ApplicationController
   def print
   	@nds =  @iorder.line_items.sum(:sum)*18/100
   	@skidka = @iorder.line_items.sum(:sum) * @iorder.discount_percent.to_i/100
+  		respond_to do |format|
+        format.html
+		format.pdf do
+		render :pdf => "Заказ #{@iorder.number}",:template => "iorders/pdf"
+		end 
+
+      end
+
   end
 
   # GET /iorders/new
   def new
     @iorder = Iorder.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /iorders/1/edit
@@ -59,13 +76,21 @@ class IordersController < ApplicationController
   # POST /iorders
   def create
     @iorder = Iorder.new(iorder_params)
-    if @iorder.save
     
-      redirect_to @iorder, notice: 'Iorder was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @iorder.save
+        format.html { redirect_to @iorder, notice: 'Iorder was successfully created.' }
+        format.json { render :json => @iorder }
+        format.js   { render action: 'show', status: :created, location: @iorder }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @iorder.errors, status: :unprocessable_entity }
+        format.js   { render json: @iorder.errors, status: :unprocessable_entity }
+      end
     end
+    
   end
+  
 
   # GET /iorders/downloadorder
   def downloadorder 
@@ -174,6 +199,14 @@ class IordersController < ApplicationController
     def set_iorder
       @iorder = Iorder.find(params[:id])
     end
+    
+	def handle_jsonp(controller)
+	if controller.params[:callback]
+	controller.response['Content-Type'] = 'application/javascript'
+	controller.response.body = "#{controller.params[:callback]}(#{controller.response.body})"
+	end
+	end
+
 
     # Only allow a trusted parameter "white list" through.
     def iorder_params

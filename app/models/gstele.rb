@@ -18,6 +18,11 @@ validates :sku, uniqueness: true
   
   def self.import(file)
     #Gstele.destroy_all
+    @gsteles = Gstele.order("id")
+    @gsteles.each do |gs|
+	    gs.quantity = 0
+	    gs.save
+	    end
     spreadsheet = open_spreadsheet(file) 
      (4..spreadsheet.last_row).each do |i|  
 	     sku = spreadsheet.cell(i,'A').to_s.gsub('.0','').squish 
@@ -40,8 +45,8 @@ validates :sku, uniqueness: true
       @gstele = Gstele.find_by_sku("#{sku}")
 		if @gstele.present? 
 		@gstele.update_attributes(:quantity => quantity)#( :price => price, :quantity => quantity, :cost_price => cost_price)
-		else
-		# @gstele = Gstele.new(:sku => sku, :title => title, :price => price, :valute => valute, :quantity => quantity)
+# 		else
+# 		@gstele = Gstele.new(:sku => sku, :title => title, :price => price, :valute => valute, :quantity => quantity)
 #   		@gstele.save
  		end
        

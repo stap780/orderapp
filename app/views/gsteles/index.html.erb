@@ -7,20 +7,24 @@
 		</div>
 		<div class="col-md-3">
 		
-		<p>Import product</p>
+		<p>Import product (сделать из 2-х файлов один)</p>
 		<p><%= form_tag import_gsteles_path, multipart: true do %></p>  <p><%= file_field_tag :file %></p>  <p><%= submit_tag "Import" , :class =>'btn btn-default btn-xs' %></p>
 		<% end %>
 		</div>
 		<div class="col-md-6">
-		<p>Поиск</p>
-		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :sku_eq, 'по SKU' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :sku_eq %> 
-  		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-		</div>
-		<% end %>	
+			<div class="col-md-12" style="margin-bottom: 5px;">
+			<form class="form-inline">
+			<p>Поиск</p>
+			<%= search_form_for @search do |f|%>
+	  		<div class = "form-group">
+	  		<%= f.search_field :sku_eq, placeholder: 'Sku', class: "form-control input-sm" %>  
+	  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
+	  		</div>
+	  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+	  		
+			<% end %>
+			</form>
+			</div>
 		</div>	
 	</div>
 <br>
@@ -51,7 +55,7 @@
   <tbody>
     <% @gsteles.each do |gstele| %>
       <tr>
-        <td><%= gstele.id %></td>
+        <td class="gstele_id"><%= gstele.id %></td>
         <td><%= gstele.sku %></td>
         <td><%= gstele.title %></td>
         <td><%= gstele.quantity %></td>

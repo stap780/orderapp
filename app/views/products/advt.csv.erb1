@@ -1,0 +1,13 @@
+<% headers = ['title','descr1', 'descr2', 'URL', 'keywords', 'stopwords','price','autobid'] %>
+<%= CSV.generate_line headers %>
+<% @products.each do |product| %>
+<%title = product.title %>
+<%rub_price = (product.sell_price.to_f * @kurs.to_f).to_f.round(2)%>
+<%descr1 = 'от ' + rub_price.to_s + ' руб' %>
+<%descr2 = 'Скидки бизнесу. Доставка по России.' %>
+<%url ='http://www.teletri.ru/product_by_id/' + product.inid.to_s %>
+<%keywords = 'купить ' + product.title %>
+<%stopwords = 'настройка, ремонт, инструкция, описание' %>
+<%price = 10%>
+<%autobid = 1%>
+<%= CSV.generate_line([title, descr1, descr2, url, keywords, stopwords, price, autobid ])  %><% end %>

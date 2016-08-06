@@ -33,8 +33,23 @@ class InvoiceListsController < ApplicationController
 	respond_to do |format|
         format.html
         format.xls 
+		format.pdf do
+		render :pdf => "УПД #{@invoice_list.number}",:template => "invoice_lists/pdfsight"
+		end 
+
       end
   end
+  
+  	def pdf
+  	@invoice_list = InvoiceList.find(params[:id])
+  	@company2 = Company.find_by_id(@invoice_list.companytwo)
+  	@nds =  @invoice_list.total_price*18/100
+  	@sum_without_nds = @invoice_list.total_price - @nds
+		render :pdf => "УПД #{@invoice_list.number}",
+			   :template => "invoice_lists/pdf",
+			   :orientation => 'Landscape'
+	end
+
 
   # GET /invoice_lists/new
   def new

@@ -11,7 +11,7 @@ class AngelsController < ApplicationController
   # GET /angels
   def index
     @search = Angel.ransack(params[:q]) #используется gem ransack для поиска и сортировки
-    @search.sorts = 'title asc' if @search.sorts.empty? # сортировка таблицы по алфавиту по умолчанию 
+    @search.sorts = 'id asc' if @search.sorts.empty? # сортировка таблицы по алфавиту по умолчанию 
     @angels = @search.result
     @totalproducts = Angel.count
     respond_to do |format|

@@ -52,7 +52,9 @@ gem 'spring'
 gem 'puma', '~>3.0.2'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-filestyle-rails'
-
+gem 'addressable', '~> 2.4'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
  
 group :development, :test do
 	

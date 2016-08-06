@@ -26,39 +26,23 @@
 			<%= f.input :factaddress %>
 			</div>
 		</div>
-		<div class="col-md-12">
-			<div class="col-md-6">
-			<%= f.input :ogrn %>
-			</div>
-			<div class="col-md-6">
-			<%= f.input :okpo %>
-			</div>
-		</div>
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-md-4" >
 		<div class="col-md-12">
+			<%= f.input :ogrn %>
+			<%= f.input :okpo %>
+		</div>
+		<div class="col-md-12" style="border-top: 1px solid #e5e5e5";>
 		<%= f.input :bik, input_html: { onchange: "myBikFunction(this.value)" } %>
-		</div>
-		<div class="col-md-12">
 		<%= f.input :banktitle %>
-		</div>
-		<div class="col-md-12">
 		<%= f.input :bankaccount %>
 		</div>
-	<div class="col-md-12" style="margin-top:20px;">  
-		<%= f.button :submit, class: 'btn btn-default btn-sm' %>
-		<%= link_to 'Show', @company, class: 'btn btn-default btn-sm'  %>
-		<%= link_to 'Back', companies_path, class: 'btn btn-default btn-sm'  %>
-	</div>
 	</div>
 	
-<div class="col-md-12">
-<div class="col-md-6">
-
-</div>
-</div>
-
+	<div class="col-md-12" style="margin-top:20px;">  
+	<%= f.button :submit, class: 'btn btn-default btn-sm', id: 'companies_submit'%>
+	<%= link_to 'Show', @company, class: 'btn btn-default btn-sm', id: 'companies_show'  %>
+	<%= link_to 'Back', companies_path, class: 'btn btn-default btn-sm', id: 'companies_back'  %>
 
 <% end %>
-

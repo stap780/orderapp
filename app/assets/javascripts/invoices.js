@@ -1,3 +1,5 @@
+
+
 // калькулятор по позициям и итого
     function calculateInvoice(val) {
 	var table = document.getElementById("invoice_items").lastChild.children;

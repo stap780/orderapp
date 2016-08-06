@@ -14,18 +14,20 @@
 		<% end %>
 		</div>
 		<div class="col-md-6">
-  		<div classs = "search">
-  		<p>Поиск</p>
-			<%= search_form_for @search, method: :get, :class=> "form-inline"  do |f|%>
-			<%= link_to_add_fields "Add Conditions", f, :condition %>  
-			<%= f.condition_fields do |c|%>
-			<%= render 'condition_fields', :f => c %>
-			<%end%>
-
+		<div class="col-md-12" style="margin-bottom: 5px;">
+		<form class="form-inline">
+		<p>Поиск</p>
+		<%= search_form_for @search do |f|%>
+  		<div class = "form-group">
+  		<%= f.search_field :id_eq, placeholder: 'ID', class: "form-control input-sm" %>  
+  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
+  		</div>
   		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-  		<%= link_to 'Reset', emags_path, class: 'btn btn-default btn-sm'  %>
-		</div>
+  		
 		<% end %>
+		</form>
+		</div>
+
 		<p>Найдено <%=@emags.total_entries %> позиций</p>	
 		</div>	
 	</div>
@@ -58,7 +60,7 @@
   <tbody>
     <% @emags.each do |emag| %>
       <tr>
-      <td><%= emag.id %></td>
+      <td class="emag_id"><%= emag.id %></td>
         <td><%= emag.sku %></td>
         <td><%= emag.title %></td>
         <td><%= emag.quantity %></td>

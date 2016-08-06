@@ -1,15 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @product.title %></h2>
+<h2><%= @product.title %> <small>(inid <%= @product.inid%>)</small></h2>
 
 <div class="col-md-12">
-	<div class="col-md-8" style="margin-top:20px;">
-	<div class="col-md-12"style="margin-top:10px;">
-		<div class="col-md-12">
+	<div class="col-md-12" style="margin-top:20px;">
+	<div class="col-md-6"style="margin-top:10px;">
+		<div class="col-md-4">
 		<strong>SKU:</strong>  
 		<%= @product.sku %>
 		</div>
-		<div class="col-md-12">
+		<div class="col-md-8">
 		<strong>Title:</strong> 
 		<%= @product.title %>
 		</div>
@@ -18,24 +18,57 @@
 		<%= @product.short_description %>
 		</div>
 	</div>
-	<div class="col-md-12"style="margin-top:10px;">
-		<div class="col-md-2">
+	<div class="col-md-6"style="margin-top:10px;">
+		<div class="col-md-4">
 		<strong>Quantity:</strong>  
 		<%= @product.quantity %>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-8">
 		<strong>Cost price:</strong>  
 		<%= @product.cost_price %>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-6">
 		<strong>Sell price:</strong>   
 		<%= @product.sell_price %>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-6">
 		<strong>Price:</strong>   
 		<%= @product.price %>
 		</div>
 	</div>
+
+<div class="col-md-10" style="margin-top:20px;">
+Варианты	
+<table class="table table-hover">
+  <tr style="background:#e7e7e7;">
+	<th>Поставщик</th>
+	<th>sku</th>
+	<th>quantity</th>
+	<th>cost_price</th>
+	<th>price</th>
+	<th>old_price</th>
+	<th>weight</th>
+	<th>Св-во</th>
+	<th>ID поставщика</th>
+  </tr>
+  <tr>
+	<% @product.variants.each do |pv|%>
+	<td><strong><%=pv.product_option.supplier_name%></strong></td>
+	<td><%=pv.sku %></td>
+	<td><%=pv.quantity  %></td>
+	<td><%=pv.cost_price %></td>
+	<td><%=pv.price %></td>
+	<td><%=pv.old_price %></td>
+	<td><%=pv.weight %></td>
+	<td><%=pv.product_option.title%></td>
+	<td><%=pv.supplier_id %></td>
+  </tr>
+  	<%end%>
+</table>
+</div>
+	
+	
+	  
 	<div class="col-md-12" style="margin-top:20px;">  
 		<div class="col-md-6">
 			<%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-default btn-sm'  %>
@@ -44,6 +77,7 @@
 	</div>
 	</div>
 
+<!--
 	<div class="col-md-4">
 	<strong>Синхронизация с поставщиками (id):</strong>
 	<div class="col-md-8">
@@ -119,4 +153,7 @@
 	</div>
 </div>	
 	</div>	
+-->
+
+
 </div>

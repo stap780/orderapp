@@ -3,6 +3,7 @@
 	<div class="col-md-12">
 		<div class="col-md-3">
 			<h1>Премьер<br><small>сводная таблица</small></h1>
+			<p id="product_option_id" style="display:none;">3</p>
 			<p>Всего товаров - <%= @totalproducts %></p>
 			<p>Товаров >0  - <%= @homynotzero%></p>
 		</div>
@@ -13,15 +14,21 @@
 		<% end %>
 		</div>
 		<div class="col-md-6">
+		<div class="col-md-12" style="margin-bottom: 5px;">
+		<form class="form-inline">
 		<p>Поиск</p>
 		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :artikul_eq, 'по SKU' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :artikul_eq %> 
-  		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<div class = "form-group">
+  		<%= f.search_field :artikul_eq, placeholder: 'Sku', class: "form-control input-sm" %>  
+  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
+  		</div>
+  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		
+		<% end %>
+		</form>
 		</div>
-		<% end %>	
+
+
 		</div>	
 	</div>
 <br>
@@ -67,7 +74,7 @@
   <tbody>
     <% @homyproducts.each do |homyproduct| %>
       <tr>
-      	<td><%= homyproduct.id %></td>
+      	<td class="id"><%= homyproduct.id %></td>
         <td><%= homyproduct.artikul %></td>
         <!--<td><%= homyproduct.sku %></td>-->
         <td><%= homyproduct.title %></td>

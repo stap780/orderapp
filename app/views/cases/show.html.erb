@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @case.number %>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @case.client_id %>
+</p>
+
+<p>
+  <strong>Iorder:</strong>
+  <%= @case.iorder_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @case.status %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @case.service %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @case.description %>
+</p>
+
+<p>
+  <strong>Iorder check:</strong>
+  <%= @case.iorder_check %>
+</p>
+
+<%= link_to 'Edit', edit_case_path(@case) %> |
+<%= link_to 'Back', cases_path %>

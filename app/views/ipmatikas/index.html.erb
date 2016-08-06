@@ -3,34 +3,43 @@
 	<div class="col-md-12">
 		<div class="col-md-3">
 			<h1>Ipmatika <br><small>сводная таблица</small></h1>
+			<p id="product_option_id" style="display:none;">2</p>
 			<p>Всего товаров - <%= @totalipmatikas %></p>
 		</div>
 		<div class="col-md-3">
+			<p>Import product</p>
+			<%= form_tag import_ipmatikas_path, multipart: true do %>  
+			<%= file_field_tag :file %>
+			<%= submit_tag "Import", :class =>'btn btn-default btn-sm' %>
+			<% end %>
+		</div>
 		
-		<p>Import product</p>
-		<p><%= form_tag import_ipmatikas_path, multipart: true do %></p>  
-		<p><%= file_field_tag :file %></p><p><%= submit_tag "Import", :class =>'btn btn-default btn-xs' %></p>
-		<% end %>
-		</div>
+
 		<div class="col-md-6">
-		<p>Поиск</p>
-		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-   		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+			<div class="col-md-12" style="margin-bottom: 5px;">
+			<form class="form-inline">
+			<p>Поиск</p>
+			<%= search_form_for @search do |f|%>
+			<div class = "form-group">
+			<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm" %>  
+			</div>
+			<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+			
+			<% end %>
+			</form>
+			</div>
 		</div>
-		<% end %>	
-		</div>	
-	</div>
-<br>
+
+
+
+		<div class="col-md-12">
+			<div class="col-md-2">
+			<p>Download: <%= link_to "CSV", ipmatikas_path(format: "csv") %> | <%= link_to "Excel", ipmatikas_path(format: "xls") %></p>
+		
+			</div>
+		</div>
+
 	<div class="col-md-12">
-		<div class="col-md-2">
-		<p>Download: <%= link_to "CSV", ipmatikas_path(format: "csv") %> | <%= link_to "Excel", ipmatikas_path(format: "xls") %></p>
-
-		</div>
-</div>
-
-<div class="col-md-12">
 <div class="media">
   <div class="media-body">
 <table class="table table-hover">
@@ -52,7 +61,7 @@
   <tbody>
     <% @ipmatikas.each do |ipmatika| %>
       <tr>
-      <td><%= ipmatika.id %></td>
+      <td class="id"><%= ipmatika.id %></td>
         <td><%= ipmatika.sku %></td>
         <td><%= ipmatika.title %></td>
         <td><%= ipmatika.quantity_all %></td>

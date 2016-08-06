@@ -2,7 +2,6 @@
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
       <ul>
       <% @product.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -13,29 +12,29 @@
 
 	
 <div class="col-md-12">
-	<div class="col-md-10">
 	<div class="col-md-12">
-		<div class="col-md-3">  
+	<div class="col-md-6">
+		<div class="col-md-4">  
 		<%= f.input :sku %>
 		</div>
-		<div class="col-md-4"> 
+		<div class="col-md-8"> 
 		<%= f.input :title %>
 		</div>
-		<div class="col-md-5">  
+		<div class="col-md-12">  
 		<%= f.input :short_description %>
 		</div>
 	</div>
-	<div class="col-md-12">
-		<div class="col-md-2">  
+	<div class="col-md-6">
+		<div class="col-md-4">  
 		<%= f.input :quantity %>
 		</div>
-		<div class="col-md-3">  
+		<div class="col-md-8">  
 		<%= f.input :cost_price %>
 		</div>
-		<div class="col-md-3">  
+		<div class="col-md-6">  
 		<%= f.input :sell_price %>
 		</div>
-		<div class="col-md-3">   
+		<div class="col-md-6">   
 		<%= f.input :price %>
 		</div>
 	</div>
@@ -72,6 +71,7 @@
 	</div>
 	</div>
 
+<!--
 	<div class="col-md-2" style="border:1px solid">
 	<strong>Синхронизация с поставщиками (id):</strong>
 	<p></p>
@@ -113,5 +113,6 @@
 		</div>
 	
 	</div>	
+-->
 </div>
 <% end %>

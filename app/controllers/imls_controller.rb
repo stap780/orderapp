@@ -1,5 +1,7 @@
 class ImlsController < ApplicationController
   before_action :set_iml, only: [:show, :edit, :update, :destroy]
+  after_filter { |controller| handle_jsonp(controller) }
+
 
   # GET /imls
   def index
@@ -13,10 +15,10 @@ class ImlsController < ApplicationController
   end
   
   def json_work
-  @imls = Iml.all
-  imls = @imls.to_json
-  render :json => imls, :callback => params[:callback]
-  
+	  @imls = Iml.all
+	  imls = @imls.to_json
+	  
+	  render :json => imls, :callback => params[:mycallback] #ниже написан метод для формирования правильного ответа JSONP
   end
 
   # GET /imls/new
@@ -65,6 +67,13 @@ class ImlsController < ApplicationController
     def set_iml
       @iml = Iml.find(params[:id])
     end
+    
+    def handle_jsonp(controller)
+     if controller.params[:callback]
+       controller.response['Content-Type'] = 'application/javascript'
+       controller.response.body = "#{controller.params[:callback]}(#{controller.response.body})"
+     end
+   end
 
     # Only allow a trusted parameter "white list" through.
     def iml_params

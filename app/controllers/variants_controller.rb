@@ -13,6 +13,7 @@ class VariantsController < ApplicationController
       headers['Content-Type'] ||= 'text/csv'
       end
       format.xls # { send_data @products_all.to_csv(col_sep: "\t") }
+      format.json
     end        
   end
 
@@ -71,6 +72,13 @@ class VariantsController < ApplicationController
     flash[:notice] = 'Quantity was successfully updated'
     redirect_to variants_path
   end
+  
+def get_supplier_id_data
+	@variant = Variant.where('product_option_id = ? and supplier_id = ?', params[:product_option_id],params[:supplier_id])
+	respond_to do |format|
+	format.js { render :json => @variant}
+	end	  
+end
 
   # DELETE /variants/1
   # DELETE /variants/1.json

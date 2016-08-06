@@ -29,6 +29,17 @@ require "logger"
 	end
 
 	def self.import(file)
+		
+		@emags = Emag.order("id")
+		@emags.each do |e|
+			e.quantity = 0
+			e.save
+			end
+		
+		url = "http://www.cbr.ru/scripts/XML_daily.asp"
+		data = Nokogiri::XML(open(url))
+		a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
+		kurs = a.gsub(/,/, '.')
 	
 	spreadsheet = open_spreadsheet(file) 
 		(11..spreadsheet.last_row).each do |i|
@@ -37,11 +48,14 @@ require "logger"
 		title = spreadsheet.cell(i,'B')
 		quantity = spreadsheet.cell(i,'C').to_i
 		discount = spreadsheet.cell(i,'F').to_i
-		cost_price = spreadsheet.cell(i,'E').to_f
+		cost_price_rub = spreadsheet.cell(i,'E').to_f
+		cost_price = (cost_price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
 		if discount <= 5
-		price = cost_price * 1.11	
+		price_rub = cost_price_rub * 1.11	
+		price = (price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
 		else	
-		price = spreadsheet.cell(i,'D').to_f
+		price_rub = spreadsheet.cell(i,'D').to_f
+		price = (price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
 		end
 
 		@emag = Emag.find_by_sku("#{sku}")
@@ -54,27 +68,27 @@ require "logger"
 		
 	end
 	
-		url = "http://www.cbr.ru/scripts/XML_daily.asp"
-		data = Nokogiri::XML(open(url))
-		a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-		kurs = a.gsub(/,/, '.')
-		
-		emag_rub_audio = Emag.where('title LIKE ?', '%audio%')
-		emag_rub_audio.each do |e|
-			cost_price = e.cost_price
-			price = e.price
-			e.cost_price = (cost_price.to_f / "#{kurs}".to_f).to_f.round(2)
-			e.price = (price.to_f / "#{kurs}".to_f).to_f.round(2)
-		 	e.save	
-		end
-		emag_rub_gamecom = Emag.where('title LIKE ?', '%gamecom%')
-		emag_rub_gamecom.each do |e|
-			cost_price = e.cost_price
-			price = e.price
-			e.cost_price = (cost_price.to_f / "#{kurs}".to_f).to_f.round(2)
-			e.price = (price.to_f / "#{kurs}".to_f).to_f.round(2)
-		 	e.save	
-		end
+# 		url = "http://www.cbr.ru/scripts/XML_daily.asp"
+# 		data = Nokogiri::XML(open(url))
+# 		a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
+# 		kurs = a.gsub(/,/, '.')
+# 		
+# 		emag_rub_audio = Emag.where('title LIKE ?', '%audio%')
+# 		emag_rub_audio.each do |e|
+# 			cost_price = e.cost_price
+# 			price = e.price
+# 			e.cost_price = (cost_price.to_f / "#{kurs}".to_f).to_f.round(2)
+# 			e.price = (price.to_f / "#{kurs}".to_f).to_f.round(2)
+# 		 	e.save	
+# 		end
+# 		emag_rub_gamecom = Emag.where('title LIKE ?', '%gamecom%')
+# 		emag_rub_gamecom.each do |e|
+# 			cost_price = e.cost_price
+# 			price = e.price
+# 			e.cost_price = (cost_price.to_f / "#{kurs}".to_f).to_f.round(2)
+# 			e.price = (price.to_f / "#{kurs}".to_f).to_f.round(2)
+# 		 	e.save	
+# 		end
 		
 	end
   

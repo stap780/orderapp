@@ -1,3 +1,35 @@
+<script>
+  $( document ).ready(function() {
+
+  $('#sight').click(function(){
+  if (this.checked){
+    $('.pechat').show();
+    $('.podpis').show();
+	document.getElementById("sightbottom").checked = true;
+    
+    document.getElementById("sight").checked = true;
+    document.getElementById("sight").value = 1;
+
+  } else {
+    $('.pechat').hide();
+    $('.podpis').hide();
+	document.getElementById("sightbottom").checked = false;
+    
+    document.getElementById("sight").checked = false;
+    document.getElementById("sight").value = 0;
+
+  }
+});
+
+  });  
+
+</script>
+<div class="print_block" style="float: right; margin-bottom: 20px;">
+<%= check_box_tag 'sight', '0', false%> Показать печать и подпись
+<br>
+<%= link_to "Напечатать c печатью", print_invoice_path(:format => :pdf), {class: 'btn btn-success btn-xs'} %>
+<%= link_to "Напечатать без печати", pdf_invoices_path(:invoice_id => @invoice.id, :format => :pdf), {class: 'btn btn-success btn-xs'} %>
+</div>
 <head>
 <title>Счёт <%= @invoice.number %></title>
 </head>
@@ -145,25 +177,39 @@
 НДС: <%= RuPropisju.rublej(@nds)%>
 </b>
 </p>
-<div style='height:205px; position:relative;'>
-<p>
-<span style='display: inline-block; min-width: 150px; text-align: left;'>
-Генеральный директор
-</span>
-<span style='border-bottom: 1px solid; margin-left: 13px; padding-left: 20px; display: inline-block; min-width: 110px; position: relative; top: 2px; height: 60px;'>
-</span>
-/
-Эмексизов П.А./
+<div style='height:60px; position:relative;margin-top:40px;'>
+<p style="float: left;">
+	<span style='display: inline-block; min-width: 150px; text-align: left;'>
+	Генеральный директор
+	</span>
 </p>
-<p>
-<span style='display: inline-block; min-width: 150px; text-align: left;'>
-Главный бухгалтер
-</span>
-<span style='border-bottom: 1px solid; margin-left: 13px; padding-left: 20px; display: inline-block; min-width: 110px; position: relative; top: 2px; height: 20px;'>
-</span>
-/
-Эмексизов П.А./
+<div class="podpis" style="float: left; margin-top: -20px; display: none;"><%= image_tag("podpis.png", :height =>'60') %> 
+<span style='border-bottom: 1px solid; margin-left: -120px; padding-left: 20px; display: inline-block; min-width: 120px; position: relative; top: 2px;'></span>
+</div>
+<p style="float: left;padding-left: 30px">
+	 /  Эмексизов П.А.  /
 </p>
 </div>
+<div style='height:60px; position:relative;'>
+<p style="float: left;">
+	<span style='display: inline-block; min-width: 150px; text-align: left;'>
+Главный бухгалтер
+	</span>
+</p>
+
+<div class="podpis" style="float: left;margin-top: -20px; display: none;"><%= image_tag("podpis.png", :height =>'60') %> 
+<span style='border-bottom: 1px solid; margin-left: -120px; padding-left: 20px; display: inline-block; min-width: 120px; position: relative; top: 2px; '></span>
+</div>
+<p style="float: left;padding-left: 30px">
+/ Эмексизов П.А./
+</p>
+</div>
+<div class="pechat" style="float: left; padding-left: 50px;margin-top: -80px; display: none;"><%= image_tag("pechat.png", :height =>'160') %></div>
 </div>
 </body>
+<div class="print_block" style="float: right; margin-bottom: 20px;">
+<%= check_box_tag 'sightbottom', '0', false%> Показать печать и подпись
+<br>
+<%= link_to "Напечатать c печатью", print_invoice_path(:format => :pdf), {class: 'btn btn-success btn-xs'} %>
+<%= link_to "Напечатать без печати", pdf_invoices_path(:invoice_id => @invoice.id, :format => :pdf), {class: 'btn btn-success btn-xs'} %>
+</div>

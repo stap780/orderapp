@@ -10,7 +10,7 @@
 		<%= search_form_for @search do |f|%>
   		<div classs = "search">
   		<%= f.label :number_eq, 'Номеру' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :number_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= f.search_field :number_eq %>  
   		<%= f.label :status_cont, 'Статусу' %> <!--расширение _cont используется для string -->
   		<%= f.search_field :status_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
   		</div>

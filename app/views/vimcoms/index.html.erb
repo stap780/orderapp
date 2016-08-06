@@ -12,13 +12,18 @@
 		<% end %>
 		</div>
 		<div class="col-md-7">
-		<p>Поиск</p>
-		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-   		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-		</div>
-		<% end %>	
+			<div class="col-md-12" style="margin-bottom: 5px;">
+			<form class="form-inline">
+			<p>Поиск</p>
+			<%= search_form_for @search do |f|%>
+	  		<div class = "form-group">
+	  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
+	  		</div>
+	  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+	  		
+			<% end %>
+			</form>
+			</div>
 		</div>	
 	</div>
 <br>

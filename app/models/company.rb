@@ -11,6 +11,7 @@ has_many :clients, :through => :contragents
 accepts_nested_attributes_for :clients
 
 validates :inn, uniqueness: true
+validates :title, presence: true
 
 	
 

@@ -1,6 +1,7 @@
 class Variant < ActiveRecord::Base
 	validates :product_option_id, :uniqueness => {:scope => [ :product_id]}
 	validates :weight, presence: true
+	validates :quantity, presence: true
 	belongs_to :product
 	belongs_to :product_option
 
@@ -8,6 +9,7 @@ class Variant < ActiveRecord::Base
 	def self.addvariant #добавляем вариант в магазин и записываем variant_id в наш вариант(variant_inid) чтобы потом по варианту обновлять значения (цена, остаток и др)
 	v = Variant.where('variant_inid IS NULL').order(:product_id)#'product_id = 14718 AND variant_inid IS NULL'
 		v.each do |v|
+			puts "#{(v.sku)}"
 		     uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{(v.product.inid)}.xml"
 		    
  		       sendresponse = RestClient.put uri, "<product><variants-attributes ><variants-attribute><sku>#{(v.sku)}</sku><cost-price >#{(v.cost_price.to_f)}</cost-price><old-price >#{(v.old_price.to_f)}</old-price><price >#{(v.price.to_f)}</price><quantity>#{(v.quantity)}</quantity><weight>#{(v.weight)}</weight><options><option><option-name-id >#{(v.product_option.opt_name_inid)}</option-name-id><value>#{(v.product_option.title)}</value></option></options></variants-attribute></variants-attributes></product>", :accept => :xml, :content_type => "application/xml"

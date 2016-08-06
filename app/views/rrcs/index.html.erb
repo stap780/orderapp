@@ -3,6 +3,7 @@
 	<div class="col-md-12">
 		<div class="col-md-2">
 			<h1>РРС <small>сводная таблица</small></h1>
+			<p id="product_option_id" style="display:none;">6</p>
 			<p>Всего товаров - <%= @totalrrcs %></p>
 		</div>
 		<div class="col-md-3">
@@ -11,16 +12,21 @@
 		<p><%= file_field_tag :file %></p><p><%= submit_tag "Import", :class =>'btn btn-default btn-xs' %></p>
 		<% end %>
 		</div>
-		<div class="col-md-7"><p>Поиск</p>
+		<div class="col-md-7">
+		<div class="col-md-12" style="margin-bottom: 5px;">
+		<form class="form-inline">
+		<p>Поиск</p>
 		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :sku_cont, 'по SKU' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :sku_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
- 
-  		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<div class = "form-group">
+  		<%= f.search_field :sku_cont, placeholder: 'Sku', class: "form-control input-sm" %>  
+  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
+  		</div>
+  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		
+		<% end %>
+		</form>
 		</div>
-		<% end %>	
+
 		</div>	
 	</div>
 <br>
@@ -52,7 +58,7 @@
   <tbody>
     <% @rrcs.each do |rrc| %>
       <tr>
-        <td><%= rrc.id %></td>
+        <td class="id"><%= rrc.id %></td>
         <td><%= rrc.sku %></td>
         <td><%= rrc.title %></td>
         <td><%= rrc.quantity %></td>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Cases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Client</th>
+      <th>Iorder</th>
+      <th>Status</th>
+      <th>Service</th>
+      <th>Description</th>
+      <th>Iorder check</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cases.each do |cs| %>
+      <tr>
+        <td><%= cs.number %></td>
+        <td><%= cs.client.name %> <%= cs.client.surname %></td>
+        <td><%= cs.iorder_id %></td>
+        <td><%= cs.status %></td>
+        <td><%= cs.service %></td>
+        <td><%= cs.description %></td>
+        <td><%= cs.iorder_check %></td>
+        <td><%= link_to 'Show', cs %></td>
+        <td><%= link_to 'Edit', edit_case_path(cs) %></td>
+        <td><%= link_to 'Destroy', cs, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Case', new_case_path %>

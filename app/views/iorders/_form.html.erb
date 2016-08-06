@@ -1,4 +1,5 @@
-<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;">
+</div>
 <%= simple_form_for(@iorder, remote: true) do |f| %>
   <% if @iorder.errors.any? %>
     <div id="error_explanation">
@@ -11,7 +12,9 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="col-md-3">
+  <%= f.input :number%>
+  </div>
 <div class="col-md-12">
 <div class="col-md-8">
 	<div class="col-md-12" >  
@@ -85,6 +88,7 @@
 	<%= link_to 'Show', @iorder,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window',  class: 'btn btn-default btn-sm' %>
 	<%= link_to 'Back', iorders_path, class: 'btn btn-default btn-sm' %>
 	<%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-sm'  %>
+	
 	</div>
 	<div class="col-md-6" style="margin-top:20px;">
 	<%= f.input :discount_percent, as: :integer %>

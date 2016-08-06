@@ -25,6 +25,7 @@
             <!--li class="<%= 'active' if current_page?(root_path) %>"><%= link_to app_name, root_path %></li-->
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Продажи <span class="caret"></span></a>
             <ul class="dropdown-menu">
+	        <li class="<%= 'active' if current_page?(cases_path) %>"><%= link_to 'Заявки', controller: 'cases', action: 'index' %></li>    
             <li class="<%= 'active' if current_page?(iorders_path) %>"><%= link_to 'Заказы', controller: 'iorders', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(invoices_path) %>"><%= link_to 'Счета', controller: 'invoices', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(invoice_lists_path) %>"><%= link_to 'Накладные', controller: 'invoice_lists', action: 'index' %></li>

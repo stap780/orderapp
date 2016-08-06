@@ -40,6 +40,36 @@ class ProductsController < ApplicationController
       format.xls # { send_data @products_all.to_csv(col_sep: "\t") }
     end      
   end
+  
+  def advt
+	url = "http://www.cbr.ru/scripts/XML_daily.asp"
+	data = Nokogiri::XML(open(url))
+	a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
+	@kurs = a.gsub(/,/, '.')
+	  
+	@products = Product.where("quantity > ?", 0)  
+	
+	advt_csv_string = CSV.generate(:col_sep => ';') do |csv|
+         csv << ['title','descr1', 'descr2', 'url', 'keyword/#thematic#','price', 'stopwords']#,'autobid'
+         @products.each do |product|
+	        title = product.title 
+			rub_price = (product.sell_price.to_f * @kurs.to_f).to_f.round(2)
+			descr1 = 'от ' + rub_price.to_s + ' руб.' 
+			descr2 = 'Скидки бизнесу. Доставка по России.' 
+			url ='http://www.teletri.ru/product_by_id/' + product.inid.to_s 
+			keywords =  product.title + ' купить' 
+			stopwords = 'настройка, ремонт, инструкция, описание' 
+			price = 10
+			autobid = 1
+           csv << [title, descr1, descr2, url, keywords, price, stopwords]#, autobid
+         end
+    end         
+  
+   send_data advt_csv_string.encode("cp1251"),
+   :type => 'text/csv;  header=present', #charset=iso-8859-1;
+   :disposition => "attachment; filename=advt1.csv"
+	
+   end
 
   # GET /products/1
   def show

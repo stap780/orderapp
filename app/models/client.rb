@@ -8,6 +8,7 @@ class Client < ActiveRecord::Base
 	accepts_nested_attributes_for :companies , reject_if: proc { |attributes| attributes['inn'].blank? }, allow_destroy: true
 	
 	has_many :invoices
+	has_many :cases
 	validates :phone, uniqueness: true
 
 	def client_iorder_name_surname #это для автокоплита - чтобы подставлялось имя и фамилия при подборе

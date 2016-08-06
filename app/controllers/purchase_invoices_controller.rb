@@ -57,13 +57,18 @@ class PurchaseInvoicesController < ApplicationController
   # POST /purchase_invoices.json
   def create
     @purchase_invoice = PurchaseInvoice.new(purchase_invoice_params)
-    if @purchase_invoice.save
-    
-     redirect_to purchase_invoices_url, notice: 'purchase_invoice was successfully created.'
-    else
-      render :new
+        respond_to do |format|
+      if @purchase_invoice.save
+        format.html { redirect_to purchase_invoices_url, notice: 'purchase_invoice was successfully created.' }
+        #format.json { render action: 'show', status: :created, location: @iorder }
+        format.js   { render action: 'show', status: :created, location: @purchase_invoice }
+      else
+        format.html { render action: 'new' }
+        #format.json { render json: @iorder.errors, status: :unprocessable_entity }
+        format.js   { render json: @purchase_invoice.errors, status: :unprocessable_entity }
+      end
     end
-    
+
   end
 
   # PATCH/PUT /purchase_invoices/1

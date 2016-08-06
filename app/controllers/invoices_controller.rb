@@ -27,7 +27,21 @@ class InvoicesController < ApplicationController
   	@nds =  @invoice.invoice_items.sum(:sum)*18/100
   	@skidka = @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100
   	@company2 = Company.find_by_id(@invoice.companytwo)
+  	respond_to do |format|
+	format.html # show.html.erb
+	    format.pdf do
+	      render :pdf => "Счёт #{@invoice.number}",:template => "invoices/pdfsight"
+	    end 
+	end
   end
+  
+	def pdf
+	@invoice = Invoice.find_by_id(params[:invoice_id])
+	@nds =  @invoice.invoice_items.sum(:sum)*18/100
+	@skidka = @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100
+		@company2 = Company.find_by_id(@invoice.companytwo)
+	      render :pdf => "Счёт #{@invoice.number}",:template => "invoices/pdf"
+	end
 
   # GET /invoices/new
   def new

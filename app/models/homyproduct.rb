@@ -19,7 +19,19 @@ validates :artikul, uniqueness: true
   
   def self.import(file)
     #Homyproduct.destroy_all #- удалить все данные
-    
+    @homyproducts = Homyproduct.order("id")
+    @homyproducts.each do |hp|
+	    hp.quantity_all_res = 0
+	    hp.quantity_all_free = 0
+	    hp.quantity_main_res = 0
+	    hp.quantity_main_free = 0
+	    hp.quantity_tul_res = 0
+	    hp.quantity_tul_free = 0
+	    hp.quantity_transit_all = 0
+	    hp.quantity_transit_free = 0
+	    hp.save
+	    end
+	    
     spreadsheet = open_spreadsheet(file) 
      (5..spreadsheet.last_row).each do |i|  
 	     artikul = spreadsheet.cell(i,'A').to_i 
@@ -50,12 +62,7 @@ validates :artikul, uniqueness: true
       
       @homyproduct = Homyproduct.find_by_artikul("#{artikul}")
 		if @homyproduct.present? 
-		@homyproduct.update_attributes(:artikul => artikul, :title => title, :price => price, :valuta => valuta, :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)#:sell_price => sell_price, :min_price => min_price)
-			if !@homyproduct.price.nil?
-			min_price = (@homyproduct.price * 1.17).to_f.round(2)
-			sell_price = (@homyproduct.price * 1.22).to_f.round(2)
-			@homyproduct.update_attributes(:sell_price => sell_price, :min_price => min_price)
-			end
+		@homyproduct.update_attributes( :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)#:artikul => artikul, :title => title, :price => price, :valuta => valuta,:sell_price => sell_price, :min_price => min_price)
 		else
 		@homyproduct = Homyproduct.new(:artikul => artikul, :title => title, :price => price, :valuta => valuta, :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)#, :sell_price => sell_price, :min_price => min_price)
  		@homyproduct.save
