@@ -1,53 +1,56 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-12">
 <div class="col-md-8">
-<h1>Информация о счёте <%= @invoice.number %></h1>
+<h1><%= t 'invoices.show.title' %> <%= @invoice.number %></h1>
 
 <p>
-  <strong>Date:</strong>
+  <strong><%= t 'invoices.show.date' %>:</strong>
   <%= @invoice.date.strftime("%d / %m / %Y")  %>
 </p>
 
 <p>
-  <strong>Client:</strong>
+  <strong><%= t 'invoices.show.client' %>:</strong>
   <%= @invoice.client.name %> <%= @invoice.client.surname %>
 </p>
 <p>
-  <strong>Company:</strong>
+  <strong><%= t 'invoices.show.company' %>:</strong>
   <%= @invoice.company.title if @invoice.company !=nil %>
 </p>
 <p>
-  <strong>Company2:</strong>
+  <strong><%= t 'invoices.show.company2' %>:</strong>
   <%= @company2.title if @company2 !=nil %>
 </p>
 
 </div>
 	<div class="col-md-4">
 	<div class="col-md-12">
-	  <strong>Invstatus:</strong>
+	  <strong><%= t 'invoices.show.invstatus' %>:</strong>
 	  <%= @invoice.invstatus %>
 	</div>
 	<div class="col-md-12">
-	  <strong>Накладная:</strong>
-	  <% if @invoice.invoice_list_check == true%>
-	  <%= "Выписана" %>
-	  <%else %>
-	  <%= "Не выписана" %> 
-	  <%end%>
+		<strong><%= t 'invoices.show.invoice_list_check' %>:</strong>
+	  <% if @invoice.invoice_lists != nil%>
+	  	  <% @invoice.invoice_lists.each do |il| %>
+	  <%= link_to "#{il.number}", il if il != nil%>
+	  <% end %>
+	  <%else%>
+	  <%a="нет"%><%="#{a}"%>
+	  <% end %>
+
 	</div>
 	</div>
 </div>
 
 <div class="col-md-12">
 <div class="col-md-8">
-<strong>Информация о товарах в заказе</strong>
+<strong><%= t 'invoices.show.product_info' %></strong>
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Sum</th>
+      <th><%= t 'item_title' %></th>
+      <th><%= t 'item_quantity'%></th>
+      <th><%= t 'item_price' %></th>
+      <th><%= t 'item_sum' %></th>
     </tr>
   </thead>
 
@@ -65,12 +68,12 @@
 </div>
 <div class="col-md-4" style="margin-top:40px;">
 <p>
-  <strong>Discount:</strong>
+  <strong><%= t 'invoices.show.discount' %>:</strong>
 <%= @invoice.discount %> %
 </p>
 
 <p>
-  <strong>Total Price:</strong>
+  <strong><%= t 'invoices.show.total' %>:</strong>
   <%= @invoice.total_price %>
 </p>
 
@@ -79,7 +82,7 @@
 
 
 <div class="col-md-12">
-<%= link_to 'Edit', edit_invoice_path(@invoice), class: 'btn btn-default btn-sm' %> 
-<%= link_to 'Back', invoices_path, class: 'btn btn-default btn-sm' %>
-<%= link_to "Просмотреть", print_invoice_path(@invoice), target: :_blank, class: 'btn btn-success btn-sm' %>
+<%= link_to t('edit'), edit_invoice_path(@invoice), class: 'btn btn-default btn-sm' %> 
+<%= link_to t('back'), invoices_path, class: 'btn btn-default btn-sm' %>
+<%= link_to t('print'), print_invoice_path(@invoice), target: :_blank, class: 'btn btn-success btn-sm' %>
 </div>

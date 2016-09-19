@@ -47,10 +47,14 @@ class CasesController < ApplicationController
   end
   
   def create_json_case
-  @case = Case.new
+	  headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    #headers['Access-Control-Allow-Headers'] = 'x-requested-with'
+    headers['Access-Control-Allow-Origin'] = 'http://ketago.com'
+    if request.post?
+	   @case = Case.new
   		
-  		client = Client.find_by_phone(params[:phone])
-  		if client.present?
+  	client = Client.find_by_phone(params[:phone])
+  	if client.present?
 		@case.client_id = client.id
 		client.email = params[:email]
 		client.save
@@ -63,21 +67,21 @@ class CasesController < ApplicationController
 		@case.service = params[:product]
 		@case.description = params[:description]+" "+"("+params[:name]+" "+params[:surname]+" "+params[:phone]+")"
 		
+		end
 		respond_to do |format|
-		if @case.save
-		#format.html { redirect_to @case, notice: 'Case was successfully updated.' }
-		format.json { render :json => @case, status: :created }
-		else
-		#format.html { render :edit }
-		format.json { render json: @case.errors, status: :unprocessable_entity }
+			if @case.save
+    format.json  { render :json => @case}
+			else
+				format.json { render  :json => @case }
+			end
 		end
-		end
+		
 	@case = Case.last
 	if @case.nil?
 	id = 0
-	@case.number = 	(Date.today().to_s+"#{id}".to_s).gsub('-','').to_i
+	@case.number = 	(Date.today.day.to_s+"#{id}".to_s).gsub('-','').to_i
 	else
-	@case.number = 	(Date.today().to_s+"#{@case.id}".to_s).gsub('-','').to_i
+	@case.number = 	(Date.today.day.to_s+"#{@case.id}".to_s).gsub('-','').to_i
 	@case.save
 	end
 	

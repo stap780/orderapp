@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-12">
+<div class="col-md-3">
+<h1>Выписки </h1><small>сводная таблица</small>
+</div>
+<div class="col-md-3">
+	<%= form_tag import_banks_path, multipart: true do %> 
+	<p><%= file_field_tag :file %></p>  <p><%= submit_tag "Import" , :class =>'btn btn-default btn-xs' %></p>
+<% end %>
+</div>
+<div class="col-md-6">
+			<%= search_form_for @q, url: search_banks_path, class: 'form-inline'  do |f|%>
+		
+				<%= f.date_field :date_gteq, class: "form-control input-sm", placeholder: "Начальная дата" %>
+				<%= f.date_field :date_lteq, class: "form-control input-sm", placeholder: "Конечная дата" %>
+			
+			<%= f.submit t('search'), class:"btn btn-success  btn-sm"%>
+			<% end %>
+</div>
+</div>
+
+<div class="col-md-12">
+	<div class="col-md-5">
+		<p><strong>Кредит:</strong> <%=@credit%>   <strong>Дебет:</strong> <%=@debet%></p>
+	</div>
+</div>
+<div class="col-md-12">
+<table class="table table-hover">
+  <thead>
+    <tr>
+	    <th>Date</th>
+      <th>Number</th>
+      <th>Type</th>
+      <th>Sum</th>
+      <th>Description</th>
+      <th>Payer</th>
+      <th>Receiver</th>
+      <th>Invoice</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @banks.each do |bank| %>
+      <tr>
+	      <td style="width: 60px;"><%= bank.date.strftime("%d / %m / %Y") %></td>
+        <td><%= bank.number %></td>
+        <td><%= bank.oper_type %></td>
+        <td><%= bank.sum %></td>
+        <td><%= bank.description %></td>
+        <td><%= link_to "#{bank.payer.title}", bank.payer if bank.payer != nil%></td>
+        <td><%= link_to "#{bank.receiver.title}", bank.receiver if bank.receiver != nil%></td>
+        <td><%= bank.invoice.number if bank.invoice !=nil%></td>
+        <td><%= link_to 'Show', bank %></td>
+        <td><%= link_to 'Edit', edit_bank_path(bank) %></td>
+        <td><%= link_to 'Destroy', bank, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @banks %>
+</div>
+
+
+<!--  <%= link_to 'New Bank', new_bank_path %>  -->

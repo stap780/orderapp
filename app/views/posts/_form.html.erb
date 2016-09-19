@@ -1,4 +1,4 @@
-<%= form_for(@post) do |f| %>
+<%= simple_form_for(@post) do |f| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -11,23 +11,16 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :number %><br>
-    <%= f.number_field :number %>
+  <div class="col-md-6">
+    <%= f.input :number %>
+    <%= f.input :postnumber %>
+    <%= f.input :pickupdate %>
+    <%= f.input :state, collection: [ "Отгружен", "Доставен", "Проблема"] %>
   </div>
-  <div class="field">
-    <%= f.label :postnumber %><br>
-    <%= f.text_field :postnumber %>
-  </div>
-  <div class="field">
-    <%= f.label :pickupdate %><br>
-    <%= f.datetime_select :pickupdate %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="col-md-12">
+<%= f.button :submit, class: 'btn btn-default btn-sm' %>
+    <%= link_to t('show'), @post, class: 'btn btn-default btn-sm' %> 
+<%= link_to t('back'), posts_path , class: 'btn btn-default btn-sm'%>
+
   </div>
 <% end %>

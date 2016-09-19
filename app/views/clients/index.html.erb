@@ -7,17 +7,20 @@
 		</div>
 		<div class="col-md-2">
 		</div>
-		<div class="col-md-8"><p>Поиск</p>
+		<div class="col-md-8">
+		
+				<form class="form-inline">
+		<p><%=t 'search_t'%></p>
 		<%= search_form_for @search do |f|%>
-			<div classs = "search">
-			<%= f.label :phone_eq, 'Телефону' %> 
-			<%= f.search_field :phone_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-			
-			<%= f.label :surname_cont, 'Фамилии' %>
-			<%= f.search_field :surname_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-			
-			</div>
-		<% end %>
+  		<div class = "form-group">
+  		<%= f.search_field :phone_eq , placeholder: t('.phone'), class: "form-control input-sm" %>  
+   		<%= f.search_field :surname_cont, placeholder: t('.surname'), class: "form-control input-sm" %> 
+  		</div> 
+  		<%= f.submit t('search'), class: 'btn btn-default btn-sm' %>
+  		<% end %>
+		</form>
+
+		
 		</div>
 	<div class="col-md-12">
 		<div class="col-md-5">

@@ -51,7 +51,7 @@ require "logger"
 		cost_price_rub = spreadsheet.cell(i,'E').to_f
 		cost_price = (cost_price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
 		if discount <= 5
-		price_rub = cost_price_rub * 1.11	
+		price_rub = cost_price_rub * 1.13	
 		price = (price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
 		else	
 		price_rub = spreadsheet.cell(i,'D').to_f

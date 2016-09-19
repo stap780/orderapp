@@ -1,6 +1,7 @@
-jQuery(function() {
-/* alert('load'); */
-$( document ).ready(function ()  {
+ 
+ 
+ jQuery(function() {
+$( document ).ready(function() {
 var clientId = document.getElementById('iorder_client_id').value;
 /* alert(clientId); */
 	$.ajax({
@@ -22,4 +23,4 @@ var clientId = document.getElementById('iorder_client_id').value;
 });
 
 
-});
+ });

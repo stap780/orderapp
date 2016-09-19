@@ -60,7 +60,9 @@ a:hover {
 #notice {
     display: none;
 }
-
+.message {
+	border: 1px dotted black;
+}
 
 .ui-autocomplete {
     background-clip: padding-box;

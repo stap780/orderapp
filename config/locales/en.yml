@@ -2,4 +2,71 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  back: "Back"
+  print: "Print"
+  search: 'Search'
+  remove: "Remove"
+  hello: "Hello"
+  iorders:
+    payment: "Payment"
+  new_title: "Title"
+  add_company: "Add Company"
+  add_item: 'Add Item'
+  item_title: 'Название'
+  item_quantity: 'Qt'
+  item_price: 'Price'
+  item_sum: 'Sum'
+  index:
+    title: "Invoices"
+    small_title: "table"
+    new_invoice: 'New invoice'
+    search_t: 'Search'
+    number: "Number"
+    date: "Date"
+    client: "Client"
+    company: "Company"
+    invstatus: "Status"
+    discount: "Discount"
+    total: "Total"
+    show: "Show"
+    back: "Back"
+    edit: "Edit"
+    destroy: "Destroy"
+    number_eq: 'Number'
+    invstatus_cont: 'Status'
+  show:
+    title: "Invoice"
+    date: "Date"
+    client: "Client"
+    company: "Company"
+    company2: "Reciever"
+    invstatus: "Status"
+    invoice_list_check: "Invoice List"
+    product_info: "Products"
+    product_t: "Title"
+    product_q: "Qt"
+    product_p: "Price"
+    product_s: "Sum"
+    discount: "Discount"
+    total: "Total"
+    edit: "Edit"
+  edit:
+    show: "Show"
+    title: "Edit invoice"
+  helpers:
+    submit:
+      invoice:
+        create: "Save"
+        update: "Update"
+        search: "Search"
+  simple_form:
+    labels:
+      invoice:
+        number: 'Number'
+        date: 'Date'
+        client: 'Name (Surname)'
+        company_title: "Company"
+        invstatus: "Status"
+        invoice_list_check: "Add invoice list"
+        discount: "Discount %"
+        total_price: "Total"

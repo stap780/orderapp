@@ -9,6 +9,7 @@ accepts_nested_attributes_for :purchase_invoice_in , reject_if: proc { |attribut
 has_many   :purchase_list_items, dependent: :destroy
 has_many   :products, :through => :purchase_list_items
 accepts_nested_attributes_for :purchase_list_items, reject_if: proc { |attributes| attributes['title'].blank? }, allow_destroy: true 
-validates :number, uniqueness: true
+validates :number, uniqueness: { scope: [:company_id] }
+validates :date, presence: true
 
 end

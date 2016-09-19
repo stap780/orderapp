@@ -18,7 +18,7 @@ require 'json'
 	data = JSON.parse(response)
 	b = data[0]
 	
-	
+	puts "#{iml.id}"
 	iml.statenum = b["State"]
 	iml.state = b["StateDescription"]
 	iml.statusnum = b["OrderStatus"]

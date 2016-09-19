@@ -53,16 +53,16 @@
 <tr>
 <td colspan='2' style='border-bottom:0'>Банк получателя</td>
 <td align='center'>БИК</td>
-<td style='border-bottom:0'>044583272</td>
+<td style='border-bottom:0'>044525256</td>
 </tr>
 <tr>
-<td colspan='2' style='border-top:0'>Московский филиал ОАО АКБ ”РОСБАНК” г. Москва</td>
+<td colspan='2' style='border-top:0'>ПАО ”РОСБАНК” г. Москва</td>
 <td align='center'>Сч. №</td>
-<td style='border-top:0'>30101810000000000272</td>
+<td style='border-top:0'>30101810000000000256</td>
 </tr>
 </table>
 <center style='margin-top:40px'>
-<h2>СЧЕТ № <%= @invoice.number %> от <%= @invoice.created_at.strftime("%d / %m / %Y")%></h2>
+<h2>СЧЕТ № <%= @invoice.number %> от <%= @invoice.date.strftime("%d / %m / %Y")%></h2>
 </center>
 <p style='margin-top:30px;'>Плательщик:
 <span style='margin-left: 27px'>
@@ -93,7 +93,7 @@
  <% @invoice.invoice_items.each_with_index do |pr, i| %>
 <td align='center'><%= (i+1) %></td>
 <td align="center"><%=pr.product.sku%></td>
-<td><%=pr.title%> - <%=pr.product.short_description.at(0..15)%></td>
+<td><%=pr.title%> - <%=pr.product.short_description.at(0..17)%></td>
 <td align='center'>шт</td>
 <td align='center'><%= pr.quantity%></td>
 <td align='right'><%= pr.price%></td>
@@ -147,32 +147,27 @@
 </b>
 </p>
 <div style='height:60px; position:relative;margin-top:40px;'>
-<p style="float: left;">
+
 	<span style='display: inline-block; min-width: 150px; text-align: left;'>
 	Генеральный директор
 	</span>
-</p>
-<!-- <div class="podpis" style="float: left; margin-top: -20px;"><%= wicked_pdf_image_tag("podpis.png", :height =>'60') %>  -->
-<span style='border-bottom: 1px solid; margin-left: -120px; padding-left: 20px; display: inline-block; min-width: 120px; position: relative; top: 2px;'></span>
-</div>
-<p style="float: left;padding-left: 30px">
+
+<span style='border-bottom: 1px solid; display: inline-block; min-width: 120px; position: relative; top: 2px;'></span>
+
+
 	 /  Эмексизов П.А.  /
-</p>
 </div>
 <div style='height:60px; position:relative;'>
-<p style="float: left;">
+
 	<span style='display: inline-block; min-width: 150px; text-align: left;'>
 Главный бухгалтер
-	</span>
-</p>
+	
 
-<!-- <div class="podpis" style="float: left;margin-top: -20px;"><%= wicked_pdf_image_tag("podpis.png", :height =>'60') %>  -->
-<span style='border-bottom: 1px solid; margin-left: -120px; padding-left: 20px; display: inline-block; min-width: 120px; position: relative; top: 2px; '></span>
-</div>
-<p style="float: left;padding-left: 30px">
+
+<span style='border-bottom: 1px solid;  display: inline-block; min-width: 120px; position: relative; top: 2px; '></span>
+
+
 / Эмексизов П.А./
-</p>
-</div>
-<!-- <div class="pechat" style="float: left; padding-left: 50px;margin-top: -80px;"><%= wicked_pdf_image_tag("pechat.png", :height =>'160') %></div> -->
+
 </div>
 </body>

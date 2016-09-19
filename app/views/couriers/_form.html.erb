@@ -1,4 +1,4 @@
-<%= form_for(@courier) do |f| %>
+<%= simple_form_for(@courier) do |f| %>
   <% if @courier.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@courier.errors.count, "error") %> prohibited this courier from being saved:</h2>
@@ -12,18 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :number %><br>
-    <%= f.number_field :number %>
+    <%= f.input :number %>
   </div>
   <div class="field">
-    <%= f.label :date %><br>
-    <%= f.datetime_select :date %>
+    <%= f.input :date %>
   </div>
   <div class="field">
-    <%= f.label :state %><br>
-    <%= f.select :state, ['Отгружен', 'Доставлен']%>
+    <%= f.input :state, collection: ['Отгружен', 'Доставлен']%>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= f.button :submit %>
 <% end %>

@@ -4,24 +4,17 @@
 		<div class="col-md-2">
 			<h1>Наш склад </br><small>сводная таблица</small></h1>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-2">
 		</div>
 		
-		<div class="col-md-7">
-		<%= search_form_for @search, url: search_stores_path,  method: :post do |f|%>
-		
-			<div class="input-daterange">
-				<div class="col-md-4">
-				<%= f.text_field :updated_at_gteq, class: "form-control input-sm", 'data-provide' => 'datepicker', 'data-date-format'=>"mm/dd/yyyy"  %>
-				</div>
-				<div class="col-md-4 ">
-				<%= f.text_field :updated_at_lteq, class: "form-control input-sm", 'data-provide' => 'datepicker', 'data-date-format'=>"mm/dd/yyyy"   %>
-				</div>
-			</div>
+		<div class="col-md-8">
+		<%= search_form_for @q, url: search_stores_path, class: 'form-inline'  do |f|%>
+				
+				<%= f.date_field :updated_at_gteq, class: "form-control input-sm"%>
+				<%= f.date_field :updated_at_lteq, class: "form-control input-sm" %>
+
 			
-			<div class="col-md-2 form-actions">
-			<%= f.submit "search", class:"btn btn-success  btn-sm"%>
-			</div>
+			<%= f.submit t('search'), class:"btn btn-success  btn-sm"%>
 			<% end %>
 		</div>
 		
@@ -53,17 +46,21 @@
         <td><%= store.title %></td>
         <td><% purchase_prihod = store.stocks.where("purchase_list_id IS NOT ?", nil)%>
         <% enter_prihod = store.stocks.where("enter_id IS NOT ?", nil)%>
-        <% b1 = purchase_prihod.sum(:quantity).to_i+ enter_prihod.sum(:quantity).to_i%><%=b1%>
+        <% b1 = purchase_prihod.sum(:quantity).to_i+ enter_prihod.sum(:quantity).to_i%>
+        <%=b1%>
         </td>
         <td><% invoice_rashod = store.stocks.where("invoice_list_id IS NOT ?", nil) %>
         <% loss_rashod = store.stocks.where("loss_id IS NOT ?", nil) %>
-        <% c1 = invoice_rashod.sum(:quantity).to_i + loss_rashod.sum(:quantity).to_i %><%=c1%>
+        <% c1 = invoice_rashod.sum(:quantity).to_i + loss_rashod.sum(:quantity).to_i %>
+        <%=c1%>
         </td>
         <td><!-- a = "#{b1}".to_i - "#{c1}".to_i--><%= store.quantity %></td>
         <td><%= store.price %></td>
+<!--
         <td><%= link_to 'Show', store %></td>
         <td><%= link_to 'Edit', edit_store_path(store) %></td>
         <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+-->
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @dover.number %>
+</p>
+
+<p>
+  <strong>Startdate:</strong>
+  <%= @dover.startdate %>
+</p>
+
+<p>
+  <strong>Enddate:</strong>
+  <%= @dover.enddate %>
+</p>
+<p>
+  <strong>Subj:</strong>
+  <%= @dover.subj %>
+</p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @dover.company.title %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @dover.user.first_name %>
+</p>
+
+<%= link_to 'Edit', edit_dover_path(@dover) %> |
+<%= link_to 'Back', dovers_path %>
+<%= link_to 'Печать', print_dover_path(@dover) %>

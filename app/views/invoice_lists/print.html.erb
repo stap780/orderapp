@@ -1,13 +1,12 @@
 <style>
   	.header, .myfooter {display: none;}
 </style>
-<div class="print_block" style="float: right; margin-bottom: 20px;">
-<%= check_box_tag 'sight', '0', false%> Показать печать и подпись
-<br>
-<%= link_to "Напечатать c печатью", print_invoice_list_path(:format => :pdf), {class: 'btn btn-success btn-xs'} %>
-<%= link_to "Напечатать без печати", pdf_invoice_list_path( :format => :pdf), {class: 'btn btn-success btn-xs'} %>
+<div class="col-md-12" style="float: left; margin-top: 20px;">
+<p>
+<%= link_to "Напечатать", print_invoice_list_path(:format => :pdf), {class: 'btn btn-success btn-xs'} %>
+</p>
 </div>
-
+<div class="col-md-12">
 <TABLE CELLSPACING="0" COLS="95" BORDER="0" style="width:1050px;margin:10px;">
 	<COLGROUP SPAN="95" WIDTH="15"></COLGROUP>
 
@@ -66,10 +65,10 @@
 		</TR>
 	<TR>
 		<TD STYLE="border-left: 2px solid #000000;padding-left: 5px;" COLSPAN=26 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>К платежно-расчетному документу</FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000" COLSPAN=2 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>N </FONT></TD>
-		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=8 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
-		<TD COLSPAN=2 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>от</FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000" COLSPAN=46 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>N <% @invoice_list.invoice.banks.each do |iib|%><%= iib.number%></FONT></TD>
+		<TD STYLE="border-bottom: 1px solid #000000" COLSPAN=4 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
+		<TD COLSPAN=8 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>от <%= iib.date.strftime("%d / %m / %Y")%><%end%></FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000" COLSPAN=40 ALIGN="LEFT" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>(5)</FONT></TD>
 		</TR>
 	<TR>
@@ -138,16 +137,16 @@
 		<TR>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=2 HEIGHT="18" ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%= (i+1) %></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%=ili.product.sku%></FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" COLSPAN=24 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%=ili.title%>-<%=ili.product.short_description.at(0..15)%></FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" COLSPAN=24 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%=ili.title%>-<%=ili.product.short_description.at(0..17)%></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=4 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>796</FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>шт.</FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=4 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%= ili.quantity%></FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=5 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%clear_price = ili.price - ili.price * @invoice_list.discount.to_i/100%><% price_without_nds = clear_price*100/118%> <%= price_without_nds.to_f.round(2) %> </FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%sum_without_nds = price_without_nds.to_f.round(2) * ili.quantity%><%=sum_without_nds%></FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=5 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%=((ili.sum*100/118).to_f.round(2)/ili.quantity).to_f.round(2)%> </FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%=(ili.sum*100/118).to_f.round(2)%></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=4 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>без акциза</FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=4 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1>18%</FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%product_nds = sum_without_nds*18/100 %><%=product_nds.to_f.round(2)%></FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%clear_sum = sum_without_nds + product_nds.to_f.round(2)%><%= clear_sum%></FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%=(ili.sum.to_f.round(2)- (ili.sum*100/118).to_f.round(2)).to_f.round(2)%></FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><%=ili.sum.to_f.round(2)%></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=4 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1></FONT></TD>
@@ -162,9 +161,9 @@
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=3 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=4 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;#&nbsp;##0"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=5 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;#&nbsp;##0,00"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDVAL="0" SDNUM="1049;0;#&nbsp;##0,00"><FONT FACE="Times New Roman" SIZE=1><%=@sum_without_nds.to_f.round(2)%></FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDVAL="0" SDNUM="1049;0;#&nbsp;##0,00"><FONT FACE="Times New Roman" SIZE=1><%=(@invoice_list.total_price*100/118).to_f.round(2)%></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=8 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;#&nbsp;##0,00"><FONT FACE="Times New Roman" SIZE=1>Х</FONT></TD>
-		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" VALIGN=MIDDLE SDVAL="0" SDNUM="1049;0;#&nbsp;##0,00"><FONT FACE="Times New Roman" SIZE=1><%=@nds.to_f.round(2)%></FONT></TD>
+		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=6 ALIGN="CENTER" VALIGN=MIDDLE SDVAL="0" SDNUM="1049;0;#&nbsp;##0,00"><FONT FACE="Times New Roman" SIZE=1><%=(@invoice_list.total_price - (@invoice_list.total_price*100/118).to_f.round(2)).to_f.round(2)%></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDVAL="0" SDNUM="1049;0;#&nbsp;##0,00"><FONT FACE="Times New Roman" SIZE=1><%=@invoice_list.total_price%></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=4 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		<TD STYLE="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" COLSPAN=7 ALIGN="CENTER" VALIGN=MIDDLE SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
@@ -387,3 +386,4 @@
 		<TD COLSPAN=3 ALIGN="CENTER" SDNUM="1049;0;@"><FONT FACE="Times New Roman" SIZE=1><BR></FONT></TD>
 		</TR>
 </TABLE>
+</div>

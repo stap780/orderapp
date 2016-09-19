@@ -14,7 +14,7 @@ class PurchaseInvoicesController < ApplicationController
   # GET /purchase_invoices.json
   def index
      @search = PurchaseInvoice.ransack(params[:q]) 
-     @search.sorts = 'number desc' if @search.sorts.empty? 
+     @search.sorts = 'date desc' if @search.sorts.empty? 
      @purchase_invoices = @search.result.paginate(page: params[:page], per_page: 30) 
   end
 
@@ -30,7 +30,7 @@ class PurchaseInvoicesController < ApplicationController
   # GET /purchase_invoices/new
   def new
     @purchase_invoice = PurchaseInvoice.new
-    @purchase_invoice.purchase_invoice_items.build
+#     @purchase_invoice.purchase_invoice_items.build
     respond_to do |format|
       format.html 
       #format.js
@@ -59,6 +59,21 @@ class PurchaseInvoicesController < ApplicationController
     @purchase_invoice = PurchaseInvoice.new(purchase_invoice_params)
         respond_to do |format|
       if @purchase_invoice.save
+	      
+				if @purchase_invoice.purchase_list_check == true
+				@purchase_list = @purchase_invoice.purchase_lists.create(number: params[:pl_number], date: params[:pl_date], company_id: @purchase_invoice.company_id, total_price: @purchase_invoice.total_price)
+				@purchase_invoice.purchase_invoice_items.each do |pii|
+				@purchase_list_item = PurchaseListItem.create("title" => "#{pii.title}", "quantity" => "#{pii.quantity}", "product_id" => "#{pii.product_id}", "price" => "#{pii.price}", "sum" => "#{pii.sum}", purchase_list_id: @purchase_list.id)
+				end
+				end
+				
+				if @purchase_invoice.purchase_list_check == false
+				if !@purchase_invoice.purchase_lists.blank?
+				@purchase_invoice.purchase_lists.first.destroy 
+				end
+				end
+
+	      
         format.html { redirect_to purchase_invoices_url, notice: 'purchase_invoice was successfully created.' }
         #format.json { render action: 'show', status: :created, location: @iorder }
         format.js   { render action: 'show', status: :created, location: @purchase_invoice }
@@ -74,6 +89,7 @@ class PurchaseInvoicesController < ApplicationController
   # PATCH/PUT /purchase_invoices/1
   # PATCH/PUT /purchase_invoices/1.json
   def update
+	  
     respond_to do |format|
       if @purchase_invoice.update(purchase_invoice_params)
       
@@ -91,9 +107,25 @@ class PurchaseInvoicesController < ApplicationController
       @purchase_invoice.save
       
       if @purchase_invoice.purchase_list_check == true
-      @purchase_list = @purchase_invoice.purchase_lists.create(number: @purchase_invoice.number, date: @purchase_invoice.date, company_id: @purchase_invoice.company_id, total_price: @purchase_invoice.total_price)
+	      if @purchase_invoice.purchase_lists.blank?
+      @purchase_list = @purchase_invoice.purchase_lists.create(number: params[:pl_number], date: params[:pl_date], company_id: @purchase_invoice.company_id, total_price: @purchase_invoice.total_price)
       @purchase_invoice.purchase_invoice_items.each do |pii|
       @purchase_list_item = PurchaseListItem.create("title" => "#{pii.title}", "quantity" => "#{pii.quantity}", "product_id" => "#{pii.product_id}", "price" => "#{pii.price}", "sum" => "#{pii.sum}", purchase_list_id: @purchase_list.id)
+      end
+      else
+      @purchase_invoice.purchase_lists.each do |pipl|
+	      pipl.update_attributes(number: params[:pl_number], date: params[:pl_date], company_id: @purchase_invoice.company_id, total_price: @purchase_invoice.total_price)
+	      
+      pipl.purchase_list_items.each do |pii|
+      pii.update_attributes("title" => "#{pii.title}", "quantity" => "#{pii.quantity}", "product_id" => "#{pii.product_id}", "price" => "#{pii.price}", "sum" => "#{pii.sum}")
+      end
+      end
+      end
+      end
+      
+      if @purchase_invoice.purchase_list_check == false
+	    if !@purchase_invoice.purchase_lists.blank?
+      @purchase_invoice.purchase_lists.first.destroy
       end
       end
         format.html { redirect_to @purchase_invoice, notice: 'Purchase invoice was successfully updated.' }

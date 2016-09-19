@@ -1,0 +1,1 @@
+json.array! @dovers, partial: 'dovers/dover', as: :dover

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729202119) do
+ActiveRecord::Schema.define(version: 20160901134543) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -37,6 +37,19 @@ ActiveRecord::Schema.define(version: 20160729202119) do
 
   add_index "angels", ["sku"], name: "index_angels_on_sku"
   add_index "angels", ["title"], name: "index_angels_on_title"
+
+  create_table "banks", force: :cascade do |t|
+    t.integer  "number"
+    t.string   "oper_type"
+    t.decimal  "sum"
+    t.string   "description"
+    t.date     "date"
+    t.integer  "payer_id"
+    t.integer  "receiver_id"
+    t.integer  "invoice_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "cases", force: :cascade do |t|
     t.integer  "number"
@@ -127,6 +140,25 @@ ActiveRecord::Schema.define(version: 20160729202119) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+
+  create_table "dover_items", force: :cascade do |t|
+    t.integer  "dover_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "quantity"
+  end
+
+  create_table "dovers", force: :cascade do |t|
+    t.string   "number"
+    t.date     "startdate"
+    t.date     "enddate"
+    t.integer  "company_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "subj"
+  end
 
   create_table "dpds", force: :cascade do |t|
     t.integer  "numer"
@@ -639,15 +671,8 @@ ActiveRecord::Schema.define(version: 20160729202119) do
   add_index "treolans", ["sku"], name: "index_treolans_on_sku"
   add_index "treolans", ["title"], name: "index_treolans_on_title"
 
-  create_table "users", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "login"
-    t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
+# Could not dump table "users" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "variants", force: :cascade do |t|
     t.integer  "product_id"

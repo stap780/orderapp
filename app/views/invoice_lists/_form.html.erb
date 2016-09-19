@@ -7,9 +7,13 @@
 			<div class="col-md-2">
     <%= f.input :number %>
     </div>
-			<div class="col-md-3">
-    <%= f.input :date,  as: :string %>
-    </div>
+		<div class="col-md-3">
+			<% if !@invoice_list.date.nil? %>
+		    <%= f.input :date, as: :string , :input_html => { :value => @invoice_list.date.strftime("%d/%m/%Y") } %>
+		    <%else%>
+		    <%= f.input :date, as: :string %>
+		    <%end%>
+		</div>
 		</div>
 		<div class="col-md-12">
 			<div class="col-md-3">
@@ -36,14 +40,17 @@
 </div>
 
 <div class="col-md-12" style="border-top:1px solid #ddd;">
+			<div class='links'>
+		<%= link_to_add_association t('add_item'), f, :invoice_list_items, 'data-association-insertion-node' => "#invoice_list_items", 'data-association-insertion-method' => "append"%>
+		</div>
 		<div class="col-md-8" style="margin-top:20px;">
 		<table class="table table-hover" id="invoice_list_items">
 		  <thead>
 		    <tr>
-		      <th>Title</th>
-		      <th>Quantity</th>
-		      <th>Price</th>
-		      <th>Sum</th>
+		      <th><%= t 'item_title' %></th>
+		      <th><%= t 'item_quantity' %></th>
+		      <th><%= t 'item_price' %></th>
+		      <th><%= t 'item_sum' %></th>
 		      <th></th>
 		    </tr>
 		  </thead>
@@ -53,25 +60,19 @@
 		   
 		</table>	
 		
-		<div class='links', style="float:left;">
-		<%= link_to_add_association 'add line', f, :invoice_list_items, 'data-association-insertion-node' => "#invoice_list_items", 'data-association-insertion-method' => "append"%>
-		</div>
 	</div>
 	
 		
 <div class="col-md-4" style="margin-top:20px;">
+		<div class="col-md-6" >
+		<p><%= t 'discount' %> - <%= @invoice_list.discount %> </p>
+	<p><%= t 'total' %> - <%= @invoice_list.total_price %> </p>
+	</div>
+
 	<div class="col-md-12">
 	<%= f.button :submit, class: 'btn btn-default btn-sm' %>
-	<%= link_to 'Show', @invoice_list, class: 'btn btn-default btn-sm'  %>
-	<%= link_to 'Back', invoice_lists_path, class: 'btn btn-default btn-sm'  %>
-	</div>
-	<div class="col-md-6" style="margin-top:20px;">
-	<%= f.input :discount, as: :integer %>
-
-	<p>
-		<strong>Total Price:</strong>
-		<%= @invoice_list.total_price %> 
-	</p>
+	<%= link_to t('show'), @invoice_list, class: 'btn btn-default btn-sm'  %>
+	<%= link_to t('back'), invoice_lists_path, class: 'btn btn-default btn-sm'  %>
 	</div>
 </div>
 

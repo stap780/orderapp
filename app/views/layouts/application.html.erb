@@ -6,12 +6,13 @@
     <link href="/assets/favicon.ico" rel="shortcut icon"></link>
     <title><%= app_name %></title>
     
-    <!-- javascript_include_tag "application", "data-turbolinks-track" => true %>
-    < stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true -->
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     
-    <%= javascript_include_tag "application" %>
-    <%= stylesheet_link_tag "application"%>
-    
+     <!-- javascript_include_tag "application" >
+    < stylesheet_link_tag "application"-->
+
     
   </head>
 <body>
@@ -34,6 +35,7 @@
             </li>
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Закупки <span class="caret"></span></a>
             <ul class="dropdown-menu">
+            <li class="<%= 'active' if current_page?(dovers_path) %>"><%= link_to 'Доверенности', controller: 'dovers', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(purchase_invoices_path) %>"><%= link_to 'Счёта поставщиков', controller: 'purchase_invoices', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(purchase_lists_path) %>"><%= link_to 'Накладные поставщиков', controller: 'purchase_lists', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(purchase_invoice_ins_path) %>"><%= link_to 'Счета-фактуры поставщиков', controller: 'purchase_invoice_ins', action: 'index' %></li>
@@ -86,8 +88,7 @@
             </li>	        
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Банк<span class="caret"></span></a>
             <ul class="dropdown-menu">
-            <li><a href="#">Входящие ПП</a></li>
-            <li><a href="#">Исходящие ПП</a></li>
+            <li class="<%= 'active' if current_page?(banks_path) %>"><%= link_to 'Выписка', controller: 'banks', action: 'index' %></li>
             </ul>
             </li>
             <li><a href="#">Задачи</a></li>
@@ -122,6 +123,7 @@
         <%= flash_messages %>
         
         <%= yield %>
+        
         
      </div>  
    </div><!-- content -->

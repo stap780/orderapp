@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   require 'rest-client'
 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :authorize
+  before_action :authorize,  except: [:advt]
 	
   def authorize
     if current_user.nil?
@@ -38,38 +38,53 @@ class ProductsController < ApplicationController
       format.html
       format.csv { send_data @products_all.to_csv }
       format.xls # { send_data @products_all.to_csv(col_sep: "\t") }
+      format.xml
     end      
   end
   
   def advt
+	@advt_products = Product.where("quantity > 0")
 	url = "http://www.cbr.ru/scripts/XML_daily.asp"
 	data = Nokogiri::XML(open(url))
 	a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
 	@kurs = a.gsub(/,/, '.')
 	  
-	@products = Product.where("quantity > ?", 0)  
-	
+	#@products = Product.where("quantity > ?", 0)  
+	@products = Product.where('sku Like ? ', '%yl%')
 	advt_csv_string = CSV.generate(:col_sep => ';') do |csv|
          csv << ['title','descr1', 'descr2', 'url', 'keyword/#thematic#','price', 'stopwords']#,'autobid'
          @products.each do |product|
 	        title = product.title 
-			rub_price = (product.sell_price.to_f * @kurs.to_f).to_f.round(2)
+	        var = product.variants.where('product_option_id = 2').first
+			rub_price = (var.price.to_f * @kurs.to_f).to_f.round(2) #rub_price = (product.sell_price.to_f * @kurs.to_f).to_f.round(2)
 			descr1 = 'от ' + rub_price.to_s + ' руб.' 
 			descr2 = 'Скидки бизнесу. Доставка по России.' 
 			url ='http://www.teletri.ru/product_by_id/' + product.inid.to_s 
-			keywords =  product.title + ' купить' 
-			stopwords = 'настройка, ремонт, инструкция, описание' 
+			keywords =  product.title, product.title + ' купить' 
+			stopwords = 'настройка, ремонт'#, инструкция, описание' 
 			price = 10
 			autobid = 1
            csv << [title, descr1, descr2, url, keywords, price, stopwords]#, autobid
          end
     end         
   
-   send_data advt_csv_string.encode("cp1251"),
-   :type => 'text/csv;  header=present', #charset=iso-8859-1;
-   :disposition => "attachment; filename=advt1.csv"
+#    send_data advt_csv_string.encode("cp1251"),
+#    :type => 'text/csv;  header=present', #charset=iso-8859-1;
+#    :disposition => "attachment; filename=advt.csv"
+   respond_to do |format|
+      format.csv { send_data advt_csv_string.encode("cp1251"),
+                   :type => 'text/csv;  header=present', #charset=iso-8859-1;
+                   :disposition => "attachment; filename=advt.csv" }
+      format.xml 
+    end  
 	
    end
+   def advthidden
+	   @advt_hidden = Product.where("category_id" => 5460573)
+	   respond_to do |format|
+      format.xml 
+    end 
+	 end
 
   # GET /products/1
   def show
@@ -78,7 +93,6 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
-    
   end
 
   # GET /products/1/edit
@@ -127,8 +141,8 @@ class ProductsController < ApplicationController
   @products = @search.result.skidka(skidka)
     flash[:notice] = 'Скидка установлена'
     redirect_to products_path
-  
   end
+	  
   
   # PATCH/PUT /products/1
   def update

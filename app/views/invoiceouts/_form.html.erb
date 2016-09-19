@@ -9,7 +9,11 @@
 			<%= f.input :number %>
 			</div>
 			<div class="col-md-10">
-			<%= f.input :date, class: "datepicker", as: :string %>
+				<% if !@invoiceout.date.nil? %>
+			    <%= f.input :date, as: :string , :input_html => { :value => @invoiceout.date.strftime("%d/%m/%Y") } %>
+			    <%else%>
+			    <%= f.input :date, as: :string %>
+			    <%end%>
 			</div>
 		</div>
 		<div class="col-md-12">

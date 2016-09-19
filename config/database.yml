@@ -21,11 +21,8 @@ test:
   encoding: utf8
 
 production:
-  adapter: postgresql
-  database: orderapp_production
+  adapter: sqlite3
+  database: db/production.sqlite3
   pool: 5
-  host: localhost
-  username: pguser
-  password: pguser
   timeout: 5000
-  encoding: unicode
+  encoding: utf8

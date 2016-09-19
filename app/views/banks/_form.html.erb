@@ -1,0 +1,21 @@
+<%= simple_form_for(@bank) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="col-md-6">
+    <%= f.input :number %>
+    <%= f.input :oper_type %>
+    <%= f.input :sum %>
+    <%= f.input :description %>
+  </div>
+  <div class="col-md-6">
+    <%= f.input :date %>
+    <%= f.association :payer%>
+    <%= f.association :receiver %>
+    <%= f.association :invoice , :collection => @comp_invoices.map { |r| [r.number, r.id] } if @comp_invoices !=nil %><!--# :collection => Invoice.where(:invstatus => 'Оплачен').map { |r| [r.number, r.id] }-->
+  </div>
+<div class="col-md-12">
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+</div>
+<% end %>

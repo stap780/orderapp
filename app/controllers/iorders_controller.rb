@@ -19,7 +19,7 @@ class IordersController < ApplicationController
   # GET /iorders
   def index
      @search = Iorder.ransack(params[:q]) #используется gem ransack для поиска и сортировки
-     @search.sorts = 'id desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
+     @search.sorts = 'number desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
      @iorders = @search.result.paginate(page: params[:page], per_page: 30)
 	respond_to do |format|
 	format.html
@@ -49,10 +49,10 @@ class IordersController < ApplicationController
   	@nds =  @iorder.line_items.sum(:sum)*18/100
   	@skidka = @iorder.line_items.sum(:sum) * @iorder.discount_percent.to_i/100
   		respond_to do |format|
-        format.html
-		format.pdf do
-		render :pdf => "Заказ #{@iorder.number}",:template => "iorders/pdf"
-		end 
+				format.html
+				format.pdf do
+				render :pdf => "Заказ #{@iorder.number}",:template => "iorders/pdf"
+				end 
 
       end
 
@@ -130,18 +130,15 @@ class IordersController < ApplicationController
   	@iorder.save
   	
   	# создаем счет и записывыем id счета в позиции относящиеся к заказу
-     if @iorder.invoice_check == true   
-     @invoice = @iorder.create_invoice(number: @iorder.number, date: @iorder.updated_at, client_id: @iorder.client_id, discount: @iorder.discount_percent, iorder_id: @iorder.id, total_price: @iorder.total_price )#, company_id: 59)
-     # @iorder.line_items.each do |li| 
-     # if !li.invoice_id.present?
-     # li.invoice_id = @invoice.id
-     # @iorder.save
-     # end
-     #end
+     if @iorder.invoice_check == true 
+     if @iorder.invoice.nil?
+     @invoice = @iorder.create_invoice(number: @iorder.number, date: @iorder.updated_at, client_id: @iorder.client_id, discount: @iorder.discount_percent, iorder_id: @iorder.id)#, company_id: 59, total_price: @iorder.total_price )
      #создаем позиции к счету в таблице позиции-счета
      @iorder.line_items.each do |li| 
      @invoice_item = InvoiceItem.create("title" => "#{li.title}", "quantity" => "#{li.quantity}", "product_id" => "#{li.product_id}", "price" => "#{li.price}", "sum" => "#{li.sum}", invoice_id: @invoice.id)
      end
+     end
+     
      end
 
      # Создание записи по курьерке
@@ -175,7 +172,7 @@ class IordersController < ApplicationController
      end
       #_______________________ 
      
-     if @iorder.invoice_check == false
+     if @iorder.invoice_check == false 
       @iorder.invoice.destroy if @iorder.invoice !=nil
      end
      format.html { redirect_to @iorder, notice: 'Order was successfully updated.' }#redirect_to @iorder

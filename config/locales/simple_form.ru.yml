@@ -32,3 +32,6 @@ ru:
     labels:
       purchase_list:
         status: 'Статус'
+      invoice:
+        number: 'Номер'
+        date: 'Дата'

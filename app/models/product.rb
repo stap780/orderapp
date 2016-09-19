@@ -194,7 +194,8 @@ class Product < ActiveRecord::Base
 		ipv.cost_price = ip_product.cost_price
 		ipv.save
 		if !ipv.cost_price.nil?
-		ipv.price = ipv.cost_price + ipv.cost_price*10/100
+		#ipv.price = ipv.cost_price + ipv.cost_price*10/100
+		ipv.price = (ipv.cost_price.to_f + ip_product.price.to_f)/2
 		else
 		ipv.price = 0
 		end
@@ -211,7 +212,7 @@ class Product < ActiveRecord::Base
 	hv.quantity = homy_product.quantity_all_free
 	hv.cost_price = homy_product.price
 	hv.save
-	hv.price = hv.cost_price * 1.09
+	hv.price = (hv.cost_price.to_f + homy_product.sell_price.to_f)/2
 	hv.old_price = homy_product.sell_price
 	hv.save
 	end
@@ -219,13 +220,13 @@ class Product < ActiveRecord::Base
 	# Обновляем товары Имаг
 	emag_variant = Variant.where('product_option_id = ?', 4) #находим варианты продуктов относящийся к поставшику Имаг
 	emag_variant.each do |ev|
-# 		puts "#{(ev.id)}"
+ 		puts "#{(ev.sku)}"
 	emag_product = Emag.find_by_id(ev.supplier_id) #обновляем кол-во по данному товару поставщика
 	ev.quantity = emag_product.quantity
 	ev.cost_price = emag_product.cost_price
 	ev.save
 	if !ev.cost_price.nil?
-	ev.price = ev.cost_price * 1.09
+	ev.price = (ev.cost_price.to_f + emag_product.price.to_f)/2
 	else
 	ev.price = 0
 	end
@@ -241,7 +242,8 @@ class Product < ActiveRecord::Base
 	gv.cost_price = gstele_product.cost_price.to_f.round(2)
 	gv.save
 	if !gv.cost_price.nil?
-	gv.price = (gv.cost_price * 1.09).to_f.round(2)
+# 	gv.price = (gv.cost_price * 1.09).to_f.round(2)
+	gv.price = (gv.cost_price.to_f + gstele_product.price.to_f)/2
 	else
 	gv.price = 0
 	end
@@ -258,7 +260,7 @@ class Product < ActiveRecord::Base
 	rrcv.cost_price = rrc_product.cost_price
 	rrcv.save
 	if !rrcv.cost_price.nil?
-	rrcv.price = rrcv.cost_price + rrcv.cost_price*10/100
+	rrcv.price = (rrcv.cost_price.to_f + rrc_product.price.to_f )/2
 	else
 	rrcv.price = 0
 	end
@@ -273,7 +275,7 @@ class Product < ActiveRecord::Base
 	av.quantity = angel_product.quantity
 	av.cost_price = angel_product.cost_price
 	av.save
-	av.price = av.cost_price + av.cost_price*10/100
+	av.price = (av.cost_price.to_f + angel_product.price.to_f)/2
 	av.old_price = angel_product.price
 	av.save
 	end
@@ -285,7 +287,7 @@ class Product < ActiveRecord::Base
 	vv.quantity = vimcom_product.quantity_free
 	vv.cost_price = vimcom_product.cost_price
 	vv.save
-	vv.price = vv.cost_price + vv.cost_price*10/100
+	vv.price = (vv.cost_price.to_f + vimcom_product.price.to_f)/2
 	vv.old_price = vimcom_product.price
 	vv.save
 	end

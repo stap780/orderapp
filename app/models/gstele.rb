@@ -38,13 +38,13 @@ validates :sku, uniqueness: true
 		kurs_dollar = a.gsub(/,/, '.')
 		b = data.xpath("ValCurs/Valute[@ID = 'R01239']/Value").text
 		kurs_euro = b.gsub(/,/, '.')
-		price = price_euro.to_f * "#{kurs_euro}".to_f / "#{kurs_dollar}".to_f
+		cost_price = price_euro.to_f * "#{kurs_euro}".to_f / "#{kurs_dollar}".to_f
 		#end 
-		cost_price = price / 1.15 
+		price = cost_price * 1.15 
       
       @gstele = Gstele.find_by_sku("#{sku}")
 		if @gstele.present? 
-		@gstele.update_attributes(:quantity => quantity)#( :price => price, :quantity => quantity, :cost_price => cost_price)
+		@gstele.update_attributes(:quantity => quantity, :price => price, :cost_price => cost_price)#( :price => price, :quantity => quantity, :cost_price => cost_price)
 # 		else
 # 		@gstele = Gstele.new(:sku => sku, :title => title, :price => price, :valute => valute, :quantity => quantity)
 #   		@gstele.save

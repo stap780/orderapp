@@ -1,0 +1,124 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<head>
+<title>Расходная накладная <%= @invoice_list.number %></title>
+</head>
+<body>
+<style>
+  	.header, .myfooter {display: none;}
+    .body  {
+      font-size: 12px; color: #000;
+      background-color: #fff;
+      font-family: Arial;
+      margin: 30px;
+      width: 750px;
+    }
+    .table { border-spacing: 0px; font-size: 12px; }
+    .clear {clear:both; margin:2px 0px; height:5px;}
+    .border {
+      border-bottom:1px solid black;
+      padding-bottom:0;
+     }
+    .accent {font-size: 12px; font-weight: bold;}
+
+    .borders_table {width: 100%; border-collapse: collapse;}
+    .borders_table, .borders_table  td, .products_table th {border: 1px solid #999; }
+    .page_break { display:block; clear:both; page-break-after:always; }
+    h2 {font-size:15px;}
+</style>
+<div >
+
+<center style='margin-top:40px'>
+<h2>Расходная накладная № <%= @invoice_list.number %> от <%= @invoice_list.date.strftime("%d / %m / %Y")%></h2>
+</center>
+<p style='margin-top:30px;'>Покупатель:
+<span style='margin-left: 5px'>
+<%= @invoice_list.client.surname %> <%= @invoice_list.client.name %> <%= @invoice_list.client.phone %>
+<%= @invoice_list.client.city %>, <%= @invoice_list.client.address %>  
+</span></p> 
+<p>Продавец:
+<span style='margin-left: 5px'>
+ООО "ФриЗ" Москва 117534 ул Чертановская д 47 корп 2 
+</span>
+</p>
+<br>
+<table class='borders_table products_table' style='width:750px; margin-top: 20px'>
+<tr>
+	<th align='left'>№</th>
+		<th>Артикул</th>
+		<th>Наименование </th>
+		<th>Ед. изм.</th>
+		<th>Кол-во</th>
+		<th>Цена</th>
+		<th>Сумма</th>
+	</tr>
+<tr>
+ <% @invoice_list.invoice_list_items.each_with_index do |pr, i| %>
+<td align='center'><%= (i+1) %></td>
+<td align="center"><%=pr.product.sku%></td>
+<td><%=pr.product.title%>-<%=pr.product.short_description.at(0..17)%></td>
+<td align='center'>шт</td>
+<td align='center'><%= pr.quantity%></td>
+<td align='right'><%= pr.price%></td>
+<td align='right'><%= pr.sum%></td>
+</tr>
+ <% end %>
+</table>
+<table align='right'>
+<tr>
+<td align='right' width='120'>
+<a>Итого</a>
+</td>
+<td align='right' width='80'><%= @invoice_list.invoice_list_items.sum(:sum)%></td>
+</tr>
+<tr>
+<td align='right' width='80'></td>
+</tr>
+<tr>
+<td align='right' width='120'>
+<a>НДС 18%</a>
+</td>
+<td align='right' width='80'><%= @nds%></td>
+</tr>
+<tr>
+<td align='right' width='160'>
+<b>Всего к оплате</b>
+</td>
+<td align='right' width='80'><%= @invoice_list.total_price%></td>
+</tr>
+</table>
+<div style='clear:both'></div>
+<p>
+<a>
+Всего наименований: <%= @invoice_list.invoice_list_items.count%> на сумму <%= @invoice_list.total_price%> руб
+</a>
+<br>
+<b>
+Всего к оплате: <%= RuPropisju.rublej(@invoice_list.total_price)%>.
+</b>
+<b>
+НДС: <%= RuPropisju.rublej(@nds)%>
+</b>
+</p>
+<p>Отпустил _____________________________       Получил _____________________________ </p>
+<!--<div style='height:205px; position:relative;'>
+<p>
+<span style='display: inline-block; min-width: 150px; text-align: left;'>
+Генеральный директор
+</span>
+<span style='border-bottom: 1px solid; margin-left: 13px; padding-left: 20px; display: inline-block; min-width: 110px; position: relative; top: 2px; height: 60px;'>
+</span>
+/
+Эмексизов П.А./
+</p>
+<p>
+<span style='display: inline-block; min-width: 150px; text-align: left;'>
+Главный бухгалтер
+</span>
+<span style='border-bottom: 1px solid; margin-left: 13px; padding-left: 20px; display: inline-block; min-width: 110px; position: relative; top: 2px; height: 20px;'>
+</span>
+/
+Эмексизов П.А./
+</p>
+</div>-->
+</div>
+</body>

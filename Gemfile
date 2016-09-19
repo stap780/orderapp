@@ -33,7 +33,7 @@ gem 'therubyracer'
 gem 'simple_form'
 gem 'cocoon'
 gem 'will_paginate', '~> 3.0.6'
-gem 'roo'
+gem 'roo', '2.4'
 gem 'roo-xls'
 gem 'mechanize'
 gem 'ru_propisju'
@@ -55,6 +55,9 @@ gem 'bootstrap-filestyle-rails'
 gem 'addressable', '~> 2.4'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'rails-i18n'
+gem 'numbers_and_words', '~> 0.10.5'
+gem 'jquery-turbolinks'
  
 group :development, :test do
 	

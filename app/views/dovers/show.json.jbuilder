@@ -1,0 +1,1 @@
+json.partial! "dovers/dover", dover: @dover

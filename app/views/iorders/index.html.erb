@@ -11,13 +11,13 @@
 		</div>
 		<div class="col-md-7">
 		<form class="form-inline">
-		<p>Поиск</p>
+		<p><%=t 'search_t'%></p>
 		<%= search_form_for @search do |f|%>
   		<div class = "form-group">
-  		<%= f.search_field :number_eq , placeholder: 'Номеру', class: "form-control input-sm" %>  
-   		<%= f.search_field :instatus_cont, placeholder: 'Статусу', class: "form-control input-sm" %> 
+  		<%= f.search_field :number_eq , placeholder: t('.number'), class: "form-control input-sm" %>  
+   		<%= f.search_field :instatus_cont, placeholder: t('.status'), class: "form-control input-sm" %> 
   		</div> 
-  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<%= f.submit t('search'), class: 'btn btn-default btn-sm' %>
   		<% end %>
 		</form>
 		</div>
@@ -77,9 +77,9 @@
 		        <!--<td><%= iorder.phone %></td>
 		        <td><%= iorder.email %></td>
 		        <td><%= iorder.total %></td>-->
-		        <td><%= link_to 'Show', iorder,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-xs'  %></td>
-		        <td><%= link_to 'Edit', edit_iorder_path(iorder), class: 'btn btn-success btn-xs' %></td>
-		        <td><%= link_to 'Destroy', iorder, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+		        <td><%= link_to t('.show'), iorder,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-xs'  %></td>
+		        <td><%= link_to t('.edit'), edit_iorder_path(iorder), class: 'btn btn-success btn-xs' %></td>
+		        <td><%= link_to t('.destroy'), iorder, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
 		      </tr>
 		    <% end %>
 		  </tbody>

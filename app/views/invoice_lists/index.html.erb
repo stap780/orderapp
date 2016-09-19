@@ -6,19 +6,21 @@
 		</div>
 				<div class="col-md-3">
 		</div>
-		<div class="col-md-7"><p>Поиск</p>
-		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :number_eq, 'Номеру' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :number_eq %>  
-  		<%= f.label :status_cont, 'Статусу' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :status_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-  		</div>
-		<% end %>
+		<div class="col-md-7">
+			<form class="form-inline">
+			<p><%= t '.search_t' %></p>
+			<%= search_form_for @search do |f|%>
+				<div classs = "search">
+				<%= f.search_field :number_eq, placeholder: t('.number_eq'), class: "form-control input-sm"  %> 
+				<%= f.search_field :status_cont, placeholder: t('.status_cont'), class: "form-control input-sm"  %>  
+				<%= f.submit t('.search'), class: 'btn btn-default btn-sm' %>
+				</div>
+			<% end %>
+			</form>
 		</div>
 		<div class="col-md-12">
 		<div class="col-md-5">
-		<p><%=link_to 'Создать накладную', new_invoice_list_path %></p>
+<!-- 		<p><%=link_to 'Создать накладную', new_invoice_list_path %></p> -->
 		</div>
 	</div>
 </div>
@@ -29,12 +31,12 @@
 		<table class="table table-hover">
   <thead>
     <tr>
-      <th>Number</th>
-      <th>Date</th>
-      <th>Status</th>
-      <th>Total price</th>
-      <th>Client</th>
-      <th>Company</th>
+      <th><%= t '.number' %></th>
+      <th><%= t '.date' %></th>
+      <th><%= t '.status' %></th>
+      <th><%= t '.total' %></th>
+      <th><%= t '.client' %></th>
+      <th><%= t '.company' %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -48,9 +50,9 @@
         <td><%= invoice_list.total_price %></td>
         <td><%= invoice_list.client.surname %> <%= invoice_list.client.name %></td>
         <td><%= invoice_list.company.title if invoice_list.company !=nil %></td>
-        <td><%= link_to 'Show', invoice_list, class: 'btn btn-default btn-xs' %></td>
-        <td><%= link_to 'Edit', edit_invoice_list_path(invoice_list), class: 'btn btn-success btn-xs'  %></td>
-        <td><%= link_to 'Destroy', invoice_list, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('show'), invoice_list, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to t('edit'), edit_invoice_list_path(invoice_list), class: 'btn btn-success btn-xs'  %></td>
+        <td><%= link_to t('destroy'), invoice_list, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -3,6 +3,7 @@ class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :print, :edit, :update, :destroy]
   before_action :authorize
   autocomplete :company, :title, full: true	
+
   
   def authorize
     if current_user.nil?
@@ -24,23 +25,25 @@ class InvoicesController < ApplicationController
   end
   
   def print
-  	@nds =  @invoice.invoice_items.sum(:sum)*18/100
+  	@nds =  (@invoice.invoice_items.sum(:sum)*18/118).to_f.round(2)
   	@skidka = @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100
   	@company2 = Company.find_by_id(@invoice.companytwo)
   	respond_to do |format|
-	format.html # show.html.erb
-	    format.pdf do
-	      render :pdf => "Счёт #{@invoice.number}",:template => "invoices/pdfsight"
-	    end 
-	end
+		format.html # show.html.erb
+		    format.pdf do
+		      render :pdf => "Счёт #{@invoice.number}",
+		             :template => "invoices/pdfsight"
+		    end 
+		end
   end
   
 	def pdf
 	@invoice = Invoice.find_by_id(params[:invoice_id])
-	@nds =  @invoice.invoice_items.sum(:sum)*18/100
+	@nds =  (@invoice.invoice_items.sum(:sum)*18/118).to_f.round(2)
 	@skidka = @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100
-		@company2 = Company.find_by_id(@invoice.companytwo)
-	      render :pdf => "Счёт #{@invoice.number}",:template => "invoices/pdf"
+	@company2 = Company.find_by_id(@invoice.companytwo)
+	      render :pdf => "Счёт #{@invoice.number}",
+	             :template => "invoices/pdf"
 	end
 
   # GET /invoices/new
@@ -102,12 +105,12 @@ class InvoicesController < ApplicationController
   	  end
   	  end
 	  
-  	@invoice.total_price = @invoice.invoice_items.sum(:sum) - @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100 
-  	@invoice.save
+  	#@invoice.total_price = @invoice.invoice_items.sum(:sum) - @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100 
+  	#@invoice.save
   	
   	# создаем накладную и записывыем id накладной в позиции относящиеся к счету
      if @invoice.invoice_list_check == true 
-     @invoice_list = @invoice.invoice_lists.build(number: @invoice.number, date: @invoice.updated_at, client_id: @invoice.client_id, company_id: @invoice.company_id, discount: @invoice.discount)
+     @invoice_list = @invoice.invoice_lists.build(number: @invoice.number, date: @invoice.updated_at, client_id: @invoice.client_id, company_id: @invoice.company_id, discount: @invoice.discount, total_price: @invoice.total_price)
      @invoice_list.save
      #создаем позиции в накладной в таблице позиции-накладной
      @invoice.invoice_items.each do |li| 

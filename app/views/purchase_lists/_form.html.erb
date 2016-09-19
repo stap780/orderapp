@@ -3,13 +3,17 @@
 
 
 <div class="col-md-12">
-	<div class="col-md-8">
+	<div class="col-md-7">
 		<div class="col-md-12">
 			<div class="col-md-3">
 			    <%= f.input :number, hint: 'Проверь номер' %>
 			</div>
-			<div class="col-md-9">
-			    <%= f.input :date, order: [:day, :month, :year]  %>
+			<div class="col-md-3">
+				<% if !@purchase_list.date.nil? %>
+			    <%= f.input :date, as: :string , :input_html => { :value => @purchase_list.date.strftime("%d/%m/%Y") } %>
+			    <%else%>
+			    <%= f.input :date, as: :string %>
+			    <%end%>
 			</div>
 		</div>
 		<div class="col-md-12">
@@ -19,33 +23,53 @@
 		</div>
 	</div>
 	
-	<div class="col-md-4">
+	<div class="col-md-5">
 	<div class="col-md-6">
 	    <%= f.input :status, collection: [ "Новый", "В работе", "Оплачен"] %>
+	    <%= f.input :purchase_invoicein_check , input_html: { 'id' => 'add_pii_info' }%>
 	</div>
-	<div class="col-md-12">
-	    <%= f.input :purchase_invoicein_check %>
-	</div>
-	<div class="col-md-12">
-	<%= f.simple_fields_for :purchase_invoice_in do |pii| %>
-		<%= pii.input :id, as: :hidden %>
-	    <%= pii.input :number, input_html: { id: pii.object.id }%>
-	    <%= pii.input :data, as: :date , order: [:day, :month, :year]  %>
-	    <% end %>
+	<div class="col-md-6">
+			<div class="pii_info" style="display: none;">
+				<% if @purchase_list.new_record? %>
+					<%= f.simple_fields_for :purchase_invoice_in do |pii| %>
+					<%= pii.input :id, as: :hidden %>
+					<%= pii.input :number, input_html: { id: pii.object.id }%>
+	        <%= pii.input :data, as: :string %>
+	        <% end %>
+	      <% else %>
+	       	<%= f.simple_fields_for :purchase_invoice_in do |pii| %>
+					<%= pii.input :id, as: :hidden %>
+					<%= pii.input :number, input_html: { id: pii.object.id }%>
+	        
+	        <% if !@purchase_list.purchase_invoice_in.data.nil? %>
+			    <%= pii.input :data, as: :string , input_html: { value: pii.object.data.strftime("%d/%m/%Y") }  %>
+			    <%else%>
+			    <%= pii.input :data, as: :string %>
+			    <%end%>
+	        
+	        <% end %>
+	      <% end %>
+
+	      
+			</div>
 	</div>
 	
 	</div>
 </div>
 <div class="col-md-12" style="border-top:1px solid #ddd;">
+				<div class='links'>
+			<%= link_to_add_association t('add_item'), f, :purchase_list_items,'data-association-insertion-node' => "#purchase_list_items", 'data-association-insertion-method' => "append" %>
+			</div>
+
 		<div class="col-md-8" style="margin-top:20px;">
 		<table class="table table-hover" id="purchase_list_items">
 			<thead>
 			<tr>
 			<th colspan="1"></th>
-			<th>Title</th>
-			<th>Quantity</th>
-			<th>Price</th>
-			<th>Sum</th>
+			<th><%= t 'item_title' %></th>
+			<th><%= t 'item_quantity' %></th>
+			<th><%= t 'item_price' %></th>
+			<th><%= t 'item_sum' %></th>
 			<th colspan="1"></th>
 			</tr>
 			</thead>
@@ -53,9 +77,6 @@
 			<%= render 'purchase_list_item_fields', :f => purchase_list_item %>
 			<% end %>
 		</table>
-			<div class='links', style="float:left;">
-			<%= link_to_add_association 'add line', f, :purchase_list_items,'data-association-insertion-node' => "#purchase_list_items", 'data-association-insertion-method' => "append" %>
-			</div>
 		
 	</div>
 	
@@ -67,8 +88,8 @@
 	</div>
 	<div class="col-md-12" style="margin-top:20px;">
 	<%= f.button :submit, class: 'btn btn-default btn-sm' %>
-	<%= link_to 'Show', @purchase_list, class: 'btn btn-default btn-sm'  %>
-	<%= link_to 'Back', purchase_lists_path, class: 'btn btn-default btn-sm'  %>
+	<%= link_to t('show'), @purchase_list, class: 'btn btn-default btn-sm'  %>
+	<%= link_to t('back'), purchase_lists_path, class: 'btn btn-default btn-sm'  %>
 	</div>
 	
 </div>

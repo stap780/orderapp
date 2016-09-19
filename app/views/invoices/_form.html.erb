@@ -1,3 +1,6 @@
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
+
+
 <%= simple_form_for(@invoice) do |f| %>
   <%= f.error_notification %>
 <div class="col-md-12">
@@ -7,20 +10,24 @@
 			    <%= f.input :number %>
 			</div>
 			<div class="col-md-3">
+				<% if !@invoice.date.nil? %>
+			    <%= f.input :date, as: :string , :input_html => { :value => @invoice.date.strftime("%d/%m/%Y") } %>
+			    <%else%>
 			    <%= f.input :date, as: :string %>
+			    <%end%>
 			</div>
 		</div>
 		<div class="col-md-12">
 			<div class="col-md-3">
-			<%= f.association :client %>
+			<%= f.association :client, collection: Client.order('name ASC') %>
 			</div>			
 			<div class="col-md-3">
- 			 <%= f.input :company_title, label: "Покупатель", as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_company_id' }  %>
-<!-- 			<%= f.input :company_title, label: "Покупатель"%> -->
+ 			 <%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_company_id' }  %>
 			 <%= f.input :company_id, as: :hidden %>
+			 <p><%= link_to t('invoices.add_company'), new_company_path,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-xs'  %></p>
 			 </div>
 			 <div class="col-md-3">
-			<%= f.input :company_title, label: "Получатель", as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_companytwo' }  %>
+			<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_companytwo' }  %>
 			<%= f.input :companytwo, as: :hidden %>
 			</div>
 		</div>
@@ -32,24 +39,29 @@
 			    <%= f.input :invstatus, collection: [ "Новый", "В работе", "Оплачен"] %>
 			</div>
 			<div class="col-md-12">
-			    <%= f.input :invoice_list_check %>
+	<%if @invoice.invoice_lists.blank?%>
+	<%= f.input :invoice_list_check,  input_html: { checked: "false" } %>
+	<%else%>
+	<%= f.input :invoice_list_check %>
+	<%end%>
+
 			</div>
 		</div>
 	</div>
 </div>
 	<div class="col-md-12" style="border-top:1px solid #ddd;">
 	<div class='links'>
-		<%= link_to_add_association 'add line', f, :invoice_items, 'data-association-insertion-node' => "#invoice_items", 'data-association-insertion-method' => "append" %>
+		<%= link_to_add_association t('add_item'), f, :invoice_items, 'data-association-insertion-node' => "#invoice_items", 'data-association-insertion-method' => "append" %>
 		</div>
 		<div class="col-md-8" style="margin-top:20px;">
 		<table class="table table-hover" id="invoice_items">
 		  <thead>
 		    <tr>
-		      <th>Title</th>
-		      <th>Quantity</th>
-		      <th>Price</th>
-		      <th>Sum</th>
-			<th colspan="1"></th>
+		      <th><%= t 'item_title' %></th>
+		      <th><%= t 'item_quantity' %></th>
+		      <th><%= t 'item_price' %></th>
+		      <th><%= t 'item_sum' %></th>
+			<th colspan="3"></th>
 		    </tr>
 		  </thead>
 			<%= f.simple_fields_for :invoice_items do |invoice_item| %>
@@ -60,17 +72,26 @@
 	</div>
 	
 <div class="col-md-4" style="margin-top:20px;">
-	
-	<div class="col-md-6" style="margin-top:20px;">
-	<%= f.input :discount,label: "Discount (%)", as: :integer, input_html: {onchange: "calculateInvoice(this.value)"} %>
+	<div class="col-md-12">
+	<div class="col-md-5" >
+	<%= f.input :discount, as: :integer, input_html: {onchange: "calculateInvoice(this.value)"} %>
+	<%= f.input :total_price %> 
+	</div>
+	<div class="col-md-7">
 	<p>
-		<%= f.input :total_price %> <!-- или <strong>Total Price:</strong> <%= @invoice.total_price %> -->
+		<%if !@invoice.nil? %>
+		<strong><%=t 'invoices.order_total'%></strong> - <%=@invoice.iorder.total_price if !@invoice.iorder.nil?%>
+		<%=t 'invoices.order_delivery'%> - <span class="delivery"><%=@invoice.iorder.deliveryprice if !@invoice.iorder.nil?%></span>
+		<%end%>
 	</p>
 	</div>
+	</div>
+	
 	<div class="col-md-12">
 	<%= f.button :submit, class: 'btn btn-default btn-sm' %>
-	<%= link_to 'Show', @invoice, class: 'btn btn-default btn-sm'  %>
-	<%= link_to 'Back', invoices_path, class: 'btn btn-default btn-sm'  %>
+	<%= link_to t('show'), @invoice, class: 'btn btn-default btn-sm'  %>
+	<%= link_to t('back'), invoices_path, class: 'btn btn-default btn-sm'  %>
+	</div>
 	</div>
 </div>
 

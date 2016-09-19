@@ -26,28 +26,32 @@ class InvoiceListsController < ApplicationController
   def print
   	@invoice_list = InvoiceList.find(params[:id])
   	@company2 = Company.find_by_id(@invoice_list.companytwo)
-  	@nds =  @invoice_list.total_price*18/100
-  	@sum_without_nds = @invoice_list.total_price - @nds
-#   	@skidka = @invoice_list.invoice_items.sum(:sum) * @invoice_list.discount.to_i/100
-#   	@company2 = Company.find_by_id(@invoice_list.companytwo)
-	respond_to do |format|
-        format.html
-        format.xls 
-		format.pdf do
-		render :pdf => "УПД #{@invoice_list.number}",:template => "invoice_lists/pdfsight"
-		end 
-
-      end
+  	@nds =  (@invoice_list.total_price - @invoice_list.total_price*100/118).to_f.round(2)
+  	@sum_without_nds = (@invoice_list.total_price).to_f - @nds
+  	
+		respond_to do |format|
+			format.html
+			format.pdf do
+			render :pdf => "УПД #{@invoice_list.number}",
+			       :template => "invoice_lists/print" 
+			end 
+		end
   end
   
-  	def pdf
+	def nakl
+	@invoice_list = InvoiceList.find(params[:id])
+	@nds =  (@invoice_list.total_price - @invoice_list.total_price*100/118).to_f.round(2)
+	
+	render :pdf => "Накладная #{@invoice_list.number}",
+		     :template => "invoice_lists/nakl" #,:orientation => 'Landscape'
+	end
+
+  
+  def garant
   	@invoice_list = InvoiceList.find(params[:id])
   	@company2 = Company.find_by_id(@invoice_list.companytwo)
-  	@nds =  @invoice_list.total_price*18/100
-  	@sum_without_nds = @invoice_list.total_price - @nds
-		render :pdf => "УПД #{@invoice_list.number}",
-			   :template => "invoice_lists/pdf",
-			   :orientation => 'Landscape'
+		render :pdf => "Гарантийный талон #{@invoice_list.number}",
+			     :template => "invoice_lists/garant" #,:orientation => 'Landscape'
 	end
 
 

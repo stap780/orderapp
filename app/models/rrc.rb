@@ -55,7 +55,7 @@ def self.import(file)
        if cost_price > 500
        price = cost_price*1.13
        else
-       price = cost_price*1.18
+       price = cost_price*1.25
        end
        
        @rrc = Rrc.find_by_sku("#{sku}")

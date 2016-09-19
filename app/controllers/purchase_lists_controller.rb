@@ -14,7 +14,7 @@ class PurchaseListsController < ApplicationController
   # GET /purchase_lists.json
   def index
    @search = PurchaseList.ransack(params[:q]) 
-     @search.sorts = 'number desc' if @search.sorts.empty? 
+     @search.sorts = 'date desc' if @search.sorts.empty? 
      @purchase_lists = @search.result.paginate(page: params[:page], per_page: 30)
   end
 
@@ -54,8 +54,10 @@ class PurchaseListsController < ApplicationController
   # PATCH/PUT /purchase_lists/1.json
   def update
   @purchase_list = PurchaseList.find(params[:id])
-  	    respond_to do |format|      
-	     if @purchase_list.update(purchase_list_params) 
+  
+  respond_to do |format|      
+	 
+	if @purchase_list.update(purchase_list_params) 
 
       if @purchase_list.purchase_invoicein_check == true
       

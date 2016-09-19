@@ -33,58 +33,60 @@
 	
 	</div>
 	<div class="col-md-6">
-	<strong>Статусы заказа</strong>
-	<p></p>
-	<div class="col-md-12">
-	<div class="col-md-8"
-	  <strong>Documents:</strong>
-	  <table class="table table-hover">
-	  <thead> 
-	  <tr>
-	  <th>Счет</th>
-	  <th>Накладная</th>
-	  <th>Сч-ф</th>
-	  </tr>
-	  </thead>
-	  <tbody>
-	  <tr>
-	  <td>
-	  <%= link_to "#{@iorder.invoice.number}", @iorder.invoice if @iorder.invoice != nil %>
-	  </td>
-	  <td>
-	  <% if @iorder.invoice != nil%>
-	  <% @iorder.invoice.invoice_lists.each do |il| %>
-	  <%= link_to "#{il.number}", il if il != nil%>
-	  <% end %>
-	  <%else%>
-	  <%a="нет"%><%="#{a}"%>
-	  <% end %>
-	  </td>
-	  <td>
-	  <% if @iorder.invoice != nil%>
-	  <% @iorder.invoice.invoice_lists.each do |il|%>
-	  <%= link_to "#{il.invoiceout.number}", il.invoiceout if il.invoiceout != nil%>
-	  <% end %>
-	  <%else%>
-	  <%a="нет"%><%="#{a}"%>
-	  <%end%>
-	  </td>
-	  </tr>
-	  </tbody> 
-	  </table>
-	  <!-- @iorder.invoice_check -->
-	</div>
-	</div>
+		<div class="col-md-7">
+		  <table class="table table-hover">
+			  <thead> 
+				  <tr>
+					  <th>Счет</th>
+					  <th>Накладная</th>
+					  <th>Сч-ф</th>
+				  </tr>
+			  </thead>
+			  <tbody>
+				  <tr>
+					  <td>
+						  <% if @iorder.invoice != nil%>
+						  <%= link_to "#{@iorder.invoice.number}", @iorder.invoice %>
+						  
+					  	<%else%>
+					   нет
+					  <%end%>
+					  </td>
+					  <td>
+					  <% if @iorder.invoice != nil%>
+					  <% @iorder.invoice.invoice_lists.each do |il| %>
+					  <%= link_to "#{il.number}", il if il != nil%>
+					  <% end %>
+					  <%else%>
+					  нет
+					  <% end %>
+					  </td>
+					  <td>
+					  <% if @iorder.invoice != nil%>
+					  <% @iorder.invoice.invoice_lists.each do |il|%>
+					  <%= link_to "#{il.invoiceout.number}", il.invoiceout if il.invoiceout != nil%>
+					  <% end %>
+					  <%else%>
+					  нет
+					  <%end%>
+					  </td>
+				  </tr>
+			  </tbody> 
+		  </table>
+		  <!-- @iorder.invoice_check -->
+		</div>
+			<div class="col-md-12">
 	<p>
 	  <strong>Status:</strong>
 	  <%= @iorder.status.title if @iorder.status != nil %>
-	
+	</p>
+	<p>
 	  <strong>Financial:</strong>
 	  <%= @iorder.financial %>
 	</p>
 	
 	<p>
-	  <strong>Payment:</strong>
+	  <strong><%=t 'iorders.payment'%>:</strong>
 	  <%= @iorder.payment %>
 	</p>
 	<p>
@@ -96,7 +98,7 @@
 	  <%= @iorder.mycourier.title if @iorder.mycourier != nil %>
 	  (Статус - <%= @iorder.iml.status if @iorder.iml != nil %> <%= @iorder.iml.state if @iorder.iml != nil %> <%= @iorder.dpd.state if @iorder.dpd != nil %> <%= @iorder.post.state if @iorder.post != nil %> <%= @iorder.courier.state if @iorder.courier != nil %>)
 	</p>
-	
+			</div>
 	</div>
 	
 	<div class="col-md-12">
@@ -146,9 +148,9 @@
 	</div>
 	</div>
 	<div class="col-md-12">
-	<%= link_to 'Edit', edit_iorder_path(@iorder), class: 'btn btn-default btn-sm' %> 
-	<%= link_to 'Back', iorders_path, class: 'btn btn-default btn-sm' %>
-	<%= link_to "Просмотреть", print_iorder_path(@iorder), target: :_blank, class: 'btn btn-success btn-sm' %>
+	<%= link_to t('edit'), edit_iorder_path(@iorder), class: 'btn btn-default btn-sm' %> 
+	<%= link_to t('back'), iorders_path, class: 'btn btn-default btn-sm' %>
+	<%= link_to t('print'), print_iorder_path(@iorder), target: :_blank, class: 'btn btn-success btn-sm' %>
 	</div>
 
 

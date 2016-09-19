@@ -28,7 +28,7 @@ def self.import(file)
     spreadsheet = open_spreadsheet(file) 
      (9..spreadsheet.last_row).each do |i|  
        sku = spreadsheet.cell(i,'A').to_s
-       title = spreadsheet.cell(i,'F').to_s
+       title = spreadsheet.cell(i,'E').to_s
        quantity_all = spreadsheet.cell(i,'Q').to_i
        quantity_free = spreadsheet.cell(i,'Q').to_i
        cost_price = spreadsheet.cell(i,'P').to_f

@@ -1,7 +1,6 @@
-
-<tr class="nested-fields", data-remove-timeout  >
-<td><%= f.input :product_id, as: :hidden, input_html: { id: 'product_id' } %></td>
-<td><%= f.input :title, as: :autocomplete, url: autocomplete_product_title_purchase_invoices_path, label: false, :update_elements => {:id => '#product_id'}, input_html: { class: 'product-select' } %></td>
+<tr class="nested-fields" >
+<td><%= f.input :product_id, as: :hidden %></td>
+<td><%= f.input :title, as: :autocomplete, url: autocomplete_product_title_purchase_invoices_path, label: false, input_html: {  onclick: "getloadID(this.id)"} %></td>
 <td><%= f.input :quantity, label: false, input_html: { class: 'myquantity', onchange: "calculate(this.value)"}  %></td>
 <td><%= f.input :price,label: false, input_html: { class: 'myprice', onchange: "calculate(this.value)" }  %></td>
 <td><%= f.input :sum, label: false, input_html: { class: 'sum'} %></td>

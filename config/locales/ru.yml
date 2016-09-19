@@ -2,4 +2,166 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 ru:
-  hello: "Привет"
+  search_t: 'Поиск'
+  search: 'Поиск'
+  item_title: 'Название'
+  item_quantity: 'Кол-во'
+  item_price: 'Цена'
+  item_sum: 'Сумма'
+  add_item: 'Добавить товар'
+  remove: "Удалить"
+  show: 'Просмотреть'
+  back: "Назад"
+  print: "Печать"
+  edit: "Редактировать"
+  destroy: "Удалить"
+  discount: "Скидка %"
+  total: 'Итого'
+  clients:
+    index:
+      phone: 'Телефон'
+      surname: 'Фамилия'
+  iorders:
+    back: "Назад"
+    payment: "Способ оплаты"
+    index:
+      show: "Просмотреть"
+      back: "Назад"
+      edit: "Редактировать"
+      destroy: "Удалить"
+      number: 'Номер'
+      status: 'Статус'
+          
+  invoices:
+    print: "Печать"
+    hello: "Привет"
+    search: 'Поиск'
+    new_title: "Новый счет"
+    add_company: "Создать компанию"
+    order_total: "Итого в заказе"
+    order_delivery: 'Доставка'
+    index:
+      title: "Счета"
+      small_title: "сводная таблица"
+      new_invoice: 'Создать счет'
+      search_t: 'Поиск'
+      number: "Номер"
+      date: "Дата"
+      client: "Клиент"
+      company: "Компания"
+      invstatus: "Статус"
+      discount: "Скидка"
+      total: "Итого"
+      back: "Назад"
+      number_eq: 'Номеру'
+      invstatus_cont: 'Статусу'
+    show:
+      title: "Информация о счете"
+      date: "Дата"
+      client: "Клиент"
+      company: "Компания"
+      company2: "Получатель"
+      invstatus: "Статус"
+      invoice_list_check: "Накладная"
+      product_info: "Товары в счете"
+      discount: "Скидка"
+      total: "Итого"
+    edit:
+      title: "Редактирование счета"
+  invoice_lists:
+    index:
+      number: "Номер"
+      date: "Дата"
+      client: "Клиент"
+      company: "Компания"
+      status: 'Статус'
+      total: 'Сумма'
+      search_t: 'Поиск'
+      number_eq: 'Номеру'
+      status_cont: 'Статусу'
+      search: 'Поиск'
+    show:
+      upd: ' УПД '
+      nakl: 'Накладная'
+      garant_print: 'Гарантия'
+  helpers:
+    submit:
+      create: "Сохранить"
+      update: "Обновить"
+      search: "Поиск"
+  purchase_invoices:
+    index:
+      number_eq: 'Номеру'
+      status_cont: 'Статусу'
+      new_invoice: "Создать счет"
+      date: "Дата"
+  purchase_lists:
+    index:
+      number_eq: 'Номеру'
+      status_cont: 'Статусу'
+      new_purchase_list: "Создать накладную"
+      number: "Номер"
+      total: 'Сумма'
+      company: "Компания"
+      date: "Дата"
+      doc_status: "Документ"
+      status: 'Статус'
+    edit:
+      title: "Редактирование накладной"
+    show:
+      title: "Входящая накладная"
+      status: 'Статус'
+      date: "Дата"
+      company: "Компания"
+      doc_status: "Документ"
+      product_info: "Товары в накладной"
+      total: "Итого"
+      
+  
+  simple_form:
+    labels:
+      iorder:
+        phone: "Телефон"
+        invoice_check: "Создать счет"
+        status: 'Статус'
+        client_name: 'Имя'
+        client_middlename: 'Отчество'
+        client_surname: 'Фамилия'
+        shipping_zip: 'Индекс'
+        shipping_city: 'Город'
+        shipping_address: 'Адрес'
+        financial: 'Статус оплаты'
+        payment: 'Тип оплаты'
+        mycourier: 'Курьерская служба'
+        delivery: 'Тип доставки в insales'
+      invoice:
+        number: 'Номер'
+        date: 'Дата'
+        client: 'Клиент ФИО'
+        company_title: "Компания"
+        invstatus: "Статус счета"
+        invoice_list_check: "Создать накладную"
+        discount: "Скидка %"
+        total_price: "Итого"
+      invoice_list:
+        number: 'Номер'
+        date: 'Дата'
+        client: 'Клиент ФИО'
+        company_title: "Компания"
+        invstatus: "Статус счета"
+        invoice_list_check: "Создать накладную"
+        discount: "Скидка %"
+        total_price: "Итого"
+        status: 'Статус'
+        invoiceout_check: 'Провести накладную'
+      purchase_invoice:
+        purchase_list_check: "Создать накладную"
+      purchase_list:
+        number: 'Номер'
+        date: 'Дата'
+        company: "Компания"
+        purchase_invoicein_check: "Создать счет-фактуру"
+        total_price: "Итого"
+        purchase_invoice_in:
+          number: 'Номер'
+          data: 'Дата'

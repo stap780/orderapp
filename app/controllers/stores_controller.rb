@@ -13,9 +13,9 @@ class StoresController < ApplicationController
   # GET /stores.json
   def index
   
-    @search = Store.ransack(params[:q]) 
-    @search.sorts = 'title asc' if @search.sorts.empty? 
-    @stores = @search.result.paginate(page: params[:page], per_page: 50)
+    @q = Store.ransack(params[:q]) 
+    @q.sorts = 'title asc' if @q.sorts.empty? 
+    @stores = @q.result.paginate(page: params[:page], per_page: 50)
     @stores.each do |store|
     purchase_prihod = store.stocks.where("purchase_list_id IS NOT ?", nil)
     enter_prihod = store.stocks.where("enter_id IS NOT ?", nil)

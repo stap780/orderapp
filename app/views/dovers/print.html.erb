@@ -1,0 +1,260 @@
+<head>
+	<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+	<title>
+	Доверенность № <%=@dover.number%>
+	</title>
+<style type="text/css">
+.dover {width:800px;
+margin: 10px;
+font-size: 12px;
+}
+	table {
+    border-collapse: collapse;
+    width: 100%;
+}
+	table tr, td, th {border: 1px solid black;}
+	table.zero td, th {width: 16%;}
+	table td{text-align: center;}
+.line {border-bottom:1px solid black; width:100%;}
+.text {text-align: right; width:100%;}
+.helper-center-text{text-align: center;font-size: 10px;}
+table.zero td{font-size: 12px;}
+table.zero th{font-size: 12px;}
+table.first {width:100%;border:none;}
+table.first tr{border:none;}
+table.first td{border:none;font-size: 12px;}
+table.first th{border:none;}
+table.second td, th {width: 16%;}
+table.second {margin-top:20px;}
+table.second td{border:none;font-size: 12px;}
+table.second th{border:none;}
+table.second tr{border:none;}
+table.three {margin-top:20px;}
+table.three td{border:none;font-size: 12px;}
+table.three th{border:none;}
+table.three tr{border:none;}
+table.four {font-size: 12px;}
+table.five {width:75%;font-size: 12px;}
+table.five tr{border:none;}
+table.five td{border:none;}
+table.five th{border:none;}
+
+</style>
+</head>
+<body>
+<div class="dover">
+	<table class="zero">
+	      <tr>
+          <th>Номер доверенности</th>
+          <th>Дата выдачи</th>
+          <th>Срок действия</th>
+          <th COLSPAN=2 style="width:35%;">Должность и фамилия лица, которому выдана доверенность</th>
+          <th>Расписка в получении доверенности</th>
+	      </tr>
+	      <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td COLSPAN=2 style="width:35%;">4</td>
+          <td>5</td>
+	      </tr>
+            <td><%=@dover.number%></td>
+            <td><%=@dover.startdate.strftime("%d / %m / %Y")%></td>
+            <td><%=@dover.enddate.strftime("%d / %m / %Y")%></td>
+            <td COLSPAN=2 style="width:35%;"><%=@dover.user.role%> <%=@dover.user.last_name%> <%=@dover.user.first_name%></td>
+            <td></td>
+	      </tr>
+	
+	      <tr>
+	        <th COLSPAN=2 style="width:33.3%;">Поставщик</th>
+	        <th COLSPAN=2 style="width:33.3%;">Номер и дата наряда (замещающего наряд документа) или извещения</th>
+	        <th COLSPAN=2 style="width:33.3%;">Номер и дата документа, подтверждающего выполнение поручения</th>
+	      </tr>
+	      <tr>
+	        <td COLSPAN=2 style="width:33.3%;">6</td>
+	        <td COLSPAN=2 style="width:33.3%;">7</td>
+	        <td COLSPAN=2 style="width:33.3%;">8</td>
+	      </tr>
+	      <tr>
+	        <td COLSPAN=2 style="width:33.3%;"><%=@dover.company.fulltitle%></td>
+	        <td COLSPAN=2 style="width:33.3%;"><%= @dover.subj%></td>
+	        <td COLSPAN=2 style="width:33.3%;"></td>
+	      </tr>
+	</table>
+<p class="line">Линия отреза</p>
+<p class ="text">Типовая межотраслевая форма № М-2</p>
+<p class ="text">Утверждена постановлением Госкомстата России от 30.10.97 № 71а</p>
+	<table class="first">
+		<tr>
+		<td COLSPAN=5></td>
+		<td style="border:1px solid black;">коды	</td>
+		</tr>
+		<tr>
+		<td COLSPAN=4></td>
+		<td >Форма по ОКУД</td>
+		<td style="border:1px solid black;">0315001</td>
+		</tr>
+		<tr>
+		<td>Организация</td>
+		<td COLSPAN=3 style="width:58%;border-bottom:1px solid black;">Общество с ограниченной ответственностью "ФриЗ"</td>
+		<td >по ОКПО</td>
+		<td style="border:1px solid black;">99578425</td>
+		</tr>
+		<tr>
+		<td COLSPAN=1></td>
+		<td COLSPAN=3 class="helper-center-text" style="width:58%;">наименование организации</td>
+		<td COLSPAN=2></td>
+		</tr>
+	</table>
+		<table class="second">
+		<tr>
+		<td COLSPAN=1></td>
+		<th >ДОВЕРЕННОСТЬ № </th>
+		<th  style="border-bottom: 1px solid black;"> <%=@dover.number%> </th>
+		<td COLSPAN=1></td>
+		</tr>
+		<tr>
+		<td COLSPAN=1></td>
+		<td >Дата выдачи:</td>
+		<td style="border-bottom: 1px solid black;"><%=@dover.startdate.strftime("%d / %m / %Y")%></td>
+		<td COLSPAN=1></td>
+		</tr>
+		<tr>
+		<td COLSPAN=1></td>
+		<td >Действительна по:</td>
+		<td style="border-bottom: 1px solid black;"><%=@dover.enddate.strftime("%d / %m / %Y")%></td>
+		<td COLSPAN=1></td>
+		</tr>
+		<tr>
+		<td COLSPAN=4 style="border-bottom: 1px solid black;height: 35px;">Общество с ограниченной ответственностью "ФриЗ" 117042 Москва, Чертановская ул. д 47, корп 2</td>
+		</tr>
+		<tr>
+		<td COLSPAN=4 class="helper-center-text">наименование потребителя и его адрес</td>
+		</tr>
+		<tr>
+		<td COLSPAN=4 style="border-bottom: 1px solid black;">Общество с ограниченной ответственностью "ФриЗ" 117042 Москва, Чертановская ул. д 47, корп 2</td>
+		</tr>
+		<tr>
+		<td COLSPAN=4 class="helper-center-text">наименование плательщика и его адрес</td>
+		</tr>
+
+	</table>
+		
+		<table class="three">
+		<tr>
+		<td >Счет №</td>
+		<td  style="border-bottom: 1px solid black;">40702810097540000082</td>
+		<td>в</td>
+		<td style="border-bottom: 1px solid black;width: 40%;">ПАО РОСБАНК БИК 044525256 К/С 30101810000000000256</td>
+		</tr>
+		<tr>
+		<td >Доверенность выдана</td>
+		<td  style="border-bottom: 1px solid black;"><%=@dover.user.role%></td>
+		<td ></td>
+		<td style="border-bottom: 1px solid black;width: 40%;"><%=@dover.user.last_name%> <%=@dover.user.first_name%> <%=@dover.user.middel_name%> </td>
+		</tr>
+		<tr>
+		<td COLSPAN=1></td>
+		<td  class="helper-center-text">должность</td>
+		<td ></td>
+		<td class="helper-center-text">фамилия, имя, отчество</td>
+		</tr>
+		<tr>
+		<td>Паспорт серия</td>
+		<td  style="border-bottom: 1px solid black;"><%=@dover.user.docseria%> </td>
+		<td> № </td>
+		<td style="border-bottom: 1px solid black;width: 40%;"><%=@dover.user.docnumber%></td>
+		</tr>
+		<tr>
+		<td>Кем выдан</td>
+		<td  COLSPAN=3 style="border-bottom: 1px solid black;"><%=@dover.user.dockem%> </td>
+		</tr>
+		<tr>
+		<td>Дата выдачи</td>
+		<td  COLSPAN=3 style="border-bottom: 1px solid black;"><%=@dover.user.docdate.strftime("%d / %m / %Y")%></td>
+		</tr>
+		<tr>
+		<td>На получение от</td>
+		<td  COLSPAN=3 style="border-bottom: 1px solid black;"><%=@dover.company.fulltitle%> </td>
+		</tr>
+		<tr>
+		<td COLSPAN=1 ></td>
+		<td COLSPAN=3 class="helper-center-text">наименование поставщика</td>
+		</tr>
+		<tr>
+		<td>Материальных ценностей по</td>
+		<td  COLSPAN=3 style="border-bottom: 1px solid black;"><%= @dover.subj%></td>
+		</tr>
+		<tr>
+		<td COLSPAN=1 ></td>
+		<td COLSPAN=3 class="helper-center-text">наименование, номер и дата документа</td>
+		</tr>
+		<tr>
+		<td COLSPAN=4 style="border-bottom: 1px solid black;height: 15px;"></td>
+		</tr>
+	</table>
+<p>Перечень товарно-материальных ценностей, подлежащих получению</p>
+<table class="four">
+<tr>
+	<th>Номер по порядку</th>
+	<th style="width: 40%">Материальные ценности </th>
+	<th>Единица измерения</th>
+	<th>Количество (прописью)</th>
+</tr>
+<tr>
+<%if @dover.dover_items.blank?%>
+	<td></td>
+	<td style="width: 40%"></td>
+	<td>шт</td>
+	<td></td>
+<%else%>
+<% @dover.dover_items.each_with_index do |di, i|%>
+	<td><%= (i+1) %></td>
+	<td style="width: 40%"><%= di.product.title %></td>
+	<td>шт</td>
+	<td><%= di.quantity %> (<%= di.quantity.to_i.to_words %>)</td>
+</tr>
+<%end%>
+<%end%>
+</table>
+<br>
+<p>Подпись лица, получившего доверенность    _________________________     удостоверяем</p>
+<br>
+<table class="five">
+<tr>
+	<th  style="width: 35%">Руководитель</th>
+	<td></td>
+	<td style="border-bottom: 1px solid black;"></td>
+	<td></td>
+	<td style="border-bottom: 1px solid black;"> Эмексизов П.А.</td>
+</tr>
+<tr>
+	<td  style="width: 35%"></td>
+	<td></td>
+	<td>подпись</td>
+	<td style="width: 5%"></td>
+	<td>расшифровка подписи</td>
+</tr>
+<tr>
+	<td  style="width: 35%">м п </td>
+	<td COLSPAN=4 ></td>
+</tr>
+
+<tr>
+	<th style="width: 35%">Главный бухгалтер </th>
+	<td></td>
+	<td style="border-bottom: 1px solid black;"></td>
+	<td></td>
+	<td style="border-bottom: 1px solid black;"> Эмексизов П.А.</td>
+</tr>
+<tr>
+	<td  style="width: 35%"></td>
+	<td></td>
+	<td>подпись</td>
+	<td style="width: 5%"></td>
+	<td>расшифровка подписи</td>
+</tr>
+</table>
+
+</div>
+</body>

@@ -2,10 +2,10 @@
 <tbody class='nested-fields line_items_fields'>
 <tr>       
 
-    <td><%= f.input :title, as: :autocomplete, url: autocomplete_product_title_iorders_path, label: false, input_html: { 'data-id-element' => '#iorder_product_id' } %></td>
+    <td><%= f.input :title, as: :autocomplete, url: autocomplete_product_title_iorders_path, label: false %></td>
     <td><%= f.input :quantity, label: false, as: :integer  %></td>
     <td><%= f.input :price,label: false, as: :decimal  %></td>
     <td><%= f.input :sum, label: false, as: :decimal  %></td>
-    <td><%= link_to_remove_association "remove", f %></td>
+    <td><%= link_to_remove_association t('remove'), f %></td>
 </tr>
 </tbody>

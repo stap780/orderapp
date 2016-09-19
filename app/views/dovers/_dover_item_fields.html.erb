@@ -1,0 +1,5 @@
+<tr class="nested-fields">
+<td><%= f.input :product_id, as: :hidden %></td>
+<td><%= f.input :product_title, as: :autocomplete, url: autocomplete_product_title_dovers_path, label: false , input_html: {  onclick: "getloadID(this.id)"}%></td>
+<td><%= f.input :quantity, label: false %></td>
+<td><%= link_to_remove_association "remove", f, id: "remove"  %></td>

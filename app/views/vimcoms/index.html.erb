@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<h1>Вимком <small>сводная таблица</small></h1>
 			<p>Всего товаров - <%= @totalvimcoms %></p>
 		</div>
@@ -11,7 +11,7 @@
 		<p><%= form_tag import_vimcoms_path, multipart: true do %></p>  <p><%= file_field_tag :file %></p>  <p><%= submit_tag "Import" %></p>
 		<% end %>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-6">
 			<div class="col-md-12" style="margin-bottom: 5px;">
 			<form class="form-inline">
 			<p>Поиск</p>

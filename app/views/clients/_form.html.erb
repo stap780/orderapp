@@ -55,15 +55,17 @@
 			</table>
 		</div>
 		<div class="col-md-12">
-		<div class="col-md-8">
+		<div class="col-md-12">
 
-		<strong>Привязать компанию</strong>
-		<br>
+		<p><strong>Привязать компанию</strong></p>
+		<p>
 		<%= label_tag(:myinn, "ИНН:") %>
 		<%= autocomplete_field_tag :myinn , '',  autocomplete_company_inn_clients_path, :size => 25, :update_elements => {:title => '#mytitle'} %>
-		<br>
+		</p>
+		<p>
 		<%= label_tag(:mytitle, "Название:") %>
 		<%= text_field_tag :mytitle%>
+		</p>
 		</div>
 				
 		<div class='col-md-4', style="float:left; margin-top:20px;">

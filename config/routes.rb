@@ -1,6 +1,21 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :banks do
+  	collection do
+  	post :import
+  	match 'search' => 'banks#search', via:[:get, :post], as: :search
+  	end
+  end
+  resources :dovers do 
+    collection do
+      get :autocomplete_company_title	 
+      get :autocomplete_product_title
+    end
+    member do
+		  get :print
+		end
+  end
   resources :cases do
 	  collection do
 		 post :create_json_case
@@ -32,7 +47,7 @@ InsalesApp::Application.routes.draw do
   end
   resources :stores do
   	collection do
-  		get :autocomplete_product_title
+  	get :autocomplete_product_title
   	match 'search' => 'stores#search', via:[:get, :post], as: :search
   	end
   end
@@ -50,13 +65,14 @@ InsalesApp::Application.routes.draw do
   resources :invoiceouts 
   resources :stocks
   resources :invoice_lists do
-  	collection do
-	  	get :autocomplete_company_title
-	end
-  	member do
-      get :print
-      get :pdf
-	end
+		collection do
+			get :autocomplete_company_title
+		end
+		member do
+		  get :print
+		  get :garant
+		  get :nakl
+		end
 	end
   resources :invoices do
   collection do
@@ -186,6 +202,7 @@ InsalesApp::Application.routes.draw do
 		post :edit_multiple 
 		put :update_multiple
 		get :advt
+		get :advthidden
   	end
   end
   

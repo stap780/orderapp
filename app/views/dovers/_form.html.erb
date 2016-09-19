@@ -1,0 +1,61 @@
+<%= simple_form_for(@dover) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="col-md-12">
+		<div class="col-md-3">
+		<%= f.input :number %>
+		</div>
+	  <div class="col-md-3">
+		<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_dovers_path, input_html: { 'data-id-element' => '#dover_company_id' }  %>
+    <%= f.input :company_id, as: :hidden %>
+	  </div>
+	  <div class="col-md-3">
+    <%= f.association :user %>
+	  </div>
+  </div>
+  <div class="col-md-12">
+	  <div class="col-md-3">
+		<%= f.input  :startdate, as: :date, html5: true%>
+		</div>
+		<div class="col-md-3">
+		<%= f.input :enddate, as: :date, html5: true %>
+		</div>
+  </div>
+  <div class="col-md-12">
+	  <div class="col-md-3">
+		<%= f.input :subj %>
+		</div>
+  </div>
+  
+  
+  <div class="col-md-12" style="border-top:1px solid #ddd;">
+<div class='links'>
+			<%= link_to_add_association 'add line', f, :dover_items, 'data-association-insertion-node' => "#dover_items", 'data-association-insertion-method' => "append", :id => 'add_items' %>
+			</div>
+		<div class="col-md-8" style="margin-top:20px;" >
+		<table class="table table-hover" id="dover_items">
+		<thead>
+			<tr>
+			<th colspan="1"></th>
+			<th>Title</th>
+			<th>Quantity</th>
+			<th colspan="1"></th>
+			</tr>
+		</thead>
+		<%= f.simple_fields_for :dover_items do |dover_item| %>
+				<%= render 'dover_item_fields', :f => dover_item %>
+		<% end %>
+		</table>
+		</div>
+
+  
+
+  <div class="form-actions">
+	<%= link_to t('show'), @dovers, class: 'btn btn-default btn-sm'  %>
+    <%= link_to t('back'), dovers_path , class: 'btn btn-default btn-sm'%>
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+
+  </div>

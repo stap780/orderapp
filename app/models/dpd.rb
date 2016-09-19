@@ -7,7 +7,7 @@ class Dpd < ActiveRecord::Base
 	require 'savon'
 	
 	def self.updatedpd
-	@dpds = Dpd.order("id desc").limit(5)
+	@dpds = Dpd.order("id desc").limit(6)
 	@dpds.each do |dpd|
 	
 	client = Savon.client(wsdl: "http://ws.dpd.ru:80/services/tracing1-1?wsdl")

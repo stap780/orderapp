@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @bank.number %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @bank.oper_type %>
+</p>
+
+<p>
+  <strong>Sum:</strong>
+  <%= @bank.sum %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @bank.description %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @bank.date %>
+</p>
+
+<p>
+  <strong>Payer:</strong>
+  <%= @bank.payer.title %>
+</p>
+
+<p>
+  <strong>Receiver:</strong>
+  <%= @bank.receiver.title %>
+</p>
+
+<p>
+  <strong>Invoice:</strong>
+  <%= @bank.invoice.number if @bank.invoice !=nil%>
+</p>
+
+<%= link_to 'Edit', edit_bank_path(@bank) %> |
+<%= link_to 'Back', banks_path %>

@@ -4,7 +4,7 @@
 		<div class="col-md-6">
 			<h2>Товары </br><small>сводная таблица</small></h2>
 			<p>Всего - <%= @totalproducts %> (c SKU - <%=@totalproductssku%>) | Остаток = и > 0 - <%=@zeroquantity%> (<%=@qnotzero%>)</p>
-<p>| <%= link_to 'Загрузить товары', downloadproduct_products_path%> | <%= link_to 'Загрузить варианты', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во и цены', checkquantity_products_path%>  | <!--Download: <%= link_to "CSV", products_path(format: "csv") %> | <%= link_to 'Synchronize quantity', synchronize_products_path%> | -->Download: <%= link_to "Наличие для магазина", variants_path(format: "csv") %> | <%= link_to "ADVT", advt_products_path(format: "csv") %> |</p> 
+<p>| <%= link_to 'Загрузить товары', downloadproduct_products_path%> | <%= link_to 'Загрузить варианты', updateproduct_products_path%> | <%= link_to 'Синхронизировать кол-во и цены', checkquantity_products_path%>  | <!--Download: <%= link_to "CSV", products_path(format: "csv") %> | <%= link_to 'Synchronize quantity', synchronize_products_path%> | -->Download: <%= link_to "Наличие для магазина", variants_path(format: "csv") %> | <%= link_to "ADVT", advt_products_path(format: "csv") %> |<%= link_to "ADVThidden", advthidden_products_path(format: "xml") %></p> 
 		</div>
 		<div class="col-md-6">
 		<div class="col-md-12" style="margin-bottom: 5px;">

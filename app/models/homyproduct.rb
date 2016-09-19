@@ -36,7 +36,7 @@ validates :artikul, uniqueness: true
      (5..spreadsheet.last_row).each do |i|  
 	     artikul = spreadsheet.cell(i,'A').to_i 
 	     title = spreadsheet.cell(i,'B')
-	     price_usd = spreadsheet.cell(i,'C')
+	     price_file = spreadsheet.cell(i,'C')
 	     valuta = spreadsheet.cell(i,'D')
 	     
 			if valuta == "РУБ"
@@ -44,9 +44,9 @@ validates :artikul, uniqueness: true
 			data = Nokogiri::XML(open(url))
 			a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
 			kurs = a.gsub(/,/, '.')
-			price = (price_usd.to_f / "#{kurs}".to_f).to_f.round(2) 
+			price = (price_file.to_f / "#{kurs}".to_f).to_f.round(2) 
 			else
-			price = price_usd.to_f.round(2) 
+			price = price_file.to_f.round(2) 
 			end
 	     quantity_all_res = spreadsheet.cell(i,'E').to_i 
 	     quantity_all_free = spreadsheet.cell(i,'F').to_i
@@ -62,18 +62,39 @@ validates :artikul, uniqueness: true
       
       @homyproduct = Homyproduct.find_by_artikul("#{artikul}")
 		if @homyproduct.present? 
-		@homyproduct.update_attributes( :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)#:artikul => artikul, :title => title, :price => price, :valuta => valuta,:sell_price => sell_price, :min_price => min_price)
+		@homyproduct.update_attributes( :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free, :price => price)#:artikul => artikul, :title => title, :price => price, :valuta => valuta,:sell_price => sell_price, :min_price => min_price)
 		else
 		@homyproduct = Homyproduct.new(:artikul => artikul, :title => title, :price => price, :valuta => valuta, :quantity_all_res => quantity_all_res, :quantity_all_free => quantity_all_free, :quantity_main_res => quantity_main_res, :quantity_main_free => quantity_main_free, :quantity_tul_res => quantity_tul_res, :quantity_tul_free => quantity_tul_free, :quantity_transit_all => quantity_transit_all,:quantity_transit_free => quantity_transit_free)#, :sell_price => sell_price, :min_price => min_price)
  		@homyproduct.save
-		if !@homyproduct.price.nil?
-		min_price = (@homyproduct.price * 1.17).to_f.round(2)
-		sell_price = (@homyproduct.price * 1.22).to_f.round(2)
-		@homyproduct.update_attributes(:sell_price => sell_price, :min_price => min_price)
  		end
+		if !@homyproduct.price.nil?
+		min_price = (@homyproduct.price * 1.19).to_f.round(2)
+		sell_price = (@homyproduct.price * 1.26).to_f.round(2)
+		@homyproduct.update_attributes(:sell_price => sell_price, :min_price => min_price)
  		end
        
     end
+     
+    @homyGrand = Homyproduct.where('title like ?', '%Grandstream%')
+ 		@homyGrand.each do |hd|
+	 		hd.sell_price = (hd.price * 1.18).to_f.round(2)
+	 		hd.save
+	 		end
+	@homyRTX = Homyproduct.where('title like ?', '%RTX%')
+ 		@homyRTX.each do |hd|
+	 		hd.sell_price = (hd.price * 1.35).to_f.round(2)
+	 		hd.save
+	 		end
+	@homyYe = Homyproduct.where('title like ?', '%sip-t%')
+ 		@homyYe.each do |hd|
+	 		hd.sell_price = (hd.price * 1.45).to_f.round(2)
+	 		hd.save
+	 		end
+	@homyDbl = Homyproduct.where('title like ?', '%DBL%')
+ 		@homyDbl.each do |hd|
+	 		hd.sell_price = (hd.price * 1.35).to_f.round(2)
+	 		hd.save
+	 		end
   end
   
    def self.open_spreadsheet(file)

@@ -14,7 +14,7 @@
 	
 	<p>
 	  <strong>Company:</strong>
-	  <%= @invoice_list.company.title %>
+	  <%= @invoice_list.company.title if @invoice_list.company !=nil%>
 	</p>
 	<p>
 	  <strong>Companytwo:</strong>
@@ -28,11 +28,11 @@
 	  <%= @invoice_list.status %>
 	</div>
 	<div class="col-md-12">
-	  <strong>Счет-фактура:</strong>
+	  <strong>Накладная:</strong>
 	  <% if @invoice_list.invoiceout_check == true%>
-	  <%= "Выписана" %>
+	  <%= "Проведена" %>
 	  <%else %>
-	  <%= "Не выписана" %> 
+	  <%= "Не проведена" %> 
 	  <%end%>
 	</div>
 	</div>
@@ -79,9 +79,12 @@
 
 
 <div class="col-md-12">
-<%= link_to 'Edit', edit_invoice_list_path(@invoice_list), class: 'btn btn-default btn-sm' %> 
-<%= link_to 'Back', invoice_lists_path, class: 'btn btn-default btn-sm' %>
-<%= link_to "Просмотреть", print_invoice_list_path(@invoice_list), target: :_blank, class: 'btn btn-success btn-sm' %>
+<%= link_to t('edit'), edit_invoice_list_path(@invoice_list), class: 'btn btn-default btn-sm' %> 
+<%= link_to t('back'), invoice_lists_path, class: 'btn btn-default btn-sm' %>
+<%= link_to t('.upd'), print_invoice_list_path(@invoice_list), target: :_blank, class: 'btn btn-success btn-sm' %>
+<%= link_to t('.nakl'), nakl_invoice_list_path(@invoice_list), target: :_blank, class: 'btn btn-success btn-sm' %>
+<%= link_to t('.garant_print'), garant_invoice_list_path(@invoice_list), target: :_blank, class: 'btn btn-success btn-sm' %>
+
 </div>
 
 

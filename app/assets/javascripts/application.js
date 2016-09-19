@@ -6,6 +6,7 @@
 
 
 //= require jquery
+//= require jquery.turbolinks
 //= require cocoon
 //= require jquery_ujs
 //= require jquery-ui/autocomplete
@@ -19,6 +20,8 @@
 
  document.onreadystatechange = function () {
     if (document.readyState === "complete") {
+	    
+	    $('#notice').addClass('animated bounceOutLeft');
     
     setTimeout(function() {
     $('#flash_messages').fadeOut('slow');
@@ -31,11 +34,6 @@
     weekStart: 1,
     autoclose: true
 	})
-	$('#purchase_invoice_date').datepicker({
-     format: "dd/mm/yyyy",
-    weekStart: 1,
-    autoclose: true
-	})
     
     $('#invoice_list_date').datepicker({
      format: "dd/mm/yyyy",
@@ -43,9 +41,45 @@
     autoclose: true
 	})
 	
+	$('#invoiceout_date').datepicker({
+     format: "dd/mm/yyyy",
+    weekStart: 1,
+    autoclose: true
+	})
+	
+	$('#purchase_invoice_date').datepicker({
+     format: "dd/mm/yyyy",
+    weekStart: 1,
+    autoclose: true
+	})
+	
+	$('#purchase_list_date').datepicker({
+     format: "dd/mm/yyyy",
+    weekStart: 1,
+    autoclose: true
+	})
+	
+	$('#pl_date').datepicker({
+     format: "dd/mm/yyyy",
+    autoclose: true
+	})
+	
+	$('#purchase_list_purchase_invoice_in_attributes_data').datepicker({
+     format: "dd/mm/yyyy",
+    autoclose: true
+	})
+/*
+	if ($("#add_pii_info").is(":checked")){
+	 	    //alert('hi');
+	 	    var a = $('#purchase_list_purchase_invoice_in_attributes_data').val();
+	alert(a);
+	 	    }
+*/
+
+
 	/////////////////
 	// поле загрузки файла
-	$(":file").filestyle({buttonText: "Find file", size: "sm", placeholder: "No file"});
+	$(":file").filestyle({buttonText: "Find file", size: "sm", placeholder: "import"});
 	/////////////////
 	
    ///////////////// 
@@ -58,6 +92,7 @@
 */
   /////////////////
     // проверка работы пересчета итого по клику на слово Статус c id  myclick - работает
+/*
     $( "#myclick" ).bind("click", (function ()  {
     
 	var rows = $('.nested-fields:visible');
@@ -71,10 +106,41 @@
 	document.getElementById('purchase_invoice_total_price').value = tot;
 	alert("Status is clicked!");
 	}));
+*/
 	//
 	/////////////////
-        
+	// доп поля во входящем счете для накладной
+	if ($('#add_pl_info').prop( "checked" )){
+	$('.pl_info').show();
+	} else {
+	$('.pl_info').hide(); 
+	}; 
+
+	$('#add_pl_info').click(function(){
+	if (this.checked){
+	$('.pl_info').show();
+	} else {
+	$('.pl_info').hide();
+	}  
+	}); 
+		/////////////////
+	// доп поля во входящей накладной для сч-ф
+	if ($('#add_pii_info').prop( "checked" )){
+	$('.pii_info').show();
+	} else {
+	$('.pii_info').hide(); 
+	}; 
 	
+	$('#add_pii_info').click(function(){
+	if (this.checked){
+	$('.pii_info').show();
+	} else {
+	$('.pii_info').hide();
+	}  
+	}); 
+	
+    /////////////////
+
     /////////////////
     // пересчет суммы при удалении позиции из перечня товаров во входящем счете
 $("#purchase_invoice_items").children('tbody')
@@ -97,33 +163,6 @@ $("#purchase_invoice_items").children('tbody')
 	});
 
 	 
-	/////////////////
-	// пересчет суммы при удалении позиции из перечня товаров в исходящем счете
-	$("#invoice_items").children('tbody')
-.on('cocoon:before-remove', function(e, task) {
-        $(this).data('remove-timeout',1000);
-        task.fadeOut('slow');
-        })
-.on('cocoon:after-remove', function(e, task) {
-        //console.log($(this));
-  var row = task; 
-  //console.log(row);
-	var cells = row.children();
-  var sum = cells[3].firstChild.firstChild;
-  //console.log(sum.value);
-	var old_tot = document.getElementById('invoice_total_price').value;	
-	var discount = document.getElementById("invoice_discount");
-	if (parseInt(discount.value) > "0"){
-	var newtot = parseFloat(old_tot).toFixed(2) - (parseFloat(sum.value).toFixed(2) - (parseFloat(sum.value) * parseFloat(discount.value)/100).toFixed(2)).toFixed(2);
-	document.getElementById('invoice_total_price').value = newtot;
-	} else {
-	var old_tot = document.getElementById('invoice_total_price').value
-	var tot = parseFloat(old_tot).toFixed(2) - parseFloat(sum.value).toFixed(2); 
-	document.getElementById('invoice_total_price').value = tot;
-	}
-
-	
-	});
 	/////////////////
 	
 	$( "#skidka_click" ).bind("click", (function ()  {
@@ -165,6 +204,28 @@ for (var i = 0; i < Ids.length; i++) {
 }
 });
 }
+ ///////////////// 
+ //почему-то не грузится скрипт из iorders.js и я скопировал сюда. Происходит подстановка по id данных клиента в форме заказа
+var clientId = document.getElementById('iorder_client_id').value;
+/* alert(clientId); */
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		data: {client_id: clientId},
+		url: "/iorders/get_client_data",  
+		success: function(data){
+		$('#iorder_client_name').val(data[0].name);
+		$('#iorder_client_middlename').val(data[0].middlename);
+		$('#iorder_client_surname').val(data[0].surname);
+		$('#iorder_phone').val(data[0].phone);
+		$('#iorder_email').val(data[0].email);
+		$('#iorder_shipping_zip').val(data[0].zip);
+		$('#iorder_shipping_city').val(data[0].city);
+		$('#iorder_shipping_address').val(data[0].address);
+		}
+	});
+ ///////////////// 
+
  ///////////////// 
   
 	
