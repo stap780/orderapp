@@ -5,7 +5,7 @@ class PurchaseInvoiceInsController < ApplicationController
   # GET /purchase_invoice_ins.json
   def index
     @search = PurchaseInvoiceIn.ransack(params[:q]) 
-     @search.sorts = 'number desc' if @search.sorts.empty? 
+     @search.sorts = 'data desc' if @search.sorts.empty? 
      @purchase_invoice_ins = @search.result.paginate(page: params[:page], per_page: 30)
   end
 

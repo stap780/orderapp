@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<div class="col-md-12">
 <p>
   <strong>Title:</strong>
   <%= @company.title %>
@@ -54,8 +54,19 @@
   <strong>Bankaccount:</strong>
   <%= @company.bankaccount %>
 </p>
+<p>
+  <strong>Номер счета:</strong>
+  <% @company.invoices.each do |invoice|%>
+  <%= link_to "#{invoice.number}", invoice%>
+  <%end%>
+</p>
 
 
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+	<div class="col-md-12" style="margin-top:20px;">  
+		<div class="col-md-6">
+			<%= link_to t('edit'), edit_company_path(@company), class: 'btn btn-default btn-sm'  %>
+			<%= link_to t('back'), companies_path, class: 'btn btn-default btn-sm'  %>
+		</div>
+	</div>
+</div>

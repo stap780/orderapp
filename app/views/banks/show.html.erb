@@ -40,5 +40,7 @@
   <%= @bank.invoice.number if @bank.invoice !=nil%>
 </p>
 
-<%= link_to 'Edit', edit_bank_path(@bank) %> |
-<%= link_to 'Back', banks_path %>
+	<div class="col-md-12">
+	<%= link_to t('edit'), edit_bank_path(@bank), class: 'btn btn-default btn-sm' %> 
+	<%= link_to t('back'), banks_path, class: 'btn btn-default btn-sm' %>
+	</div>

@@ -1,0 +1,110 @@
+<head>
+	<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+	<title>
+	Акт-сверки № <%=@act.id%>
+	</title>
+<style type="text/css">
+.act {width:900px;
+margin: 10px;
+font-size: 12px;
+}
+	table.first {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+}
+	table.second {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+}
+
+	table.first tr {border: 1px solid black;}
+	table.first td {border: 1px solid black;}
+	table.second tr {border: none;}
+	table.second td {border: none;}
+	table.second th {border: none;}
+</style>
+</head>
+<body>
+	<div class="act">
+		<p>Акт сверки</p>
+		<p>взаимных расчетов за период с <%=@act.startdate.strftime("%d / %m / %Y")%> по <%=@act.enddate.strftime("%d / %m / %Y")%>
+между Общество с ограниченной ответственностью "ФриЗ" и <%=@act.company.fulltitle%></p>
+<p>Мы, нижеподписавшиеся, Общество с ограниченной ответственностью "ФриЗ", в лице генерального директора Эмексизова П.А., действующего на основании
+Устава с одной стороны, и <%=@act.company.fulltitle%> в лице _______________________________________________,
+действующего (ей) на основании __________________________ с другой стороны, составили настоящий акт сверки в том, что состояние взаимных расчетов по
+данным учета следующее:</p>
+<table class="first">
+<tr>
+<td colspan="4">По данным Общество с ограниченной ответственностью "ФриЗ", руб.</td>
+<td colspan="4">По данным <%=@act.company.fulltitle%>, руб.</td>
+</tr>
+<tr>
+<td>Дата</td>
+<td>Документ</td>
+<td>Дебет</td>
+<td>Кредит</td>
+<td>Дата</td>
+<td>Документ</td>
+<td>Дебет</td>
+<td>Кредит</td>
+</tr>
+<tr>
+<td colspan="4">Сальдо начальное , руб.</td>
+<td colspan="4">Сальдо начальное , руб.</td>
+</tr>
+<tr>
+<% @bank.each do |b|%>	
+<td><%= b.date.strftime("%d/%m/%Y")%></td>
+<td>Платежное поручение входящее №<%= b.number%> от <%= b.date.strftime("%d/%m/%Y")%></td>
+<td></td>
+<td><%= b.sum%></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><%= b.invoice.date.strftime("%d/%m/%Y")%></td>
+<td>Отгрузка (накладная) №<%= b.invoice.number%> от <%= b.invoice.date.strftime("%d/%m/%Y")%></td>
+<td><%= b.invoice.total_price%></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<%end%>
+<tr>
+<td colspan="2">Обороты за период</td>
+<td><%=@bank.first.payer.invoices.sum(:total_price)%></td>
+<td><%=@bank.sum(:sum)%></td>
+<td colspan="2">Обороты за период</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td colspan="4">Сальдо начальное , руб.</td>
+<td colspan="4">Сальдо начальное , руб.</td>
+</tr>
+</table>
+<p>По данным Общество с ограниченной ответственностью "ФриЗ"</p>
+<p>на <%=@act.enddate.strftime("%d/%m/%Y")%> задолженность отсутствует </p>
+<table class="second">
+<tr>
+	<td>От Общество с ограниченной ответственностью "ФриЗ"</td>
+	<td>От <%=@act.company.fulltitle%></td>
+</tr>
+<tr>
+	<td>___________________________</td>
+	<td>___________________________</td>
+</tr>
+<tr>
+	<td>м п</td>
+	<td>м п</td>
+</tr>
+</table>		
+		
+	</div>
+</body>

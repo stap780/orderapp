@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company_id: 1
+  startdate: 2016-10-19
+  enddate: 2016-10-19
+
+two:
+  company_id: 1
+  startdate: 2016-10-19
+  enddate: 2016-10-19

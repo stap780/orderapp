@@ -43,10 +43,7 @@
 		      <th>Delivery</th>
 		      <th>Служба</th>
 		      <th>Ст-c Д</th>
-		      <!--<th>Phone</th>
-		      <th>Email</th>
-		      <th>Total</th>
-		      <th colspan="12"></th>-->
+		      <th colspan="1"></th>
 		    </tr>
 		    
 		  </thead>
@@ -54,8 +51,7 @@
 		  <tbody>
 		    <% @iorders.each do |iorder| %>
 		      <tr>
-		        <td><%= iorder.number %></td>
-		        
+		        <td><%=  link_to iorder.number, iorder,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'%></td>
 		         <td><%if iorder.status.nil?%>
 		         <%= iorder.instatus %>
 		         <%else%>
@@ -74,12 +70,7 @@
 		        <%= iorder.iml.status if iorder.iml != nil%> <%= iorder.iml.state if iorder.iml != nil%> <%= iorder.dpd.state if iorder.dpd != nil%> <%= iorder.post.state if iorder.post != nil%> <%= iorder.courier.state if iorder.courier != nil%> 
 		        <%end%>       
 		        </td>
-		        <!--<td><%= iorder.phone %></td>
-		        <td><%= iorder.email %></td>
-		        <td><%= iorder.total %></td>-->
-		        <td><%= link_to t('.show'), iorder,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-xs'  %></td>
-		        <td><%= link_to t('.edit'), edit_iorder_path(iorder), class: 'btn btn-success btn-xs' %></td>
-		        <td><%= link_to t('.destroy'), iorder, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+		        <td><%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, iorder, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you sure?' } %></td>
 		      </tr>
 		    <% end %>
 		  </tbody>

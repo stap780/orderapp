@@ -84,5 +84,5 @@
 <div class="col-md-12">
 <%= link_to t('edit'), edit_invoice_path(@invoice), class: 'btn btn-default btn-sm' %> 
 <%= link_to t('back'), invoices_path, class: 'btn btn-default btn-sm' %>
-<%= link_to t('print'), print_invoice_path(@invoice), target: :_blank, class: 'btn btn-success btn-sm' %>
+<%= link_to '<i class="glyphicon glyphicon-print"></i>'.html_safe, print_invoice_path(@invoice), target: :_blank, class: 'btn btn-success' %>
 </div>

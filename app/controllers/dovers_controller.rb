@@ -51,18 +51,7 @@ class DoversController < ApplicationController
   # PATCH/PUT /dovers/1.json
   def update
     respond_to do |format|
-			if @dover.update(dover_params)
-			  
-# 	      @dover.dover_items.each do |di| 
-# 					if di.present?
-# 				di.update_attributes("quantity" => params["quantity"])
-# 				else
-# 				di.create("product_id" => params["product_id"], "quantity"=> params["quantity"], "dover_id" =>  @dover.id)
-# 				end
-# 			end
-
-	      
-	      
+			if @dover.update(dover_params)	      
         format.html { redirect_to @dover, notice: 'Dover was successfully updated.' }
         format.json { render :show, status: :ok, location: @dover }
       else

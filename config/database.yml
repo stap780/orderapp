@@ -22,7 +22,8 @@ test:
 
 production:
   adapter: sqlite3
-  database: db/production.sqlite3
+  database: db/development.sqlite3
+  secret_key_base: ac9b7df11cf2ca3d3a6e6ef116ce8394f9d2389b9af2d83ecb786451433216d2958a028c8de2abd0a12694159681ec65b5064bb714a6ff4829cf9b7c9ab353f9
   pool: 5
   timeout: 5000
   encoding: utf8

@@ -10,7 +10,7 @@ $( document ).ready(calculateInvoice);
 	var quantity = row.cells[1].firstChild.firstChild.value;
 	var price = row.cells[2].firstChild.firstChild.value;
 	var sum = quantity*price;
-	row.cells[3].firstChild.firstChild.value = sum;
+	row.cells[3].firstChild.firstChild.value = sum.toFixed(2);;
 	};
 	var rows = $("tr.nested-fields:visible");
 	var tot=0;
@@ -18,15 +18,15 @@ $( document ).ready(calculateInvoice);
 	var row = rows[i];
 	var sum = row.cells[3].firstChild.firstChild;
 	if(parseInt(sum.value))
-	        tot += parseInt(sum.value);
+	        tot += parseFloat(sum.value);
 	}
 	var discount = document.getElementById("invoice_discount");
 	var delivery = $('.delivery').html();
 	if (parseInt(discount.value) > "0"){
-	var newtot = tot - tot * parseInt(discount.value)/100 ;
-	document.getElementById('invoice_total_price').value = newtot;
+	var newtot = tot - tot * parseFloat(discount.value)/100 ;
+	document.getElementById('invoice_total_price').value = newtot.toFixed(2);;
 	} else { 
-	document.getElementById('invoice_total_price').value = tot ;
+	document.getElementById('invoice_total_price').value = tot.toFixed(2); ;
 	}
 	};
 	// 

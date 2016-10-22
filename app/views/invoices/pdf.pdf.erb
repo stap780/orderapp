@@ -93,7 +93,7 @@
  <% @invoice.invoice_items.each_with_index do |pr, i| %>
 <td align='center'><%= (i+1) %></td>
 <td align="center"><%=pr.product.sku%></td>
-<td><%=pr.title%> - <%=pr.product.short_description.at(0..17)%></td>
+<td><%=pr.title%> - <%=pr.product.short_description.at(0..20)%></td>
 <td align='center'>шт</td>
 <td align='center'><%= pr.quantity%></td>
 <td align='right'><%= pr.price%></td>
@@ -140,7 +140,7 @@
 </b>
 <br>
 <b>
-Всего к оплате: <% if @invoice.total_price.nil?%><%= RuPropisju.rublej(0)%><% else %><%= RuPropisju.rublej(@invoice.total_price )%> <%end%>.
+Всего к оплате: <% if @invoice.total_price.nil?%><%= RuPropisju.rublej(0)%><% else %><%= RuPropisju.rublej(@invoice.total_price.to_f.round(2) )%> <%end%>.
 </b>
 <b>
 НДС: <%= RuPropisju.rublej(@nds)%>

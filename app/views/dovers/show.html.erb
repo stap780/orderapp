@@ -29,6 +29,8 @@
   <%= @dover.user.first_name %>
 </p>
 
-<%= link_to 'Edit', edit_dover_path(@dover) %> |
-<%= link_to 'Back', dovers_path %>
-<%= link_to 'Печать', print_dover_path(@dover) %>
+<div class="col-md-12">
+<%= link_to t('edit'), edit_dover_path(@dover), class: 'btn btn-default btn-sm' %> 
+<%= link_to t('back'), dovers_path, class: 'btn btn-default btn-sm' %>
+<%= link_to '<i class="glyphicon glyphicon-print"></i>'.html_safe, print_dover_path(@dover), target: :_blank, class: 'btn btn-success' %>
+</div>

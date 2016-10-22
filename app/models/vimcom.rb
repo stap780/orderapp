@@ -27,15 +27,15 @@ def self.import(file)
 	    end
     spreadsheet = open_spreadsheet(file) 
      (1..spreadsheet.last_row).each do |i|  
-       vimcom = find_by_title(:title) || new
+#        vimcom = find_by_title(:title) || new
        
        title = spreadsheet.cell(i,'B') 
        quantity_free = spreadsheet.cell(i,'C')
-       quantity_all = spreadsheet.cell(i,'D')
+       quantity_all = spreadsheet.cell(i,'C')
        
       
-      vimcom.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free)
-      vimcom.save
+#       vimcom.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free)
+#       vimcom.save
       
           
       vimcoms = Vimcom.where("title = ?", spreadsheet.cell(i,'B'))

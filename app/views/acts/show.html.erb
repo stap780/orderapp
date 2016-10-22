@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Company:</strong>
+  <%= @act.company.title %>
+</p>
+
+<p>
+  <strong>Startdate:</strong>
+  <%= @act.startdate %>
+</p>
+
+<p>
+  <strong>Enddate:</strong>
+  <%= @act.enddate %>
+</p>
+
+<div class="col-md-12">
+<%= link_to t('edit'), edit_act_path(@act), class: 'btn btn-default btn-sm' %> 
+<%= link_to t('back'), acts_path, class: 'btn btn-default btn-sm' %>
+<%= link_to '<i class="glyphicon glyphicon-print"></i>'.html_safe, print_act_path(@act), target: :_blank, class: 'btn btn-success' %>
+</div>

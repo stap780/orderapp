@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901134543) do
+ActiveRecord::Schema.define(version: 20161019072024) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 20160901134543) do
   end
 
   add_index "accounts", ["insales_subdomain"], name: "index_accounts_on_insales_subdomain", unique: true
+
+  create_table "acts", force: :cascade do |t|
+    t.integer  "company_id"
+    t.date     "startdate"
+    t.date     "enddate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "angels", force: :cascade do |t|
     t.string   "sku"

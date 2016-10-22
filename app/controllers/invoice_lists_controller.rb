@@ -1,5 +1,5 @@
 class InvoiceListsController < ApplicationController
-  before_action :set_invoice_list, only: [:show, :print, :edit, :update, :destroy]
+  before_action :set_invoice_list, only: [:show, :print, :edit, :garant, :update, :destroy]
   before_action :authorize
   
 	autocomplete :company, :title, full: true	
@@ -21,6 +21,11 @@ class InvoiceListsController < ApplicationController
   # GET /invoice_lists/1.json
   def show
   @company2 = Company.find_by_id(@invoice_list.companytwo)
+    respond_to do |format|
+      format.html
+      format.js
+      format.json
+    end
   end
   
   def print
@@ -48,7 +53,7 @@ class InvoiceListsController < ApplicationController
 
   
   def garant
-  	@invoice_list = InvoiceList.find(params[:id])
+  	#@invoice_list = InvoiceList.find(params[:id])
   	@company2 = Company.find_by_id(@invoice_list.companytwo)
 		render :pdf => "Гарантийный талон #{@invoice_list.number}",
 			     :template => "invoice_lists/garant" #,:orientation => 'Landscape'
@@ -62,6 +67,10 @@ class InvoiceListsController < ApplicationController
 
   # GET /invoice_lists/1/edit
   def edit
+	    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /invoice_lists
@@ -170,6 +179,7 @@ class InvoiceListsController < ApplicationController
       
         format.html { redirect_to @invoice_list, notice: 'Invoice list was successfully updated.' }
         format.json { render :show, status: :ok, location: @invoice_list }
+        format.js 
       else
         format.html { render :edit }
         format.json { render json: @invoice_list.errors, status: :unprocessable_entity }

@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   
-  before_action :set_invoice, only: [:show, :print, :edit, :update, :destroy]
+  before_action :set_invoice, only: [:show, :print, :edit, :pdf_invdog, :update, :destroy]
   before_action :authorize
   autocomplete :company, :title, full: true	
 
@@ -25,11 +25,11 @@ class InvoicesController < ApplicationController
   end
   
   def print
-  	@nds =  (@invoice.invoice_items.sum(:sum)*18/118).to_f.round(2)
+  	@nds =  (@invoice.total_price*18/118).to_f.round(2)
   	@skidka = @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100
   	@company2 = Company.find_by_id(@invoice.companytwo)
   	respond_to do |format|
-		format.html # show.html.erb
+				format.html 
 		    format.pdf do
 		      render :pdf => "Счёт #{@invoice.number}",
 		             :template => "invoices/pdfsight"
@@ -39,12 +39,22 @@ class InvoicesController < ApplicationController
   
 	def pdf
 	@invoice = Invoice.find_by_id(params[:invoice_id])
-	@nds =  (@invoice.invoice_items.sum(:sum)*18/118).to_f.round(2)
+	@nds =  (@invoice.total_price*18/118).to_f.round(2)
 	@skidka = @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100
 	@company2 = Company.find_by_id(@invoice.companytwo)
 	      render :pdf => "Счёт #{@invoice.number}",
 	             :template => "invoices/pdf"
 	end
+	
+	def pdf_invdog
+	@nds =  (@invoice.total_price*18/118).to_f.round(2)
+	@skidka = @invoice.invoice_items.sum(:sum) * @invoice.discount.to_i/100
+	@company2 = Company.find_by_id(@invoice.companytwo)
+  render :pdf => "Счёт-договор #{@invoice.number}",
+         :template => "invoices/pdf_invdog"
+
+	end
+		
 
   # GET /invoices/new
   def new

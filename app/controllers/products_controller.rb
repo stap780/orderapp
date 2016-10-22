@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
 	url = "http://www.cbr.ru/scripts/XML_daily.asp"
 	data = Nokogiri::XML(open(url))
 	a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-	@kurs = a.gsub(/,/, '.')
+	@kurs = a.gsub(/,/, '.').to_f
 	  
 	#@products = Product.where("quantity > ?", 0)  
 	@products = Product.where('sku Like ? ', '%yl%')

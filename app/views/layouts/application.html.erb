@@ -31,6 +31,7 @@
             <li class="<%= 'active' if current_page?(invoices_path) %>"><%= link_to 'Счета', controller: 'invoices', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(invoice_lists_path) %>"><%= link_to 'Накладные', controller: 'invoice_lists', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(invoiceouts_path) %>"><%= link_to 'Счёт-фактуры', controller: 'invoiceouts', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(acts_path) %>"><%= link_to 'Акт сверки', controller: 'acts', action: 'index' %></li>
             </ul>
             </li>
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Закупки <span class="caret"></span></a>

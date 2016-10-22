@@ -77,12 +77,12 @@ validates :artikul, uniqueness: true
      
     @homyGrand = Homyproduct.where('title like ?', '%Grandstream%')
  		@homyGrand.each do |hd|
-	 		hd.sell_price = (hd.price * 1.18).to_f.round(2)
+	 		hd.sell_price = (hd.price * 1.20).to_f.round(2)
 	 		hd.save
 	 		end
 	@homyRTX = Homyproduct.where('title like ?', '%RTX%')
  		@homyRTX.each do |hd|
-	 		hd.sell_price = (hd.price * 1.35).to_f.round(2)
+	 		hd.sell_price = (hd.price * 1.40).to_f.round(2)
 	 		hd.save
 	 		end
 	@homyYe = Homyproduct.where('title like ?', '%sip-t%')
@@ -92,7 +92,7 @@ validates :artikul, uniqueness: true
 	 		end
 	@homyDbl = Homyproduct.where('title like ?', '%DBL%')
  		@homyDbl.each do |hd|
-	 		hd.sell_price = (hd.price * 1.35).to_f.round(2)
+	 		hd.sell_price = (hd.price * 1.36).to_f.round(2)
 	 		hd.save
 	 		end
   end

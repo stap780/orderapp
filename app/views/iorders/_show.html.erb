@@ -11,7 +11,7 @@
 	<strong>Информация о клиенте</strong>
 	<br>
 	<p>
-	  <strong>Client:</strong>
+	  <strong><%= t '.client' %>:</strong>
 	  <%if @iorder.client.nil? %>
 	  <%= @iorder.clientname %> <%= @iorder.client_middlename %> <%= @iorder.client_surname %>
 	  <%else%>
@@ -19,11 +19,11 @@
 	  <%end%>
 	</p>
 	<p>
-	  <strong>Phone:</strong>
+	  <strong><%= t '.phone' %>:</strong>
 	  <%= @iorder.phone %>
 	</p>
 	<p>
-	  <strong>Email:</strong>
+	  <strong><%= t '.email' %>:</strong>
 	  <%= @iorder.email %>
 	</p>
 	<p>
@@ -150,7 +150,7 @@
 	<div class="col-md-12">
 	<%= link_to t('edit'), edit_iorder_path(@iorder), class: 'btn btn-default btn-sm' %> 
 	<%= link_to t('back'), iorders_path, class: 'btn btn-default btn-sm' %>
-	<%= link_to t('print'), print_iorder_path(@iorder), target: :_blank, class: 'btn btn-success btn-sm' %>
+	<%= link_to '<i class="glyphicon glyphicon-print"></i>'.html_safe, print_iorder_path(@iorder), target: :_blank, class: 'btn btn-success' %>
 	</div>
 
 

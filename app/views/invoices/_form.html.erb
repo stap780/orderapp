@@ -27,7 +27,7 @@
 			 <p><%= link_to t('invoices.add_company'), new_company_path,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-xs'  %></p>
 			 </div>
 			 <div class="col-md-3">
-			<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_companytwo' }  %>
+			<%= f.input :company_title, as: :autocomplete, :label => t('invoices.company_receiver'), url:  autocomplete_company_title_invoices_path, input_html: { 'data-id-element' => '#invoice_companytwo' }  %>
 			<%= f.input :companytwo, as: :hidden %>
 			</div>
 		</div>
@@ -75,7 +75,7 @@
 	<div class="col-md-12">
 	<div class="col-md-5" >
 	<%= f.input :discount, as: :integer, input_html: {onchange: "calculateInvoice(this.value)"} %>
-	<%= f.input :total_price %> 
+	<%= f.input :total_price, hint: 'учесть доставку' %> 
 	</div>
 	<div class="col-md-7">
 	<p>

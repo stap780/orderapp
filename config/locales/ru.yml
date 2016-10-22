@@ -11,7 +11,7 @@ ru:
   add_item: 'Добавить товар'
   remove: "Удалить"
   show: 'Просмотреть'
-  back: "Назад"
+  back: "Закрыть"
   print: "Печать"
   edit: "Редактировать"
   destroy: "Удалить"
@@ -31,6 +31,10 @@ ru:
       destroy: "Удалить"
       number: 'Номер'
       status: 'Статус'
+    show:
+      client: 'Клиент'
+      phone: 'Телефон'
+      email: 'Email'
           
   invoices:
     print: "Печать"
@@ -40,6 +44,7 @@ ru:
     add_company: "Создать компанию"
     order_total: "Итого в заказе"
     order_delivery: 'Доставка'
+    company_receiver: "Грузополучатель"
     index:
       title: "Счета"
       small_title: "сводная таблица"
@@ -95,6 +100,11 @@ ru:
       status_cont: 'Статусу'
       new_invoice: "Создать счет"
       date: "Дата"
+      number: 'Номер'
+      purchase_list: 'Накладная'
+      company: 'Компания'
+      status: "Статус"
+      total: "Сумма"
   purchase_lists:
     index:
       number_eq: 'Номеру'
@@ -116,6 +126,13 @@ ru:
       doc_status: "Документ"
       product_info: "Товары в накладной"
       total: "Итого"
+  purchase_invoice_ins:
+    index:
+      number_eq: 'Номеру'
+      date: "Дата"
+      number: 'Номер'
+      purchase_list: 'Накладная'
+      company: 'Компания'
       
   
   simple_form:

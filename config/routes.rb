@@ -1,6 +1,14 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :acts do 
+    collection do
+      get :autocomplete_company_title	 
+		end
+		member do
+		  get :print
+		end
+  end
   resources :banks do
   	collection do
   	post :import
@@ -75,13 +83,14 @@ InsalesApp::Application.routes.draw do
 		end
 	end
   resources :invoices do
-  collection do
-	  	get :autocomplete_company_title
-	  	get :pdf
-	end
-  	member do
-      get :print
-	end
+	  collection do
+		  	get :autocomplete_company_title
+		  	get :pdf
+		end
+		member do
+		  get :print
+		  get :pdf_invdog
+		end
 	end
 	
   resources :sales

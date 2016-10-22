@@ -38,18 +38,23 @@ def self.import(file)
        #status = spreadsheet.cell(i,'G')
        cost_price_usd = spreadsheet.cell(i,'F') 
        price_usd = spreadsheet.cell(i,'D')
-       valuta = spreadsheet.cell(i,'E')
-       if valuta == "RUB"
-			url = "http://www.cbr.ru/scripts/XML_daily.asp"
-			data = Nokogiri::XML(open(url))
-			a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-			kurs = a.gsub(/,/, '.')
-			price = (price_usd.to_f / "#{kurs}".to_f).to_f.round(2)
-			cost_price = (cost_price_usd.to_f / "#{kurs}".to_f).to_f.round(2)
-			else
-			price = price_usd.to_f.round(2)
-			cost_price =  cost_price_usd.to_f.round(2)
-			end
+       valuta1 = spreadsheet.cell(i,'E')
+       valuta2 = spreadsheet.cell(i,'G')
+       url = "http://www.cbr.ru/scripts/XML_daily.asp"
+				data = Nokogiri::XML(open(url))
+				a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
+				@kurs = a.gsub(/,/, '.')  
+				#@kurs = 64.4424	  
+		    if valuta1 == "RUB"
+				price = (price_usd.to_f / @kurs.to_f).to_f.round(2)
+				else
+				price = price_usd.to_f.round(2)
+				end
+				if valuta2 == "RUB"
+				cost_price = (cost_price_usd.to_f / @kurs.to_f).to_f.round(2)
+				else
+				cost_price =  cost_price_usd.to_f.round(2)
+				end
        
        
 #       angel = Angel.find_by_title("#{title}")
@@ -58,9 +63,9 @@ def self.import(file)
 #       angel.save
 		angel = Angel.find_by_title("#{title}")
 		if angel.present? 
-		angel.update_attributes(:sku => sku, :quantity => quantity, :valuta => valuta, :price => price, :cost_price => cost_price )#, :status => status
+		angel.update_attributes(:sku => sku, :quantity => quantity, :valuta => valuta1, :price => price, :cost_price => cost_price )#, :status => status
 		else
-		angel = Angel.new( :sku => sku, :title => title, :quantity => quantity, :valuta => valuta, :price => price, :cost_price => cost_price)
+		angel = Angel.new( :sku => sku, :title => title, :quantity => quantity, :valuta => valuta1, :price => price, :cost_price => cost_price)
 		angel.save
 		end
           

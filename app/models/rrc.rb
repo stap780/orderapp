@@ -53,20 +53,23 @@ def self.import(file)
        
        cost_price = spreadsheet.cell(i,'H').to_f
        if cost_price > 500
-       price = cost_price*1.13
+       price = (cost_price*1.13).to_f.round(2)
        else
-       price = cost_price*1.25
+       price = (cost_price*1.25).to_f.round(2)
        end
        
        @rrc = Rrc.find_by_sku("#{sku}")
-		if @rrc.present? 
-		@rrc.update_attributes( :title => title, :quantity => quantity, :cost_price => cost_price, :price => price)
-#  		else
-# 		@rrc.quantity = 0
-#   		@rrc.save
- 		end
-       
-    end
+				if @rrc.present? 
+				@rrc.update_attributes( :title => title, :quantity => quantity, :cost_price => cost_price, :price => price)
+		 		end
+		end
+		 		
+		rrc = Rrc.where('sku Like ?', '%SIP%')
+		rrc.each do |v|
+		price = (v.cost_price*1.43).to_f.round(2)
+		v.update_attributes( :price => price)
+		end
+
   end
   
    def self.open_spreadsheet(file)

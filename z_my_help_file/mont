@@ -1,0 +1,111 @@
+Логин: frizrobot
+
+Пароль: =K4Q7Wr5PNCG58
+
+Актуальное описание сервиса находится по адресу: http://sandbox.webstore.mont.ru/wiki/doku.php?id=start
+
+Сценарий работы с системой - http://sandbox.webstore.mont.ru/wiki/doku.php?id=ru:apiv2:apiusermanual:commonscenarios:basicesdscenario
+
+Тестировать заказы лучше всего на продукте: ABC-11111 MS Office 2013 test
+
+1) получение прайс-листа
+https://frizrobot:=K4Q7Wr5PNCG58@sandbox.mont.ru/Version2/Service/B2BServiceV2Xml.svc/GetPriceChanges/0
+
+<GetPriceChangesResponse>
+	<GetPriceChangesResult>
+		<Data>
+		<ActualVersion>26282687</ActualVersion>
+		<ClearBeforeUpdate>false</ClearBeforeUpdate>
+			<PriceList>
+					<PriceContract>
+						<PartNum>031c9e47</PartNum>
+						<Price>624.83</Price>
+						<EndUserPrice>702.90</EndUserPrice>
+						<CurrencyCode>RUR</CurrencyCode>
+						<EndUserCurrencyCode>RUR</EndUserCurrencyCode>
+						<FulfillmentType>15</FulfillmentType>
+						<LicenseFormRequired>false</LicenseFormRequired>
+						<InstantDelivery>true</InstantDelivery>
+						<HasVat>false</HasVat>
+						<Blocked>false</Blocked>
+						<MinCountRequired>0</MinCountRequired>
+						<MaxCountRequired xsi:nil="true" />
+						<FamilyGroupId>4360</FamilyGroupId>
+						<ProductType>2</ProductType>
+						<Returnable>false</Returnable>
+						<ExistsInCalc>false</ExistsInCalc>
+						<SubscriptionDuration>1</SubscriptionDuration>
+						<SubscriptionDurationType>2</SubscriptionDurationType>
+						<OfferLimit xsi:nil="true" />
+						<WithdrawlKeysSupport>false</WithdrawlKeysSupport>
+						<IsAddon>false</IsAddon>
+						<Addons />
+						<IsUsage>false</IsUsage>
+					</PriceContract>
+			</PriceList>
+		</Data>
+	</GetPriceChangesResult>
+</GetPriceChangesResponse>
+
+2) получаем меню
+https://sandbox.mont.ru/contentApi/version3/service/ContentServiceV3Xml.svc/GetDefaultMenu?langcode=RU
+<MenuContract>
+	<MenuElements>
+		<MenuElementContract>
+				<FamilyGroupIds />
+				<Id>2</Id>
+				<LegacyId>950</LegacyId>
+				<Level>1</Level>
+				<OrderIndex>0</OrderIndex>
+				<ParentId i:nil="true" />
+				<Title>5Nine Software</Title>
+		</MenuElementContract>
+		<MenuElementContract>
+					<FamilyGroupIds>
+					<a:int>129</a:int>
+					<a:int>130</a:int>
+					 </FamilyGroupIds>
+				<Id>32</Id>
+				<LegacyId>1</LegacyId>
+				<Level>2</Level>
+				<OrderIndex>0</OrderIndex>
+				<ParentId>7</ParentId>
+				<Title>Антивирусы</Title>
+		</MenuElementContract>
+	<MenuElements>
+<MenuContract>
+
+3) получаем описание семейства продукта
+https://sandbox.mont.ru/contentApi/version3/service/ContentServiceV3Xml.svc/GetFamily?id=129&langcode=RU&countrycode=RU
+
+4) получаем описание товара
+https://sandbox.mont.ru/contentApi/version3/service/ContentServiceV3Xml.svc//GetProduct?partnum=031c9e47&langcode=RU&countrycode=RU
+
+<ProductContract>
+	<CountryCode>DF</CountryCode>
+	<EventText i:nil="true" />
+	<FamilyGroupId>4360</FamilyGroupId>
+	<FullDescription><html><head><title></title></head><body><table align="center" border="1" cellpadding="5" cellspacing="1"><tbody><tr><td>&nbsp;</td><td style="text-align:center"><h2>Office&nbsp;365</h2><h2>бизнес базовый</h2></td><td style="text-align:center"><h2>Office&nbsp;365</h2><h2>бизнес</h2></td><td style="text-align:center"><h2>Office&nbsp;365</h2><h2>бизнес премиум</h2></td></tr><tr><td>&nbsp;</td><td style="text-align:center"><p><strong>Версии Office в облаке, электронная почта и видеоконференции</strong></p><ul><li>Электронная почта с почтовым ящиком объемом 50&nbsp;ГБ</li><li>Хранилище файлов объемом 1&nbsp;ТБ с возможностью общего доступа</li><li>Видеоконференции в высоком разрешении</li><li>Office Online</li></ul></td><td><p><strong>Полный набор Office на ПК или Mac и приложения для планшетов и телефонов</strong></p><ul><li>Хранилище файлов объемом 1&nbsp;ТБ с возможностью общего доступа</li><li>Полный набор классических программ Office на ПК или Mac</li><li>Приложения Office на планшетах и телефонах</li></ul></td><td style="text-align:center"><p><strong>Все возможности планов &quot;бизнес базовый&quot; и &quot;бизнес&quot; в одном интегрированном плане</strong></p><ul><li>Электронная почта с почтовым ящиком объемом 50&nbsp;ГБ</li><li>Хранилище файлов объемом 1&nbsp;ТБ с возможностью общего доступа</li><li>Видеоконференции в высоком разрешении</li><li>Полный набор классических программ Office на ПК или Mac</li><li>Приложения Office на планшетах и телефонах</li></ul></td></tr><tr><td><strong>Установка полных версий классических приложений Office</strong>: Word, Excel, PowerPoint, Outlook, Publisher и OneNote на пяти ПК или компьютерах Mac</td><td style="text-align:center">&nbsp;</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td></tr><tr><td><strong>Office на планшетах и телефонах</strong>: установка приложений Office с привычным интерфейсом на пяти планшетах и пяти телефонах</td><td style="text-align:center">&nbsp;</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td></tr><tr><td><strong>Версии Office в облаке</strong>: включают Word, Excel и PowerPoint</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td></tr><tr><td><strong>Хранение и совместное использование файлов</strong>: 1&nbsp;ТБ свободного места для каждого пользователя</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td></tr><tr><td><strong>Электронная почта бизнес-класса, календарь и контакты</strong>: почтовый ящик объемом 50&nbsp;ГБ</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center">&nbsp;</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td></tr><tr><td><p><strong>Неограниченное количество собраний по сети</strong>, обмен мгновенными сообщениями и видеоконференции в высоком разрешении.</p> Включает в себя приложение Skype для бизнеса</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center">&nbsp;</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td></tr><tr><td><p><strong>Корпоративная социальная сеть</strong>: организация совместной работы сотрудников разных отделов и офисов, географически удаленных друг от друга и использующих различные бизнес-приложения</p></td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td><td style="text-align:center">&nbsp;</td><td style="text-align:center"><p><img alt="Выбрано" src="https://c.s-microsoft.com/ru-ru/CMSImages/PMG_Icon_Check.png?version=a4a4a52d-d4c9-3fcf-6690-0b66b6dccd1b" style="height:24px; width:24px" /></p></td></tr><tr><td>Максимальное количество пользователей</td><td style="text-align:center">300</td><td style="text-align:center">300</td><td style="text-align:center"><p>300</p></td></tr></tbody></table><p>&nbsp;</p><p><strong>Этот продукт распространяется в виде подписки на ежемесячной основе, указана стоимость права использования на 1 месяц. По истечении месячного срока использования необходимо продлить подписку. В случае неоплаты в срок, подписка будет заблокирована, а доступ к сервису приостановлен.</strong></p></body></html></FullDescription>
+	<ImportantInformation><p>Это продукт распространяется в виде подписки на ежемесячной основе, указана стоимость права использования на 1 месяц. По истечении месячного срока использования необходимо продлить подписку. В случае неоплаты в срок, подписка будет заблокирована, а доступ к сервису приостановлен.</p></ImportantInformation>
+	<InstallInfo i:nil="true" />
+	<IsContentAvailable>true</IsContentAvailable>
+	<LangCode>RU</LangCode>
+	<MeasureUnit i:nil="true" />
+	<OrderNum>0</OrderNum>
+	<PartNumber>031c9e47</PartNumber>
+	<Preview i:nil="true" />
+	<ShortDescription><html><head><title></title></head><body><p>Легко управляйте своим бизнесом с помощью Office&nbsp;365. Получайте все необходимые инструменты для ведения бизнеса в любое время из любой точки мира.</p></body></html></ShortDescription>
+		<Specs>
+		<SpecContract>
+		<Id>150</Id>
+		<SpecType>Bool</SpecType>
+		<Title>Подписка</Title>
+		<Value>true</Value>
+		 </SpecContract>
+		</Specs>
+	<SystemRequirements i:nil="true" />
+	<Title>Office 365 Business Premium</Title>
+	<UrlImage>http://sandbox.webstore.mont.ru/CSImagesTest/fdfdf.jpg</UrlImage>
+	<VendorCode>MS</VendorCode>
+	<VendorId>1</VendorId>
+ </ProductContract>

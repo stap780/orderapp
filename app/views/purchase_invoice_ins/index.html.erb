@@ -6,13 +6,17 @@
 		</div>
 		<div class="col-md-2">
 		</div>
-		<div class="col-md-6"><p>Поиск</p>
-		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :number_cont, 'Номеру' %> 
-  		<%= f.search_field :number_cont  %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-  		</div>
-		<% end %>
+		<div class="col-md-6">
+		  		<form class="form-inline">
+			<p><%= t 'search_t' %></p>
+			<%= search_form_for @search do |f|%>
+	  		<div classs = "search">
+	  		<%= f.search_field :number_eq, placeholder: t('.number_eq'), class: "form-control input-sm"  %> 
+	  		<%= f.submit t('search'), class: 'btn btn-default btn-sm' %>
+	  		</div>
+			<% end %>
+			</form>
+
 		</div>
 		<div class="col-md-12">
 		<div class="col-md-5">
@@ -28,10 +32,10 @@
 		<table class="table table-hover">
   <thead>
     <tr>
-      <th>Number</th>
-      <th>Data</th>
-      <th>Purchase list</th>
-      <th>Company</th>
+      <th><%= t '.number' %></th>
+      <th><%= sort_link(@search, :data, t('.date')) %></th>
+      <th><%= t '.purchase_list' %></th>
+      <th><%= t '.company' %></th>
       <th colspan="3"></th>
     </tr>
   </thead>

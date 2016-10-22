@@ -1,3 +1,4 @@
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
@@ -50,7 +51,7 @@
         <td><%= invoice_list.total_price %></td>
         <td><%= invoice_list.client.surname %> <%= invoice_list.client.name %></td>
         <td><%= invoice_list.company.title if invoice_list.company !=nil %></td>
-        <td><%= link_to t('show'), invoice_list, class: 'btn btn-default btn-xs' %></td>
+        <td><%= link_to t('show'), invoice_list,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-default btn-xs' %></td>
         <td><%= link_to t('edit'), edit_invoice_list_path(invoice_list), class: 'btn btn-success btn-xs'  %></td>
         <td><%= link_to t('destroy'), invoice_list, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
       </tr>

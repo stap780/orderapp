@@ -1,0 +1,19 @@
+<%= simple_form_for(@act) do |f| %>
+  <%= f.error_notification %>
+
+	<div class="col-md-12">
+	<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_acts_path, input_html: { 'data-id-element' => '#act_company_id' }  %>
+	<%= f.input :company_id, as: :hidden %>
+	</div>
+	<div class="col-md-7">
+	<%= f.input :startdate, as: :date, html5: true %>
+	<%= f.input :enddate, as: :date, html5: true %>
+	</div>
+	
+	<div class="col-md-12">
+	<%= f.button :submit, class: 'btn btn-default btn-sm' %>
+	<%= link_to t('show'), @act, class: 'btn btn-default btn-sm'  %>
+	<%= link_to t('back'), acts_path, class: 'btn btn-default btn-sm'  %>
+	</div>
+
+<% end %>

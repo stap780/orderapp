@@ -36,3 +36,10 @@ sudo ln -nfs "/home/appuser/apps/orderapp/current/config/nginx.conf" "/etc/nginx
 RAILS_ENV=production bundle exec rake db:migrate (делать в папке релиза) или cap production deploy:migrate - обновить структуру базы данных на продакшен сервере
 
 person.errors.full_messages - проверка на ошибки валидации
+
+
+RAILS_ENV=production rake assets:precompile - пресобрать дополнения
+RAILS_ENV=production rails server --binding=188.166.111.118 -p 3030 - запуск в продакшене
+или puma -e production -b tcp://188.166.111.118:3030 -d
+
+rails s -b 188.166.111.118 -e development - старт девелопмент

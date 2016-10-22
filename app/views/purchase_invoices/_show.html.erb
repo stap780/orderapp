@@ -25,9 +25,9 @@
 	<div class="col-md-12">
 	  <strong>Входящая накладная:</strong>
 	  <% if @purchase_invoice.purchase_list_check == true%>
-	  <%= "Выписана" %>
+	  <%= "Введена" %> № <%=@purchase_invoice.purchase_lists.first.number%> от (<%=@purchase_invoice.purchase_lists.first.date.strftime("%d/%m/%Y")%>)
 	  <%else %>
-	  <%= "Не выписана" %> 
+	  <%= "Не введена" %> 
 	  <%end%>
 	</div>
 	</div>
@@ -72,4 +72,5 @@
 <%= link_to t('edit'), edit_purchase_invoice_path(@purchase_invoice), class: 'btn btn-default btn-sm' %> 
 <%= link_to t('back'), purchase_invoices_path, class: 'btn btn-default btn-sm' %>
 </div>
-  </div>
+
+</div>

@@ -49,7 +49,7 @@ gem 'haml'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'whenever', :require => false
 gem 'spring'
-gem 'puma', '~>3.0.2'
+
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-filestyle-rails'
 gem 'addressable', '~> 2.4'
@@ -60,7 +60,7 @@ gem 'numbers_and_words', '~> 0.10.5'
 gem 'jquery-turbolinks'
  
 group :development, :test do
-	
+	gem 'puma', '~>3.0.2'
 	gem "sqlite3"
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   #gem 'debugger'
@@ -80,5 +80,5 @@ group :development, :test do
 end
 
 group :production do
- gem 'pg', '~> 0.18.4'
+ gem 'sqlite3'
 end
