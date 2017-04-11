@@ -4,10 +4,10 @@ class IordersController < ApplicationController
     require 'rest_client'
     
     after_filter { |controller| handle_jsonp(controller) }
-	before_action :set_iorder, only: [:show, :print, :edit, :update, :destroy]
-	before_action :authorize
-	autocomplete :product, :title, full: true
-	autocomplete :client, :name, full: true, :display_value => :client_iorder_name_surname,  :extra_data => [:name, :middlename, :surname, :phone, :email, :zip, :city, :address]
+		before_action :set_iorder, only: [:show, :print, :edit, :update, :destroy]
+		before_action :authorize
+		autocomplete :product, :title, full: true
+		autocomplete :client, :name, full: true, :display_value => :client_name_surname,  :extra_data => [:name, :middlename, :surname, :phone, :email, :zip, :city, :address]
 	
 	
   def authorize
@@ -21,10 +21,10 @@ class IordersController < ApplicationController
      @search = Iorder.ransack(params[:q]) #используется gem ransack для поиска и сортировки
      @search.sorts = 'number desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
      @iorders = @search.result.paginate(page: params[:page], per_page: 30)
-	respond_to do |format|
-	format.html
-	format.json #{ render :json => @iorders, :callback => params[:mycallback]}
-	end
+			respond_to do |format|
+			format.html
+			format.json #{ render :json => @iorders, :callback => params[:mycallback]}
+			end
 
   end
   
@@ -148,6 +148,13 @@ class IordersController < ApplicationController
      @iorder.iml_id = @iorder.iml.id
      @iorder.save
      end
+     @iorder.dpd.destroy if @iorder.dpd !=nil
+     @iorder.dpd_id = ''
+     @iorder.courier.destroy if @iorder.courier !=nil
+     @iorder.courier_id = ''
+     @iorder.post.destroy if @iorder.post !=nil
+     @iorder.post_id = ''
+     @iorder.save
      end
      if  @iorder.mycourier_id == 2 
      @dpd = @iorder.create_dpd(numer: @iorder.number)
@@ -155,11 +162,25 @@ class IordersController < ApplicationController
      @iorder.dpd_id = @iorder.dpd.id
      @iorder.save
      end 
+     @iorder.iml.destroy if @iorder.iml !=nil
+     @iorder.iml_id = ''
+     @iorder.courier.destroy if @iorder.courier !=nil
+     @iorder.courier_id = ''
+     @iorder.post.destroy if @iorder.post !=nil
+     @iorder.post_id = ''
+     @iorder.save
      end
      if  @iorder.mycourier_id == 3 
      @courier = @iorder.create_courier(number: @iorder.number)
      if @iorder.courier_id.present? 
      @iorder.courier_id = @iorder.courier.id
+     @iorder.save
+     @iorder.dpd.destroy if @iorder.dpd !=nil
+     @iorder.dpd_id = ''
+     @iorder.iml.destroy if @iorder.iml !=nil
+     @iorder.iml_id = ''
+     @iorder.post.destroy if @iorder.post !=nil
+     @iorder.post_id = ''
      @iorder.save
      end 
      end
@@ -168,8 +189,26 @@ class IordersController < ApplicationController
      if @iorder.post_id.present? 
      @iorder.post_id = @iorder.post.id
      @iorder.save
+     @iorder.dpd.destroy if @iorder.dpd !=nil
+     @iorder.dpd_id = ''
+     @iorder.courier.destroy if @iorder.courier !=nil
+     @iorder.courier_id = ''
+     @iorder.iml.destroy if @iorder.iml !=nil
+     @iorder.iml_id = ''
+     @iorder.save
      end 
      end
+     if  !@iorder.mycourier_id.present?
+     @iorder.dpd.destroy if @iorder.dpd !=nil
+     @iorder.dpd_id = ''
+     @iorder.courier.destroy if @iorder.courier !=nil
+     @iorder.courier_id = ''
+     @iorder.iml.destroy if @iorder.iml !=nil
+     @iorder.iml_id = ''
+     @iorder.post.destroy if @iorder.post !=nil
+     @iorder.post_id = ''
+     @iorder.save
+     end 
       #_______________________ 
      
      if @iorder.invoice_check == false 

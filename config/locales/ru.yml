@@ -17,6 +17,31 @@ ru:
   destroy: "Удалить"
   discount: "Скидка %"
   total: 'Итого'
+  cases:
+    index:
+      title: 'Заявки'
+      new_case: 'Создать заявку'
+      number: "Номер"
+      status: "Статус"
+      service: "Услуга"
+      description: "Описание"
+      iorder_check: "Статус заказа"
+      iorder: "Заказ"
+      client: "Клиент"
+      date: "Дата"
+    new:
+      new_title: "Новая заявка"
+    edit:
+      edit_title: "Редактировать заявку"
+    show:
+      show_title: "Просмотр заявки"
+      number: "Номер"
+      status: "Статус"
+      service: "Услуга"
+      description: "Описание"
+      iorder_check: "Статус заказа"
+      iorder: "Заказ"
+      client: "Клиент"
   clients:
     index:
       phone: 'Телефон'
@@ -31,6 +56,14 @@ ru:
       destroy: "Удалить"
       number: 'Номер'
       status: 'Статус'
+      finansial: 'Статус оплаты'
+      payment: 'Тип оплаты'
+      client: 'Клиент'
+      delivery_type: 'Тип доставки'
+      delivery_comp: 'Сл доставки'
+      del_status: 'Статус доставки'
+      period: 'Период'
+     
     show:
       client: 'Клиент'
       phone: 'Телефон'
@@ -60,6 +93,7 @@ ru:
       back: "Назад"
       number_eq: 'Номеру'
       invstatus_cont: 'Статусу'
+      period: 'Период'
     show:
       title: "Информация о счете"
       date: "Дата"
@@ -85,6 +119,7 @@ ru:
       number_eq: 'Номеру'
       status_cont: 'Статусу'
       search: 'Поиск'
+      period: 'Период'
     show:
       upd: ' УПД '
       nakl: 'Накладная'
@@ -105,6 +140,10 @@ ru:
       company: 'Компания'
       status: "Статус"
       total: "Сумма"
+    new:
+      purchase_invoices_title: 'Входящий счет'
+    edit:
+      purchase_invoices_title: 'Входящий счет'
   purchase_lists:
     index:
       number_eq: 'Номеру'
@@ -118,6 +157,8 @@ ru:
       status: 'Статус'
     edit:
       title: "Редактирование накладной"
+    new:
+      purchase_list_title: 'Входящая накладная'  
     show:
       title: "Входящая накладная"
       status: 'Статус'
@@ -133,10 +174,43 @@ ru:
       number: 'Номер'
       purchase_list: 'Накладная'
       company: 'Компания'
-      
+  stores:
+    index:
+      period: 'Период'
+      product_title: 'Название товара'
+      prihod: 'Приход'
+      rashod: 'Расход'
+      quantity: 'Кол-во'
+  products:
+    index:
+      sku: 'Артикул'
+      title: 'Название'
+      description: 'Описание'
+      quantity: 'Кол-во'
+      cost_price: 'Цена Вх'
+      sell_price: 'Цена Пр'
+      price: 'Цена'
+  banks:
+    index:
+      period: 'Период'
+      import: 'Импорт'
+      date: 'Дата'
+      number: 'Номер'
+      type: 'Тип'
+      sum: 'Сумма'
+      description: 'Описание'
+      payer: 'Плательщик'
+      reciever: 'Получатель'
+      invoice: 'Счет'
   
   simple_form:
     labels:
+      case:
+        number: 'Номер'
+        iorder_check: "Создать заказ"
+        status: 'Статус'
+        client_name: 'Имя'
+        service: 'Услуга'
       iorder:
         phone: "Телефон"
         invoice_check: "Создать счет"
@@ -150,7 +224,7 @@ ru:
         financial: 'Статус оплаты'
         payment: 'Тип оплаты'
         mycourier: 'Курьерская служба'
-        delivery: 'Тип доставки в insales'
+        delivery: 'Тип дост Insales'
       invoice:
         number: 'Номер'
         date: 'Дата'
@@ -171,8 +245,15 @@ ru:
         total_price: "Итого"
         status: 'Статус'
         invoiceout_check: 'Провести накладную'
+        vozvrat_check: 'Провести возврат'
       purchase_invoice:
+        number: 'Номер'
+        date: 'Дата'
+        company_title: 'Название компании'
+        status: 'Статус'
         purchase_list_check: "Создать накладную"
+        total_price: 'Итого'
+        
       purchase_list:
         number: 'Номер'
         date: 'Дата'

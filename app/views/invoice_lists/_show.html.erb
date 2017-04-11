@@ -1,3 +1,5 @@
+<div id="modal-window-invoice-list" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
+
 <div class="modal-header">
 	<h1>Информация о накладной <%= @invoice_list.number %></h1>
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -19,7 +21,7 @@
 	
 	<p>
 	  <strong>Company:</strong>
-	  <%= @invoice_list.company.title if @invoice_list.company !=nil%>
+	  <%= @invoice_list.company.title if @invoice_list.company !=nil%> (ИНН <%= @invoice_list.company.inn if @invoice_list.company !=nil%>)
 	</p>
 	<p>
 	  <strong>Companytwo:</strong>
@@ -40,6 +42,19 @@
 	  <%= "Не проведена" %> 
 	  <%end%>
 	</div>
+	<div class="col-md-12">
+	  <strong>Счет № </strong>
+	  <%= @invoice_list.invoice.number%> от (<%=@invoice_list.invoice.date.strftime("%d/%m/%Y")%>)
+	</div>
+		<div class="col-md-12">
+	  <strong>Входящее ПП № </strong>
+	  <%if !@invoice_list.invoice.banks.nil? %>
+	  <% @invoice_list.invoice.banks.each do |pp| %>
+	  <%=pp.number %> от (<%=pp.date.strftime("%d/%m/%Y") %>)
+	  <%end%>
+	  <%end%>
+	</div>
+
 	</div>
 </div>
 
@@ -85,7 +100,7 @@
 
 <div class="col-md-12">
 <%= link_to t('edit'), edit_invoice_list_path(@invoice_list), class: 'btn btn-default btn-sm' %> 
-<%= link_to t('back'), invoice_lists_path, class: 'btn btn-default btn-sm' %>
+<%= link_to t('back'), :back, class: 'btn btn-default btn-sm' %>
 <%= link_to t('.upd'), print_invoice_list_path(@invoice_list), target: :_blank, class: 'btn btn-success btn-sm' %>
 <%= link_to t('.nakl'), nakl_invoice_list_path(@invoice_list), target: :_blank, class: 'btn btn-success btn-sm' %>
 <%= link_to t('.garant_print'), garant_invoice_list_path(@invoice_list), target: :_blank, class: 'btn btn-success btn-sm' %>

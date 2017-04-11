@@ -56,7 +56,7 @@
     <% @vimcoms.each do |vimcom| %>
       <tr>
       <td class="id"><%= vimcom.id %></td>
-        <td><%= vimcom.title %></td>
+        <td><%= vimcom.title.truncate(30) if vimcom.title !=nil%></td>
         <td><%= vimcom.quantity_free %></td>
         <td><%= vimcom.quantity_all %></td>
         <td><%= vimcom.cost_price %></td>

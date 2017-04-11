@@ -10,19 +10,23 @@
 			<div class="col-md-2">
 			    <%= f.input :number  %>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
+<!--
 				<% if !@purchase_invoice.date.nil? %>
 			    <%= f.input :date, as: :string , :input_html => { :value => @purchase_invoice.date.strftime("%d/%m/%Y") } %>
 			    <%else%>
 			    <%= f.input :date, as: :string %>
 			    <%end%>
+-->
+			    <%= f.input :date, as: :date, html5: true%>
 			</div>
-		</div>
-		<div class="col-md-12">
-			<div class="col-md-3">
+						<div class="col-md-4">
 			 <%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_purchase_invoices_path, input_html: { 'data-id-element' => '#purchase_invoice_company_id' }  %>
 			 <%= f.input :company_id, as: :hidden %>
 			 </div>
+
+		</div>
+		<div class="col-md-12">
 		</div>
 	</div>
 	
@@ -32,14 +36,14 @@
 	    <%= f.input :purchase_list_check, input_html: { 'id' => 'add_pl_info' } %>
 	</div>
 	<div class="col-md-6" >
-	<div class="pl_info" >
+	<div class="col-md-12 pl_info" >
 		<p>Номер и дата накладной</p>
-		<%if !@purchase_invoice.purchase_lists.first.nil?%>
-		<%= text_field_tag :pl_number, nil,value: @purchase_invoice.purchase_lists.first.number, class: "form-control input-sm"%>
-		<%= text_field_tag :pl_date, nil, value: @purchase_invoice.purchase_lists.first.date.strftime("%d/%m/%Y"), class: "form-control input-sm"%>
-		<%else%>
-			<%= text_field_tag :pl_number, nil, class: "form-control input-sm", placeholder: 'Номер'%>
-			<%= text_field_tag :pl_date, nil, class: "form-control input-sm", placeholder: 'Дата'%>
+			<%if !@purchase_invoice.purchase_lists.first.nil?%>
+			<p><%= text_field_tag :pl_number, nil,value: @purchase_invoice.purchase_lists.first.number, class: "form-control input-sm"%></p>
+			<p><%= text_field_tag :pl_date, nil, value: @purchase_invoice.purchase_lists.first.date.strftime("%d/%m/%Y"), class: "form-control input-sm"%></p>
+			<%else%>
+			<p><%= text_field_tag :pl_number, nil, class: "form-control input-sm", placeholder: 'Номер'%></p>
+			<p><%= text_field_tag :pl_date, nil, class: "form-control input-sm", placeholder: 'Дата'%></p>
 			<%end%>
 	</div>    
 	</div>
@@ -54,10 +58,10 @@
 		<thead>
 			<tr>
 			<th colspan="1"></th>
-			<th>Title</th>
-			<th>Quantity</th>
-			<th>Price</th>
-			<th>Sum</th>
+			<th><%= t 'item_title' %></th>
+			<th><%= t 'item_quantity' %></th>
+			<th><%= t 'item_price' %></th>
+			<th><%= t 'item_sum' %></th>
 			<th colspan="1"></th>
 			</tr>
 		</thead>
@@ -73,9 +77,9 @@
 	</p>
 	</div>
 	<div class="col-md-12">
+	<%= link_to t('back'), :back, class: 'btn btn-default btn-sm' %>
 	<%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-sm' %>
-	<%= link_to t('show'), @purchase_invoice,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-sm'  %>
-	<%= link_to t('back'), purchase_invoices_path, class: 'btn btn-default btn-sm' %>
+	<!-- link_to t('show'), @purchase_invoice,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-sm'  -->
 	</div>
 </div>
 

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @vozvrat.number %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @vozvrat.date %>
+</p>
+
+<p>
+  <strong>Invoice list:</strong>
+  <%= @vozvrat.invoice_list_id %>
+</p>
+
+<%= link_to 'Edit', edit_vozvrat_path(@vozvrat) %> |
+<%= link_to 'Back', vozvrats_path %>

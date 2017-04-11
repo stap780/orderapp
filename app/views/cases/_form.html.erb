@@ -1,17 +1,31 @@
 <%= simple_form_for(@case) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+<div class="col-md-12">
+  <div class="col-md-4 form-inputs">
+	  <%if @case.number.nil?%>
+    <%= f.input :number, input_html: { :value => (Date.today.day.to_s + (Case.last.id+1).to_s).to_i }  %>
+    <%else%>
     <%= f.input :number %>
-    <%= f.input :client_id %>
+    <%end%>
+     
+	<%= f.input :client_name, as: :autocomplete, url: autocomplete_client_name_cases_path, input_html: { 'data-id-element' => '#case_client_id' }%>
+    <%= f.input :client_id, as: :hidden %>
     <%= f.input :iorder_id %>
-    <%= f.input :status %>
-    <%= f.input :service %>
-    <%= f.input :description %>
+    <%= f.input :status, collection: [ "Новая", "В работе", "Выполнена", "Отменена"] %>
+    <%= f.input :service , collection: [ "Анализ и интеграция готового кода", "Доработка магазина", "Расширенная поддержка", "Верстка макета", "Магазин под ключ", "Разработка приложений"]%>
+  </div>
+  <div class="col-md-8 form-inputs">  
     <%= f.input :iorder_check %>
+    <%= f.input :description, as: :text, :input_html => { 'rows' => 15} %>
   </div>
 
+</div>
+
+<div class="col-md-12">
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= link_to t('back'), cases_path , class: 'btn btn-default btn-sm'%>
+    <%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-sm' %>
+  </div>
   </div>
 <% end %>

@@ -12,7 +12,7 @@ require 'roo'
     @gsteles = @search.result
     respond_to do |format|
       format.html
-      format.csv { send_data @gsteles.to_csv }
+      format.csv { send_data @gsteles.to_csv, :filename => 'gstele_res.csv' }
       format.xls # { ssend_data @homyproducts.to_csv(col_sep: "\t") }
     end    
   end

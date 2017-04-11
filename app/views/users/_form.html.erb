@@ -6,6 +6,7 @@
   background-color: #eee;
 }
 </style>
+
 <%= simple_form_for(@user) do |f| %>
   <%= f.error_notification %>
 
@@ -19,7 +20,7 @@
     <%= f.input :last_name %>
     <%= f.input :email %>
     <%= f.input :login %>
-    <%= f.input :password %>
+    <%= f.input :password%>
     <%= f.input :language, collection: [['English', 'en'], ['Russian', 'ru']] %>
   </div>
 <div class="col-md-6">
@@ -33,7 +34,7 @@
 
 <div class="col-md-12">
 	<%= f.button :submit %>
-	<%= link_to t('show'), @user, class: 'btn btn-default btn-sm' %> 
+	<%= link_to t('show'), @user, class: 'btn btn-default btn-sm' unless @user.new_record? %> 
 	<%= link_to t('back'), users_path, class: 'btn btn-default btn-sm' %>
 </div>
 <div class="col-md-2">

@@ -10,7 +10,6 @@ has_many :contragents
 has_many :clients, :through => :contragents
 accepts_nested_attributes_for :clients
 has_many :banks
-validates :inn, uniqueness: true
 validates :title, presence: true
 has_many :acts
 

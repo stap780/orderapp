@@ -1,6 +1,4 @@
-jQuery(function() {
-$( document ).ready(function ()  {
- //alert('load');
+$(window).load(function() {
 
 var emagIds = document.getElementsByClassName("emag_id");
 
@@ -24,8 +22,16 @@ for (var i = 0; i < emagIds.length; i++) {
 });
 }  
 
+$('[data-toggle="popover"]').popover({
+    container: 'body'
+  }); 
+
+
+
+
 
 });
 
 
-});
+
+

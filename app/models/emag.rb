@@ -36,60 +36,48 @@ require "logger"
 			e.save
 			end
 		
-		url = "http://www.cbr.ru/scripts/XML_daily.asp"
-		data = Nokogiri::XML(open(url))
-		a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-		kurs = a.gsub(/,/, '.')
-	
+		
 	spreadsheet = open_spreadsheet(file) 
+		kurs = Kur.last.dollar
+	
 		(11..spreadsheet.last_row).each do |i|
 		
 		sku = spreadsheet.cell(i,'A')
 		title = spreadsheet.cell(i,'B')
 		quantity = spreadsheet.cell(i,'C').to_i
 		discount = spreadsheet.cell(i,'F').to_i
-		cost_price_rub = spreadsheet.cell(i,'E').to_f
+		cost_price_rub = spreadsheet.cell(i,'E')
 		cost_price = (cost_price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
-		if discount <= 5
-		price_rub = cost_price_rub * 1.13	
-		price = (price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
-		else	
-		price_rub = spreadsheet.cell(i,'D').to_f
-		price = (price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
-		end
-
+			if discount <= 5
+			price = (cost_price * 1.13).to_f.round(2)	
+			#price = (price_rub.to_f / "#{kurs}".to_f).to_f.round(2)
+			else	
+			price_rub = spreadsheet.cell(i,'D')
+			price = (price_rub.to_f / "#{kurs}".to_f).to_f.round(2)*0.97
+			end
+# 		puts "#{kurs}"
+# 		puts "#{sku}"
+# 		puts "#{title}"
+# 		puts "#{quantity}"	
+# 		puts "#{cost_price_rub}"
+# 		puts "#{cost_price}"
+# 		puts "#{price_rub}"
+# 		puts "#{price}"
+# 		puts "#{discount}"
 		@emag = Emag.find_by_sku("#{sku}")
-		if @emag.present? 
-		@emag.update_attributes( :sku => sku, :title => title, :price => price, :cost_price => cost_price, :quantity => quantity, :discount => discount)
-		else
-		@emag = Emag.new( :sku => sku, :title => title, :price => price, :cost_price => cost_price, :quantity => quantity, :discount => discount)
- 		@emag.save
- 		end
+			if @emag.present? 
+			@emag.update_attributes( :quantity => quantity, :price => price, :cost_price => cost_price, :discount => discount) 
+			else
+			@emag = Emag.new( :sku => sku, :title => title, :price => price, :cost_price => cost_price, :quantity => quantity, :discount => discount)
+	 		@emag.save
+	 		end
 		
-	end
-	
-# 		url = "http://www.cbr.ru/scripts/XML_daily.asp"
-# 		data = Nokogiri::XML(open(url))
-# 		a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-# 		kurs = a.gsub(/,/, '.')
-# 		
-# 		emag_rub_audio = Emag.where('title LIKE ?', '%audio%')
-# 		emag_rub_audio.each do |e|
-# 			cost_price = e.cost_price
-# 			price = e.price
-# 			e.cost_price = (cost_price.to_f / "#{kurs}".to_f).to_f.round(2)
-# 			e.price = (price.to_f / "#{kurs}".to_f).to_f.round(2)
-# 		 	e.save	
-# 		end
-# 		emag_rub_gamecom = Emag.where('title LIKE ?', '%gamecom%')
-# 		emag_rub_gamecom.each do |e|
-# 			cost_price = e.cost_price
-# 			price = e.price
-# 			e.cost_price = (cost_price.to_f / "#{kurs}".to_f).to_f.round(2)
-# 			e.price = (price.to_f / "#{kurs}".to_f).to_f.round(2)
-# 		 	e.save	
-# 		end
+		end
 		
+		@emag = Emag.find_by_id(343)
+		price_e = @emag.price*2
+		@emag.update_attributes(:price => price_e) 
+			
 	end
   
    def self.open_spreadsheet(file)

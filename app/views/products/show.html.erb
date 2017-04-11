@@ -53,14 +53,14 @@
   </tr>
   <tr>
 	<% @product.variants.each do |pv|%>
-	<td><strong><%=pv.product_option.supplier_name%></strong></td>
+	<td><strong><%=pv.product_option.supplier_name if pv.product_option !=nil%></strong></td>
 	<td><%=pv.sku %></td>
 	<td><%=pv.quantity  %></td>
 	<td><%=pv.cost_price %></td>
 	<td><%=pv.price %></td>
 	<td><%=pv.old_price %></td>
 	<td><%=pv.weight %></td>
-	<td><%=pv.product_option.title%></td>
+	<td><%=pv.product_option.title if pv.product_option !=nil%></td>
 	<td><%=pv.supplier_id %></td>
   </tr>
   	<%end%>

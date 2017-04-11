@@ -8,23 +8,28 @@ class InvoiceListsController < ApplicationController
       redirect_to login_url, alert: "Not authorized! Please log in."
      end
   end
-
+  
   # GET /invoice_lists
   # GET /invoice_lists.json
   def index
-     @search = InvoiceList.ransack(params[:q]) #используется gem ransack для поиска и сортировки
-     @search.sorts = 'number desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
-     @invoice_lists = @search.result.paginate(page: params[:page], per_page: 30) 
+     @q = InvoiceList.ransack(params[:q]) #используется gem ransack для поиска и сортировки
+     @q.sorts = 'number desc' if @q.sorts.empty? # сортировка таблицы по номеру по умолчанию 
+     @invoice_lists = @q.result.paginate(page: params[:page], per_page: 30) 
   end
+  
+  def search
+  index
+  render :index
+  end
+
 
   # GET /invoice_lists/1
   # GET /invoice_lists/1.json
   def show
   @company2 = Company.find_by_id(@invoice_list.companytwo)
     respond_to do |format|
-      format.html
-      format.js
-      format.json
+    format.html
+    format.js
     end
   end
   
@@ -162,6 +167,7 @@ class InvoiceListsController < ApplicationController
       nds = @invoice_list.total_price - @invoice_list.total_price*100/118
       @invoiceout = @invoice_list.create_invoiceout(number: @invoice_list.number, date: @invoice_list.updated_at, company_id: @invoice_list.company_id, invoice_list_id: @invoice_list.id, total_price: @invoice_list.total_price.to_f.round(2), nds: "#{nds}".to_f.round(2))
       
+      
       else
       
       if @invoice_list.invoiceout_check == false
@@ -176,6 +182,61 @@ class InvoiceListsController < ApplicationController
       end
       end
       
+      # работаем с возвратом
+      if @invoice_list.vozvrat_check == true
+	     if @invoice_list.vozvrat.nil?
+		     @vozvrat = @invoice_list.create_vozvrat(:number => @invoice_list.number, :date => Date.current, :invoice_list_id => @invoice_list.id)
+		     @invoice_list.invoice_list_items.each do |ili| 
+		  	  clear_price = ili.price - ili.price * @invoice_list.discount.to_i/100
+		  	  stock = Stock.where(product_id: ili.product_id, vozvrat_id: @vozvrat.id)
+		  	  if stock.present?
+		  	  stock.each do |stock|
+		  	  stock.quantity = ili.quantity
+		  	  stock.price = "#{clear_price}"
+		  	  stock.save
+		  	  end
+		  	  else
+		  	  @stock = Stock.create(product_id: ili.product_id, vozvrat_id: @vozvrat.id, quantity: ili.quantity, price: "#{clear_price}")
+		  	  end
+		    end
+		     
+					#работаем с stock и записываем в позиции айди позиции нашего склада(store)
+					@invoice_list.invoice_list_items.each do |ili|
+					store = Store.find_by_title(ili.title)
+					if store.present?
+					stock = Stock.where(product_id: ili.product_id)
+					stock.each do |stock|
+					stock.store_id = store.id
+					stock.save
+					end
+					else
+					store = Store.create(title: ili.title)
+					stock = Stock.where(product_id: ili.product_id)
+					stock.each do |stock|
+					stock.store_id = store.id
+					stock.save
+					stock.product.store_id = store.id
+					stock.product.save
+					end
+					end
+					end
+		   end
+	    else
+		  if @invoice_list.vozvrat_check == false 
+		    @vozvrat = Vozvrat.find_by_invoice_list_id(@invoice_list.id)
+				if @vozvrat.present?
+				stock = Stock.where(:vozvrat_id => @vozvrat.id)
+				stock.each do |st|
+				st.destroy
+				end  
+				@vozvrat.destroy
+				end
+			end
+		  end
+		   
+ 
+		      
+	      
       
         format.html { redirect_to @invoice_list, notice: 'Invoice list was successfully updated.' }
         format.json { render :show, status: :ok, location: @invoice_list }
@@ -216,6 +277,6 @@ class InvoiceListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_list_params
-      params.require(:invoice_list).permit(:number, :date, :status, :total_price, :client_id, :company_id, :discount, :invoiceout_check, :companytwo, :invoice_list_items_attributes =>[:id, :product_id, :title, :quantity, :price, :sum, :invoice_id, :_destroy])
+      params.require(:invoice_list).permit(:number, :date, :status, :total_price, :client_id, :company_id, :discount, :invoiceout_check, :vozvrat_check, :companytwo, :invoice_list_items_attributes =>[:id, :product_id, :title, :quantity, :price, :sum, :invoice_id, :_destroy])
     end
 end

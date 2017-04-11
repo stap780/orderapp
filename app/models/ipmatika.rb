@@ -25,64 +25,97 @@ def self.import(file)
 	    ipm.quantity_free = 0
 	    ipm.save
 	  end
-    spreadsheet = open_spreadsheet(file) 
-     (9..spreadsheet.last_row).each do |i|  
-       sku = spreadsheet.cell(i,'A').to_s
-       title = spreadsheet.cell(i,'E').to_s
-       quantity_all = spreadsheet.cell(i,'Q').to_i
-       quantity_free = spreadsheet.cell(i,'Q').to_i
-       cost_price = spreadsheet.cell(i,'P').to_f
-       price = spreadsheet.cell(i,'N').to_f
-       #puts "#{(sku)}"
-        ipmatika = Ipmatika.find_by_sku(sku)
+	  
+	  spreadsheet = open_spreadsheet(file)
+	  header = spreadsheet.row(4)
+	     
+	  (7..spreadsheet.last_row).each do |i|
+		     
+    row = Hash[[header, spreadsheet.row(i)].transpose]
+	     sku = row["Артикул"]
+	     title = row["Номенклатура, Упаковка"]
+	     quantity_all = row["Остаток"]
+	     quantity_free = row["Остаток"]
+	     cost_price = row["Дилерская"]#.gsub(',',' ')
+	     price = row["Розничная"]#.gsub(',',' ')
+				if sku && title !=''
+				ipmatika = Ipmatika.find_by_sku(sku)
 				if !ipmatika.present? 
 				ipmatika = Ipmatika.new(:sku => sku, :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free, :cost_price => cost_price, :price => price)
 				ipmatika.save
-		 		else
-				ipmatika.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free, :cost_price => cost_price, :price => price)
-		    end
+				else
+				ipmatika.update_attributes( :title => title, :quantity_all => quantity_all, :quantity_free => quantity_free, :cost_price => cost_price, :price => price) 
+				end
+		   end
     end
+
+
+    k_ipmatika = 58.71
+    koef = k_ipmatika/Kur.last.dollar#1.061 # коэффициент
     ipmatika = Ipmatika.where('sku Like ?', '%SIP%')
 		ipmatika.each do |v|
-			koef = 1.03 # коэффициент 
 			new_cost_price = (v.cost_price*koef).to_f.round(2)
 			new_price = (v.price*koef).to_f.round(2)
 			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
 		end
 		ipmatika = Ipmatika.where('sku Like ?', '%W5%')
 		ipmatika.each do |v|
-			koef = 1.03
 			new_cost_price = (v.cost_price*koef).to_f.round(2)
 			new_price = (v.price*koef).to_f.round(2)
 			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
 		end
 		ipmatika = Ipmatika.where('sku Like ?', '%VP530%')
 		ipmatika.each do |v|
-			koef = 1.03
 			new_cost_price = (v.cost_price*koef).to_f.round(2)
 			new_price = (v.price*koef).to_f.round(2)
 			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
 		end
 		ipmatika = Ipmatika.where('sku Like ?', '%CP860%')
 		ipmatika.each do |v|
-			koef = 1.03
 			new_cost_price = (v.cost_price*koef).to_f.round(2)
 			new_price = (v.price*koef).to_f.round(2)
 			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
 		end
 		ipmatika = Ipmatika.where('sku Like ?', '%EXP%')
 		ipmatika.each do |v|
-			koef = 1.03
 			new_cost_price = (v.cost_price*koef).to_f.round(2)
 			new_price = (v.price*koef).to_f.round(2)
 			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
 		end
 		ipmatika = Ipmatika.where('sku Like ?', '%5VDC%')
 		ipmatika.each do |v|
-			koef = 1.03
 			new_cost_price = (v.cost_price*koef).to_f.round(2)
 			new_price = (v.price*koef).to_f.round(2)
 			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
+		end
+		ipmatika = Ipmatika.where('sku Like ?', '%EHS36%')
+		ipmatika.each do |v|
+			new_cost_price = (v.cost_price*koef).to_f.round(2)
+			new_price = (v.price*koef).to_f.round(2)
+			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
+		end
+		ipmatika = Ipmatika.where('sku Like ?', '%RT10%')
+		ipmatika.each do |v|
+			new_cost_price = (v.cost_price*koef).to_f.round(2)
+			new_price = (v.price*koef).to_f.round(2)
+			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
+		end
+		ipmatika = Ipmatika.where('sku Like ?', '%BT40%')
+		ipmatika.each do |v|
+			new_cost_price = (v.cost_price*koef).to_f.round(2)
+			new_price = (v.price*koef).to_f.round(2)
+			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
+		end
+		ipmatika = Ipmatika.where('sku Like ?', '%YHS32%')
+		ipmatika.each do |v|
+			new_cost_price = (v.cost_price*koef).to_f.round(2)
+			new_price = (v.price*koef).to_f.round(2)
+			v.update_attributes(:cost_price => new_cost_price, :price => new_price)
+		end
+		ipmatika = Ipmatika.where('sku Like ?', '%MS-%')
+		ipmatika.each do |v|
+			new_price = (v.price*0.95).to_f.round(2) if v.price != nil
+			v.update_attributes(:price => new_price)
 		end
 end
   

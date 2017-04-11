@@ -5,17 +5,17 @@
 
 json.array! @iorders do |iorder|
   json.number iorder.number
-  if !iorder.iml_id.nil?
+  if iorder.iml_id.present?
 	json.courierName 'IML'	  
-  json.track iorder.iml.barcode
-  json.status iorder.iml.state
+  json.track iorder.iml.barcode if iorder.iml !=nil
+  json.status iorder.iml.state if iorder.iml !=nil
   else
-  if !iorder.dpd_id.nil?
+  if iorder.dpd_id.present?
 	json.courierName 'DPD'	  
   json.track iorder.dpd.dpdnumber
   json.status iorder.dpd.state
   else
-  	json.courierName 'not available'	  
+  json.courierName 'not available'	  
   json.track 'not available'
   json.status 'not available'
   end

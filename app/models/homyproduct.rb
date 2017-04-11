@@ -32,7 +32,16 @@ validates :artikul, uniqueness: true
 	    hp.save
 	    end
 	    
-    spreadsheet = open_spreadsheet(file) 
+	    	    
+    spreadsheet = open_spreadsheet(file)
+    
+#     	url = "http://www.cbr.ru/scripts/XML_daily.asp"
+# 			data = Nokogiri::XML(open(url))
+# 			a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
+# 			@kurs = a.gsub(/,/, '.')
+# @kurs = 59.61
+		kurs = Kur.last.dollar
+     
      (5..spreadsheet.last_row).each do |i|  
 	     artikul = spreadsheet.cell(i,'A').to_i 
 	     title = spreadsheet.cell(i,'B')
@@ -40,10 +49,7 @@ validates :artikul, uniqueness: true
 	     valuta = spreadsheet.cell(i,'D')
 	     
 			if valuta == "РУБ"
-			url = "http://www.cbr.ru/scripts/XML_daily.asp"
-			data = Nokogiri::XML(open(url))
-			a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-			kurs = a.gsub(/,/, '.')
+			
 			price = (price_file.to_f / "#{kurs}".to_f).to_f.round(2) 
 			else
 			price = price_file.to_f.round(2) 
@@ -52,8 +58,8 @@ validates :artikul, uniqueness: true
 	     quantity_all_free = spreadsheet.cell(i,'F').to_i
 	     quantity_main_res = spreadsheet.cell(i,'G').to_i 
 	     quantity_main_free = spreadsheet.cell(i,'H').to_i
-	     quantity_tul_res = spreadsheet.cell(i,'I').to_i 
-	     quantity_tul_free = spreadsheet.cell(i,'J').to_i
+	     quantity_tul_res = spreadsheet.cell(i,'K').to_i 
+	     quantity_tul_free = spreadsheet.cell(i,'L').to_i
 	     quantity_transit_all = spreadsheet.cell(i,'M').to_i
 	     quantity_transit_free = spreadsheet.cell(i,'N').to_i
 		 #min_price = spreadsheet.cell(i,'O').to_f
@@ -77,24 +83,34 @@ validates :artikul, uniqueness: true
      
     @homyGrand = Homyproduct.where('title like ?', '%Grandstream%')
  		@homyGrand.each do |hd|
-	 		hd.sell_price = (hd.price * 1.20).to_f.round(2)
+	 		hd.sell_price = (hd.price * 1.255).to_f.round(2)
 	 		hd.save
 	 		end
 	@homyRTX = Homyproduct.where('title like ?', '%RTX%')
  		@homyRTX.each do |hd|
-	 		hd.sell_price = (hd.price * 1.40).to_f.round(2)
+	 		hd.sell_price = (hd.price * 1.50).to_f.round(2)
 	 		hd.save
 	 		end
 	@homyYe = Homyproduct.where('title like ?', '%sip-t%')
  		@homyYe.each do |hd|
-	 		hd.sell_price = (hd.price * 1.45).to_f.round(2)
+	 		hd.sell_price = (hd.price * 1.47).to_f.round(2)
 	 		hd.save
 	 		end
 	@homyDbl = Homyproduct.where('title like ?', '%DBL%')
  		@homyDbl.each do |hd|
-	 		hd.sell_price = (hd.price * 1.36).to_f.round(2)
+	 		hd.sell_price = (hd.price * 1.355).to_f.round(2)
 	 		hd.save
 	 		end
+	@homyTecom = Homyproduct.where('title like ?', '%Tecom%')
+ 		@homyTecom.each do |hd|
+	 		hd.sell_price = (hd.price * 1.45).to_f.round(2)
+	 		hd.save
+	 		end
+	@homyD3088 = Homyproduct.where('title like ?', '%DUALphone 3088RU%')
+ 		@homyD3088.each do |hd|
+	 		hd.sell_price = (hd.price * 1.22).to_f.round(2)
+	 		hd.save
+	 		end 		
   end
   
    def self.open_spreadsheet(file)

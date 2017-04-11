@@ -1,22 +1,20 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
-		<div class="col-md-3">
-			<h1>Премьер<br><small>сводная таблица</small></h1>
+		<div class="col-md-4">
+			<h2>Премьер<br><small>сводная таблица</small></h2>
 			<p id="product_option_id" style="display:none;">3</p>
-			<p>Всего товаров - <%= @totalproducts %></p>
-			<p>Товаров >0  - <%= @homynotzero%></p>
+			<p>Всего товаров - <%= @totalproducts %> | Товаров > 0  - <%= @homynotzero%></p>
 		</div>
 		<div class="col-md-3">
-		
-		<p>Import product</p>
-		<p><%= form_tag import_homyproducts_path, multipart: true do %></p>  <p><%= file_field_tag :file %></p>  <p><%= submit_tag "Import" , :class =>'btn btn-default btn-xs' %></p>
+		<%= form_tag import_homyproducts_path, multipart: true do %><%= file_field_tag :file %>
+		  <%= submit_tag "Import" , :class =>'btn btn-default btn-sm' %>
 		<% end %>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-5">
 		<div class="col-md-12" style="margin-bottom: 5px;">
 		<form class="form-inline">
-		<p>Поиск</p>
+	<%=t 'search_t'%>
 		<%= search_form_for @search do |f|%>
   		<div class = "form-group">
   		<%= f.search_field :artikul_eq, placeholder: 'Sku', class: "form-control input-sm" %>  
@@ -77,7 +75,7 @@
       	<td class="id"><%= homyproduct.id %></td>
         <td><%= homyproduct.artikul %></td>
         <!--<td><%= homyproduct.sku %></td>-->
-        <td><%= homyproduct.title %></td>
+        <td><span data-toggle="popover" data-content="<%= homyproduct.title%>" data-placement="top" data-trigger="hover" ><%= homyproduct.title.truncate(30) if homyproduct.title !=nil%></span></td>
         <td><%= homyproduct.valuta %></td>
         <!--<td><%= homyproduct.quantity_all_res %></td>-->
         <!--<td><%= homyproduct.quantity_all_free %></td>-->
@@ -97,6 +95,7 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @homyproducts %>
 </div>
 </div>
 </div>

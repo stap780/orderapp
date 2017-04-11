@@ -1,0 +1,97 @@
+<div id="modal-window-invoice" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
+
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+</div>
+<div class="modal-body">
+
+<p id="notice" ><%= notice %></p>
+<div class="col-md-12">
+<div class="col-md-8">
+<h1><%= t 'invoices.show.title' %> <%= @invoice.number %></h1>
+
+<p>
+  <strong><%= t 'invoices.show.date' %>:</strong>
+  <%= @invoice.date.strftime("%d / %m / %Y")  %>
+</p>
+
+<p>
+  <strong><%= t 'invoices.show.client' %>:</strong>
+  <%= @invoice.client.name %> <%= @invoice.client.surname %>
+</p>
+<p>
+  <strong><%= t 'invoices.show.company' %>:</strong>
+  <%= @invoice.company.title if @invoice.company !=nil %>
+</p>
+<p>
+  <strong><%= t 'invoices.show.company2' %>:</strong>
+  <%= @company2.title if @company2 !=nil %>
+</p>
+
+</div>
+	<div class="col-md-4">
+	<div class="col-md-12">
+	  <strong><%= t 'invoices.show.invstatus' %>:</strong>
+	  <%= @invoice.invstatus %>
+	</div>
+	<div class="col-md-12">
+		<strong><%= t 'invoices.show.invoice_list_check' %>:</strong>
+	  <% if @invoice.invoice_lists != nil%>
+	  	  <% @invoice.invoice_lists.each do |il| %>
+	  <%= link_to "#{il.number}", il,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-invoice-list' if il != nil%>
+	  <% end %>
+	  <%else%>
+	  <%a="нет"%><%="#{a}"%>
+	  <% end %>
+
+	</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+<div class="col-md-8">
+<strong><%= t 'invoices.show.product_info' %></strong>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%= t 'item_title' %></th>
+      <th><%= t 'item_quantity'%></th>
+      <th><%= t 'item_price' %></th>
+      <th><%= t 'item_sum' %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invoice.invoice_items.each do |pr| %>
+      <tr>
+        <td><%=link_to "#{pr.title}", pr.product %></td>
+        <td><%= pr.quantity %></td>
+        <td><%= pr.price %></td>
+        <td><%= pr.sum %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<div class="col-md-4" style="margin-top:40px;">
+<p>
+  <strong><%= t 'invoices.show.discount' %>:</strong>
+<%= @invoice.discount %> %
+</p>
+
+<p>
+  <strong><%= t 'invoices.show.total' %>:</strong>
+  <%= @invoice.total_price %>
+</p>
+
+</div>
+</div>
+
+
+<div class="col-md-12">
+<%= link_to t('edit'), edit_invoice_path(@invoice), class: 'btn btn-default btn-sm' %> 
+<%= link_to t('back'), invoices_path, class: 'btn btn-default btn-sm' %>
+<%= link_to '<i class="glyphicon glyphicon-print"></i>'.html_safe, print_invoice_path(@invoice), target: :_blank, class: 'btn btn-success' %>
+</div>
+
+</div>

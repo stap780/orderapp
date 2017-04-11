@@ -49,7 +49,22 @@ config.serve_static_files = true #я поменял на true
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  
+  config.action_mailer.delivery_method = :smtp
+  
+  config.action_mailer.smtp_settings = {
+	  address: "smtp.gmail.com",
+	  port: 587,
+	  domain: "teletri.ru",
+	  authentication: "login",
+	  enable_starttls_auto: true,
+	  user_name: "advt@teletri.ru",
+	  password: "advt@teletri.ru",
+	  openssl_verify_mode: "none"
+  } # и дал разрешение в gmail (advt) на доступ к аккаунту из непроверенных источников - https://www.google.com/settings/security/lesssecureapps - но помогло или нет не проверял - устал
+  
+  config.action_mailer.default_url_options = { host: "http://188.166.111.118:3030" }
 
   # Enable threaded mode
   # config.threadsafe!

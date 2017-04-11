@@ -1,7 +1,4 @@
-jQuery(function() {
-$( document ).ready(function ()  {
-// alert('load');
-
+$(window).load(function() {
 var angelIds = document.getElementsByClassName("angel_id");
 
 for (var i = 0; i < angelIds.length; i++) {
@@ -26,7 +23,3 @@ for (var i = 0; i < angelIds.length; i++) {
 
 
 });
-
-
-});
-

@@ -1,17 +1,23 @@
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-3">
-<h2>Служба доставки IML<br><small>  сводная таблица</small></h2>
+<h2>Служба доставки IML<br><small>сводная таблица</small></h2>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 		</div>
-		<div class="col-md-7"><p>Поиск</p>
+		<div class="col-md-6">
+			<form class="form-inline">
+	<%=t 'search_t'%>
 		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.search_field :number_eq, placeholder: 'По номеру' %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>  
-  		</div>
+  		<div class = "form-group">
+  		<%= f.search_field :number_eq, placeholder: 'По номеру', class: "form-control input-sm"  %> 
+  		</div> 
+  		<%= f.submit t('search'), class: 'btn btn-default btn-sm' %>  
+  		
 		<% end %>
+		</form>
 		</div>
 
 	</div>
@@ -41,13 +47,13 @@
 
   <tbody>
     <% @imls.each do |iml| %>
-      <tr>
-        <td><%= iml.number %></td>
+      <tr id=<%=iml.id%>>
+        <td><%= link_to iml.iorders.first.number, iml.iorders.first,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' if iml.iorders.first !=nil%></td>
         <td><%= iml.statenum %></td>
         <td><%= iml.state %></td>
         <td><%= iml.statusnum %></td>
         <td><%= iml.status %></td>
-        <td><%= iml.statusdate %></td>
+        <td><%= iml.statusdate.strftime("%d/%m/%Y") if iml.statusdate !=nil%></td>
         <td><%= iml.barcode %></td>
         <!--<td><%= link_to 'Show', iml %></td>
         <td><%= link_to 'Edit', edit_iml_path(iml) %></td>

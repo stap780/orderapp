@@ -66,6 +66,6 @@ class CitilinksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def citilink_params
-      params.require(:citilink).permit(:title, :price, :price1, :priceusd, :q1, :q2, :q3, :q4, :q5, :quantity)
+      params.require(:citilink).permit(:title, :cid, :price, :price1, :priceusd, :q1, :q2, :q3, :q4, :q5, :quantity)
     end
 end

@@ -8,14 +8,12 @@
 		</div>
 		
 		<div class="col-md-8">
-		<%= search_form_for @q, url: search_stores_path, class: 'form-inline'  do |f|%>
-				
-				<%= f.date_field :updated_at_gteq, class: "form-control input-sm"%>
-				<%= f.date_field :updated_at_lteq, class: "form-control input-sm" %>
-
-			
-			<%= f.submit t('search'), class:"btn btn-success  btn-sm"%>
-			<% end %>
+			<%= t '.period' %>
+		<%= search_form_for @q, class: 'form-inline'  do |f|%>
+		<%= f.date_field :stocks_created_at_gteq, class: "form-control input-sm"%>
+		<%= f.date_field :stocks_created_at_lteq, class: "form-control input-sm" %>
+		<%= f.submit t('search'), class:"btn btn-success  btn-sm"%>
+		<% end %>
 		</div>
 		
 	<div class="col-md-12">
@@ -31,31 +29,35 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Product</th>
-      <th>Приход</th>
-      <th>Расход</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th colspan="3"></th>
+      <th><%= t '.product_title' %></th>
+      <th><%= t '.prihod' %></th>
+      <th><%= t '.rashod' %></th>
+      <th>Возврат</th>
+      <th><%= t '.quantity' %></th>
+      <th>Ср вх Ц</th>
+      <th>Ср исх Ц</th>
     </tr>
   </thead>
 
   <tbody>
     <% @stores.each do |store| %>
       <tr>
-        <td><%= store.title %></td>
-        <td><% purchase_prihod = store.stocks.where("purchase_list_id IS NOT ?", nil)%>
-        <% enter_prihod = store.stocks.where("enter_id IS NOT ?", nil)%>
-        <% b1 = purchase_prihod.sum(:quantity).to_i+ enter_prihod.sum(:quantity).to_i%>
-        <%=b1%>
+        <td id="<%= store.id %>"><%= store.title %></td>
+        <td><% purchase_prihod = store.stocks.where("purchase_list_id IS NOT ? and created_at >= ? and created_at <= ?", nil, @startdate, @enddate)%>
+        <% enter_prihod = store.stocks.where("enter_id IS NOT ? and created_at >= ? and created_at <= ?", nil, @startdate, @enddate)%>
+        <% vozvrat = store.stocks.where("vozvrat_id IS NOT ? and created_at >= ? and created_at <= ?", nil, @startdate, @enddate)%>
+        <% b1 = purchase_prihod.sum(:quantity).to_i+ enter_prihod.sum(:quantity).to_i %>
+        <%=b1%> 
         </td>
-        <td><% invoice_rashod = store.stocks.where("invoice_list_id IS NOT ?", nil) %>
-        <% loss_rashod = store.stocks.where("loss_id IS NOT ?", nil) %>
+        <td><% invoice_rashod = store.stocks.where("invoice_list_id IS NOT ? and created_at >= ? and created_at <= ?", nil, @startdate, @enddate) %>
+        <% loss_rashod = store.stocks.where("loss_id IS NOT ? and created_at >= ? and created_at <= ?", nil, @startdate, @enddate) %>
         <% c1 = invoice_rashod.sum(:quantity).to_i + loss_rashod.sum(:quantity).to_i %>
-        <%=c1%>
+        <%=c1%> 
         </td>
-        <td><!-- a = "#{b1}".to_i - "#{c1}".to_i--><%= store.quantity %></td>
-        <td><%= store.price %></td>
+        <td><%= vozvrat = store.stocks.where("vozvrat_id IS NOT ? and created_at >= ? and created_at <= ?", nil, @startdate, @enddate).sum(:quantity).to_i%></td>
+        <td><!-- a = b1 - c1--> <%= store.quantity %></td>
+        <td class="pricein"><%= store.pricein%></td>
+        <td class="price"><%= store.price%></td>
 <!--
         <td><%= link_to 'Show', store %></td>
         <td><%= link_to 'Edit', edit_store_path(store) %></td>
@@ -63,6 +65,11 @@
 -->
       </tr>
     <% end %>
+    <tr>
+	      <td colspan="5"></td>
+	      <td id="totalPricein" style="font-weight: bold;"></td>
+	      <td id="totalPrice" style="font-weight: bold;"></td>
+      </tr>
   </tbody>
 </table>
 <%= will_paginate @stores %>

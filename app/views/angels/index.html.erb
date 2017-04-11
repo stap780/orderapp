@@ -2,27 +2,23 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-3">
-			<h1>Цифровой ангел <br><small>сводная таблица</small></h1>
+			<h2>Цифровой ангел <br><small>сводная таблица</small></h2>
 			<p>Всего товаров - <%= @totalproducts %></p>
 		</div>
 		<div class="col-md-3">
-		Import product
-		<p><%= form_tag import_angels_path, multipart: true do %> </p> 
-		<p><%= file_field_tag :file %></p> <p><%= submit_tag "Import", :class =>'btn btn-default btn-xs'%></p>
+		<%= form_tag import_angels_path, multipart: true do %> <%= file_field_tag :file %><%= submit_tag "Import", :class =>'btn btn-default btn-sm'%>
 		<% end %>
 		</div>
 		
 		<div class="col-md-6">
-		<div class="col-md-12" style="margin-bottom: 5px;">
+		<div class="col-md-12">
 		<form class="form-inline">
-		<p>Поиск</p>
 		<%= search_form_for @search do |f|%>
   		<div class = "form-group">
   		<%= f.search_field :sku_cont, placeholder: 'Sku', class: "form-control input-sm" %>  
   		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
   		</div>
   		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-  		
 		<% end %>
 		</form>
 		</div>

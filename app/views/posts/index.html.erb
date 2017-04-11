@@ -17,7 +17,7 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.number %></td>
-        <td><%= post.postnumber %></td>
+        <td><%= link_to post.postnumber, "https://www.pochta.ru/tracking##{post.postnumber}", :target => "_blank" %></td>
         <td><%= post.pickupdate %></td>
         <td><%= post.state %></td>
         <td><%= link_to 'Show', post %></td>

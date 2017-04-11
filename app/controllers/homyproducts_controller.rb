@@ -7,7 +7,7 @@ require 'roo'
   def index
     @search = Homyproduct.ransack(params[:q]) #используется gem ransack для поиска и сортировки
     @search.sorts = 'id asc' if @search.sorts.empty? # сортировка таблицы по алфавиту по умолчанию 
-    @homyproducts = @search.result
+    @homyproducts = @search.result.paginate(page: params[:page], per_page: 30) 
     @totalproducts = Homyproduct.count
     @homynotzero = Homyproduct.where("quantity_all_free > 0").count
     respond_to do |format|

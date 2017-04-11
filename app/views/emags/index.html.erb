@@ -2,21 +2,19 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-3">
-			<h1>Имаг<br><small>сводная таблица</small></h1>
+			<h2>Имаг<br><small>сводная таблица</small></h2>
 			<p>Всего товаров - <%= @totalemags %></p>
 			<p>Кол-во > 0 - <%= @emag_not_nill %></p>
 		</div>
 		<div class="col-md-3">
-		
-		<p>Import product</p>
-		<p><%= form_tag import_emags_path, multipart: true do %></p>  
-		<p><%= file_field_tag :file %></p><p><%= submit_tag "Import", :class =>'btn btn-default btn-xs' %></p>
+		<%= form_tag import_emags_path, multipart: true do %><%= file_field_tag :file %>
+		<%= submit_tag "Import", :class =>'btn btn-default btn-xs' %>
 		<% end %>
 		</div>
 		<div class="col-md-6">
 		<div class="col-md-12" style="margin-bottom: 5px;">
 		<form class="form-inline">
-		<p>Поиск</p>
+	<%=t 'search_t'%>
 		<%= search_form_for @search do |f|%>
   		<div class = "form-group">
   		<%= f.search_field :id_eq, placeholder: 'ID', class: "form-control input-sm" %>  
@@ -62,7 +60,7 @@
       <tr>
       <td class="emag_id"><%= emag.id %></td>
         <td><%= emag.sku %></td>
-        <td><%= emag.title %></td>
+        <td><span data-toggle="popover" data-content="<%= emag.title%>" data-placement="top" data-trigger="hover" ><%= emag.title.truncate(30) %></span></td>
         <td><%= emag.quantity %></td>
         <td><%= emag.cost_price %></td>
         <td><%= emag.discount %></td>

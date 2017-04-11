@@ -1,3 +1,4 @@
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
@@ -8,10 +9,10 @@
 		</div>
 		
 		<div class="col-md-3">
-		<form class="form-inline">	
-		<p>Поиск</p>
+		<form class="form-inline">
+	<%=t 'search_t'%>
 		<%= search_form_for @search do |f|%>
-		<div class="form-group">
+  		<div class = "form-group">
 		<%= f.search_field :numer_eq, placeholder: 'По номеру', class: "form-control input-sm" %>
 		</div>
 		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
@@ -41,17 +42,17 @@
       <th>Pickupdate</th>
       <th>Plandeliverytime</th>
       <th>State</th>
-      <th colspan="3"></th>
+      <th colspan="1"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @dpds.each do |dpd| %>
       <tr>
-        <td><%= dpd.numer %></td>
+        <td><%=  link_to dpd.iorders.first.number, dpd.iorders.first,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'%></td>
         <td><%= dpd.dpdnumber %></td>
-        <td><%= dpd.pickupdate %></td>
-        <td><%= dpd.plandeliverytime %></td>
+        <td><%= dpd.pickupdate.strftime("%d/%m/%Y") if dpd.pickupdate !=nil %></td>
+        <td><%= dpd.plandeliverytime.strftime("%d/%m/%Y") if dpd.plandeliverytime !=nil%></td>
         <td><%= dpd.state %></td>
         <!--<td><%= link_to 'Show', dpd %></td>
         <td><%= link_to 'Edit', edit_dpd_path(dpd) %></td>

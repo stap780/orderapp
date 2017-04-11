@@ -14,19 +14,16 @@ gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-gem 'rake', '~> 10.5'
+gem 'rake', '~> 11.3'
 gem 'insales_api'
 gem 'execjs'
 gem 'therubyracer'
@@ -50,18 +47,20 @@ gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'whenever', :require => false
 gem 'spring'
 
+# Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+
 gem 'bootstrap-filestyle-rails'
 gem 'addressable', '~> 2.4'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rails-i18n'
 gem 'numbers_and_words', '~> 0.10.5'
-gem 'jquery-turbolinks'
- 
+#gem 'jquery-turbolinks'
+gem "sqlite3"
+
 group :development, :test do
 	gem 'puma', '~>3.0.2'
-	gem "sqlite3"
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   #gem 'debugger'
 
@@ -71,14 +70,13 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   #gem 'spring'
   # Use Capistrano for deployment
-	gem 'capistrano',         require: false
-    gem 'capistrano-rvm',     require: false
-    gem 'capistrano-rails',   require: false
-    gem 'capistrano-bundler', require: false
-    gem 'capistrano3-puma',   require: false
-    gem 'capistrano-rails-console', require: false
+	#gem 'capistrano',         require: false
+   # gem 'capistrano-rvm',     require: false
+   # gem 'capistrano-rails',   require: false
+   # gem 'capistrano-bundler', require: false
+    #gem 'capistrano3-puma',   require: false
+    #gem 'capistrano-rails-console', require: false
 end
 
 group :production do
- gem 'sqlite3'
 end

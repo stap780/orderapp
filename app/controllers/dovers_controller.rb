@@ -1,4 +1,5 @@
 class DoversController < ApplicationController
+  
   before_action :set_dover, only: [:show, :edit, :update, :print, :destroy]
   before_action :authorize
   autocomplete :product, :title, full: true,  :extra_data => [:id]
@@ -13,7 +14,10 @@ class DoversController < ApplicationController
   # GET /dovers
   # GET /dovers.json
   def index
-    @dovers = Dover.all
+    @search = Dover.ransack(params[:q]) #используется gem ransack для поиска и сортировки
+    @search.sorts = 'number desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
+    @dovers = @search.result.paginate(page: params[:page], per_page: 30) 
+
   end
 
   # GET /dovers/1
@@ -28,6 +32,7 @@ class DoversController < ApplicationController
 
   # GET /dovers/1/edit
   def edit
+      @dover = Dover.find(params[:id])
   end
 
   # POST /dovers

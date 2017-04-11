@@ -2,26 +2,28 @@
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
-		<div class="col-md-4">
-<h1>Входящие счета </br><small>сводная таблица</small></h1>
+		<div class="col-md-2">
+<h2>Входящие счета </br><small>сводная таблица</small></h2>
 		</div>
 		<div class="col-md-2">
+			<%=link_to t('.new_invoice'), new_purchase_invoice_path   , class: 'btn btn-sm btn-info' %>
 		</div>
-		<div class="col-md-6">  		
+		<div class="col-md-8">  		
   		<form class="form-inline">
-			<p><%= t 'search_t' %></p>
 			<%= search_form_for @search do |f|%>
-	  		<div classs = "search">
-	  		<%= f.search_field :number_eq, placeholder: t('.number_eq'), class: "form-control input-sm"  %> 
+<div class = "form-group">
+				<%= f.date_field :date_gteq, class: "form-control input-sm", placeholder: "Начальная дата" %>
+				<%= f.date_field :date_lteq, class: "form-control input-sm", placeholder: "Конечная дата" %>
+		  	<%= f.search_field :number_eq, placeholder: t('.number_eq'), class: "form-control input-sm"  %> 
 	  		<%= f.search_field :status_cont, placeholder: t('.status_cont'), class: "form-control input-sm"  %>  
-	  		<%= f.submit t('search'), class: 'btn btn-default btn-sm' %>
+	  		<%= f.submit t('search'), class: 'btn btn-success btn-sm' %>
+			<%= link_to 'Сбросить', purchase_invoices_path, class:"btn btn-default  btn-sm"%>
 	  		</div>
 			<% end %>
 			</form>
 		</div>
 		<div class="col-md-12">
 		<div class="col-md-5">
-		<p><%=link_to t('.new_invoice'), new_purchase_invoice_path   %></p>
 		</div>
 	</div>
 </div>
@@ -36,7 +38,7 @@
       <th><%= sort_link(@search, :date, t('.date')) %></th>
       <th><%= t '.company' %></th>
       <th><%= t '.status' %></th>
-      <th><%= t '.total' %></th>
+      <th><%= sort_link(@search, :total_price, t('.total')) %></th>
       <th><%= t '.purchase_list' %></th>
       <th colspan="3"></th>
     </tr>
@@ -45,19 +47,17 @@
   <tbody>
     <% @purchase_invoices.each do |purchase_invoice| %>
       <tr>
-        <td><%= purchase_invoice.number %></td>
+        <td><%=  link_to purchase_invoice.number, purchase_invoice,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'%></td>
         <td><%= purchase_invoice.date.strftime("%d / %m / %Y") %></td>
         <td><%= purchase_invoice.company.title if purchase_invoice.company !=nil %></td>
         <td><%= purchase_invoice.status %></td>
-        <td><%= purchase_invoice.total_price %></td>
+        <td><span data-toggle="popover" data-content="<% purchase_invoice.purchase_invoice_items.each do |pr| %><p><%=pr.title %> - <%= pr.quantity %> шт - <%= pr.price %>р<%end%></p>" data-placement="top" data-trigger="hover"><%= purchase_invoice.total_price %></span></td>
         <%if purchase_invoice.purchase_lists.blank?%>
         <td>Не введена</td>
         <%else%>
-        <td><%=purchase_invoice.purchase_lists.first.number%> (<%=purchase_invoice.purchase_lists.first.date.strftime("%d/%m/%Y")%>)</td>
+        <td><%=link_to purchase_invoice.purchase_lists.first.number, purchase_invoice.purchase_lists.first,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'%> (<%=purchase_invoice.purchase_lists.first.date.strftime("%d/%m/%Y")%>)</td>
         <%end%>
-        <td><%= link_to t('show'), purchase_invoice,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-xs' %></td>
-        <td><%= link_to t('edit'), edit_purchase_invoice_path(purchase_invoice), class: 'btn btn-success btn-xs' %></td>
-        <td><%= link_to t('destroy'), purchase_invoice, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, purchase_invoice, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

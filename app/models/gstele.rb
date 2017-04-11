@@ -27,20 +27,16 @@ validates :sku, uniqueness: true
      (4..spreadsheet.last_row).each do |i|  
 	     sku = spreadsheet.cell(i,'A').to_s.gsub('.0','').squish 
 	     title = spreadsheet.cell(i,'B')
-	     price_euro = spreadsheet.cell(i,'D')
-	     valute = spreadsheet.cell(i,'E') 
+	     price_euro = spreadsheet.cell(i,'E')
+	     valute = spreadsheet.cell(i,'F') 
 	     quantity = spreadsheet.cell(i,'C').to_i
 
-		#if valute == "EUR"
-		url = "http://www.cbr.ru/scripts/XML_daily.asp"
-		data = Nokogiri::XML(open(url))
-		a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-		kurs_dollar = a.gsub(/,/, '.')
-		b = data.xpath("ValCurs/Valute[@ID = 'R01239']/Value").text
-		kurs_euro = b.gsub(/,/, '.')
-		cost_price = price_euro.to_f * "#{kurs_euro}".to_f / "#{kurs_dollar}".to_f
-		#end 
-		price = cost_price * 1.15 
+		kurs_dollar = Kur.last.dollar
+		kurs_euro = Kur.last.euro
+		
+		price_file = price_euro.to_f * "#{kurs_euro}".to_f / "#{kurs_dollar}".to_f
+		cost_price= price_file / 1.15
+		price =  price_file / 1.05
       
       @gstele = Gstele.find_by_sku("#{sku}")
 		if @gstele.present? 

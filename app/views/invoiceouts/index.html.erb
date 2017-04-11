@@ -6,11 +6,13 @@
 		</div>
 		<div class="col-md-2">
 		</div>
-		<div class="col-md-6"><p>Поиск</p>
-		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :number_eq, 'Номеру' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :number_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+		<div class="col-md-6">
+  		<form class="form-inline">
+			<%= t 'search_t' %>
+			<%= search_form_for @search do |f|%>
+<div class = "form-group">
+  		<%= f.search_field :number_eq, placeholder: 'Номеру', class: "form-control input-sm" %>  
+  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
   		</div>
 		<% end %>
 		</div>
@@ -43,7 +45,7 @@
       <tr>
         <td><%= invoiceout.number %></td>
         <td><%= invoiceout.date.strftime("%d / %m / %Y") %></td>
-        <td><%= invoiceout.company.title %></td>
+        <td><%= invoiceout.company.title if invoiceout.company !=nil%></td>
         <td><%= invoiceout.invoice_list_id %></td>
         <td><%= invoiceout.total_price %></td>
         <td><%= invoiceout.nds %></td>

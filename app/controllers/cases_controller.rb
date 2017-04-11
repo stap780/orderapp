@@ -3,17 +3,26 @@ class CasesController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_action :set_case, only: [:show, :edit, :update, :destroy]
   before_action :authorize,  except: [:create_json_case]
-  
+	autocomplete :client, :name, full: true, :display_value => :client_name_surname,  :extra_data => [:name, :middlename, :surname, :phone, :email, :zip, :city, :address]
   
   def authorize
     if current_user.nil?
       redirect_to login_url, alert: "Not authorized! Please log in."
      end
   end
+  
   # GET /cases
   # GET /cases.json
   def index
-    @cases = Case.all
+    
+		@search = Case.ransack(params[:q]) #используется gem ransack для поиска и сортировки
+		@search.sorts = 'id desc' if @search.sorts.empty? # сортировка таблицы по номеру по умолчанию 
+		@cases = @search.result.paginate(page: params[:page], per_page: 30)
+			respond_to do |format|
+			format.html
+			format.json
+			end
+
   end
 
   # GET /cases/1
@@ -70,9 +79,9 @@ class CasesController < ApplicationController
 		end
 		respond_to do |format|
 			if @case.save
-    format.json  { render :json => @case}
+			format.json  { render :json => @case}
 			else
-				format.json { render  :json => @case }
+			format.json { render  :json => @case }
 			end
 		end
 		

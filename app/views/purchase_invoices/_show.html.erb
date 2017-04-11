@@ -25,11 +25,30 @@
 	<div class="col-md-12">
 	  <strong>Входящая накладная:</strong>
 	  <% if @purchase_invoice.purchase_list_check == true%>
-	  <%= "Введена" %> № <%=@purchase_invoice.purchase_lists.first.number%> от (<%=@purchase_invoice.purchase_lists.first.date.strftime("%d/%m/%Y")%>)
+	  <%if @purchase_invoice.purchase_lists.first !=nil%>
+	  № <%=@purchase_invoice.purchase_lists.first.number %> от (<%=@purchase_invoice.purchase_lists.first.date.strftime("%d/%m/%Y")%>)
+	  <%end%>
 	  <%else %>
 	  <%= "Не введена" %> 
 	  <%end%>
 	</div>
+	<div class="col-md-12">
+	  <strong>Входящая сч-фк:</strong>
+	  <% if @purchase_invoice.purchase_list_check == true%>
+	  <%@purchase_invoice.purchase_lists.each do |chf|%>
+	  <%if chf.purchase_invoice_in !=nil%>
+	  № <%=chf.purchase_invoice_in.number %> от (<%=chf.purchase_invoice_in.data.strftime("%d/%m/%Y")%>)
+	  <%end%>
+	  <% end %>
+	  <% end%>
+	</div>
+		<div class="col-md-12">
+	  <strong>Исходящее ПП:</strong>
+	  <%@purchase_invoice.banks.each do |pib|%>
+	  <%=pib.number%>  от (<%=pib.date.strftime("%d/%m/%Y")%>)
+	  <%end%>
+	</div>
+
 	</div>
 </div>
 <div class="col-md-12">
@@ -70,7 +89,7 @@
 
 <div class="col-md-12">
 <%= link_to t('edit'), edit_purchase_invoice_path(@purchase_invoice), class: 'btn btn-default btn-sm' %> 
-<%= link_to t('back'), purchase_invoices_path, class: 'btn btn-default btn-sm' %>
+<%= link_to t('back'), :back, class: 'btn btn-default btn-sm' %>
 </div>
 
 </div>

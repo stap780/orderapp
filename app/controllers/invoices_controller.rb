@@ -2,7 +2,7 @@ class InvoicesController < ApplicationController
   
   before_action :set_invoice, only: [:show, :print, :edit, :pdf_invdog, :update, :destroy]
   before_action :authorize
-  autocomplete :company, :title, full: true	
+  autocomplete :company, :title, full: true, :case_sensitive => true	
 
   
   def authorize
@@ -22,6 +22,10 @@ class InvoicesController < ApplicationController
   # GET /invoices/1.json
   def show
   @company2 = Company.find_by_id(@invoice.companytwo)
+    respond_to do |format|
+    format.html
+    format.js
+    end
   end
   
   def print

@@ -3,7 +3,7 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-2">
-<h1>Заказы <br><small>сводная таблица</small></h1>
+<h2>Заказы <br><small>сводная таблица</small></h2>
 
 
 		</div>
@@ -11,7 +11,6 @@
 		</div>
 		<div class="col-md-7">
 		<form class="form-inline">
-		<p><%=t 'search_t'%></p>
 		<%= search_form_for @search do |f|%>
   		<div class = "form-group">
   		<%= f.search_field :number_eq , placeholder: t('.number'), class: "form-control input-sm" %>  
@@ -35,14 +34,14 @@
 		<table class="table table-hover">
 		  <thead>
 		    <tr>
-		      <th><%= sort_link(@search, :number, "Number") %></th>
-		      <th>Status</th>
-		      <th>Financial</th>
-		      <th>Payment</th>
-		      <th>Client</th>
-		      <th>Delivery</th>
-		      <th>Служба</th>
-		      <th>Ст-c Д</th>
+		      <th><%= sort_link(@search, :number, t('.number')) %></th>
+		      <th><%=t '.status'%></th>
+		      <th><%=t '.finansial'%></th>
+		      <th><%=t '.payment'%></th>
+		      <th><%=t '.client'%></th>
+		      <th><%=t '.delivery_type'%></th>
+		      <th><%=t '.delivery_comp'%></th>
+		      <th><%=t '.del_status'%></th>
 		      <th colspan="1"></th>
 		    </tr>
 		    
@@ -57,14 +56,23 @@
 		         <%else%>
 		         <%= iorder.status.title if iorder.status != nil%>
 		         <%end%></td>
-		        <td><%= iorder.financial %></td>
-		        <td><%= iorder.payment %></td>
-		        <td><%if iorder.client.nil? %>
+		         <%if iorder.financial == 'pending'%><% finance = 'Не оплачен'%><%else%><% finance = 'Оплачен'%><%end%>
+		        <td><%= finance%></td>
+		        <%if iorder.payment =='Оплата наличными'%><% payment = 'Наличные' %><%end%>
+		        <%if iorder.payment =='Банковские карты - VISA, MASTERCARD'%><% payment = 'Карта' %><%end%>
+		        <%if iorder.payment =='Счет для юридических лиц'%><% payment = 'Счет' %><%end%>
+		        <%if iorder.payment =='Интернет-банк, квитанция'%><% payment = 'Квитанция' %><%end%>
+		        <%if iorder.payment =='PayPal Express Checkout'%><% payment = 'PayPal' %><%end%>
+		        <%if iorder.payment =='Электронные деньги; платежные терминалы; оплата с баланса мобильного телефона, Евросеть, Связной'%><% payment = 'Кошельки' %><%end%>
+		        <td><span data-toggle="popover" data-content="<% iorder.line_items.each do |pr| %><p><%=pr.title %> - <%= pr.quantity %> шт - <%= pr.price %>р<%end%></p><p>Доставка <%= iorder.deliveryprice%> р</p><p>Сумма заказа <%= iorder.total%> р</p>" data-placement="top" data-trigger="hover"><%= payment %></span></td>
+		        
+		        <td><span data-toggle="popover" <%if iorder.client !=nil %>data-content="<p><%= iorder.client.surname%></p><p> <%= iorder.client.name%> </p><p><%= iorder.client.phone%></p>" <%end%>data-placement="top" data-trigger="hover">
+			      <%if iorder.client.nil? %>
 		        <%= iorder.clientname%>
 		        <%else%>
 		        <%= iorder.client.name if iorder.client !=nil %>
-		        <%end%></td>
-		        <td><%= iorder.delivery %></td>
+		        <%end%></span></td>
+		        <td ><%= iorder.delivery.truncate(40) %></td>
 		        <td><%= iorder.mycourier.title if iorder.mycourier != nil%></td>
 		        <td><%if iorder.mycourier_id != nil%>
 		        <%= iorder.iml.status if iorder.iml != nil%> <%= iorder.iml.state if iorder.iml != nil%> <%= iorder.dpd.state if iorder.dpd != nil%> <%= iorder.post.state if iorder.post != nil%> <%= iorder.courier.state if iorder.courier != nil%> 
@@ -79,6 +87,5 @@
 	  </div>
 	</div>
 </div>
-
 
 

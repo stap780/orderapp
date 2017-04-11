@@ -46,7 +46,7 @@
 				  <tr>
 					  <td>
 						  <% if @iorder.invoice != nil%>
-						  <%= link_to "#{@iorder.invoice.number}", @iorder.invoice %>
+						  <%= link_to "#{@iorder.invoice.number}", @iorder.invoice,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-invoice' %>
 						  
 					  	<%else%>
 					   нет
@@ -55,7 +55,7 @@
 					  <td>
 					  <% if @iorder.invoice != nil%>
 					  <% @iorder.invoice.invoice_lists.each do |il| %>
-					  <%= link_to "#{il.number}", il if il != nil%>
+					  <%= link_to "#{il.number}", il,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-invoice-list' if il != nil%>
 					  <% end %>
 					  <%else%>
 					  нет
@@ -79,8 +79,6 @@
 	<p>
 	  <strong>Status:</strong>
 	  <%= @iorder.status.title if @iorder.status != nil %>
-	</p>
-	<p>
 	  <strong>Financial:</strong>
 	  <%= @iorder.financial %>
 	</p>

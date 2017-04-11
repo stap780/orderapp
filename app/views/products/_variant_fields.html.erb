@@ -7,6 +7,6 @@
 <td><%= f.input :weight, label: false %></td>
 <td><%= f.association :product_option, label: false, label_method: :supplier_name, value_method: :id, include_blank: false %></td>
 <td><%= f.input :supplier_id, label: false %></td>
-<td><%= link_to_remove_association "remove", f %></td>
+<td><%= link_to_remove_association '<i class="glyphicon glyphicon-trash"></i>'.html_safe, f %></td>
 
 		

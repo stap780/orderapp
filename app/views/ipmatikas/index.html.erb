@@ -2,14 +2,12 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-3">
-			<h1>Ipmatika <br><small>сводная таблица</small></h1>
+			<h2>Ipmatika <br><small>сводная таблица</small></h2>
 			<p id="product_option_id" style="display:none;">2</p>
 			<p>Всего товаров - <%= @totalipmatikas %></p>
 		</div>
 		<div class="col-md-3">
-			<p>Import product</p>
-			<%= form_tag import_ipmatikas_path, multipart: true do %>  
-			<%= file_field_tag :file %>
+			<%= form_tag import_ipmatikas_path, multipart: true do %><%= file_field_tag :file %>
 			<%= submit_tag "Import", :class =>'btn btn-default btn-sm' %>
 			<% end %>
 		</div>
@@ -17,10 +15,11 @@
 
 		<div class="col-md-6">
 			<div class="col-md-12" style="margin-bottom: 5px;">
-			<form class="form-inline">
-			<p>Поиск</p>
-			<%= search_form_for @search do |f|%>
-			<div class = "form-group">
+		<form class="form-inline">
+	<%=t 'search_t'%>
+		<%= search_form_for @search do |f|%>
+  		<div class = "form-group">
+	  					<%= f.search_field :sku_cont, placeholder: 'SKU', class: "form-control input-sm" %>  
 			<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm" %>  
 			</div>
 			<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
@@ -62,8 +61,8 @@
     <% @ipmatikas.each do |ipmatika| %>
       <tr>
       <td class="id"><%= ipmatika.id %></td>
-        <td><%= ipmatika.sku %></td>
-        <td><%= ipmatika.title %></td>
+        <td><%= ipmatika.sku.truncate(20) if ipmatika.sku !=nil%></td>
+        <td><span data-toggle="popover" data-content="<%= ipmatika.title%>" data-placement="top" data-trigger="hover" ><%= ipmatika.title.truncate(30) if ipmatika.title !=nil%></span></td>
         <td><%= ipmatika.quantity_all %></td>
         <!-- <td><%= ipmatika.quantity_res %></td> -->
         <!-- <td><%= ipmatika.quantity_free %></td> -->

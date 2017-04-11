@@ -6,12 +6,19 @@ class RrcsController < ApplicationController
   require 'mechanize'
   
   before_action :set_rrc, only: [:show, :edit, :update, :destroy]
+  before_action :authorize,  except: [:advt]
+	
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
 
   # GET /rrcs
   def index
     @search = Rrc.ransack(params[:q]) #используется gem ransack для поиска и сортировки
     @search.sorts = 'title asc' if @search.sorts.empty? # сортировка таблицы по алфавиту по умолчанию 
-    @rrcs = @search.result
+    @rrcs = @search.result.paginate(page: params[:page], per_page: 50)
     @totalrrcs = Rrc.where("id = #{:id}").count
     respond_to do |format|
       format.html

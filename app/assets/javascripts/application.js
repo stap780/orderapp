@@ -6,7 +6,6 @@
 
 
 //= require jquery
-//= require jquery.turbolinks
 //= require cocoon
 //= require jquery_ujs
 //= require jquery-ui/autocomplete
@@ -21,25 +20,30 @@
  document.onreadystatechange = function () {
     if (document.readyState === "complete") {
 	    
+	    $("[data-toggle=popover]").popover({
+		    html:true
+		    });
+	    
+	    
 	    $('#notice').addClass('animated bounceOutLeft');
     
     setTimeout(function() {
     $('#flash_messages').fadeOut('slow');
 	}, 2900);
 	
-	
+
      
-     $('#invoice_date').datepicker({
-     format: "dd/mm/yyyy",
-    weekStart: 1,
-    autoclose: true
-	})
+    // $('#invoice_date').datepicker({
+   //  format: "dd/mm/yyyy",
+   // weekStart: 1,
+  //  autoclose: true
+//	})
     
-    $('#invoice_list_date').datepicker({
-     format: "dd/mm/yyyy",
-    weekStart: 1,
-    autoclose: true
-	})
+   // $('#invoice_list_date').datepicker({
+   //  format: "dd/mm/yyyy",
+   // weekStart: 1,
+  //  autoclose: true
+	//})
 	
 	$('#invoiceout_date').datepicker({
      format: "dd/mm/yyyy",
@@ -47,11 +51,11 @@
     autoclose: true
 	})
 	
-	$('#purchase_invoice_date').datepicker({
-     format: "dd/mm/yyyy",
-    weekStart: 1,
-    autoclose: true
-	})
+	//$('#purchase_invoice_date').datepicker({
+  //   format: "dd/mm/yyyy",
+  //  weekStart: 1,
+  //  autoclose: true
+	//})
 	
 	$('#purchase_list_date').datepicker({
      format: "dd/mm/yyyy",

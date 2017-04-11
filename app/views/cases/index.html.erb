@@ -1,17 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Cases</h1>
-
-<table>
+<div class="col-md-12">
+<div class="col-md-3">
+<h1><%=t '.title'%></h1>
+</div>
+<div class="col-md-4">	
+<%= link_to t('.new_case'), new_case_path , class: 'btn btn-sm btn-info' %>
+</div>
+<div class="col-md-12">
+<div class="media">
+  <div class="media-body">
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Number</th>
-      <th>Client</th>
-      <th>Iorder</th>
-      <th>Status</th>
-      <th>Service</th>
-      <th>Description</th>
-      <th>Iorder check</th>
+      <th><%=t '.number'%></th>
+      <th><%=t '.date'%></th>
+      <th><%=t '.client'%></th>
+      <th><%=t '.iorder'%></th>
+      <th><%=t '.status'%></th>
+      <th><%=t '.service'%></th>
+      <th><%=t '.description'%></th>
+      <th><%=t '.iorder_check'%></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,20 +29,27 @@
     <% @cases.each do |cs| %>
       <tr>
         <td><%= cs.number %></td>
-        <td><%= cs.client.name %> <%= cs.client.surname %></td>
+        <td><%= cs.created_at.strftime("%d/%m/%Y") %></td>
+        <td><%= cs.client.name if cs.client !=nil%> <%= cs.client.surname if cs.client !=nil%></td>
         <td><%= cs.iorder_id %></td>
         <td><%= cs.status %></td>
         <td><%= cs.service %></td>
         <td><%= cs.description %></td>
-        <td><%= cs.iorder_check %></td>
-        <td><%= link_to 'Show', cs %></td>
-        <td><%= link_to 'Edit', edit_case_path(cs) %></td>
-        <td><%= link_to 'Destroy', cs, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><% if cs.iorder_check == true %>
+        <i class="glyphicon glyphicon-ok"></i>
+        <%else%>
+        <i class="glyphicon glyphicon-ban-circle"></i>
+        <%end%>
+				</td>
+        <td><%= link_to 'Show', cs , class: 'btn btn-default btn-xs'%></td>
+        <td><%= link_to 'Edit', edit_case_path(cs), class: 'btn btn-success btn-xs' %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, cs, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+  </div>
+</div>
+</div>
+</div>
 
-<br>
-
-<%= link_to 'New Case', new_case_path %>

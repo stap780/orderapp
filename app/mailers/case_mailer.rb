@@ -1,4 +1,6 @@
 class CaseMailer < ApplicationMailer
+
+layout 'case_mailer'
 	
 def new_case(cs)
 	@case = cs

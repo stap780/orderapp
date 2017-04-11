@@ -1,4 +1,7 @@
- <%= simple_form_for(@company) do |f| %>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;">
+</div>
+
+ <%= simple_form_for(@company, :remote => true) do |f| %>
   <%= f.error_notification %>
 <div class="col-md-12">
 	<div class="col-md-8">
@@ -41,8 +44,6 @@
 	</div>
 	
 	<div class="col-md-12" style="margin-top:20px;">  
-	<%= f.button :submit, class: 'btn btn-default btn-sm', id: 'companies_submit'%>
-	<%= link_to 'Show', @company, class: 'btn btn-default btn-sm', id: 'companies_show'  %>
-	<%= link_to 'Back', companies_path, class: 'btn btn-default btn-sm', id: 'companies_back'  %>
-
+	<%= link_to 'Back', :back, class: 'btn btn-default btn-sm'  %>
+	<%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-sm'%>
 <% end %>

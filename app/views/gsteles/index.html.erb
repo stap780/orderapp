@@ -6,21 +6,19 @@
 			<p>Всего товаров - <%= Gstele.count %></p>
 		</div>
 		<div class="col-md-3">
-		
-		<p>Import product (сделать из 2-х файлов один)</p>
-		<p><%= form_tag import_gsteles_path, multipart: true do %></p>  <p><%= file_field_tag :file %></p>  <p><%= submit_tag "Import" , :class =>'btn btn-default btn-xs' %></p>
+		<%= form_tag import_gsteles_path, multipart: true do %><%= file_field_tag :file %><%= submit_tag "Import" , :class =>'btn btn-default btn-sm' %> (сделать из 2-х файлов один)
 		<% end %>
 		</div>
 		<div class="col-md-6">
-			<div class="col-md-12" style="margin-bottom: 5px;">
-			<form class="form-inline">
-			<p>Поиск</p>
-			<%= search_form_for @search do |f|%>
-	  		<div class = "form-group">
+			<div class="col-md-12" >
+		<form class="form-inline">
+	<%=t 'search_t'%>
+		<%= search_form_for @search do |f|%>
+  		<div class = "form-group">
 	  		<%= f.search_field :sku_eq, placeholder: 'Sku', class: "form-control input-sm" %>  
 	  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"  %>  
 	  		</div>
-	  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+	  		<%= f.submit "Search", class: 'btn btn-default btn-sm' %> 
 	  		
 			<% end %>
 			</form>
@@ -30,7 +28,7 @@
 <br>
 	<div class="col-md-12">
 		<div class="col-md-2">
-		<p>Download: <%= link_to "CSV", gsteles_path(format: "csv") %> | <%= link_to "Excel", gsteles_path(format: "xls") %></p>
+		<p>Download: <%= link_to "CSV", gsteles_path(params.merge(format: 'csv')) %> | <%= link_to "Excel", gsteles_path(format: "xls") %></p>
 		</div>
 </div>
 

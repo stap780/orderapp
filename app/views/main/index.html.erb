@@ -1,1 +1,22 @@
-Hello
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
+<% order_soglas = Iorder.where(:status_id => 3)%>
+<p>Заказов со статусом "Согласован" - <%= order_soglas.count%> шт
+<br>
+Список заказов:
+<% order_soglas.each do |order|%>
+<%=link_to order.number, order,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' %>
+<%end%>
+<br>
+На сумму - <%= order_soglas.sum(:total)%>  руб
+</p>
+<% order_otgr = Iorder.where(:status_id => 5)%>
+<p>Заказов со статусом "Отгружен" - <%= order_otgr.count%> шт
+<br>
+Список заказов:
+<% order_otgr.each do |order|%>
+<%=link_to order.number, order,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' %>
+<%end%>
+<br>
+На сумму - <%= order_otgr.sum(:total)%> руб
+</p>
+

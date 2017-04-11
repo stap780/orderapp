@@ -2,20 +2,19 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-3">
-			<h1>РРС <small>сводная таблица</small></h1>
+			<h2>РРС <small>сводная таблица</small></h2>
 			<p id="product_option_id" style="display:none;">6</p>
 			<p>Всего товаров - <%= @totalrrcs %></p>
 		</div>
 		<div class="col-md-3">
-		<p>Import product</p>
-		<p><%= form_tag import_rrcs_path, multipart: true do %></p>  
-		<p><%= file_field_tag :file %></p><p><%= submit_tag "Import", :class =>'btn btn-default btn-xs' %></p>
+		<%= form_tag import_rrcs_path, multipart: true do %> 
+		<%= file_field_tag :file %>
+		<%= submit_tag "Import", :class =>'btn btn-default btn-xs' %>
 		<% end %>
 		</div>
 		<div class="col-md-6">
-		<div class="col-md-12" style="margin-bottom: 5px;">
 		<form class="form-inline">
-		<p>Поиск</p>
+	<%=t 'search_t'%>
 		<%= search_form_for @search do |f|%>
   		<div class = "form-group">
   		<%= f.search_field :sku_cont, placeholder: 'Sku', class: "form-control input-sm" %>  
@@ -27,9 +26,7 @@
 		</form>
 		</div>
 
-		</div>	
 	</div>
-<br>
 	<div class="col-md-12">
 	<div class="col-md-8">
 <p><%= link_to 'Download products', downloadproduct_rrcs_path%> | <%= link_to 'Update products', updateproduct_rrcs_path%> | Download: <%= link_to "CSV", rrcs_path(format: "csv") %> <!--| <%= link_to "Excel", rrcs_path(format: "xls") %>--></p>
@@ -60,7 +57,7 @@
       <tr>
         <td class="id"><%= rrc.id %></td>
         <td><%= rrc.sku %></td>
-        <td><%= rrc.title %></td>
+        <td><%= rrc.title.at(0..25)%>...</td>
         <td><%= rrc.quantity %></td>
         <td><%= rrc.cost_price %></td>
         <td><%= rrc.sell_price %></td>
@@ -72,6 +69,7 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @rrcs %>
 </div>
 </div>
 </div>

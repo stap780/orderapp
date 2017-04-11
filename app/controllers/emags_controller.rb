@@ -7,7 +7,8 @@ class EmagsController < ApplicationController
   
   
   before_action :set_emag, only: [:show, :edit, :update, :destroy]
-
+	before_action :authorize
+	
   # GET /emags
   def index
     @search = Emag.ransack(params[:q])

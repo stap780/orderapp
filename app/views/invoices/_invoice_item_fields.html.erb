@@ -4,4 +4,4 @@
   <td><%= f.input :quantity, label: false, as: :integer, input_html: { class: 'myquantity', onchange: "calculateInvoice(this.value)"}  %></td>
   <td><%= f.input :price,label: false, as: :decimal, input_html: { class: 'myprice', onchange: "calculateInvoice(this.value)" }  %></td>
   <td><%= f.input :sum, label: false, as: :decimal , input_html: { class: 'sum', onchange: "calculateInvoice(this.value)" } %></td>
-  <td><%= link_to_remove_association t('remove'), f %></td>
+  <td><%= link_to_remove_association '<i class="glyphicon glyphicon-trash"></i>'.html_safe, f %></td>

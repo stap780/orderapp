@@ -72,7 +72,8 @@ class ActsController < ApplicationController
 	def print
 		#comp.invoices.first.banks.first
 		@comp = Company.find(@act.company.id)
-		@bank = Bank.where(:payer_id => @act.company_id).where("date >= ? AND date <= ?", @act.startdate, @act.enddate)
+		@bank_payer = Bank.where(:payer_id => @act.company_id).where("date >= ? AND date <= ?", @act.startdate, @act.enddate)
+		@bank_receiver = Bank.where(:receiver_id => @act.company_id).where("date >= ? AND date <= ?", @act.startdate, @act.enddate)
 		@inv = Invoice.where(:company_id => @act.company_id).where("date >= ? AND date <= ?", @act.startdate, @act.enddate)
 	render :pdf => "Акт сверки #{@act.id}",
 	       :template => "acts/print"

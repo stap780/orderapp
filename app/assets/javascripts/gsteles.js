@@ -1,6 +1,4 @@
-jQuery(function() {
-$( document ).ready(function ()  {
- //alert('load');
+$(window).load(function() { //alert('load');
 
 var gsteleIds = document.getElementsByClassName("gstele_id");
 
@@ -28,4 +26,3 @@ for (var i = 0; i < gsteleIds.length; i++) {
 });
 
 
-});

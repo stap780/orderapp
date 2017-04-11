@@ -9,7 +9,7 @@
 	<div class="col-md-12">
 		<div class="col-md-8">
 
-<p><%= link_to 'Download products', downloadproduct_citilinks_path%> | <%= link_to 'Update products', updateproduct_citilinks_path%> 
+<p><%= link_to 'Обновить наличие', downloadproduct_citilinks_path%> <!-- | <%= link_to 'Update products', updateproduct_citilinks_path%>  -->
 </div>
 </div>
 <br>
@@ -20,6 +20,7 @@
   <thead>
     <tr>
     <th>Id</th>
+      <th>Cid</th>
       <th>Title</th>
       <th>Price</th>
       <th>Price1</th>
@@ -37,7 +38,8 @@
   <tbody>
     <% @citilinks.each do |citilink| %>
       <tr>
-      <td><%= citilink.id %></td>
+      <td class="ct_id"><%= citilink.id %></td>
+        <td><%= citilink.cid %></td>
         <td><%= citilink.title %></td>
         <td><%= citilink.price %></td>
         <td><%= citilink.price1 %></td>

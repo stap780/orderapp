@@ -1,6 +1,7 @@
 class PurchaseListsController < ApplicationController
   
   autocomplete :product, :title, full: true,  :extra_data => [:id]
+  autocomplete :company, :title, full: true,  :extra_data => [:id], :case_sensitive => true
   before_action :set_purchase_list, only: [:show, :edit, :update, :destroy]
   before_action :authorize
   
@@ -12,15 +13,43 @@ class PurchaseListsController < ApplicationController
  
   # GET /purchase_lists
   # GET /purchase_lists.json
+ 
+  
   def index
-   @search = PurchaseList.ransack(params[:q]) 
-     @search.sorts = 'date desc' if @search.sorts.empty? 
-     @purchase_lists = @search.result.paginate(page: params[:page], per_page: 30)
+	  if params[:q] !=nil
+	    company_id = params[:q][:company_id_eq]
+	    @q_company = Company.find_by_id(company_id) 
+		end
+	  
+   @q = PurchaseList.ransack(params[:q]) 
+     @q.sorts = 'date desc' if @q.sorts.empty? 
+     @purchase_lists = @q.result.paginate(page: params[:page], per_page: 30)
+  end
+  
+  def search
+  index
+  render :index
   end
 
   # GET /purchase_lists/1
   # GET /purchase_lists/1.json
   def show
+		respond_to do |format|
+      format.html 
+      format.js 
+      format.json
+    end
+# puts request.referer
+# 				if URI(request.referer).path == '/purshase_lists'
+# 		respond_to do |format|
+#       format.html 
+#       format.js 
+#       format.json
+#     end
+# 		else 
+# 		redirect_to request.referer
+# 		end
+
   end
 
   # GET /purchase_lists/new

@@ -54,39 +54,110 @@ font-size: 12px;
 <td colspan="4">Сальдо начальное , руб.</td>
 <td colspan="4">Сальдо начальное , руб.</td>
 </tr>
-<tr>
-<% @bank.each do |b|%>	
-<td><%= b.date.strftime("%d/%m/%Y")%></td>
-<td>Платежное поручение входящее №<%= b.number%> от <%= b.date.strftime("%d/%m/%Y")%></td>
-<td></td>
-<td><%= b.sum%></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+
+<%if @bank_payer.present?%>	
+	<% @bank_payer.each do |b|%>
+<tr>		
+		<td><%= b.date.strftime("%d/%m/%Y")%></td>
+		<td>Платежное поручение входящее №<%= b.number%> от <%= b.date.strftime("%d/%m/%Y")%></td>
+		<td></td>
+		<td><%= b.sum%></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 </tr>
+		<% b.bank_items.each do |bbi|%>
+				<% bbi.invoice.invoice_lists.each do |nakl| %>
 <tr>
-<td><%= b.invoice.date.strftime("%d/%m/%Y")%></td>
-<td>Отгрузка (накладная) №<%= b.invoice.number%> от <%= b.invoice.date.strftime("%d/%m/%Y")%></td>
-<td><%= b.invoice.total_price%></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+				<td><%= nakl.date.strftime("%d/%m/%Y")%></td>
+				<td>Отгрузка (накладная) №<%= nakl.number%> от <%= nakl.date.strftime("%d/%m/%Y")%></td>
+				<td><%= nakl.total_price%></td>
+				<%end%>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 </tr>
+		<%end%>
 <%end%>
+<%else%>
+	<% @bank_receiver.each do |b|%>
+<tr>	
+	<td><%= b.date.strftime("%d/%m/%Y")%></td>
+	<td>Платежное поручение исходящее №<%= b.number%> от <%= b.date.strftime("%d/%m/%Y")%></td>
+	<td></td>
+	<td><%= b.sum%></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+	<%if b.bank_items !=nil%>
+		<% b.bank_items.each do |bbi|%>
+				<% bbi.purchase_invoice.purchase_lists.each do |nakl|%>
+<tr>
+				<td><%= nakl.date.strftime("%d/%m/%Y")%></td>
+				<td>Поступление (накладная) №<%= nakl.number%> от <%= nakl.date.strftime("%d/%m/%Y")%></td>
+				<td><%= nakl.total_price%></td>
+				<%end%>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+</tr>
+		<%end%>
+	<%else%>
+<tr>
+				<td>нет данных</td>
+				<td>нет данных</td>
+				<td>нет данных</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+</tr>
+		<%end%>
+	<%end%>
+<%end%>
+
 <tr>
 <td colspan="2">Обороты за период</td>
-<td><%=@bank.first.payer.invoices.sum(:total_price)%></td>
-<td><%=@bank.sum(:sum)%></td>
+<%if @bank_payer.present?%>
+<td>
+	<% @bank_payer.each do |b|%>
+		<% b.bank_items.each do |bbi|%>
+		<%= bbi.invoice.invoice_lists.sum(:total_price)%>
+		<%end%>
+	<%end%>
+</td>	
+<td><%=@bank_payer.sum(:sum)%></td>
+<%else%>
+			<%d = []%>
+			<% @bank_receiver.each do |b|%>
+				<%c = []%>
+				<% b.bank_items.each do |bbi|%>
+					<%a=[]%>
+					<% bbi.purchase_invoice.purchase_lists.each do |nakl|%>
+					<%a << nakl.total_price.to_f%>
+					<%end%>
+					<%c << a%>
+				<%end%>
+			<%d << c%>
+			<%end%>
+<td><%=d.flatten.sum.round(2)%></td>
+<td><%= @bank_receiver.sum(:sum)%></td>
+<%end%>
 <td colspan="2">Обороты за период</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td colspan="4">Сальдо начальное , руб.</td>
-<td colspan="4">Сальдо начальное , руб.</td>
+<td colspan="4">Сальдо конечное , руб.</td>
+<td colspan="4">Сальдо конечное , руб.</td>
 </tr>
 </table>
 <p>По данным Общество с ограниченной ответственностью "ФриЗ"</p>
@@ -107,4 +178,5 @@ font-size: 12px;
 </table>		
 		
 	</div>
+		
 </body>

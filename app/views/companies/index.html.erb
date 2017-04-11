@@ -1,25 +1,27 @@
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
 <p id="notice"><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-2">
-<h1>Компании <br><small>сводная таблица</small></h1>
+<h2>Компании <br><small>сводная таблица</small></h2>
 		</div>
 		<div class="col-md-3">
+			<%=link_to 'New Company', new_company_path,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-info btn-sm' %>
 		</div>
-		<div class="col-md-7"><p>Поиск</p>
+		<div class="col-md-7">
+		<form class="form-inline">
+	<%=t 'search_t'%>
 		<%= search_form_for @search do |f|%>
-  		<div classs = "search">
-  		<%= f.label :inn_eq, 'ИНН' %> <!--расширение _eq используется для integer -->
-  		<%= f.search_field :inn_eq %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
-  		<%= f.label :title_cont, 'Названию' %> <!--расширение _cont используется для string -->
-  		<%= f.search_field :title_cont %>  <%= f.submit "Search", class: 'btn btn-default btn-sm' %>
+  		<div class = "form-group">
+  		<%= f.search_field :inn_eq, placeholder: 'ИНН', class: "form-control input-sm" %> 
+  		<%= f.search_field :title_cont, placeholder: 'Названию', class: "form-control input-sm"   %>  
   		</div>
+  		<%= f.submit t('search'), class: 'btn btn-default btn-sm' %>
+  		
 		<% end %>
+		</form>
 		</div>
 		<div class="col-md-12">
-		<div class="col-md-5">
-		<p><%=link_to 'New Company', new_company_path %></p>
-		</div>
 	</div>
 </div>
 
@@ -47,7 +49,7 @@
   <tbody>
     <% @companies.each do |company| %>
       <tr>
-        <td><%= company.title %></td>
+        <td><%= link_to company.title, company,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' %></td>
         <td><%= company.fulltitle %></td>
         <td><%= company.uraddress %></td>
         <!--<td><%= company.factaddress %></td>-->
@@ -56,11 +58,10 @@
         <td><%= company.ogrn %></td>
         <td><%= company.okpo %></td>
         <td><%= company.bik %></td>-->
-        <td><%= company.banktitle %></td>
+        <td><%= company.banktitle.truncate(40) %></td>
         <!--<td><%= company.bankaccount %></td>-->
-        <td><%= link_to 'Show', company, class: 'btn btn-default btn-xs' %></td>
-        <td><%= link_to 'Edit', edit_company_path(company), class: 'btn btn-success btn-xs' %></td>
-        <td><%= link_to 'Destroy', company, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+<!--         <td><%= link_to 'Edit', edit_company_path(company), class: 'btn btn-success btn-xs' %></td> -->
+        <td><%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, company, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

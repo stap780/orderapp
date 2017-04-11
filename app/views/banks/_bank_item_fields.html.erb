@@ -1,0 +1,13 @@
+<tr class="nested-fields", data-remove-timeout  >
+
+  <td><%if @bank.oper_type == "К"%>
+  <%if @comp_invoices_payer.present? %>
+    <%= f.association :invoice , :collection => @comp_invoices_payer.map { |r| [r.number_sum, r.id] }  %>
+    <%end%>
+    <%else%>
+    <% if @comp_invoices_reciever.present? %>
+    <%= f.association :purchase_invoice , :collection => @comp_invoices_reciever.map { |r| [r.number_sum, r.id] } %>
+    <%end%>
+		<%end%>
+  </td>
+  <td><%= link_to_remove_association '<i class="glyphicon glyphicon-trash"></i>'.html_safe, f %></td>

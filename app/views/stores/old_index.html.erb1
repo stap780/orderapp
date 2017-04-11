@@ -1,0 +1,104 @@
+         <p id="notice"><%= notice %></p>
+<div class="col-md-12" style="margin-bottom:20px;">
+	<div class="col-md-12">
+		<div class="col-md-2">
+			<h1>Наш склад </br><small>сводная таблица</small></h1>
+		</div>
+		<div class="col-md-2">
+		</div>
+		
+		<div class="col-md-8">
+		<%= search_form_for @q, url: search_stores_path, class: 'form-inline'  do |f|%>
+		<%= f.date_field :updated_at_gteq, class: "form-control input-sm"%>
+		<%= f.date_field :updated_at_lteq, class: "form-control input-sm" %>
+		<%= f.submit t('search'), class:"btn btn-success  btn-sm"%>
+		<% end %>
+		</div>
+		
+	<div class="col-md-12">
+		<div class="col-md-8">
+		<!-- link_to 'Оприходование', new_store_path -->
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+<div class="media">
+  <div class="media-body">
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Приход</th>
+      <th>Расход</th>
+      <th>Quantity</th>
+      <th>Ср вх Ц</th>
+      <th>Ср исх Ц</th>
+    </tr>
+  </thead>
+
+          <tbody>
+    <% @stores.each do |store| %>
+      <tr>
+
+        <td id="<%= store.id %>"><%= store.title %></td>
+        <td><% purchase_prihod = store.stocks.where("purchase_list_id IS NOT ?", nil)%>
+        <% enter_prihod = store.stocks.where("enter_id IS NOT ?", nil)%>
+        <% b1 = purchase_prihod.sum(:quantity).to_i+ enter_prihod.sum(:quantity).to_i%>
+        <%=b1%>
+        </td>
+        <td><% invoice_rashod = store.stocks.where("invoice_list_id IS NOT ?", nil) %>
+        <% loss_rashod = store.stocks.where("loss_id IS NOT ?", nil) %>
+        <% c1 = invoice_rashod.sum(:quantity).to_i + loss_rashod.sum(:quantity).to_i %>
+        <%=c1%>
+        </td>
+        <td><!-- a = b1 - c1--> <%= store.quantity %></td>
+
+<% pprihod = (purchase_prihod.sum(:price)/purchase_prihod.count).to_f.round(2)%>
+	        <% penter = (enter_prihod.sum(:price)/enter_prihod.count).to_f.round(2)%>
+	        <%if penter.nan?%>
+	        <% penter = 0%>
+	        <%end%>
+	        <%if pprihod.nan? %>
+	        <%pprihod = 0%>
+	        <%end%>
+	        <%if penter || pprihod == 0%>
+	        <%pp = (penter+pprihod)/1%>
+	        <%else%>
+	        <%pp = (penter+pprihod)/2%>
+	        <%end%>
+        <td><%= pp %> </td>
+        
+        	<% prashod = (invoice_rashod.sum(:price)/invoice_rashod.count).to_f.round(2)%>
+	        <% ploss = (loss_rashod.sum(:price)/loss_rashod.count).to_f.round(2)%>
+	        <%if ploss.nan?%>
+	        <% ploss = 0%>
+	        <%end%>
+	        <%if prashod.nan? %>
+	        <%prashod = 0%>
+	        <%end%>
+	        <%if ploss || prashod == 0%>
+	        <%pr = (prashod+ploss)/1%>
+	        <%else%>
+	        <%pr = (prashod+ploss)/2%>
+	        <%end%>
+        <td><%= pr %> </td>
+        <!--
+        <td><%= link_to 'Show', store %></td>
+        <td><%= link_to 'Edit', edit_store_path(store) %></td>
+        <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+-->
+      </tr>
+    <% end %>
+    <tr>
+	      <td colspan="4"></td>
+	      <td id="totalPricein"></td>
+	      <td id="totalPrice"></td>
+      </tr>
+  </tbody>
+</table>
+<%= will_paginate @stores %>
+  </div>
+</div>
+</div>
+</div>

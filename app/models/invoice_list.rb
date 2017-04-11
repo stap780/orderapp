@@ -6,6 +6,7 @@ belongs_to :invoice
 has_many   :stocks, dependent: :destroy
 
 has_one    :invoiceout, dependent: :destroy
+has_one    :vozvrat, dependent: :destroy
 
 has_many   :invoice_list_items, dependent: :destroy
 has_many   :products, :through => :invoice_list_items

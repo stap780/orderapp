@@ -100,7 +100,7 @@ script_element.onload = function() {
   &lt;/head&gt;
   &lt;body&gt;
     &lt;p&gt;Номер отслеживания: &lt;span id='courierNumber'&gt;&lt;span&gt;&lt;/p&gt;
-  &lt;p&gt;Курьерка: &lt;span id='courierName'&gt;&lt;span&gt;&lt;/p&gt;
+  &lt;p&gt;КС: &lt;span id='courierName'&gt;&lt;span&gt;&lt;/p&gt;
   &lt;p&gt;Статус: &lt;span id='courierStatus'&gt;&lt;span&gt;&lt;/p&gt;
 
     &lt;script&gt;
@@ -193,3 +193,13 @@ respond_to do |format|
 format.html
 format.json 
 end
+
+
+_____________
+<application-widget>
+<code><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head><body><p>Номер отслеживания: <span id='courierNumber'><span></p><p>Курьерка: <span id='courierName'><span></p><p>Статус: <span id='courierStatus'><span></p><script> var courierNumber = document.getElementById('courierNumber'); var courierName = document.getElementById('courierName'); var courierStatus = document.getElementById('courierStatus'); function mycallback(input_object) { data = input_object; } var script_element = document.createElement('script'); // Set its source to the JSONP API script_element.src = 'http://188.166.111.118:3000/iorders.json?callback=mycallback'; // Stick the script element in the page document.getElementsByTagName('head')[0].appendChild(script_element); script_element.onload = function() { //console.log(data[0].track); //courierNumber.innerHTML = data[0].number; for ( var i = 0; i<data.length; i++ ) { var number = data[i].number; if (data[i].number == window.order_info.number){ courierNumber.innerHTML = data[i].track; courierName.innerHTML = data[i].courierName; courierStatus.innerHTML = data[i].status; } } } </script></body></html></code>
+<created-at type="datetime">2016-07-05T23:25:31+03:00</created-at>
+<height type="integer">130</height>
+<id type="integer">17997</id>
+<page-type>order</page-type>
+ </application-widget>

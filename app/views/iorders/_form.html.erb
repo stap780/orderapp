@@ -1,5 +1,4 @@
-<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;">
-</div>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
 <%= simple_form_for(@iorder, :remote => true) do |f| %>
   <%= f.error_notification %>
 
@@ -19,40 +18,55 @@
 	<div class="col-md-4"> 
 	<%= f.input :client_surname%>
 	</div>
-	<div class="col-md-6">  
+	<div class="col-md-4">  
 	<%= f.input :phone%>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
 	<%= f.input :email %>
 	</div>
-	<div class="col-md-6"> 
+	<div class="col-md-4"> 
 	<%= f.input :shipping_zip %>
 	</div>
-	<div class="col-md-6"> 
+	<div class="col-md-4"> 
 	<%= f.input :shipping_city %>
 	</div>
-	<div class="col-md-12">
+	<div class="col-md-8">
 	<%= f.input :shipping_address, as: :text %>
 	</div>
 </div>
 
 
 <div class="col-md-4">
+	<div class="col-md-12" >  
+		<strong >Статусы</strong>
+	</div>
+	<div class="col-md-6">
 	<%if @iorder.invoice.nil?%>
 	<%= f.input :invoice_check,  input_html: { checked: false } %>
 	<%else%>
 	<%= f.input :invoice_check,  input_html: { checked: true } %>
 	<%end%>
+	</div>
+	<div class="col-md-6">
 	<%= f.association :status %>
+	</div>
+	<div class="col-md-6">
 	<%= f.input :financial %>
+	</div>
+	<div class="col-md-6">
 	<%= f.input :payment %>
+	</div>
+	<div class="col-md-6">
 	<%= f.input :delivery %>
+	</div>
+	<div class="col-md-6">
 	<%= f.association :mycourier %>
+	</div>
 </div>
 </div>
 
 <div class="col-md-12">
-	<div class="col-md-8" style="margin-top:-65px;">
+	<div class="col-md-8">
 	<div class='links', style="float:left;">
 	<%= link_to_add_association t('add_item'), f, :line_items, 'data-association-insertion-node' => "#line_items", 'data-association-insertion-method' => "append" %>
 	</div>
@@ -82,12 +96,12 @@
 					<strong>Total Insales:</strong>
 		<%= @iorder.total %>
 		<strong>Delivery Price:</strong>
-		<%= @iorder.deliveryprice %>
+		<%= @iorder.deliveryprice %> </br>
 		<strong>Total Price:</strong>
 		<%= @iorder.total_price %>
 		</div>
 			<div class="col-md-12">
-	<%= link_to t('show'), @iorder,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window',  class: 'btn btn-default btn-sm' %>
+	<!--<%= link_to t('show'), @iorder,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window',  class: 'btn btn-default btn-sm' %>-->
 	<%= link_to t('back'), iorders_path, class: 'btn btn-default btn-sm' %>
 	<%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-sm'  %>
 			</div>

@@ -63,8 +63,16 @@ class ClientsController < ApplicationController
   
   def self.client_name
         self.name
-    end
-
+  end
+  
+	def send_email
+		@clients = Client.where(:surname => 'Эмексизов')
+		@clients.each do |client|
+		ClientMailer.advt_notification(client).deliver_now
+		end
+		redirect_to clients_url, notice: 'Email sends.'
+	end
+	
   # DELETE /clients/1
   def destroy
     @client.destroy

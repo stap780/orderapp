@@ -12,19 +12,63 @@ class StoresController < ApplicationController
   # GET /stores
   # GET /stores.json
   def index
-  
+  	if params[:q] !=nil
+	    @startdate = params[:q][:stocks_created_at_gteq].to_date.beginning_of_day 
+	    @enddate = params[:q][:stocks_created_at_lteq].to_date.end_of_day 
+		else
+	    @startdate = '2015-01-01'.to_date.beginning_of_day 
+	    @enddate = Date.current 
+		end
+	
     @q = Store.ransack(params[:q]) 
     @q.sorts = 'title asc' if @q.sorts.empty? 
-    @stores = @q.result.paginate(page: params[:page], per_page: 50)
+    @stores = @q.result(distinct: true).includes(:stocks).paginate(page: params[:page], per_page: 20)
+    # расчет кол-ва для сохранения в базе и проверки с отображением во view
     @stores.each do |store|
-    purchase_prihod = store.stocks.where("purchase_list_id IS NOT ?", nil)
+    purchase_prihod = store.stocks.where("purchase_list_id IS NOT ? ", nil)
     enter_prihod = store.stocks.where("enter_id IS NOT ?", nil)
+    vozvrat = store.stocks.where("vozvrat_id IS NOT ?", nil)
     invoice_rashod = store.stocks.where("invoice_list_id IS NOT ?", nil)
     loss_rashod = store.stocks.where("loss_id IS NOT ?", nil)
-    prihod = purchase_prihod.sum(:quantity).to_i + enter_prihod.sum(:quantity).to_i
+    prihod = purchase_prihod.sum(:quantity).to_i + enter_prihod.sum(:quantity).to_i 
     rashod = invoice_rashod.sum(:quantity).to_i + loss_rashod.sum(:quantity).to_i
-    store.quantity = prihod - rashod
+    store.quantity = prihod - rashod + vozvrat.sum(:quantity).to_i
     store.save
+			
+    #расчет цен по приходу и расходу
+    # средняя цена прихода
+    pprihod = (purchase_prihod.sum(:price)/purchase_prihod.count).to_f.round(2)
+	  penter = (enter_prihod.sum(:price)/enter_prihod.count).to_f.round(2)
+		if penter.nan?
+		penter = 0
+		end
+		if pprihod.nan?
+		pprihod = 0
+		end
+		if penter || pprihod == 0
+		pricein = (penter+pprihod)/1
+		else
+		pricein = (penter+pprihod)/2
+		end
+		store.pricein = pricein
+		store.save
+		# средняя цена расхода
+		prashod = (invoice_rashod.sum(:price)/invoice_rashod.count).to_f.round(2)
+		ploss = (loss_rashod.sum(:price)/loss_rashod.count).to_f.round(2)
+		if ploss.nan?
+		ploss = 0
+		end
+		if prashod.nan?
+		prashod = 0
+		end
+		if ploss || prashod == 0
+		price = (prashod+ploss)/1
+		else
+		price = (prashod+ploss)/2
+		end
+		store.price = price
+		store.save
+
     end
   end
   
@@ -97,6 +141,6 @@ class StoresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def store_params
-      params.require(:store).permit(:title, :quantity, :price, :product_id)
+      params.require(:store).permit(:title, :quantity, :price)
     end
 end

@@ -1,10 +1,17 @@
 class Bank < ActiveRecord::Base
 	
-	belongs_to :invoice
+	#belongs_to :invoice
+	#belongs_to :purchase_invoice
 	belongs_to :payer,  :class_name => 'Company', foreign_key: "payer_id"
 	belongs_to :receiver, :class_name => 'Company', foreign_key: "receiver_id"
+	has_many 	 :bank_items
+	has_many   :invoices, through: :bank_items
+	has_many   :purchase_invoices, through: :bank_items
+	accepts_nested_attributes_for :bank_items, allow_destroy: true
+
 	
 validates :number, uniqueness: true
+delegate :title, :title=, to: :company, prefix: true, allow_nil: true
 	
 	
 	 def self.import(file)

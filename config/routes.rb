@@ -1,6 +1,22 @@
 # -*- encoding : utf-8 -*-
 InsalesApp::Application.routes.draw do 
   
+  resources :cars do
+  	collection do
+  		post :import
+      get  :webidupdate
+      get  :uploadurl  
+  	end
+	end
+	  
+  resources :kurs do
+	  collection do
+		  get :updatekurs
+		end
+	end
+	
+  resources :vozvrats
+  
   resources :acts do 
     collection do
       get :autocomplete_company_title	 
@@ -13,6 +29,7 @@ InsalesApp::Application.routes.draw do
   	collection do
   	post :import
   	match 'search' => 'banks#search', via:[:get, :post], as: :search
+		get :autocomplete_company_title
   	end
   end
   resources :dovers do 
@@ -27,6 +44,7 @@ InsalesApp::Application.routes.draw do
   resources :cases do
 	  collection do
 		 post :create_json_case
+		 get :autocomplete_client_name
 		 end
 	end
   resources :gsteles do
@@ -56,11 +74,16 @@ InsalesApp::Application.routes.draw do
   resources :stores do
   	collection do
   	get :autocomplete_product_title
-  	match 'search' => 'stores#search', via:[:get, :post], as: :search
+  	#match 'search' => 'stores#search', via:[:get, :post], as: :search
   	end
   end
   resources :purchase_invoice_ins
-  resources :purchase_lists
+  resources :purchase_lists do
+	  collection do
+		get :autocomplete_company_title
+	  match 'search' => 'purchase_lists#search', via:[:get, :post], as: :search
+	  end
+	end
   resources :users
   resources :purchase_invoices do 
     collection do
@@ -75,6 +98,7 @@ InsalesApp::Application.routes.draw do
   resources :invoice_lists do
 		collection do
 			get :autocomplete_company_title
+			match 'search' => 'invoice_lists#search', via:[:get, :post], as: :search
 		end
 		member do
 		  get :print
@@ -103,7 +127,8 @@ InsalesApp::Application.routes.draw do
   resources :clients do
   	collection do
 	  	get :autocomplete_company_inn
-	end
+	  	get :send_email
+		end
   end
 			  	
   resources :line_items
@@ -217,12 +242,12 @@ InsalesApp::Application.routes.draw do
   
   resources :iorders do 
     collection do 
-      get :downloadorder
-      get :updateorder
-      get :checkdelivery
-      get :autocomplete_product_title
-	  get :autocomplete_client_name
-	  get :get_client_data
+			get :downloadorder
+			get :updateorder
+			get :checkdelivery
+			get :autocomplete_product_title
+			get :autocomplete_client_name
+			get :get_client_data
     end
     member do
       get 'print'

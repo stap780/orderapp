@@ -11,11 +11,16 @@
     <%= f.input :number %>
     </div>
 		<div class="col-md-3">
+<!--
 			<% if !@invoice_list.date.nil? %>
 		    <%= f.input :date, as: :string , :input_html => { :value => @invoice_list.date.strftime("%d/%m/%Y") } %>
 		    <%else%>
 		    <%= f.input :date, as: :string %>
 		    <%end%>
+-->
+		    
+		    	<%= f.input :date, as: :date, html5: true%>
+
 		</div>
 		</div>
 		<div class="col-md-12">
@@ -37,7 +42,18 @@
     <%= f.input :status , collection: [ "Новый", "В работе", "Оплачен"] %>
 	</div>
 	<div class="col-md-12">
+		<div class="col-md-6">
+		<% if @invoice_list.invoiceout_check == true %>
+		<span id="invoice_check_button" class='btn btn-info btn-xs' title="Изменить">Накладная проведена</span>
+		<span id="my_invoiceout_check"><%= f.input :invoiceout_check %></span>
+	  <%else%>  
 	    <%= f.input :invoiceout_check %>
+	  <%end%>
+		</div>
+		<div class="col-md-6">
+	  <span id="vozvrat_check_button" class='btn btn-default btn-xs' title="Изменить">Создать возврат</span>  
+	    <span id="my_vozvrat_check"><%= f.input :vozvrat_check %></span>
+		</div>
 	</div>
 	</div>
 </div>
@@ -73,9 +89,8 @@
 	</div>
 
 	<div class="col-md-12">
-	<%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-default btn-sm' %>
-	<%= link_to t('show'), @invoice_list,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' , class: 'btn btn-default btn-sm'  %>
 	<%= link_to t('back'), invoice_lists_path, class: 'btn btn-default btn-sm'  %>
+	<%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-sm'  %>
 	</div>
 </div>
 

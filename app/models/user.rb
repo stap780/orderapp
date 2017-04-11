@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: {
               with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
             }
-   validates :password, presence: true         
+   validates :password, presence: true, :on => :create        
             
   def to_s
     "#{first_name} #{last_name}"

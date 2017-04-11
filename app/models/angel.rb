@@ -24,7 +24,12 @@ def self.import(file)
 	    a.quantity = 0
 	    a.save
 	    end
+	    
+	    
+	    
     spreadsheet = open_spreadsheet(file) 
+    
+    
      (10..spreadsheet.last_row).each do |i|  
 #        angel = find_by_title(:title) || new
        sku = spreadsheet.cell(i,'A').to_s.gsub('.0','') 
@@ -37,21 +42,25 @@ def self.import(file)
 	       end
        #status = spreadsheet.cell(i,'G')
        cost_price_usd = spreadsheet.cell(i,'F') 
-       price_usd = spreadsheet.cell(i,'D')
+       price_file = spreadsheet.cell(i,'D')
        valuta1 = spreadsheet.cell(i,'E')
        valuta2 = spreadsheet.cell(i,'G')
-       url = "http://www.cbr.ru/scripts/XML_daily.asp"
-				data = Nokogiri::XML(open(url))
-				a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-				@kurs = a.gsub(/,/, '.')  
-				#@kurs = 64.4424	  
+         
 		    if valuta1 == "RUB"
-				price = (price_usd.to_f / @kurs.to_f).to_f.round(2)
+			    if price_file < 900
+						price = ((price_file.to_f / Kur.last.dollar.to_f) * 1.15).to_f.round(2)
+					else
+						price = (price_file.to_f / Kur.last.dollar.to_f).to_f.round(2)
+					end	
 				else
-				price = price_usd.to_f.round(2)
+					if price_file < 13
+						price = (price_file.to_f * 1.15).round(2)
+					else
+						price = price_file.to_f.round(2)
+					end
 				end
 				if valuta2 == "RUB"
-				cost_price = (cost_price_usd.to_f / @kurs.to_f).to_f.round(2)
+				cost_price = (cost_price_usd.to_f / Kur.last.dollar.to_f).to_f.round(2)
 				else
 				cost_price =  cost_price_usd.to_f.round(2)
 				end
@@ -75,6 +84,13 @@ def self.import(file)
 #       end
        
     end
+   
+   @angels = Angel.where('title Like ?', '%Vigor%')
+   @angels.each do |ang|
+	   ang.price = ang.cost_price * 1.10
+	   ang.save
+	   end 
+    
   end
   
    def self.open_spreadsheet(file)

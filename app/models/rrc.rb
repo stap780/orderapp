@@ -17,7 +17,7 @@ class Rrc < ActiveRecord::Base
 
 def self.import(file)
     @rrcs = Rrc.order("id")
-       @rrcs.each do |rrc|
+     @rrcs.each do |rrc|
 	   rrc.quantity = 0
 	   rrc.save
 	   end
@@ -25,15 +25,12 @@ def self.import(file)
      (7..spreadsheet.last_row).each do |i|  
        sku = spreadsheet.cell(i,'A').to_s
        title = spreadsheet.cell(i,'B')
-       a = spreadsheet.cell(i,'E').to_s
-       if a == '+ + +'
-       quantity = a.gsub('+ + +', '100').to_i
-       else
+       ab = spreadsheet.cell(i,'E').to_s
+      
+       a = ab.gsub(/\s+/, "")
+       
        if a == '+++'
        quantity = a.gsub('+++', '100').to_i
-       else
-       if a == '+ +'
-       quantity = a.gsub('+ +', '30').to_i
        else
        if a == '++'
        quantity = a.gsub('++', '30').to_i
@@ -43,30 +40,39 @@ def self.import(file)
        else
        quantity = a.to_i
        if a == ''
-       quantity = 0 
+       quantity = 0
        end
        end
        end
-       end
-       end
-       end
+       end 
+       
        
        cost_price = spreadsheet.cell(i,'H').to_f
        if cost_price > 500
-       price = (cost_price*1.13).to_f.round(2)
+       price = (cost_price*1.11).to_f.round(2)
        else
-       price = (cost_price*1.25).to_f.round(2)
+       price = (cost_price*1.20).to_f.round(2)
        end
-       
+       if cost_price < 30
+       price = (cost_price*1.7).to_f.round(2)
+       end
        @rrc = Rrc.find_by_sku("#{sku}")
 				if @rrc.present? 
 				@rrc.update_attributes( :title => title, :quantity => quantity, :cost_price => cost_price, :price => price)
+				else
+				puts "#{sku}"
+				Rrc.create( :sku => sku, :title => title, :quantity => quantity, :cost_price => cost_price, :price => price)
 		 		end
 		end
 		 		
 		rrc = Rrc.where('sku Like ?', '%SIP%')
 		rrc.each do |v|
 		price = (v.cost_price*1.43).to_f.round(2)
+		v.update_attributes( :price => price)
+		end
+		rrc = Rrc.where('title Like ?', '%Yeastar%')
+		rrc.each do |v|
+		price = (v.cost_price*1.33).to_f.round(2)
 		v.update_attributes( :price => price)
 		end
 

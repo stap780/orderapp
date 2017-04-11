@@ -1,3 +1,5 @@
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -12,12 +14,12 @@
 
 <p>
   <strong>Company:</strong>
-  <%= @invoiceout.company.title %>
+  <%= @invoiceout.company.title if @invoiceout.company !=nil%>
 </p>
 
 <p>
   <strong>Invoice list:</strong>
-  <%= link_to @invoiceout.invoice_list.number, @invoiceout.invoice_list %>
+  <%= link_to @invoiceout.invoice_list.number, @invoiceout.invoice_list ,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' %>
 </p>
 
 <p>

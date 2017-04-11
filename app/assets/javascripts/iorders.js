@@ -1,7 +1,4 @@
- 
- 
- jQuery(function() {
-$( document ).ready(function() {
+$(document).on("turbolinks:load", function() {
 var clientId = document.getElementById('iorder_client_id').value;
 /* alert(clientId); */
 	$.ajax({
@@ -23,4 +20,3 @@ var clientId = document.getElementById('iorder_client_id').value;
 });
 
 
- });

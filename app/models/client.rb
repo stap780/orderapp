@@ -11,7 +11,7 @@ class Client < ActiveRecord::Base
 	has_many :cases
 	validates :phone, uniqueness: true
 
-	def client_iorder_name_surname #это для автокоплита - чтобы подставлялось имя и фамилия при подборе
+	def client_name_surname #это для автокомплита - чтобы подставлялось имя и фамилия при подборе
     "#{self.name} #{self.surname}"
 	end
 	

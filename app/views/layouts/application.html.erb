@@ -2,17 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
     <link href="/assets/favicon.ico" rel="shortcut icon"></link>
-    <title><%= app_name %></title>
-    
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    
-     <!-- javascript_include_tag "application" >
-    < stylesheet_link_tag "application"-->
-
+    <title><%= app_name %></title>    
     
   </head>
 <body>
@@ -20,6 +15,12 @@
    <div class="header">
    	<div class="col-md-12">
      <nav class="navbar navbar-default">
+	     		<div class="kurs_header" style="float:left;">
+		<%= Kur.last.date.strftime("%d/%m/%Y") %></br>
+		<i class="glyphicon glyphicon-usd"></i>  <%= Kur.last.dollar %></br>
+		<i class="glyphicon glyphicon-euro"></i> <%= Kur.last.euro %>
+		</div>
+
   		<div class="container-fluid" style="float:left;">
     		<ul class="nav nav-pills">
             <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to image_tag('home_inactive_icon.png', :title => 'Вернуться в магазин', :alt => 'Вернуться в магазин'), root_path %></li>
@@ -32,6 +33,7 @@
             <li class="<%= 'active' if current_page?(invoice_lists_path) %>"><%= link_to 'Накладные', controller: 'invoice_lists', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(invoiceouts_path) %>"><%= link_to 'Счёт-фактуры', controller: 'invoiceouts', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(acts_path) %>"><%= link_to 'Акт сверки', controller: 'acts', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(vozvrats_path) %>"><%= link_to 'Возвраты', controller: 'vozvrats', action: 'index' %></li>
             </ul>
             </li>
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Закупки <span class="caret"></span></a>
@@ -49,7 +51,9 @@
             <li class="<%= 'active' if current_page?(product_options_path) %>"><%= link_to 'Св-ва товара', controller: 'product_options', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(clients_path) %>"><%= link_to 'Покупатели', controller: 'clients', action: 'index' %></li>
             <li class="<%= 'active' if current_page?(companies_path) %>"><%= link_to 'Компании', controller: 'companies', action: 'index' %></li>
-            
+            <li class="<%= 'active' if current_page?(kurs_path) %>"><%= link_to 'Курс', controller: 'kurs', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(users_path) %>"><%= link_to 'Пользователи', controller: 'users', action: 'index' %></li>
+            <li class="<%= 'active' if current_page?(mycouriers_path) %>"><%= link_to 'Курьерки', controller: 'mycouriers', action: 'index' %></li>
             </ul>
             </li>
             <li role="presentation" class="dropdown"> <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Склад<span class="caret"></span></a>
@@ -68,16 +72,16 @@
             	<li class="<%= 'active' if current_page?(angels_path) %>"><%= link_to 'Цифровой ангел', controller: 'angels', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(vimcoms_path) %>"><%= link_to 'Вимком', controller: 'vimcoms', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(gsteles_path) %>"><%= link_to 'Gstele', controller: 'gsteles', action: 'index' %></li>
+            	<li class="<%= 'active' if current_page?(citilinks_path) %>"><%= link_to 'Ситилинк', controller: 'citilinks', action: 'index' %></li>
             	<li role="separator" class="divider"></li>
             	<li class="<%= 'active' if current_page?(treolans_path) %>"><%= link_to 'Треолан', controller: 'treolans', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(energies_path) %>"><%= link_to 'Energy', controller: 'energies', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(sskoms_path) %>"><%= link_to 'Сском', controller: 'sskoms', action: 'index' %></li>
-            	<li class="<%= 'active' if current_page?(citilinks_path) %>"><%= link_to 'Ситилинк', controller: 'citilinks', action: 'index' %></li>
             	<li role="separator" class="divider"></li>
             	<li><%= link_to 'Сводная поставщики', controller: 'vendors', action: 'index' %></li>
           		</ul>
             </li>
-            <li class="dropdown <%= 'active' if current_page?(mycouriers_path) %>"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Доставка<span class="caret"></span></a>
+            <li role="presentation" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Доставка<span class="caret"></span></a>
             <ul class="dropdown-menu">
             	<li class="<%= 'active' if current_page?(imls_path) %>"><%= link_to 'IML', controller: 'imls', action: 'index' %></li>
             	<li class="<%= 'active' if current_page?(dpds_path) %>"><%= link_to 'DPD', controller: 'dpds', action: 'index' %></li>

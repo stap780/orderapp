@@ -105,7 +105,7 @@ class Product < ActiveRecord::Base
 	@products = Product.order(:id)#.offset(360)
 	@products.each do |product|
 		variant = Variant.find_by_product_id(product.id)
-		if variant.nil?#!variant.nil?
+		if variant.nil?
 		uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{product.inid}.xml"
 		begin
 		response = RestClient.get uri, :accept => :xml, :content_type => "application/xml"
@@ -186,21 +186,23 @@ class Product < ActiveRecord::Base
 		puts "#{(ipv.product_id)}"
 	ip_product = Ipmatika.find_by_id(ipv.supplier_id) #обновляем кол-во по данному товару поставщика
 		if !ip_product.nil?
-		if !ip_product.quantity_free.nil?
-		ipv.quantity = ip_product.quantity_free
+			if !ip_product.quantity_free.nil?
+			ipv.quantity = ip_product.quantity_free
+			else
+			ipv.quantity = 0
+			end 
+			ipv.cost_price = ip_product.cost_price
+			ipv.save
+			if !ipv.cost_price.nil?
+			#ipv.price = ipv.cost_price + ipv.cost_price*10/100
+			ipv.price = (ipv.cost_price.to_f + ip_product.price.to_f)/1.96
+			else
+			ipv.price = 0
+			end
+			ipv.old_price = ip_product.price
+			ipv.save
 		else
-		ipv.quantity = 0
-		end 
-		ipv.cost_price = ip_product.cost_price
-		ipv.save
-		if !ipv.cost_price.nil?
-		#ipv.price = ipv.cost_price + ipv.cost_price*10/100
-		ipv.price = (ipv.cost_price.to_f + ip_product.price.to_f)/2
-		else
-		ipv.price = 0
-		end
-		ipv.old_price = ip_product.price
-		ipv.save
+		ipv.destroy
 		end
 	end
 	
@@ -209,12 +211,16 @@ class Product < ActiveRecord::Base
 	homy_variant.each do |hv|
 		puts "#{(hv.sku)}"
 	homy_product = Homyproduct.find_by_id(hv.supplier_id) #обновляем кол-во по данному товару поставщика
-	hv.quantity = homy_product.quantity_all_free
-	hv.cost_price = homy_product.price
-	hv.save
-	hv.price = (hv.cost_price.to_f + homy_product.sell_price.to_f)/2
-	hv.old_price = homy_product.sell_price
-	hv.save
+		if !homy_product.nil?
+			hv.quantity = homy_product.quantity_tul_free + homy_product.quantity_main_free
+			hv.cost_price = homy_product.price
+			hv.save
+			hv.price = (hv.cost_price.to_f + homy_product.sell_price.to_f)/1.96
+			hv.old_price = homy_product.sell_price
+			hv.save
+		else
+		hv.destroy
+		end
 	end
 	
 	# Обновляем товары Имаг
@@ -222,33 +228,41 @@ class Product < ActiveRecord::Base
 	emag_variant.each do |ev|
  		puts "#{(ev.sku)}"
 	emag_product = Emag.find_by_id(ev.supplier_id) #обновляем кол-во по данному товару поставщика
-	ev.quantity = emag_product.quantity
-	ev.cost_price = emag_product.cost_price
-	ev.save
-	if !ev.cost_price.nil?
-	ev.price = (ev.cost_price.to_f + emag_product.price.to_f)/2
-	else
-	ev.price = 0
-	end
-	ev.old_price = emag_product.price
-	ev.save
+		if !emag_product.nil?
+				ev.quantity = emag_product.quantity
+				ev.cost_price = emag_product.cost_price
+				ev.save
+				if !ev.cost_price.nil?
+				ev.price = (ev.cost_price.to_f + emag_product.price.to_f)/1.96
+				else
+				ev.price = 0
+				end
+				ev.old_price = emag_product.price
+				ev.save
+		else
+		ev.destroy
+		end
 	end
 	
 	# Обновляем товары Gstele
 	gstele_variant = Variant.where('product_option_id = ?', 5) #находим варианты продуктов относящийся к поставшику Gstele
 	gstele_variant.each do |gv|
 	gstele_product = Gstele.find_by_id(gv.supplier_id) #обновляем кол-во по данному товару поставщика
-	gv.quantity = gstele_product.quantity
-	gv.cost_price = gstele_product.cost_price.to_f.round(2)
-	gv.save
-	if !gv.cost_price.nil?
-# 	gv.price = (gv.cost_price * 1.09).to_f.round(2)
-	gv.price = (gv.cost_price.to_f + gstele_product.price.to_f)/2
-	else
-	gv.price = 0
-	end
-	gv.old_price = gstele_product.price.to_f.round(2)
-	gv.save
+		if !gstele_product.nil?
+			gv.quantity = gstele_product.quantity
+			gv.cost_price = gstele_product.cost_price.to_f.round(2)
+			gv.save
+			if !gv.cost_price.nil?
+		# 	gv.price = (gv.cost_price * 1.09).to_f.round(2)
+			gv.price = (gv.cost_price.to_f + gstele_product.price.to_f)/1.96
+			else
+			gv.price = 0
+			end
+			gv.old_price = gstele_product.price.to_f.round(2)
+			gv.save
+		else
+		gv.destroy
+		end	
 	end
 	
 	# Обновляем товары РРС
@@ -256,41 +270,70 @@ class Product < ActiveRecord::Base
 	rrc_variant.each do |rrcv|
 		puts "#{(rrcv.sku)}"
 	rrc_product = Rrc.find_by_id(rrcv.supplier_id) #обновляем кол-во по данному товару поставщика
-	rrcv.quantity = rrc_product.quantity
-	rrcv.cost_price = rrc_product.cost_price
-	rrcv.save
-	if !rrcv.cost_price.nil?
-	rrcv.price = (rrcv.cost_price.to_f + rrc_product.price.to_f )/2
-	else
-	rrcv.price = 0
-	end
-	rrcv.old_price = rrc_product.price
-	rrcv.save
+		if !rrc_product.nil?
+			rrcv.quantity = rrc_product.quantity
+			rrcv.cost_price = rrc_product.cost_price
+			rrcv.save
+			if !rrcv.cost_price.nil?
+			rrcv.price = (rrcv.cost_price.to_f + rrc_product.price.to_f )/1.96
+			else
+			rrcv.price = 0
+			end
+			rrcv.old_price = rrc_product.price
+			rrcv.save
+		else
+		rrcv.destroy
+		end	
 	end
 	
 	# Обновляем товары Цифровой Ангел
 	angel_variant = Variant.where('product_option_id = ?', 7) #находим варианты продуктов относящийся к поставшику 
 	angel_variant.each do |av|
 	angel_product = Angel.find_by_id(av.supplier_id) #обновляем кол-во по данному товару поставщика
-	av.quantity = angel_product.quantity
-	av.cost_price = angel_product.cost_price
-	av.save
-	av.price = (av.cost_price.to_f + angel_product.price.to_f)/2
-	av.old_price = angel_product.price
-	av.save
+		if !angel_product.nil?
+			av.quantity = angel_product.quantity
+			av.cost_price = angel_product.cost_price
+			av.save
+			av.price = (av.cost_price.to_f + angel_product.price.to_f)/1.96
+			av.old_price = angel_product.price
+			av.save
+		else
+		av.destroy
+		end	
 	end
 	
 	# Обновляем товары Вимком
 	vimcom_variant = Variant.where('product_option_id = ?', 8) #находим варианты продуктов относящийся к поставшику 
 	vimcom_variant.each do |vv|
 	vimcom_product = Vimcom.find_by_id(vv.supplier_id) #обновляем кол-во по данному товару поставщика
-	vv.quantity = vimcom_product.quantity_free
-	vv.cost_price = vimcom_product.cost_price
-	vv.save
-	vv.price = (vv.cost_price.to_f + vimcom_product.price.to_f)/2
-	vv.old_price = vimcom_product.price
-	vv.save
+		if !vimcom_product.nil?
+			vv.quantity = vimcom_product.quantity_free
+			vv.cost_price = vimcom_product.cost_price
+			vv.save
+			vv.price = (vv.cost_price.to_f + vimcom_product.price.to_f)/1.96
+			vv.old_price = vimcom_product.price
+			vv.save
+		else
+		vv.destroy
+		end	
 	end
+	
+		# Обновляем товары Ситилинк
+	ct_variant = Variant.where('product_option_id = ?', 12) #находим варианты продуктов относящийся к поставшику 
+	ct_variant.each do |ct|
+	ct_product = Citilink.find_by_id(ct.supplier_id) #обновляем кол-во по данному товару поставщика
+		if !ct_variant.nil?
+			ct.quantity = ct_product.quantity
+			ct.cost_price = ct_product.price
+			ct.save
+			ct.price = (ct.cost_price.to_f + ct_product.price1.to_f)/1.96
+			ct.old_price = ct_product.price1
+			ct.save
+		else
+		ct.destroy
+		end	
+	end
+
 	
 	# считаем сумму по остаткам вариантов товара и записываем значение в вариант товара - Розница, а так же обновляем цены
 	product = Product.order(:id)
@@ -330,7 +373,8 @@ class Product < ActiveRecord::Base
 	product.quantity = v.quantity
 # 	puts "#{(product.sku)}"
 	product.cost_price = v.cost_price
-	product.sell_price = v.price #Цена РРЦ
+	product.sell_price = v.price #Подставляется Цена РРЦ или минимальная , в зависимости от поставщика
+	
 	product.price = v.old_price
 	product.save
 	end

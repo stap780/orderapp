@@ -43,13 +43,8 @@ class ProductsController < ApplicationController
   end
   
   def advt
-	@advt_products = Product.where("quantity > 0")
-	url = "http://www.cbr.ru/scripts/XML_daily.asp"
-	data = Nokogiri::XML(open(url))
-	a = data.xpath("ValCurs/Valute[@ID = 'R01235']/Value").text
-	@kurs = a.gsub(/,/, '.').to_f
+	@advt_products = Product.all
 	  
-	#@products = Product.where("quantity > ?", 0)  
 	@products = Product.where('sku Like ? ', '%yl%')
 	advt_csv_string = CSV.generate(:col_sep => ';') do |csv|
          csv << ['title','descr1', 'descr2', 'url', 'keyword/#thematic#','price', 'stopwords']#,'autobid'
@@ -166,6 +161,8 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1
   def destroy
+	  uri = "http://a2e2ed5ba6560944845dbf38f2223298:0e734e3c93ca9795f87313c83c5ebbcf@worksys.myinsales.ru/admin/products/#{@product.inid}.xml"
+     response = RestClient.delete uri, :accept => :xml, :content_type => "application/xml"
     @product.destroy
     redirect_to products_url, notice: 'Product was successfully destroyed.'
   end

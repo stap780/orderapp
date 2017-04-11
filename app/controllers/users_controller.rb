@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authorize,  except: [:new]
+	
+  def authorize
+    if current_user.nil?
+      redirect_to login_url, alert: "Not authorized! Please log in."
+     end
+  end
 
   # GET /users
   # GET /users.json
@@ -20,6 +27,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
   end
+  
 
   # POST /users
   # POST /users.json

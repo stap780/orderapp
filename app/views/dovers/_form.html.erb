@@ -1,9 +1,14 @@
-<%= simple_form_for(@dover) do |f| %>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
+<%= simple_form_for(@dover, :remote => true) do |f| %>
   <%= f.error_notification %>
 
   <div class="col-md-12">
 		<div class="col-md-3">
+	  <%if @dover.number.nil?%>
+		<%= f.input :number, input_html: { :value => Dover.last.number.to_i + 1 }  %>
+		<%else%>
 		<%= f.input :number %>
+		<%end%>
 		</div>
 	  <div class="col-md-3">
 		<%= f.input :company_title, as: :autocomplete, url:  autocomplete_company_title_dovers_path, input_html: { 'data-id-element' => '#dover_company_id' }  %>
@@ -15,7 +20,7 @@
   </div>
   <div class="col-md-12">
 	  <div class="col-md-3">
-		<%= f.input  :startdate, as: :date, html5: true%>
+		<%= f.input  :startdate, as: :date, html5: true, input_html: { :value => Date.today } %>
 		</div>
 		<div class="col-md-3">
 		<%= f.input :enddate, as: :date, html5: true %>
@@ -51,9 +56,9 @@
   
 
   <div class="form-actions">
-	<%= link_to t('show'), @dovers, class: 'btn btn-default btn-sm'  %>
+	<!--<%= link_to t('show'), @dovers, class: 'btn btn-default btn-sm'  %>-->
     <%= link_to t('back'), dovers_path , class: 'btn btn-default btn-sm'%>
-    <%= f.button :submit %>
+    <%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-sm' %>
   </div>
 <% end %>
 

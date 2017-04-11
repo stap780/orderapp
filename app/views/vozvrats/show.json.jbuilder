@@ -1,0 +1,1 @@
+json.partial! "vozvrats/vozvrat", vozvrat: @vozvrat

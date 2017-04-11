@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019072024) do
+ActiveRecord::Schema.define(version: 20170321202642) do
 
   create_table "accounts", force: :cascade do |t|
     t.text     "insales_subdomain", null: false
@@ -46,6 +46,18 @@ ActiveRecord::Schema.define(version: 20161019072024) do
   add_index "angels", ["sku"], name: "index_angels_on_sku"
   add_index "angels", ["title"], name: "index_angels_on_title"
 
+  create_table "bank_items", force: :cascade do |t|
+    t.integer  "bank_id"
+    t.integer  "invoice_id"
+    t.integer  "purchase_invoice_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "bank_items", ["bank_id"], name: "index_bank_items_on_bank_id"
+  add_index "bank_items", ["invoice_id"], name: "index_bank_items_on_invoice_id"
+  add_index "bank_items", ["purchase_invoice_id"], name: "index_bank_items_on_purchase_invoice_id"
+
   create_table "banks", force: :cascade do |t|
     t.integer  "number"
     t.string   "oper_type"
@@ -55,8 +67,17 @@ ActiveRecord::Schema.define(version: 20161019072024) do
     t.integer  "payer_id"
     t.integer  "receiver_id"
     t.integer  "invoice_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "purchase_invoice_id"
+  end
+
+  create_table "cars", force: :cascade do |t|
+    t.integer  "webid"
+    t.string   "title"
+    t.string   "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cases", force: :cascade do |t|
@@ -84,6 +105,7 @@ ActiveRecord::Schema.define(version: 20161019072024) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "quantity"
+    t.string   "cid"
   end
 
   add_index "citilinks", ["title"], name: "index_citilinks_on_title"
@@ -336,6 +358,7 @@ ActiveRecord::Schema.define(version: 20161019072024) do
     t.decimal  "discount",         precision: 8, scale: 2
     t.integer  "companytwo"
     t.boolean  "invoiceout_check"
+    t.boolean  "vozvrat_check"
   end
 
   create_table "invoiceouts", force: :cascade do |t|
@@ -429,6 +452,14 @@ ActiveRecord::Schema.define(version: 20161019072024) do
   end
 
   add_index "ipmatikas", ["title"], name: "index_ipmatikas_on_title"
+
+  create_table "kurs", force: :cascade do |t|
+    t.datetime "date"
+    t.float    "dollar"
+    t.float    "euro"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "line_items", force: :cascade do |t|
     t.integer  "iorder_id"
@@ -644,6 +675,7 @@ ActiveRecord::Schema.define(version: 20161019072024) do
     t.integer  "store_id"
     t.integer  "loss_id"
     t.integer  "enter_id"
+    t.integer  "vozvrat_id"
   end
 
   create_table "store_items", force: :cascade do |t|
@@ -664,6 +696,7 @@ ActiveRecord::Schema.define(version: 20161019072024) do
     t.decimal  "price",      precision: 8, scale: 2
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.decimal  "pricein",    precision: 8, scale: 2
   end
 
   create_table "treolans", force: :cascade do |t|
@@ -714,5 +747,13 @@ ActiveRecord::Schema.define(version: 20161019072024) do
   end
 
   add_index "vimcoms", ["title"], name: "index_vimcoms_on_title"
+
+  create_table "vozvrats", force: :cascade do |t|
+    t.integer  "number"
+    t.datetime "date"
+    t.integer  "invoice_list_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end

@@ -3,14 +3,14 @@
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-2">
-		<h1>Клиенты <br><small>сводная таблица</small></h1>
+		<h2>Клиенты <br><small>сводная таблица</small></h2>
 		</div>
 		<div class="col-md-2">
+					<%= link_to 'New Client', new_client_path , class: 'btn btn-sm btn-info' %>
 		</div>
 		<div class="col-md-8">
-		
-				<form class="form-inline">
-		<p><%=t 'search_t'%></p>
+		<form class="form-inline">
+	  <%=t 'search_t'%>
 		<%= search_form_for @search do |f|%>
   		<div class = "form-group">
   		<%= f.search_field :phone_eq , placeholder: t('.phone'), class: "form-control input-sm" %>  
@@ -24,7 +24,7 @@
 		</div>
 	<div class="col-md-12">
 		<div class="col-md-5">
-		<%= link_to 'New Client', new_client_path %>
+		<%= link_to 'Send Email', send_email_clients_path %>
 		</div>
 	</div>
 </div>

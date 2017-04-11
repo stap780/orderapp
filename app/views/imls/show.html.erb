@@ -27,3 +27,4 @@
 
 <%= link_to 'Edit', edit_iml_path(@iml) %> |
 <%= link_to 'Back', imls_path %>
+<%= link_to 'Destroy', @iml, method: :delete, data: { confirm: 'Are you sure?' } %>

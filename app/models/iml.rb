@@ -14,10 +14,11 @@ require 'json'
 	@imls = Iml.order("id desc").limit(15)
 	@imls.each do |iml|
 	response = RestClient.post "http://03584:uK8$o$iC@api.iml.ru/json/GetStatuses", { 'CustomerOrder' => "#{(iml.number)}" }.to_json, :content_type => :json, :accept => :json
-
-	data = JSON.parse(response)
-	b = data[0]
 	
+	data = JSON.parse(response)
+	
+	b = data[0]
+	if b !=nil
 	puts "#{iml.id}"
 	iml.statenum = b["State"]
 	iml.state = b["StateDescription"]
@@ -27,7 +28,8 @@ require 'json'
 	iml.barcode = b["BarCode"]
 	
 	iml.save
-	
+	else
+	end
 	end	
 	end
 

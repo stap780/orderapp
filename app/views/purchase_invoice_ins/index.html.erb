@@ -7,10 +7,10 @@
 		<div class="col-md-2">
 		</div>
 		<div class="col-md-6">
-		  		<form class="form-inline">
-			<p><%= t 'search_t' %></p>
+		  <form class="form-inline">
+			<%= t 'search_t' %>
 			<%= search_form_for @search do |f|%>
-	  		<div classs = "search">
+	  		<div class = "form-group">
 	  		<%= f.search_field :number_eq, placeholder: t('.number_eq'), class: "form-control input-sm"  %> 
 	  		<%= f.submit t('search'), class: 'btn btn-default btn-sm' %>
 	  		</div>
@@ -51,7 +51,7 @@
         </td>
         <td><%= link_to 'Show', purchase_invoice_in, class: 'btn btn-default btn-xs' %></td>
         <td><%= link_to 'Edit', edit_purchase_invoice_in_path(purchase_invoice_in), class: 'btn btn-success btn-xs'  %></td>
-        <td><%= link_to 'Destroy', purchase_invoice_in, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, purchase_invoice_in, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

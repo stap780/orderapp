@@ -1,8 +1,15 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Acts</h1>
-
-<table>
+<div class="col-md-12">
+<div class="col-md-3">
+<h2>Listing Acts</h2>
+</div>
+<div class="col-md-4">	
+<%= link_to 'New Act', new_act_path, class: 'btn btn-sm btn-info' %>
+</div>
+<div class="col-md-12">
+<div class="media">
+  <div class="media-body">
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Company</th>
@@ -15,17 +22,19 @@
   <tbody>
     <% @acts.each do |act| %>
       <tr>
-        <td><%= act.company_id %></td>
+        <td><%= act.company.title %></td>
         <td><%= act.startdate %></td>
         <td><%= act.enddate %></td>
-        <td><%= link_to 'Show', act %></td>
-        <td><%= link_to 'Edit', edit_act_path(act) %></td>
-        <td><%= link_to 'Destroy', act, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', act , class: 'btn btn-default btn-xs'%></td>
+        <td><%= link_to 'Edit', edit_act_path(act), class: 'btn btn-success btn-xs'  %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, act, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
+</div>
+</div>
 
-<br>
+</div>
 
-<%= link_to 'New Act', new_act_path %>

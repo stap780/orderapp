@@ -1,7 +1,5 @@
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
-
-
-<%= simple_form_for(@invoice) do |f| %>
+<%= simple_form_for(@invoice, :remote => true) do |f| %>
   <%= f.error_notification %>
 <div class="col-md-12">
 	<div class="col-md-8">
@@ -10,11 +8,14 @@
 			    <%= f.input :number %>
 			</div>
 			<div class="col-md-3">
+<!--
 				<% if !@invoice.date.nil? %>
 			    <%= f.input :date, as: :string , :input_html => { :value => @invoice.date.strftime("%d/%m/%Y") } %>
 			    <%else%>
 			    <%= f.input :date, as: :string %>
 			    <%end%>
+-->
+	<%= f.input :date, as: :date, html5: true%>
 			</div>
 		</div>
 		<div class="col-md-12">
@@ -61,7 +62,7 @@
 		      <th><%= t 'item_quantity' %></th>
 		      <th><%= t 'item_price' %></th>
 		      <th><%= t 'item_sum' %></th>
-			<th colspan="3"></th>
+			<th colspan="1"></th>
 		    </tr>
 		  </thead>
 			<%= f.simple_fields_for :invoice_items do |invoice_item| %>
@@ -88,9 +89,9 @@
 	</div>
 	
 	<div class="col-md-12">
-	<%= f.button :submit, class: 'btn btn-default btn-sm' %>
-	<%= link_to t('show'), @invoice, class: 'btn btn-default btn-sm'  %>
 	<%= link_to t('back'), invoices_path, class: 'btn btn-default btn-sm'  %>
+	<%= f.button :submit,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => "#modal-window", class: 'btn btn-primary btn-sm' %>
+	<!--<%= link_to t('show'), @invoice, class: 'btn btn-default btn-sm'  %>-->
 	</div>
 	</div>
 </div>

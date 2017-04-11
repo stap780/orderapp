@@ -1,39 +1,43 @@
+<h1><%=t '.show_title'%></h1>
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Number:</strong>
+  <strong><%=t '.number'%></strong>
   <%= @case.number %>
 </p>
 
 <p>
-  <strong>Client:</strong>
-  <%= @case.client_id %>
+  <strong><%=t '.client'%></strong>
+  <%= @case.client.name %>
 </p>
 
 <p>
-  <strong>Iorder:</strong>
+  <strong><%=t '.iorder'%></strong>
   <%= @case.iorder_id %>
 </p>
 
 <p>
-  <strong>Status:</strong>
+  <strong><%=t '.status'%></strong>
   <%= @case.status %>
 </p>
 
 <p>
-  <strong>Service:</strong>
+  <strong><%=t '.service'%></strong>
   <%= @case.service %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong><%=t '.description'%></strong>
   <%= @case.description %>
 </p>
 
 <p>
-  <strong>Iorder check:</strong>
+  <strong><%=t '.iorder_check'%></strong>
   <%= @case.iorder_check %>
 </p>
 
-<%= link_to 'Edit', edit_case_path(@case) %> |
-<%= link_to 'Back', cases_path %>
+<div class="col-md-12">
+<%= link_to t('edit'), edit_case_path(@case), class: 'btn btn-default btn-sm' %> 
+<%= link_to t('back'), cases_path, class: 'btn btn-default btn-sm' %>
+</div>

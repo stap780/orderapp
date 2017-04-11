@@ -1,20 +1,22 @@
-<p id="notice"><%= notice %></p>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style = "background: white; margin: 50px;padding: 15px;"></div>
+<p id="notice" ><%= notice %></p>
 <div class="col-md-12" style="margin-bottom:20px;">
 	<div class="col-md-12">
 		<div class="col-md-2">
-			<h1><%= t '.title' %> </br><small><%= t '.small_title' %></small></h1>
+			<h2><%= t '.title' %> </br><small><%= t '.small_title' %></small></h2>
 		</div>
 		<div class="col-md-3">
 		</div>
 		<div class="col-md-7">
 			<form class="form-inline">
-			<p><%= t '.search_t' %></p>
-			<%= search_form_for @search do |f|%>
-	  		<div classs = "search">
+	<%=t 'search_t'%>
+		<%= search_form_for @search do |f|%>
+  		<div class = "form-group">
 	  		<%= f.search_field :number_eq, placeholder: t('.number_eq'), class: "form-control input-sm"  %> 
 	  		<%= f.search_field :invstatus_cont, placeholder: t('.invstatus_cont'), class: "form-control input-sm"  %>  
-	  		<%= f.submit t('invoices.search'), class: 'btn btn-default btn-sm' %>
 	  		</div>
+	  		<%= f.submit t('invoices.search'), class: 'btn btn-default btn-sm' %>
+	  		
 			<% end %>
 			</form>
 		</div>	
@@ -45,16 +47,16 @@
   <tbody>
     <% @invoices.each do |invoice| %>
       <tr>
-        <td><%= invoice.number %></td>
-        <td><%= invoice.date.strftime("%d / %m / %Y")  %></td>
+        <td><%= link_to invoice.number, invoice,  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' %></td>
+        <td><%= invoice.date.strftime("%d/%m/%Y")  %></td>
         <td><%= invoice.client.surname if invoice.client !=nil%> <%= invoice.client.name if invoice.client !=nil%></td>
         <td><%= invoice.company.title if invoice.company !=nil%>
         <td><%= invoice.invstatus %></td>
         <td><%= invoice.discount %></td>
         <td><%= invoice.total_price %></td>
-        <td><%= link_to t('show'), invoice, class: 'btn btn-default btn-xs' %></td>
-        <td><%= link_to t('edit'), edit_invoice_path(invoice), class: 'btn btn-success btn-xs' %></td>
-        <td><%= link_to t('destroy'), invoice, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
+<!--         <td><%= link_to t('show'), invoice, class: 'btn btn-default btn-xs' %></td> -->
+<!--         <td><%= link_to t('edit'), edit_invoice_path(invoice), class: 'btn btn-success btn-xs' %></td> -->
+        <td><%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, invoice, method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
